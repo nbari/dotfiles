@@ -135,8 +135,8 @@ alias d='dirs -v | head -10'
 # ----------------------------------------------------------------------------
 # rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
 # rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" [source_dir] [dest_host:/dest_dir]
-sync_dotfiles() {
-    tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | ssh $1 "tar mxf - -C ~/"
+sync-dotfiles() {
+   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
 }
 
 
@@ -145,7 +145,7 @@ sync_dotfiles() {
 # ----------------------------------------------------------------------------
 export AUTOSSH_POLL=15
 s() {
-  autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
+  [[ ! -z $1 ]] && autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
 }
 compdef s=ssh
 
