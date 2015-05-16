@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd my-zsh
+cd my-dotfiles
 
 shar `find . -print` > ../install.sh
