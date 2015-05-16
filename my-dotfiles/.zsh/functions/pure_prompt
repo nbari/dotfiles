@@ -42,20 +42,9 @@ pure_prompt_git_dirty() {
         GIT_STATE="$GIT_STATE (-$NUM_BEHIND)"
     fi
 
-    GIT_UNTRACKED=$(git status --porcelain | grep '??' 2> /dev/null | wc -l | tr -d ' ')
-    if [ $GIT_UNTRACKED -gt 0 ]; then
-        GIT_STATE="$GIT_STATE %F{2}[$GIT_UNTRACKED untracked]"
-    fi
+    GIT_STATUS=$(git status --porcelain | awk -vORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')
+    [[ ! -z "${GIT_STATUS// }" ]] && GIT_STATE="$GIT_STATE %F{5}[$GIT_STATUS]"
 
-    GIT_MODIFIED=$(git status --porcelain | grep 'M' 2> /dev/null | wc -l | tr -d ' ')
-    if [ $GIT_MODIFIED -gt 0 ]; then
-        GIT_STATE="$GIT_STATE %F{5}[$GIT_MODIFIED modified]"
-    fi
-
-    GIT_DELETED=$(git status --porcelain | grep 'D' 2> /dev/null | wc -l | tr -d ' ')
-    if [ $GIT_DELETED -gt 0 ]; then
-        GIT_STATE="$GIT_STATE %F{1}[$GIT_DELETED deleted]"
-    fi
 
     if ! git diff --cached --quiet 2> /dev/null; then
         GIT_STATE="$GIT_STATE %F{7}[staged]"
