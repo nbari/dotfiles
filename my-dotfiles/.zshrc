@@ -132,10 +132,12 @@ alias d='dirs -v | head -10'
 
 # ----------------------------------------------------------------------------
 # sync .dotfiles
-# tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | ssh $1 "tar mxf - -C ~/"
 # ----------------------------------------------------------------------------
 # rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
 # rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" [source_dir] [dest_host:/dest_dir]
+sync_dotfiles() {
+    tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | ssh $1 "tar mxf - -C ~/"
+}
 
 
 # ----------------------------------------------------------------------------
@@ -159,6 +161,7 @@ ssh-reagent () {
       return
     fi
   done
+  ssh-add < /dev/null
   echo Cannot find ssh agent - maybe you should reconnect and forward it?
 }
 
