@@ -42,9 +42,8 @@ pure_prompt_git_dirty() {
         GIT_STATE="$GIT_STATE (-$NUM_BEHIND)"
     fi
 
-    GIT_STATUS=$(git status --porcelain | awk -vORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')
+    local GIT_STATUS="$(git status --porcelain | awk -vORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')"
     [[ ! -z "${GIT_STATUS// }" ]] && GIT_STATE="$GIT_STATE %F{5}[$GIT_STATUS]"
-
 
     if ! git diff --cached --quiet 2> /dev/null; then
         GIT_STATE="$GIT_STATE %F{7}[staged]"
