@@ -96,11 +96,11 @@ alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}'
 alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
-alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
-alias psmem='ps aux | sort -r -nk 4 | head -n 20'
 alias pscpu='ps aux | sort -r -nk 3,3 | head -n 20'
+alias psmem='ps aux | sort -r -nk 4 | head -n 20'
+alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
+alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
-alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 # copy with a progress bar.
 # Rsync options are:
 #  -p - preserve permissions
