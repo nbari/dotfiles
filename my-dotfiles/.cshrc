@@ -11,7 +11,7 @@ alias rm rm -i
 alias mv mv -i
 alias cp cp -i
 alias g  grep --color=auto
-alias pg 'ps auxwww | grep --color=auto'
+alias pg 'ps auxwww | grep -v "grep" | grep --color=auto'
 alias set-ssh-agent 'pkill ssh-agent; eval `ssh-agent -c`; ssh-add ~/.ssh/id_rsa'
 alias pyclean 'find . -iname "*.py[co]" -exec rm -f {} +;'
 alias s autossh -M 0 -t \!:1 \"tmux -2 attach -t $USER\!:2 -d \|\| tmux -2 new -s $USER\!:2 \"

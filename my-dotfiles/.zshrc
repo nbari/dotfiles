@@ -93,8 +93,12 @@ alias j='jobs -l'
 alias l='pwd; ls -lhaGF'
 alias ll='ls -ALF'
 alias mv='mv -i'
+alias path='echo -e ${PATH//:/\\n}'
+alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
+alias psmem='ps aux | sort -r -nk 4 | head -n 20'
+alias pscpu='ps aux | sort -r -nk 3,3 | head -n 20'
 alias rm='rm -i'
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 # copy with a progress bar.
@@ -129,6 +133,16 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
+
+# ----------------------------------------------------------------------------
+# Kill all process that match $1
+# ----------------------------------------------------------------------------
+kill9() {
+    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`
+    do
+        kill -9 $pid && echo "Killed ${pid}"
+    done
+}
 
 # ----------------------------------------------------------------------------
 # sync .dotfiles
