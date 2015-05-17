@@ -17,8 +17,8 @@
 #	./.vim
 #	./.vim/filetype.vim
 #	./.vim/syntax
-#	./.vim/syntax/jquery.vim
 #	./.vim/syntax/php.vim
+#	./.vim/syntax/jquery.vim
 #	./.vim/syntax/nginx.vim
 #	./.vim/after
 #	./.vim/after/syntax
@@ -1105,129 +1105,6 @@ Xau BufRead,BufNewFile /etc/nginx/*,/usr/local/etc/nginx/* if &ft == '' | setfil
 aed337c0ac8742f7cdf77e36d1bbaf0a
 echo c - ./.vim/syntax
 mkdir -p ./.vim/syntax > /dev/null 2>&1
-echo x - ./.vim/syntax/jquery.vim
-sed 's/^X//' >./.vim/syntax/jquery.vim << '42f3ac147484d5062a1dc63a31facfe4'
-X" Vim syntax file
-X" Language:    jQuery
-X" Maintainer:  Bruno Michel <brmichel@free.fr>
-X" Last Change: May 28th, 2011
-X" Version:     0.5.2
-X" URL:         http://api.jquery.com/
-X
-Xif version < 600
-X  syntax clear
-Xelseif exists("b:current_syntax")
-X  finish
-Xendif
-X
-Xif !exists("main_syntax")
-X  let main_syntax = 'javascript'
-Xendif
-X
-Xru! syntax/javascript.vim
-Xunlet b:current_syntax
-X
-Xsyn match   jQuery          /jQuery\|\$/
-X
-X
-Xsyn match   jFunc           /\.\w\+(\@=/ contains=@jFunctions
-X
-Xsyn cluster jFunctions      contains=jAjax,jAttributes,jCore,jCSS,jData,jDeferred,jDimensions,jEffects,jEvents,jManipulation,jMiscellaneous,jOffset,jProperties,jTraversing,jUtilities
-Xsyn keyword jAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
-Xsyn keyword jAjax           contained param serialize serializeArray
-Xsyn keyword jAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
-Xsyn keyword jAjax           contained get getJSON getScript load post
-Xsyn keyword jAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
-Xsyn keyword jCore           contained holdReady noConflict sub when
-Xsyn keyword jCSS            contained css cssHooks
-Xsyn keyword jData           contained clearQueue data dequeue hasData queue removeData
-Xsyn keyword jDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
-Xsyn keyword jDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
-Xsyn keyword jEffects        contained hide show toggle
-Xsyn keyword jEffects        contained animate delay stop
-Xsyn keyword jEffects        contained fadeIn fadeOut fadeTo fadeToggle
-Xsyn keyword jEffects        contained slideDown slideToggle slideUp
-Xsyn keyword jEvents         contained error resize scroll
-Xsyn keyword jEvents         contained ready unload
-Xsyn keyword jEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
-Xsyn keyword jEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
-Xsyn keyword jEvents         contained blur change focus select submit
-Xsyn keyword jEvents         contained focusin focusout keydown keypress keyup
-Xsyn keyword jEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
-Xsyn keyword jManipulation   contained clone
-Xsyn keyword jManipulation   contained unwrap wrap wrapAll wrapInner
-Xsyn keyword jManipulation   contained append appendTo html preprend prependTo text
-Xsyn keyword jManipulation   contained after before insertAfter insertBefore
-Xsyn keyword jManipulation   contained detach empty remove
-Xsyn keyword jManipulation   contained replaceAll replaceWith
-Xsyn keyword jMiscellaneous  contained index size toArray
-Xsyn keyword jOffset         contained offset offsetParent position scrollTop scrollLeft
-Xsyn keyword jProperties     contained browser context fx.interval fx.off length selector support
-Xsyn keyword jTraversing     contained eq filter first has is last map not slice
-Xsyn keyword jTraversing     contained add andSelf contents end
-Xsyn keyword jTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
-Xsyn keyword jUtilities      contained each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
-X
-X
-Xsyn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
-Xsyn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
-X
-Xsyn cluster jSelectors      contains=jId,jClass,jOperators,jBasicFilters,jContentFilters,jVisibility,jChildFilters,jForms,jFormFilters
-Xsyn match   jId             contained /#[0-9A-Za-z_\-]\+/
-Xsyn match   jClass          contained /\.[0-9A-Za-z_\-]\+/
-Xsyn match   jOperators      contained /*\|>\|+\|-\|\~/
-Xsyn match   jBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
-Xsyn match   jChildFilters   contained /:\(first\|last\|nth\|only\)-child/
-Xsyn match   jContentFilters contained /:\(contains\|empty\|has\|parent\)/
-Xsyn match   jForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
-Xsyn match   jVisibility     contained /:\(hidden\|visible\)/
-X
-X
-X" Define the default highlighting.
-X" For version 5.7 and earlier: only when not done already
-X" For version 5.8 and later: only when an item doesn't have highlighting yet
-Xif version >= 508 || !exists("did_lisp_syntax_inits")
-X  if version < 508
-X    let did_lisp_syntax_inits = 1
-X    command -nargs=+ HiLink hi link <args>
-X  else
-X    command -nargs=+ HiLink hi def link <args>
-X  endif
-X
-X  HiLink jQuery          Constant
-X
-X  HiLink jAjax           Function
-X  HiLink jAttributes     Function
-X  HiLink jCore           Function
-X  HiLink jCSS            Function
-X  HiLink jData           Function
-X  HiLink jDeferred       Function
-X  HiLink jDimensions     Function
-X  HiLink jEffects        Function
-X  HiLink jEvents         Function
-X  HiLink jManipulation   Function
-X  HiLink jMiscellaneous  Function
-X  HiLink jOffset         Function
-X  HiLink jProperties     Function
-X  HiLink jTraversing     Function
-X  HiLink jUtilities      Function
-X
-X  HiLink jId             Identifier
-X  HiLink jClass          Constant
-X  HiLink jOperators      Special
-X  HiLink jBasicFilters   Statement
-X  HiLink jContentFilters Statement
-X  HiLink jVisibility     Statement
-X  HiLink jChildFilters   Statement
-X  HiLink jForms          Statement
-X  HiLink jFormFilters    Statement
-X
-X  delcommand HiLink
-Xendif
-X
-X
-Xlet b:current_syntax = 'jquery'
-42f3ac147484d5062a1dc63a31facfe4
 echo x - ./.vim/syntax/php.vim
 sed 's/^X//' >./.vim/syntax/php.vim << '7942d283a9508a18fcb0c0eba3d7eec6'
 X" Vim syntax file
@@ -1747,6 +1624,129 @@ Xendif
 X
 X" vim: ts=8 sts=2 sw=2 expandtab
 7942d283a9508a18fcb0c0eba3d7eec6
+echo x - ./.vim/syntax/jquery.vim
+sed 's/^X//' >./.vim/syntax/jquery.vim << '42f3ac147484d5062a1dc63a31facfe4'
+X" Vim syntax file
+X" Language:    jQuery
+X" Maintainer:  Bruno Michel <brmichel@free.fr>
+X" Last Change: May 28th, 2011
+X" Version:     0.5.2
+X" URL:         http://api.jquery.com/
+X
+Xif version < 600
+X  syntax clear
+Xelseif exists("b:current_syntax")
+X  finish
+Xendif
+X
+Xif !exists("main_syntax")
+X  let main_syntax = 'javascript'
+Xendif
+X
+Xru! syntax/javascript.vim
+Xunlet b:current_syntax
+X
+Xsyn match   jQuery          /jQuery\|\$/
+X
+X
+Xsyn match   jFunc           /\.\w\+(\@=/ contains=@jFunctions
+X
+Xsyn cluster jFunctions      contains=jAjax,jAttributes,jCore,jCSS,jData,jDeferred,jDimensions,jEffects,jEvents,jManipulation,jMiscellaneous,jOffset,jProperties,jTraversing,jUtilities
+Xsyn keyword jAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
+Xsyn keyword jAjax           contained param serialize serializeArray
+Xsyn keyword jAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
+Xsyn keyword jAjax           contained get getJSON getScript load post
+Xsyn keyword jAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
+Xsyn keyword jCore           contained holdReady noConflict sub when
+Xsyn keyword jCSS            contained css cssHooks
+Xsyn keyword jData           contained clearQueue data dequeue hasData queue removeData
+Xsyn keyword jDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
+Xsyn keyword jDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
+Xsyn keyword jEffects        contained hide show toggle
+Xsyn keyword jEffects        contained animate delay stop
+Xsyn keyword jEffects        contained fadeIn fadeOut fadeTo fadeToggle
+Xsyn keyword jEffects        contained slideDown slideToggle slideUp
+Xsyn keyword jEvents         contained error resize scroll
+Xsyn keyword jEvents         contained ready unload
+Xsyn keyword jEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
+Xsyn keyword jEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
+Xsyn keyword jEvents         contained blur change focus select submit
+Xsyn keyword jEvents         contained focusin focusout keydown keypress keyup
+Xsyn keyword jEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
+Xsyn keyword jManipulation   contained clone
+Xsyn keyword jManipulation   contained unwrap wrap wrapAll wrapInner
+Xsyn keyword jManipulation   contained append appendTo html preprend prependTo text
+Xsyn keyword jManipulation   contained after before insertAfter insertBefore
+Xsyn keyword jManipulation   contained detach empty remove
+Xsyn keyword jManipulation   contained replaceAll replaceWith
+Xsyn keyword jMiscellaneous  contained index size toArray
+Xsyn keyword jOffset         contained offset offsetParent position scrollTop scrollLeft
+Xsyn keyword jProperties     contained browser context fx.interval fx.off length selector support
+Xsyn keyword jTraversing     contained eq filter first has is last map not slice
+Xsyn keyword jTraversing     contained add andSelf contents end
+Xsyn keyword jTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
+Xsyn keyword jUtilities      contained each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
+X
+X
+Xsyn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
+Xsyn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
+X
+Xsyn cluster jSelectors      contains=jId,jClass,jOperators,jBasicFilters,jContentFilters,jVisibility,jChildFilters,jForms,jFormFilters
+Xsyn match   jId             contained /#[0-9A-Za-z_\-]\+/
+Xsyn match   jClass          contained /\.[0-9A-Za-z_\-]\+/
+Xsyn match   jOperators      contained /*\|>\|+\|-\|\~/
+Xsyn match   jBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
+Xsyn match   jChildFilters   contained /:\(first\|last\|nth\|only\)-child/
+Xsyn match   jContentFilters contained /:\(contains\|empty\|has\|parent\)/
+Xsyn match   jForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
+Xsyn match   jVisibility     contained /:\(hidden\|visible\)/
+X
+X
+X" Define the default highlighting.
+X" For version 5.7 and earlier: only when not done already
+X" For version 5.8 and later: only when an item doesn't have highlighting yet
+Xif version >= 508 || !exists("did_lisp_syntax_inits")
+X  if version < 508
+X    let did_lisp_syntax_inits = 1
+X    command -nargs=+ HiLink hi link <args>
+X  else
+X    command -nargs=+ HiLink hi def link <args>
+X  endif
+X
+X  HiLink jQuery          Constant
+X
+X  HiLink jAjax           Function
+X  HiLink jAttributes     Function
+X  HiLink jCore           Function
+X  HiLink jCSS            Function
+X  HiLink jData           Function
+X  HiLink jDeferred       Function
+X  HiLink jDimensions     Function
+X  HiLink jEffects        Function
+X  HiLink jEvents         Function
+X  HiLink jManipulation   Function
+X  HiLink jMiscellaneous  Function
+X  HiLink jOffset         Function
+X  HiLink jProperties     Function
+X  HiLink jTraversing     Function
+X  HiLink jUtilities      Function
+X
+X  HiLink jId             Identifier
+X  HiLink jClass          Constant
+X  HiLink jOperators      Special
+X  HiLink jBasicFilters   Statement
+X  HiLink jContentFilters Statement
+X  HiLink jVisibility     Statement
+X  HiLink jChildFilters   Statement
+X  HiLink jForms          Statement
+X  HiLink jFormFilters    Statement
+X
+X  delcommand HiLink
+Xendif
+X
+X
+Xlet b:current_syntax = 'jquery'
+42f3ac147484d5062a1dc63a31facfe4
 echo x - ./.vim/syntax/nginx.vim
 sed 's/^X//' >./.vim/syntax/nginx.vim << 'eadb45c12f63f468fea9fd45c8bee4ff'
 X" Vim syntax file
@@ -3026,10 +3026,12 @@ Xalias d='dirs -v | head -10'
 X
 X# ----------------------------------------------------------------------------
 X# sync .dotfiles
-X# tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | ssh $1 "tar mxf - -C ~/"
 X# ----------------------------------------------------------------------------
 X# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
 X# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" [source_dir] [dest_host:/dest_dir]
+Xsync-dotfiles() {
+X   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
+X}
 X
 X
 X# ----------------------------------------------------------------------------
@@ -3037,7 +3039,7 @@ X# ssh+tmux
 X# ----------------------------------------------------------------------------
 Xexport AUTOSSH_POLL=15
 Xs() {
-X  autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
+X  [[ ! -z $1 ]] && autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
 X}
 Xcompdef s=ssh
 X
@@ -3053,6 +3055,7 @@ X      ssh-add -l
 X      return
 X    fi
 X  done
+X  ssh-add < /dev/null
 X  echo Cannot find ssh agent - maybe you should reconnect and forward it?
 X}
 X

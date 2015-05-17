@@ -2,4 +2,4 @@
 
 cd my-dotfiles
 
-shar `find . -print` > ../install.sh
+shar `find . -not -path "./.vim/bundle*" -print` > ../install.sh
