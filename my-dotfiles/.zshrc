@@ -150,19 +150,21 @@ s() {
 compdef s=ssh
 
 # ----------------------------------------------------------------------------
-# ssh reagent
+# set ssh-agent
 # ----------------------------------------------------------------------------
-ssh-reagent () {
-  for agent in /tmp/ssh-*/agent.*; do
-    export SSH_AUTH_SOCK=$agent
-    if ssh-add -l 2>&1 > /dev/null; then
-      echo Found working SSH Agent:
-      ssh-add -l
-      return
+set-ssh-agent () {
+    SSH_AGENT_PID=$(ps ax | grep -c "[s]sh-agent")
+    if [[ ! -z "${SSH_AGENT_PID// }" ]]; then
+        for agent in /tmp/ssh-*/agent.*; do
+            export SSH_AUTH_SOCK=$agent
+            if ssh-add -l 2>&1 > /dev/null; then
+                echo Found working SSH Agent:
+                ssh-add -l
+                return
+            fi
+        done
     fi
-  done
-  ssh-add < /dev/null
-  echo Cannot find ssh agent - maybe you should reconnect and forward it?
+    pkill ssh-agent; eval `ssh-agent`; ssh-add ~/.ssh/id_rsa
 }
 
 # ----------------------------------------------------------------------------
