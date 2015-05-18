@@ -2967,11 +2967,26 @@ X# ----------------------------------------------------------------------------
 X# zstyle
 X# ----------------------------------------------------------------------------
 Xzstyle ':completion::complete:*' use-cache 1
+Xzstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 Xzstyle ':completion:*' use-ip true
+Xzstyle ':completion:*:*:*:*:*' menu yes select
+Xzstyle ':completion:*:matches' group 'yes'
+Xzstyle ':completion:*:options' description 'yes'
+Xzstyle ':completion:*:options' auto-description '%d'
+Xzstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+Xzstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+Xzstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+Xzstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
+Xzstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+Xzstyle ':completion:*' group-name ''
+Xzstyle ':completion:*' verbose yes
 X# Don't prompt for a huge list, page it!
 Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
 X# Have the newer files last so I see them first
 Xzstyle ':completion:*' file-sort modification reverse
+X# kill
+Xzstyle ':completion:*:kill:*' force-list always
 X
 X# ----------------------------------------------------------------------------
 X# alias
@@ -3043,7 +3058,6 @@ X# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Comp
 Xsync-dotfiles() {
 X   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
 X}
-X
 X
 X# ----------------------------------------------------------------------------
 X# ssh+tmux
