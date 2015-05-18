@@ -246,8 +246,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	endfun
 
 	" Vim Highlighting
-	call <SID>X("Error", s:constants, "none", "none")
-	call <SID>X("ErrorMsg", s:constants, "none", "none")
+	"call <SID>X("Error", "none", s:yellow, "none")
+	"call <SID>X("ErrorMsg", "none", s:yellow, "none")
 	call <SID>X("Normal", s:foreground, s:background, "")
 	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("NonText", s:selection, "", "")
