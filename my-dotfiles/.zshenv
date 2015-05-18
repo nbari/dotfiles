@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Put custom alias, vars here 
+# Put custom alias, vars here
 # ----------------------------------------------------------------------------
 
-export ANSIBLE_HOSTS=~/ansinble/hosts
+export ANSIBLE_HOSTS=~/ansible/hosts
