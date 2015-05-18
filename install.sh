@@ -13,14 +13,14 @@ fi
 
 echo "\033[0;34mLooking for an existing zsh config...\033[0m"
 if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
-  echo "\033[0;33mFound ~/.zshrc.\033[0m \033[0;32mBacking up to ~/.zshrc.old\033[0m";
-  mv ~/.zshrc ~/.zshrc.old;
+  echo "\033[0;33mFound ~/.zshrc.\033[0m \033[0;32mBacking up to ~/.zshrc.bak\033[0m";
+  mv ~/.zshrc ~/.zshrc.bak;
 fi
 
 echo "\033[0;34mLooking for an existing csh config...\033[0m"
 if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
-  echo "\033[0;33mFound ~/.cshrc.\033[0m \033[0;32mBacking up to ~/.cshrc.old\033[0m";
-  mv ~/.cshrc ~/.cshrc.old;
+  echo "\033[0;33mFound ~/.cshrc.\033[0m \033[0;32mBacking up to ~/.cshrc.bak\033[0m";
+  mv ~/.cshrc ~/.cshrc.bak;
 fi
 
 echo "\033[0;34mGetting my dotfiles...\033[0m"
