@@ -26,6 +26,7 @@
 #	./.zsh/functions/pure_prompt
 #	./.zsh/plugins
 #	./.zsh/plugins/git-flow-completion.zsh
+#	./.zshenv
 #	./.zshrc
 #
 echo c - .
@@ -2887,6 +2888,14 @@ X}
 X
 Xzstyle ':completion:*:*:git:*' user-commands flow:'provide high-level repository operations'
 END-of-./.zsh/plugins/git-flow-completion.zsh
+echo x - ./.zshenv
+sed 's/^X//' >./.zshenv << 'END-of-./.zshenv'
+X# ----------------------------------------------------------------------------
+X# Put custom alias, vars here 
+X# ----------------------------------------------------------------------------
+X
+Xexport ANSIBLE_HOSTS=~/ansinble/hosts
+END-of-./.zshenv
 echo x - ./.zshrc
 sed 's/^X//' >./.zshrc << 'END-of-./.zshrc'
 X# ----------------------------------------------------------------------------

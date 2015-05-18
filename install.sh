@@ -22,3 +22,5 @@ hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/do
   echo "curl not installed"
   exit
 }
+
+echo "\033[0;32mTo change your default shell to zsh: \033[0m chsh -s `which zsh`"
