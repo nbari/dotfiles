@@ -90,10 +90,9 @@ zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
+zstyle ':completion:*' file-sort modification
 # Don't prompt for a huge list, page it!
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# Have the newer files last so I see them first
-zstyle ':completion:*' file-sort modification reverse
 # kill
 zstyle ':completion:*:kill:*' force-list always
 
