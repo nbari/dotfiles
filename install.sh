@@ -30,3 +30,12 @@ hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/do
 }
 
 echo "\033[0;32mTo change your default shell to zsh: \033[0m chsh -s `which zsh`"
+
+echo "\033[0;33mCloning vim Vundle\033[0m"
+hash git >/dev/null 2>&1 && env git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim || {
+  echo "git not installed"
+  exit
+}
+
+echo "\033[0;33mInstalling Vundle plugins\033[0m"
+vim +PluginInstall +qall
