@@ -17,7 +17,7 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
   mv ~/.zshrc ~/.zshrc.old;
 fi
 
-echoo "\033[0;34mGetting my dotfiles...\033[0m"
+echo "\033[0;34mGetting my dotfiles...\033[0m"
 hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/dotfiles/develop/install.sh | sh || {
   echo "curl not installed"
   exit
