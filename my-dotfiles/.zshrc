@@ -90,10 +90,9 @@ zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
+zstyle ':completion:*' file-sort modification
 # Don't prompt for a huge list, page it!
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# Have the newer files last so I see them first
-zstyle ':completion:*' file-sort modification reverse
 # kill
 zstyle ':completion:*:kill:*' force-list always
 
@@ -128,7 +127,7 @@ alias rm='rm -i'
 #  -e /dev/null - only work on local files
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 # git log
-alias gl="git log --graph --pretty=format:'%C(bold blue)%h%Creset -%C(bold yellow)%d%Creset %s %C(dim green)(%cr) %C(cyan)<%an>%Creset' --abbrev-commit"
+alias gl="git log --graph --pretty=format:'%C(blue)%h%Creset -%C(bold yellow)%d%Creset %s %C(dim green)(%cr) %C(magenta)<%an>%Creset' --abbrev-commit"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
