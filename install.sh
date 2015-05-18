@@ -17,6 +17,12 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
   mv ~/.zshrc ~/.zshrc.old;
 fi
 
+echo "\033[0;34mLooking for an existing csh config...\033[0m"
+if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
+  echo "\033[0;33mFound ~/.cshrc.\033[0m \033[0;32mBacking up to ~/.cshrc.old\033[0m";
+  mv ~/.cshrc ~/.cshrc.old;
+fi
+
 echo "\033[0;34mGetting my dotfiles...\033[0m"
 hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/dotfiles/develop/install.sh | sh || {
   echo "curl not installed"
