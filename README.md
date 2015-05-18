@@ -4,16 +4,12 @@
 Backup
 ======
 
-The ``install.sh`` script  will create/overwrite the ``$HOME/.zshrc`` file, and
+The ``install.sh`` script  will create/overwrite the ``$HOME/.[cz]shrc`` file, and
 also create an ``$HOME/.zsh`` directory, please backup if needed.
 
 Setup
 =====
 
-Open a terminal and change to your $HOME directory:
+Open a terminal and type this::
 
-    $ cd
-
-Next execure this:
-
-    $ curl -L https://raw.github.com/nbari/my-shell/master/zsh/install.sh | sh
+    $ curl -L https://raw.githubusercontent.com/nbari/dotfiles/master/install.sh | sh
