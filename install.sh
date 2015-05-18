@@ -37,5 +37,4 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/gmarik/Vundle.vim.g
   exit
 }
 
-echo "\033[0;33mInstalling Vundle plugins\033[0m"
-vim +PluginInstall +qall
+echo "\033[0;33mFor Installing Vundle plugins run: \033[0m vim +PluginInstall +qall"
