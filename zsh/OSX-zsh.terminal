@@ -229,14 +229,18 @@
 	<key>VisualBellOnlyWhenMuted</key>
 	<false/>
 	<key>columnCount</key>
-	<integer>130</integer>
+	<integer>170</integer>
 	<key>name</key>
 	<string>OSX-zsh</string>
+	<key>rowCount</key>
+	<integer>30</integer>
 	<key>shellExitAction</key>
 	<integer>1</integer>
 	<key>type</key>
 	<string>Window Settings</string>
 	<key>useOptionAsMetaKey</key>
 	<true/>
+	<key>warnOnShellCloseAction</key>
+	<integer>0</integer>
 </dict>
 </plist>
