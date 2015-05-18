@@ -1,0 +1,133 @@
+set binary
+set nocompatible
+
+filetype plugin indent on
+
+" change the mapleader from \ to ,
+let mapleader=","
+
+" Paste toggle key
+set pastetoggle=<F12>
+
+" Encoding
+set encoding=utf8
+
+" set up the stuff for color highlighing in an xterm
+set t_Co=16
+" ctrl+v+Esc
+" The ^[ is entered as <Ctrl-v><Esc>
+set t_Sf=[3%dm
+set t_Sb=[[4%dm
+
+" Vim will never flash the screen
+set t_vb=
+
+" Terminal title
+set title
+
+" Search history and undo level
+set history=1000
+set undolevels=1000
+
+" Auto reload file on external change
+set autoread
+
+" Syntax highlight
+syntax on
+set noinsertmode
+
+" Ignore case on search
+set ignorecase
+set smartcase
+
+" Allow us to backspace before an insert
+set backspace=2
+
+" Standard file
+set ffs=unix,mac,dos
+
+" No backups
+set nobackup
+set nowb
+set noswapfile
+
+" Spaces instead of tabs
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set smarttab
+
+" Show the ruler for editing
+set ruler
+
+" Turn off the mouse in the xterm
+set mouse=
+
+" Show the command in the status line
+set showcmd
+
+" Always have a status line
+set laststatus=2
+
+" Delete trailing white spaces on close
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Split windows vertically
+map <F11> <C-W>v
+
+" This clears out the old colors before we begin
+highlight Constant    NONE
+highlight Delimiter   NONE
+highlight Directory   NONE
+highlight Error       NONE
+highlight ErrorMsg    NONE
+highlight Identifier  NONE
+highlight LineNr      NONE
+highlight ModeMsg     NONE
+highlight MoreMsg     NONE
+highlight Normal      NONE
+highlight NonText     NONE
+highlight PreProc     NONE
+highlight Question    NONE
+highlight Search      NONE
+highlight Special     NONE
+highlight SpecialKey  NONE
+highlight Statement   NONE
+highlight StatusLine  NONE
+highlight Title       NONE
+highlight Todo        NONE
+highlight Type        NONE
+highlight Visual      NONE
+highlight WarningMsg  NONE
+"----- these are the new superior colors
+highlight Comment     term=bold ctermfg=5 ctermbg=0 guifg=#FF005F guibg=gray
+highlight Constant    term=underline ctermfg=6 guifg=#FF2f8f
+highlight Delimiter   term=bold cterm=bold ctermfg=1 gui=bold guifg=Red
+highlight Directory   term=bold ctermfg=DarkBlue guifg=Blue
+highlight Error       term=standout cterm=bold ctermbg=1 ctermfg=1 gui=bold guifg=red
+highlight ErrorMsg    term=standout cterm=bold ctermfg=1 gui=bold guifg=red
+highlight Identifier  term=underline ctermfg=3 guifg=yellow3
+highlight LineNr      term=underline cterm=bold ctermfg=3 guifg=Brown
+highlight ModeMsg     term=bold cterm=bold ctermfg=3 ctermbg=1 guifg=yellow2 guibg=red
+highlight MoreMsg     term=bold cterm=bold ctermfg=2 gui=bold guifg=Green
+highlight NonText     term=bold ctermfg=2 guifg=green3
+highlight PreProc     term=underline ctermfg=14 guifg=cyan
+highlight Question    term=standout cterm=bold ctermfg=2 gui=bold guifg=Green
+highlight Search      term=reverse ctermbg=2 guibg=Yellow
+highlight Special     term=bold ctermfg=5 guifg=SlateBlue
+highlight SpecialKey  term=bold ctermfg=DarkBlue guifg=Blue
+highlight Statement   term=bold ctermfg=2 gui=bold guifg=green3
+highlight StatusLine  term=reverse cterm=bold ctermfg=3 ctermbg=4 guifg=wheat guibg=#2f4f4f
+highlight StatusLineNC term=bold ctermfg=3 ctermbg=2 guifg=#071f1f guibg=#5f9f9f
+highlight Title       term=bold cterm=bold ctermfg=4 gui=bold guifg=Blue
+highlight Todo        term=bold ctermfg=red ctermbg=yellow guifg=red guibg=yellow1 gui=bold
+highlight Type        term=underline cterm=bold ctermfg=3 guifg=yellow3 gui=bold
+highlight Visual      term=reverse cterm=bold ctermfg=6 ctermbg=5 guifg=yellow guibg=blue
+highlight WarningMsg  term=standout cterm=bold ctermfg=1 ctermbg=4 guifg=Red
