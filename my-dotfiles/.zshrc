@@ -77,10 +77,14 @@ setopt share_history # share command history data
 # ----------------------------------------------------------------------------
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' use-ip true
+zstyle ':completion:*' menu yes select
+zstyle ':completion:*' verbose true
 # Don't prompt for a huge list, page it!
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # Have the newer files last so I see them first
 zstyle ':completion:*' file-sort modification reverse
+# kill
+zstyle ':completion:*:kill:*' force-list always
 
 # ----------------------------------------------------------------------------
 # alias
@@ -152,7 +156,6 @@ kill9() {
 sync-dotfiles() {
    [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
 }
-
 
 # ----------------------------------------------------------------------------
 # ssh+tmux
