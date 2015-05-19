@@ -375,8 +375,8 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
 " diff highlights
-highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green gui=NONE guifg=bg guibg=Green
-highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red gui=NONE guifg=bg guibg=Red
-highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow gui=NONE guifg=bg guibg=Yellow
-highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta gui=NONE guifg=bg guibg=Magenta
+highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green
+highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
+highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
+highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
 autocmd FileType * if &diff | setlocal syntax= | endif
