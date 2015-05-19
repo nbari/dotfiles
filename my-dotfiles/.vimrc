@@ -172,6 +172,10 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 let g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
+hi SyntasticErrorSign ctermfg=red ctermbg=none
+hi SyntasticWarningSign ctermfg=yellow ctermbg=none
+hi SyntasticErrorLine   ctermbg=52
+hi SyntasticWarningLine ctermbg=58
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'c'
