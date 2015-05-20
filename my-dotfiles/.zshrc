@@ -78,7 +78,7 @@ setopt share_history # share command history data
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 zstyle ':completion:*' use-ip true
-zstyle ':completion:*:*:*:*:*' menu yes select
+# zstyle ':completion:*:*:*:*:*' menu yes select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
