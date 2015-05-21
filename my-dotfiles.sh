@@ -3031,7 +3031,8 @@ X#  --backup-dir=/tmp/rsync - move backup copies to "/tmp/rsync"
 X#  -e /dev/null - only work on local files
 Xalias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 X# git log
-Xalias gl="git log --graph --pretty=format:'%C(red)%h%Creset -%C(bold yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
+Xalias gdiffmaster_develop="git diff --name-status master..develop"
 X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
 Xcompdef t=tmux
