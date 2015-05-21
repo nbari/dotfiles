@@ -128,7 +128,7 @@ alias rm='rm -i'
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 # git log
 alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
-alias gdiffmaster_develop="git diff --name-status master..develop"
+alias gd="echo master diff:; git diff --name-status master"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
