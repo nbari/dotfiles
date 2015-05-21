@@ -127,7 +127,7 @@ alias rm='rm -i'
 #  -e /dev/null - only work on local files
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 # git log
-alias gl="git log --graph --pretty=format:'%C(red)%h%Creset -%C(bold yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
