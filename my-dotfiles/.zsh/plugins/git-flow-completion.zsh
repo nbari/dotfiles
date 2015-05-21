@@ -95,7 +95,7 @@ __git-flow-release ()
 				'list:List all your release branches. (Alias to `git flow release`)'
 				'publish:Publish release branch to remote.'
 				'track:Checkout remote release branch.'
-				'delet:Delete a release branch.'
+				'delete:Delete a release branch.'
 			)
 			_describe -t commands 'git flow release' subcommands
 			_arguments \

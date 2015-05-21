@@ -6,416 +6,33 @@
 # This archive contains:
 #
 #	.
-#	./.vimrc
 #	./.cshrc
-#	./.zsh
-#	./.zsh/plugins
-#	./.zsh/plugins/git-flow-completion.zsh
-#	./.zsh/functions
-#	./.zsh/functions/pure_prompt
 #	./.tmux.conf
 #	./.vim
-#	./.vim/filetype.vim
-#	./.vim/syntax
-#	./.vim/syntax/nginx.vim
-#	./.vim/syntax/jquery.vim
-#	./.vim/syntax/php.vim
 #	./.vim/after
 #	./.vim/after/syntax
-#	./.vim/after/syntax/python.vim
 #	./.vim/after/syntax/php.vim
-#	./.vim/autoload
+#	./.vim/after/syntax/python.vim
 #	./.vim/colors
 #	./.vim/colors/my-colors.vim
+#	./.vim/filetype.vim
+#	./.vim/syntax
+#	./.vim/syntax/jquery.vim
+#	./.vim/syntax/nginx.vim
+#	./.vim/syntax/php.vim
+#	./.vimrc
+#	./.zsh
+#	./.zsh/functions
+#	./.zsh/functions/pure_prompt
+#	./.zsh/plugins
+#	./.zsh/plugins/git-flow-completion.zsh
 #	./.zshenv
 #	./.zshrc
 #
 echo c - .
 mkdir -p . > /dev/null 2>&1
-echo x - ./.vimrc
-sed 's/^X//' >./.vimrc << '2574b96e802a123d828b5abb0fc07859'
-Xset binary
-Xset nocompatible
-X
-X" Vundle
-Xfiletype off
-Xset rtp+=~/.vim/bundle/Vundle.vim
-Xcall vundle#begin()
-X
-X" let Vundle manage Vundle
-X" required!
-XBundle 'gmarik/Vundle.vim'
-X
-X" vim plugins
-XPlugin 'Chiel92/vim-autoformat'
-XPlugin 'Raimondi/delimitMate'
-XPlugin 'airblade/vim-gitgutter'
-XPlugin 'fatih/vim-go'
-XPlugin 'groenewege/vim-less'
-XPlugin 'hdima/python-syntax'
-XPlugin 'jelera/vim-javascript-syntax'
-XPlugin 'kana/vim-submode'
-XPlugin 'kien/ctrlp.vim'
-XPlugin 'majutsushi/tagbar'
-XPlugin 'mileszs/ack.vim'
-XPlugin 'mitsuhiko/vim-jinja'
-XPlugin 'msanders/snipmate.vim'
-XPlugin 'plasticboy/vim-markdown'
-XPlugin 'rodjek/vim-puppet'
-XPlugin 'saltstack/salt-vim'
-XPlugin 'scrooloose/nerdcommenter'
-XPlugin 'scrooloose/nerdtree'
-XPlugin 'scrooloose/syntastic'
-XPlugin 'stephpy/vim-php-cs-fixer'
-XPlugin 'tpope/vim-fugitive'
-XPlugin 'tpope/vim-surround'
-X
-Xcall vundle#end()
-X
-X"re-enable filetype
-Xfiletype plugin indent on
-X
-Xcolorscheme my-colors
-X
-X" change the mapleader from \ to ,
-Xlet mapleader=","
-X
-X" Encoding
-Xset encoding=utf8 nobomb
-X
-X" set up the stuff for color highlighing in an xterm
-X" mac os X t_co=16
-Xset t_Co=256
-X" ctrl+v+Esc
-Xset t_Sf=[3%dm
-Xset t_Sb=[[4%dm
-X
-X" Vim will never flash the screen
-Xset t_vb=
-X
-X" Terminal title
-Xset title
-X
-X" Search history and undo level
-Xset history=1000
-Xset undolevels=1000
-X
-X" Auto reload file on external change
-Xset autoread
-X
-X" Syntax highlight
-Xsyntax on
-X
-X" set old regex engine
-X" if version > 703
-X"    set re=1
-X" endif
-X
-Xset noinsertmode
-Xset number
-Xset hlsearch
-Xnnoremap <leader><space> :noh<CR>
-Xset listchars=tab:▸\ ,eol:¬,trail:·
-X
-X" Ignore case on search
-Xset ignorecase
-Xset smartcase
-X
-X" Allow us to backspace before an insert
-Xset backspace=2
-X
-X" Standard file
-Xset ffs=unix
-X
-X" No backups
-Xset nobackup
-Xset nowb
-Xset noswapfile
-X
-X" Spaces instead of tabs
-Xset tabstop=4
-Xset shiftwidth=4
-Xset expandtab
-Xset autoindent
-Xset softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE"
-Xset shiftround    " round indent to multiple of 'shiftwidth'
-Xset smarttab
-X
-X" create new tab
-Xnnoremap <leader>t :tabnew<CR>
-X
-X" Show the ruler for editing
-Xset ruler
-X
-X" Turn off the mouse in the xterm
-Xset mouse=
-X
-X" Show the command in the status line
-Xset showcmd
-X
-X" Always have a status line
-Xset laststatus=2
-X
-X" save on losing focus
-Xau FocusLost * :wa
-X
-X" Delete trailing white spaces on close
-X"\( ... Start a match group
-X"$\n .. Match a new line (end-of-line character followed by a carriage return).
-X"\) ... End the match group
-X"\+ ... Allow any number of occurrences of this group (one or more).
-X"\%$ .. Match the end of the file
-Xau BufWritePre,FileWritePre * %s/\s\+$//e | %s/\r$//e | %s#\($\n\)\+\%$##e
-X
-X" associate *.tpl with php filetype
-Xau BufRead,BufNewFile *.tpl set ft=php
-X
-X" associate *.json with json filetype
-Xau BufRead,BufNewFile *.json set ft=json syntax=javascript
-X
-X" associate jquery.*.js
-Xau BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-X
-X" associate *.jinja with jinja filetype
-Xau BufRead,BufNewFile *.jinja set ft=jinja
-X
-X" enable cold folding
-Xau FileType javascript call JavaScriptFold()
-X
-X" Split windows vertically
-Xmap <F11> <C-W>v
-X
-X" NERDTree
-Xnnoremap <leader>n :NERDTreeToggle<CR>
-X
-X" Tagbar
-Xnnoremap <leader>h :TagbarToggle<CR>
-X
-X" folding settings za
-Xset foldmethod=indent   "fold based on indent
-Xset foldnestmax=10      "deepest fold is 10 levels
-Xset nofoldenable        "dont fold by default
-Xset foldlevel=1         "this is just what i use
-X
-X" mapping of space bar to open/close
-Xnnoremap <space> za
-X
-X" status line
-Xset statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%][WORKON=%{pythonworkon}]\ %)
-X
-X" syntastic
-Xlet g:syntastic_error_symbol='✗'
-Xlet g:syntastic_warning_symbol='⚠'
-Xlet g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
-Xlet g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
-X
-X" CtrlP
-Xlet g:ctrlp_working_path_mode = 'c'
-X
-Xset wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
-X
-X" Autoformat
-Xnnoremap <leader>ff :Autoformat<CR>
-X" Test this to check if autopep8 working
-X" echo "print 'coração niño'" | autopep8 -
-Xlet g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
-Xlet g:formatprg_json = "jsonlint"
-Xlet g:formatprg_args_json = "--pretty-print"
-X
-X" vim-php-cs-fixer
-Xlet g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
-Xlet g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
-Xnnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
-X
-X" Autocomplete PHP
-Xau FileType php set omnifunc=phpcomplete#CompletePHP
-Xau FileType python set omnifunc=pythoncomplete#Complete
-Ximap <leader><tab> <c-x><c-o>
-X
-X" Python ident
-Xau FileType python set ts=8 sts=4 et sw=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-X
-X" abbreviations
-Xinoreabbr datee  <c-r>=strftime("%F")<CR>
-X
-X" cursorline
-X:nnoremap <Leader>x :set cursorline! cursorcolumn!<CR>
-X
-X" :h last-position-jump
-Xau BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-X
-X" map quick quit
-Xmap <leader>qq :qa!<CR>
-X
-X" easy resize
-Xcall submode#enter_with('h/l', 'n', '', '<C-w>h', '<C-w><')
-Xcall submode#enter_with('h/l', 'n', '', '<C-w>l', '<C-w>>')
-Xcall submode#map('h/l', 'n', '', 'h', '<C-w><')
-Xcall submode#map('h/l', 'n', '', 'l', '<C-w>>')
-Xcall submode#enter_with('j/k', 'n', '', '<C-w>j', '<C-w>-')
-Xcall submode#enter_with('j/k', 'n', '', '<C-w>k', '<C-w>+')
-Xcall submode#map('j/k', 'n', '', 'j', '<C-w>-')
-Xcall submode#map('j/k', 'n', '', 'k', '<C-w>+')
-X
-X" scroll
-Xcall submode#enter_with('sj', 'n', '', '<leader>j', '<C-d>')
-Xcall submode#enter_with('sk', 'n', '', '<leader>k', '<C-u>')
-Xcall submode#map('sj', 'n', '', 'j', '<C-d>')
-Xcall submode#map('sk', 'n', '', 'k', '<C-u>')
-X
-X" tmux compatible splits
-Xnnoremap <C-w>" <C-w>s
-Xnnoremap <C-w>% <C-w>v
-Xnnoremap <C-w>! <C-w>T
-X
-X" Maps <C-h/j/k/l> to switch vim splits in the given direction. If there are
-X" no more windows in that direction, forwards the operation to tmux.
-Xif exists('$TMUX')
-X  let s:tmux_is_last_pane = 0
-X  au WinEnter * let s:tmux_is_last_pane = 0
-X
-X  " Like `wincmd` but also change tmux panes instead of vim windows when needed.
-X  function s:TmuxWinCmd(direction, tmuxdir)
-X    let nr = winnr()
-X    " try to switch windows within vim
-X    exec 'wincmd ' . a:direction
-X    " Forward the switch panes command to tmux if:
-X    " we tried switching windows in vim but it didn't have effect.
-X    if nr == winnr()
-X      let cmd = 'tmux select-pane -' . a:tmuxdir
-X      call system(cmd)
-X      let s:tmux_is_last_pane = 1
-X      echo cmd
-X    else
-X      let s:tmux_is_last_pane = 0
-X    endif
-X  endfunction
-X
-X  " navigate between split windows/tmux panes
-X  map <c-h> :call <SID>TmuxWinCmd('h', 'L')<cr>
-X  map <c-j> :call <SID>TmuxWinCmd('j', 'D')<cr>
-X  map <c-k> :call <SID>TmuxWinCmd('k', 'U')<cr>
-X  map <c-l> :call <SID>TmuxWinCmd('l', 'R')<cr>
-Xelse
-X  nnoremap <C-h> <C-w>h
-X  nnoremap <C-j> <C-w>j
-X  nnoremap <C-k> <C-w>k
-X  nnoremap <C-l> <C-w>l
-Xendif
-X
-X" switches delimitMate on and off
-Xnnoremap <leader>d :DelimitMateSwitch<CR>
-X
-Xif executable("par")
-X  set formatprg=par\ -w80
-Xendif
-X
-X" wrap text
-Xmap <leader>w {v}!fmt -w80<CR>
-Xvmap <leader>w !fmt -w80<CR>
-X
-X
-X" Add the virtualenv's site-packages to vim path
-Xlet g:pythonworkon = "System"
-Xif has("python")
-Xpy << EOF
-Ximport os.path
-Ximport sys
-Ximport vim
-Xif 'VIRTUAL_ENV' in os.environ:
-X    project_base_dir = os.environ['VIRTUAL_ENV']
-X    sys.path.insert(0, project_base_dir)
-X    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-X    execfile(activate_this, dict(__file__=activate_this))
-X    # Save virtual environment name to VIM variable
-X    vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
-XEOF
-Xendif
-X
-X" Diff current buffer and the original file
-Xnnoremap <leader>di :w !diff % -<CR>
-X
-X" Ack
-Xnnoremap <leader>a :Ack
-X
-X" underline
-Xnnoremap <leader>1 yypVr=
-Xnnoremap <leader>2 yypVr-
-Xnnoremap <leader>3 yypVr.
-Xnnoremap <leader>0 :put = \"# ----------------------------------------------------------------------------\"<CR>
-X
-X" toogle hex
-Xlet $in_hex=0
-Xfunction HexMe()
-X  set binary
-X  set noeol
-X  if $in_hex > 0
-X    :%!xxd -r
-X    let $in_hex=0
-X  else
-X    :%!xxd
-X    let $in_hex=1
-X  endif
-Xendfunction
-Xnnoremap <leader>hex :call HexMe()<CR>
-X
-X" enable all syntax highlighting features
-Xlet python_highlight_all = 1
-X
-X" keyword information
-Xnnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}}<CR>
-Xnnoremap <leader>ki :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
-X
-X" syntax jquery
-Xnnoremap <leader>jq :set syntax=jquery<CR>
-X
-X" replace tabs with spaces
-Xnnoremap <leader>rt :%s/\t/  /g<CR>
-X
-X" spell
-Xnnoremap <leader>s :setlocal spell!<CR>
-Xset spelllang=en
-X
-X" vim-marker
-Xlet g:vim_markdown_folding_disabled=1
-X
-X" browse oldfiles
-Xnnoremap <leader>o :browse oldfiles<CR>
-Xnnoremap <leader>l :CtrlPMRU<CR>
-X
-X" Compile LessCSS on save
-Xautocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
-X
-X" Compile script.src.js -> script.min.js
-Xnnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
-X
-X" prety json
-Xnnoremap <leader>pj :%!python -m json.tool<CR>
-X
-X" found no ASCII
-X" Once you're on a particular one, use ga
-X" to determine the ASCII value of the character in question, and
-Xnnoremap <leader>xa :/[^\x00-\x7F]<CR>
-X"
-X" sh
-Xset shell=/bin/sh
-X
-X" go
-Xau FileType go nmap <leader>r <Plug>(go-run)
-Xlet g:go_highlight_functions = 1
-Xlet g:go_highlight_methods = 1
-Xlet g:go_highlight_structs = 1
-X
-Xif &diff
-X    syntax off
-X    highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green gui=NONE guifg=bg guibg=Green
-X    highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red gui=NONE guifg=bg guibg=Red
-X    highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow gui=NONE guifg=bg guibg=Yellow
-X    highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta gui=NONE guifg=bg guibg=Magenta
-Xendif
-2574b96e802a123d828b5abb0fc07859
 echo x - ./.cshrc
-sed 's/^X//' >./.cshrc << '93a4ebeff2f93f5ad682eed6ccb143d7'
+sed 's/^X//' >./.cshrc << 'END-of-./.cshrc'
 X# FreeBSD .cshrc - csh resource script
 X
 Xalias h  history 25
@@ -479,582 +96,9 @@ X#setenv ENV_NAME "sh -c '$IF_VIRTUAL_ENV'"
 X# setenv GIT_BRANCH_CMD "sh -c 'python ~/.gitstatus.py'"
 X# alias setprompt 'set prompt="`$ENV_NAME`$COLOR2\[$COLOR3%n@%m$COLOR2\:$COLOR1%~$COLOR2$COLOR3`$GIT_BRANCH_CMD`$COLOR2\] [%p %d]\n$COLOR5>$COLOR4 "'
 X# alias precmd setprompt
-93a4ebeff2f93f5ad682eed6ccb143d7
-echo c - ./.zsh
-mkdir -p ./.zsh > /dev/null 2>&1
-echo c - ./.zsh/plugins
-mkdir -p ./.zsh/plugins > /dev/null 2>&1
-echo x - ./.zsh/plugins/git-flow-completion.zsh
-sed 's/^X//' >./.zsh/plugins/git-flow-completion.zsh << '46c36ef8273a591c842a2b7944ba7d9c'
-X#!zsh
-X#
-X# Installation
-X# ------------
-X#
-X# To achieve git-flow completion nirvana:
-X#
-X#  0. Update your zsh's git-completion module to the newest verion.
-X#     From here. http://zsh.git.sourceforge.net/git/gitweb.cgi?p=zsh/zsh;a=blob_plain;f=Completion/Unix/Command/_git;hb=HEAD
-X#
-X#  1. Install this file. Either:
-X#
-X#     a. Place it in your .zshrc:
-X#
-X#     b. Or, copy it somewhere (e.g. ~/.git-flow-completion.zsh) and put the following line in
-X#        your .zshrc:
-X#
-X#            source ~/.git-flow-completion.zsh
-X#
-X#     c. Or, use this file as a oh-my-zsh plugin.
-X#
-X
-X_git-flow ()
-X{
-X	local curcontext="$curcontext" state line
-X	typeset -A opt_args
-X
-X	_arguments -C \
-X		':command:->command' \
-X		'*::options:->options'
-X
-X	case $state in
-X		(command)
-X
-X			local -a subcommands
-X			subcommands=(
-X				'init:Initialize a new git repo with support for the branching model.'
-X				'feature:Manage your feature branches.'
-X				'config:Manage your configuration.'
-X				'release:Manage your release branches.'
-X				'hotfix:Manage your hotfix branches.'
-X				'support:Manage your support branches.'
-X				'version:Shows version information.'
-X			)
-X			_describe -t commands 'git flow' subcommands
-X		;;
-X
-X		(options)
-X			case $line[1] in
-X
-X				(init)
-X					_arguments \
-X						-f'[Force setting of gitflow branches, even if already configured]'
-X					;;
-X
-X					(version)
-X					;;
-X
-X					(hotfix)
-X						__git-flow-hotfix
-X					;;
-X
-X					(release)
-X						__git-flow-release
-X					;;
-X
-X					(feature)
-X						__git-flow-feature
-X					;;
-X					(config)
-X					__git-flow-config
-X					;;
-X
-X			esac
-X		;;
-X	esac
-X}
-X
-X__git-flow-release ()
-X{
-X	local curcontext="$curcontext" state line
-X	typeset -A opt_args
-X
-X	_arguments -C \
-X		':command:->command' \
-X		'*::options:->options'
-X
-X	case $state in
-X		(command)
-X
-X			local -a subcommands
-X			subcommands=(
-X				'start:Start a new release branch.'
-X				'finish:Finish a release branch.'
-X				'list:List all your release branches. (Alias to `git flow release`)'
-X				'publish:Publish release branch to remote.'
-X				'track:Checkout remote release branch.'
-X				'delet:Delete a release branch.'
-X			)
-X			_describe -t commands 'git flow release' subcommands
-X			_arguments \
-X				-v'[Verbose (more) output]'
-X		;;
-X
-X		(options)
-X			case $line[1] in
-X
-X				(start)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]'\
-X						':version:__git_flow_version_list'
-X				;;
-X
-X				(finish)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]' \
-X						-s'[Sign the release tag cryptographically]'\
-X						-u'[Use the given GPG-key for the digital signature (implies -s)]'\
-X						-m'[Use the given tag message]'\
-X						-p'[Push to $ORIGIN after performing finish]'\
-X						':version:__git_flow_version_list'
-X				;;
-X
-X				(delete)
-X					_arguments \
-X						-f'[Force deletion]' \
-X						-r'[Delete remote branch]' \
-X						':version:__git_flow_version_list'
-X				;;
-X
-X				(publish)
-X					_arguments \
-X						':version:__git_flow_version_list'
-X				;;
-X
-X				(track)
-X					_arguments \
-X						':version:__git_flow_version_list'
-X				;;
-X
-X				*)
-X					_arguments \
-X						-v'[Verbose (more) output]'
-X				;;
-X			esac
-X		;;
-X	esac
-X}
-X
-X__git-flow-hotfix ()
-X{
-X	local curcontext="$curcontext" state line
-X	typeset -A opt_args
-X
-X	_arguments -C \
-X		':command:->command' \
-X		'*::options:->options'
-X
-X	case $state in
-X		(command)
-X
-X			local -a subcommands
-X			subcommands=(
-X				'start:Start a new hotfix branch.'
-X				'finish:Finish a hotfix branch.'
-X				'delete:Delete a hotfix branch.'
-X				'list:List all your hotfix branches. (Alias to `git flow hotfix`)'
-X			)
-X			_describe -t commands 'git flow hotfix' subcommands
-X			_arguments \
-X				-v'[Verbose (more) output]'
-X		;;
-X
-X		(options)
-X			case $line[1] in
-X
-X				(start)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]'\
-X						':hotfix:__git_flow_version_list'\
-X						':branch-name:__git_branch_names'
-X				;;
-X
-X				(finish)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]' \
-X						-s'[Sign the release tag cryptographically]'\
-X						-u'[Use the given GPG-key for the digital signature (implies -s)]'\
-X						-m'[Use the given tag message]'\
-X						-p'[Push to $ORIGIN after performing finish]'\
-X						':hotfix:__git_flow_hotfix_list'
-X				;;
-X
-X				(delete)
-X					_arguments \
-X						-f'[Force deletion]' \
-X						-r'[Delete remote branch]' \
-X						':hotfix:__git_flow_hotfix_list'
-X				;;
-X
-X				*)
-X					_arguments \
-X						-v'[Verbose (more) output]'
-X				;;
-X			esac
-X		;;
-X	esac
-X}
-X
-X__git-flow-feature ()
-X{
-X	local curcontext="$curcontext" state line
-X	typeset -A opt_args
-X
-X	_arguments -C \
-X		':command:->command' \
-X		'*::options:->options'
-X
-X	case $state in
-X		(command)
-X
-X			local -a subcommands
-X			subcommands=(
-X				'start:Start a new feature branch.'
-X				'finish:Finish a feature branch.'
-X				'delete:Delete a feature branch.'
-X				'list:List all your feature branches. (Alias to `git flow feature`)'
-X				'publish:Publish feature branch to remote.'
-X				'track:Checkout remote feature branch.'
-X				'diff:Show all changes.'
-X				'rebase:Rebase from integration branch.'
-X				'checkout:Checkout local feature branch.'
-X				'pull:Pull changes from remote.'
-X			)
-X			_describe -t commands 'git flow feature' subcommands
-X			_arguments \
-X				-v'[Verbose (more) output]'
-X		;;
-X
-X		(options)
-X			case $line[1] in
-X
-X				(start)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]'\
-X						':feature:__git_flow_feature_list'\
-X						':branch-name:__git_branch_names'
-X				;;
-X
-X				(finish)
-X					_arguments \
-X						-F'[Fetch from origin before performing finish]' \
-X						-r'[Rebase instead of merge]'\
-X						':feature:__git_flow_feature_list'
-X				;;
-X
-X				(delete)
-X					_arguments \
-X						-f'[Force deletion]' \
-X						-r'[Delete remote branch]' \
-X						':feature:__git_flow_feature_list'
-X				;;
-X
-X				(publish)
-X					_arguments \
-X						':feature:__git_flow_feature_list'\
-X				;;
-X
-X				(track)
-X					_arguments \
-X						':feature:__git_flow_feature_list'\
-X				;;
-X
-X				(diff)
-X					_arguments \
-X						':branch:__git_branch_names'\
-X				;;
-X
-X				(rebase)
-X					_arguments \
-X						-i'[Do an interactive rebase]' \
-X						':branch:__git_branch_names'
-X				;;
-X
-X				(checkout)
-X					_arguments \
-X						':branch:__git_flow_feature_list'\
-X				;;
-X
-X				(pull)
-X					_arguments \
-X						':remote:__git_remotes'\
-X						':branch:__git_branch_names'
-X				;;
-X
-X				*)
-X					_arguments \
-X						-v'[Verbose (more) output]'
-X				;;
-X			esac
-X		;;
-X	esac
-X}
-X
-X__git-flow-config ()
-X{
-X	local curcontext="$curcontext" state line
-X	typeset -A opt_args
-X
-X	_arguments -C \
-X		':command:->command' \
-X		'*::options:->options'
-X
-X	case $state in
-X		(command)
-X
-X			local -a subcommands
-X			subcommands=(
-X				'list:List the configuration. (Alias to `git flow config`)'
-X				'set:Set the configuration option'
-X			)
-X			_describe -t commands 'git flow config' subcommands
-X		;;
-X
-X		(options)
-X			case $line[1] in
-X
-X				(set)
-X					_arguments \
-X						--local'[Use repository config file]' \
-X						--global'[Use global config file]'\
-X						--system'[Use system config file]'\
-X						--file'[Use given config file]'\
-X						':option:(master develop feature hotfix release support	versiontagprefix)'
-X				;;
-X
-X				*)
-X					_arguments \
-X						--local'[Use repository config file]' \
-X						--global'[Use global config file]'\
-X						--system'[Use system config file]'\
-X						--file'[Use given config file]'
-X				;;
-X			esac
-X		;;
-X	esac
-X}
-X__git_flow_version_list ()
-X{
-X	local expl
-X	declare -a versions
-X
-X	versions=(${${(f)"$(_call_program versions git flow release list 2> /dev/null | tr -d ' |*')"}})
-X	__git_command_successful || return
-X
-X	_wanted versions expl 'version' compadd $versions
-X}
-X
-X__git_flow_feature_list ()
-X{
-X	local expl
-X	declare -a features
-X
-X	features=(${${(f)"$(_call_program features git flow feature list 2> /dev/null | tr -d ' |*')"}})
-X	__git_command_successful || return
-X
-X	_wanted features expl 'feature' compadd $features
-X}
-X
-X__git_remotes () {
-X	local expl gitdir remotes
-X
-X	gitdir=$(_call_program gitdir git rev-parse --git-dir 2>/dev/null)
-X	__git_command_successful || return
-X
-X	remotes=(${${(f)"$(_call_program remotes git config --get-regexp '"^remote\..*\.url$"')"}//#(#b)remote.(*).url */$match[1]})
-X	__git_command_successful || return
-X
-X	# TODO: Should combine the two instead of either or.
-X	if (( $#remotes > 0 )); then
-X		_wanted remotes expl remote compadd $* - $remotes
-X	else
-X		_wanted remotes expl remote _files $* - -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
-X	fi
-X}
-X
-X__git_flow_hotfix_list ()
-X{
-X	local expl
-X	declare -a hotfixes
-X
-X	hotfixes=(${${(f)"$(_call_program hotfixes git flow hotfix list 2> /dev/null | tr -d ' |*')"}})
-X	__git_command_successful || return
-X
-X	_wanted hotfixes expl 'hotfix' compadd $hotfixes
-X}
-X
-X__git_branch_names () {
-X	local expl
-X	declare -a branch_names
-X
-X	branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads 2>/dev/null)"}#refs/heads/})
-X	__git_command_successful || return
-X
-X	_wanted branch-names expl branch-name compadd $* - $branch_names
-X}
-X
-X__git_command_successful () {
-X	if (( ${#pipestatus:#0} > 0 )); then
-X		_message 'not a git repository'
-X		return 1
-X	fi
-X	return 0
-X}
-X
-Xzstyle ':completion:*:*:git:*' user-commands flow:'provide high-level repository operations'
-46c36ef8273a591c842a2b7944ba7d9c
-echo c - ./.zsh/functions
-mkdir -p ./.zsh/functions > /dev/null 2>&1
-echo x - ./.zsh/functions/pure_prompt
-sed 's/^X//' >./.zsh/functions/pure_prompt << '7f4a63c412765e73551db9aeedd5db4a'
-X# see https://github.com/sindresorhus/pure
-X
-X# turns seconds into human readable time
-X# 165392 => 1d 21h 56m 32s
-Xpure_prompt_human_time() {
-X	echo -n " "
-X	local tmp=$1
-X	local days=$(( tmp / 60 / 60 / 24 ))
-X	local hours=$(( tmp / 60 / 60 % 24 ))
-X	local minutes=$(( tmp / 60 % 60 ))
-X	local seconds=$(( tmp % 60 ))
-X	(( $days > 0 )) && echo -n "${days}d "
-X	(( $hours > 0 )) && echo -n "${hours}h "
-X	(( $minutes > 0 )) && echo -n "${minutes}m "
-X	echo "${seconds}s"
-X}
-X
-X# fastest possible way to check if repo is dirty
-Xpure_prompt_git_dirty() {
-X	# check if we're in a git repo
-X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
-X
-X    # ----------------------------------------------------------------------------
-X	# check if it's dirty
-X	# [[ "$PURE_GIT_UNTRACKED_DIRTY" == 0 ]] && local umode="-uno" || local umode="-unormal"
-X	# command test -n "$(git status --porcelain --ignore-submodules ${umode})"
-X	# (($? == 0)) && echo '*'
-X    # ----------------------------------------------------------------------------
-X
-X    local GIT_STATE=""
-X
-X    local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-X    if [ "$NUM_AHEAD" -gt 0 ]; then
-X        GIT_STATE="$GIT_STATE (+$NUM_AHEAD)"
-X    fi
-X
-X    local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-X    if [ "$NUM_BEHIND" -gt 0 ]; then
-X        if [[ -n $GIT_STATE ]]; then
-X            GIT_STATE="$GIT_STATE"
-X        fi
-X        GIT_STATE="$GIT_STATE (-$NUM_BEHIND)"
-X    fi
-X
-X    local GIT_STATUS="$(git status --porcelain | awk -v ORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')"
-X    [[ ! -z "${GIT_STATUS// }" ]] && GIT_STATE="$GIT_STATE %F{5}[$GIT_STATUS]"
-X
-X    if ! git diff --cached --quiet 2> /dev/null; then
-X        GIT_STATE="$GIT_STATE %F{7}[staged]"
-X    fi
-X
-X    echo $GIT_STATE
-X}
-X
-X# displays the exec time of the last command if set threshold was exceeded
-Xpure_prompt_cmd_exec_time() {
-X	local stop=$EPOCHSECONDS
-X	local start=${cmd_timestamp:-$stop}
-X	integer elapsed=$stop-$start
-X	(($elapsed > 5)) && pure_prompt_human_time $elapsed
-X}
-X
-Xpure_prompt_preexec() {
-X	cmd_timestamp=$EPOCHSECONDS
-X
-X	# shows the current dir and executed command in the title when a process is active
-X	print -Pn "\e]0;"
-X	echo -nE "$PWD:t: $2"
-X	print -Pn "\a"
-X}
-X
-X# string length ignoring ansi escapes
-Xpure_prompt_string_length() {
-X	# Subtract one since newline is counted as two characters
-X	#echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
-X    # print at the right side
-X    #echo ${(l:$COLUMNS::-:)}
-X    echo $(($COLUMNS-2))
-X}
-X
-Xpure_prompt_precmd() {
-X	# shows the full path in the title
-X	print -Pn '\e]0;%~\a'
-X
-X	# git info
-X	vcs_info
-X
-X	local pure_prompt_preprompt="\n$pure_prompt_username %F{074}%~%F{3}$vcs_info_msg_0_%F{1}`pure_prompt_git_dirty`%f%F{011}`pure_prompt_cmd_exec_time`%f"
-X	print -P $pure_prompt_preprompt
-X
-X	# check async if there is anything to pull
-X	(( ${PURE_GIT_PULL:-1} )) && {
-X		# check if we're in a git repo
-X		[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] &&
-X		# make sure working tree is not $HOME
-X		[[ "$(command git rev-parse --show-toplevel)" != "$HOME" ]] &&
-X		# check check if there is anything to pull
-X        # set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
-X		GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch &>/dev/null &&
-X		# check if there is an upstream configured for this branch
-X		command git rev-parse --abbrev-ref @'{u}' &>/dev/null && {
-X			local arrows=''
-X			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='-'
-X			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='+'
-X            [[ "$arrows" == '-+' ]] && arrows='±'
-X			print -Pn "\e7\e[A\e[1G\e[`pure_prompt_string_length $pure_prompt_preprompt`C%F{6}${arrows:-%F\{2\}•}%f\e8"
-X		}
-X	} &!
-X
-X	# reset value since `preexec` isn't always triggered
-X	unset cmd_timestamp
-X}
-X
-X
-Xpure_prompt() {
-X	# prevent percentage showing up if output doesn't end with a newline
-X	export PROMPT_EOL_MARK=''
-X
-X	prompt_opts=(cr subst percent)
-X
-X	zmodload zsh/datetime
-X	autoload -Uz add-zsh-hook
-X	autoload -Uz vcs_info
-X
-X	add-zsh-hook precmd pure_prompt_precmd
-X	add-zsh-hook preexec pure_prompt_preexec
-X
-X	zstyle ':vcs_info:*' enable git
-X	zstyle ':vcs_info:*' use-simple true
-X	zstyle ':vcs_info:git*' formats ' %b'
-X	zstyle ':vcs_info:git*' actionformats ' %b|%a'
-X
-X	pure_prompt_username='%F{2}%n'
-X
-X	# show username@host if logged in through SSH
-X	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
-X
-X	# show username@host if root, with username in red
-X	[[ $UID -eq 0 ]] && pure_prompt_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
-X
-X	# prompt turns red if the previous command didn't exit with 0
-X    PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
-X}
-X
-Xpure_prompt "$@"
-7f4a63c412765e73551db9aeedd5db4a
+END-of-./.cshrc
 echo x - ./.tmux.conf
-sed 's/^X//' >./.tmux.conf << '21ba7fe49849151067630146d1100d3b'
+sed 's/^X//' >./.tmux.conf << 'END-of-./.tmux.conf'
 X# utf8
 Xset-window-option -g utf8 on
 X
@@ -1096,18 +140,615 @@ X
 X# easily toggle synchronization (mnemonic: e is for echo)
 Xbind e setw synchronize-panes on
 Xbind E setw synchronize-panes off
-21ba7fe49849151067630146d1100d3b
+END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
+echo c - ./.vim/after
+mkdir -p ./.vim/after > /dev/null 2>&1
+echo c - ./.vim/after/syntax
+mkdir -p ./.vim/after/syntax > /dev/null 2>&1
+echo x - ./.vim/after/syntax/php.vim
+sed 's/^X//' >./.vim/after/syntax/php.vim << 'END-of-./.vim/after/syntax/php.vim'
+X" syn match phpParent #;$#
+END-of-./.vim/after/syntax/php.vim
+echo x - ./.vim/after/syntax/python.vim
+sed 's/^X//' >./.vim/after/syntax/python.vim << 'END-of-./.vim/after/syntax/python.vim'
+Xsyn region Comment start=/"""/ end=/"""/
+Xsyn region Comment start=/'''/ end=/'''/
+END-of-./.vim/after/syntax/python.vim
+echo c - ./.vim/colors
+mkdir -p ./.vim/colors > /dev/null 2>&1
+echo x - ./.vim/colors/my-colors.vim
+sed 's/^X//' >./.vim/colors/my-colors.vim << 'END-of-./.vim/colors/my-colors.vim'
+X" my-colors
+X" Based on Tomorrow Night - Full Colour and 256 Colour
+X
+X" Default GUI Colours
+Xlet s:foreground = "c5c8c6"
+Xlet s:background = "1d1f21"
+Xlet s:selection = "373b41"
+Xlet s:line = "282a2e"
+X" let s:comment = "969896"
+Xlet s:comment = "808080"
+Xlet s:red = "cc6666"
+Xlet s:orange = "de935f"
+Xlet s:yellow = "f0c674"
+Xlet s:green = "b5bd68"
+Xlet s:aqua = "8abeb7"
+Xlet s:blue = "81a2be"
+Xlet s:purple = "b294bb"
+Xlet s:window = "4d5057"
+Xlet s:identifiers = "7EA7D8"
+Xlet s:keywords = "7CC576"
+Xlet s:constants = "ffffff"
+Xlet s:stringSingle = "E5E5E5"
+Xlet s:operators = "979797"
+Xlet s:functions = "A67C52"
+Xlet s:sky = "7ec0ee"
+X
+X" Console 256 Colours
+Xif !has("gui_running")
+X	let s:background = "303030"
+X	let s:window = "5e5e5e"
+X	let s:line = "3a3a3a"
+X	let s:selection = "585858"
+Xend
+X
+Xhi clear
+Xsyntax reset
+X
+Xlet g:colors_name = "my-colors"
+X
+Xif has("gui_running") || &t_Co == 88 || &t_Co == 256
+X	" Returns an approximate grey index for the given grey level
+X	fun <SID>grey_number(x)
+X		if &t_Co == 88
+X			if a:x < 23
+X				return 0
+X			elseif a:x < 69
+X				return 1
+X			elseif a:x < 103
+X				return 2
+X			elseif a:x < 127
+X				return 3
+X			elseif a:x < 150
+X				return 4
+X			elseif a:x < 173
+X				return 5
+X			elseif a:x < 196
+X				return 6
+X			elseif a:x < 219
+X				return 7
+X			elseif a:x < 243
+X				return 8
+X			else
+X				return 9
+X			endif
+X		else
+X			if a:x < 14
+X				return 0
+X			else
+X				let l:n = (a:x - 8) / 10
+X				let l:m = (a:x - 8) % 10
+X				if l:m < 5
+X					return l:n
+X				else
+X					return l:n + 1
+X				endif
+X			endif
+X		endif
+X	endfun
+X
+X	" Returns the actual grey level represented by the grey index
+X	fun <SID>grey_level(n)
+X		if &t_Co == 88
+X			if a:n == 0
+X				return 0
+X			elseif a:n == 1
+X				return 46
+X			elseif a:n == 2
+X				return 92
+X			elseif a:n == 3
+X				return 115
+X			elseif a:n == 4
+X				return 139
+X			elseif a:n == 5
+X				return 162
+X			elseif a:n == 6
+X				return 185
+X			elseif a:n == 7
+X				return 208
+X			elseif a:n == 8
+X				return 231
+X			else
+X				return 255
+X			endif
+X		else
+X			if a:n == 0
+X				return 0
+X			else
+X				return 8 + (a:n * 10)
+X			endif
+X		endif
+X	endfun
+X
+X	" Returns the palette index for the given grey index
+X	fun <SID>grey_colour(n)
+X		if &t_Co == 88
+X			if a:n == 0
+X				return 16
+X			elseif a:n == 9
+X				return 79
+X			else
+X				return 79 + a:n
+X			endif
+X		else
+X			if a:n == 0
+X				return 16
+X			elseif a:n == 25
+X				return 231
+X			else
+X				return 231 + a:n
+X			endif
+X		endif
+X	endfun
+X
+X	" Returns an approximate colour index for the given colour level
+X	fun <SID>rgb_number(x)
+X		if &t_Co == 88
+X			if a:x < 69
+X				return 0
+X			elseif a:x < 172
+X				return 1
+X			elseif a:x < 230
+X				return 2
+X			else
+X				return 3
+X			endif
+X		else
+X			if a:x < 75
+X				return 0
+X			else
+X				let l:n = (a:x - 55) / 40
+X				let l:m = (a:x - 55) % 40
+X				if l:m < 20
+X					return l:n
+X				else
+X					return l:n + 1
+X				endif
+X			endif
+X		endif
+X	endfun
+X
+X	" Returns the actual colour level for the given colour index
+X	fun <SID>rgb_level(n)
+X		if &t_Co == 88
+X			if a:n == 0
+X				return 0
+X			elseif a:n == 1
+X				return 139
+X			elseif a:n == 2
+X				return 205
+X			else
+X				return 255
+X			endif
+X		else
+X			if a:n == 0
+X				return 0
+X			else
+X				return 55 + (a:n * 40)
+X			endif
+X		endif
+X	endfun
+X
+X	" Returns the palette index for the given R/G/B colour indices
+X	fun <SID>rgb_colour(x, y, z)
+X		if &t_Co == 88
+X			return 16 + (a:x * 16) + (a:y * 4) + a:z
+X		else
+X			return 16 + (a:x * 36) + (a:y * 6) + a:z
+X		endif
+X	endfun
+X
+X	" Returns the palette index to approximate the given R/G/B colour levels
+X	fun <SID>colour(r, g, b)
+X		" Get the closest grey
+X		let l:gx = <SID>grey_number(a:r)
+X		let l:gy = <SID>grey_number(a:g)
+X		let l:gz = <SID>grey_number(a:b)
+X
+X		" Get the closest colour
+X		let l:x = <SID>rgb_number(a:r)
+X		let l:y = <SID>rgb_number(a:g)
+X		let l:z = <SID>rgb_number(a:b)
+X
+X		if l:gx == l:gy && l:gy == l:gz
+X			" There are two possibilities
+X			let l:dgr = <SID>grey_level(l:gx) - a:r
+X			let l:dgg = <SID>grey_level(l:gy) - a:g
+X			let l:dgb = <SID>grey_level(l:gz) - a:b
+X			let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
+X			let l:dr = <SID>rgb_level(l:gx) - a:r
+X			let l:dg = <SID>rgb_level(l:gy) - a:g
+X			let l:db = <SID>rgb_level(l:gz) - a:b
+X			let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
+X			if l:dgrey < l:drgb
+X				" Use the grey
+X				return <SID>grey_colour(l:gx)
+X			else
+X				" Use the colour
+X				return <SID>rgb_colour(l:x, l:y, l:z)
+X			endif
+X		else
+X			" Only one possibility
+X			return <SID>rgb_colour(l:x, l:y, l:z)
+X		endif
+X	endfun
+X
+X	" Returns the palette index to approximate the 'rrggbb' hex string
+X	fun <SID>rgb(rgb)
+X		let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
+X		let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
+X		let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
+X
+X		return <SID>colour(l:r, l:g, l:b)
+X	endfun
+X
+X	" Sets the highlighting for the given group
+X	fun <SID>X(group, fg, bg, attr)
+X		if a:fg != ""
+X			exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
+X		endif
+X		if a:bg != ""
+X			exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
+X		endif
+X		if a:attr != ""
+X			exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+X		endif
+X	endfun
+X
+X	" Vim Highlighting
+X	"call <SID>X("Error", "none", s:yellow, "none")
+X	"call <SID>X("ErrorMsg", "none", s:yellow, "none")
+X	call <SID>X("Normal", s:foreground, s:background, "")
+X	call <SID>X("LineNr", s:selection, "", "")
+X	call <SID>X("NonText", s:selection, "", "")
+X	call <SID>X("SpecialKey", s:selection, "", "")
+X	call <SID>X("Search", s:background, s:yellow, "")
+X	call <SID>X("TabLine", s:window, s:foreground, "reverse")
+X	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
+X	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
+X	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
+X	call <SID>X("VertSplit", s:window, s:window, "none")
+X	call <SID>X("Visual", "", s:selection, "")
+X	call <SID>X("Directory", s:blue, "", "")
+X	call <SID>X("ModeMsg", s:green, "", "")
+X	call <SID>X("MoreMsg", s:green, "", "")
+X	call <SID>X("Question", s:green, "", "")
+X	call <SID>X("WarningMsg", s:red, "", "")
+X	call <SID>X("MatchParen", "", s:selection, "")
+X	call <SID>X("Folded", s:comment, s:background, "")
+X	call <SID>X("FoldColumn", "", s:background, "")
+X	if version >= 700
+X		call <SID>X("CursorLine", "", s:line, "none")
+X		call <SID>X("CursorColumn", "", s:line, "none")
+X		call <SID>X("PMenu", s:foreground, s:selection, "none")
+X		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
+X		call <SID>X("SignColumn", "", s:background, "none")
+X	end
+X	if version >= 703
+X		call <SID>X("ColorColumn", "", s:line, "none")
+X	end
+X
+X	" Standard Highlighting
+X	call <SID>X("Comment", s:comment, "", "")
+X	call <SID>X("Todo", s:comment, s:background, "")
+X	call <SID>X("Title", s:comment, "", "")
+X	call <SID>X("Identifier", s:red, "", "none")
+X	call <SID>X("Statement", s:foreground, "", "")
+X	call <SID>X("Conditional", s:foreground, "", "")
+X	call <SID>X("Repeat", s:foreground, "", "")
+X	call <SID>X("Structure", s:purple, "", "")
+X	call <SID>X("Function", s:blue, "", "")
+X	call <SID>X("Constant", s:orange, "", "")
+X	call <SID>X("String", s:green, "", "")
+X	call <SID>X("Special", s:foreground, "", "")
+X	call <SID>X("PreProc", s:purple, "", "")
+X	call <SID>X("Operator", s:aqua, "", "none")
+X	call <SID>X("Type", s:blue, "", "none")
+X	call <SID>X("Define", s:purple, "", "none")
+X	call <SID>X("Include", s:blue, "", "")
+X	"call <SID>X("Ignore", "666666", "", "")
+X
+X	" Vim Highlighting
+X	call <SID>X("vimCommand", s:red, "", "none")
+X
+X	" C Highlighting
+X	call <SID>X("cType", s:yellow, "", "")
+X	call <SID>X("cStorageClass", s:purple, "", "")
+X	call <SID>X("cConditional", s:purple, "", "")
+X	call <SID>X("cRepeat", s:purple, "", "")
+X
+X	" PHP Highlighting
+X	call <SID>X("phpClasses", s:identifiers, "", "")
+X	call <SID>X("phpConditional", s:purple, "", "")
+X	call <SID>X("phpConstants", s:constants, "", "")
+X	call <SID>X("phpFunctions", s:functions, "", "")
+X	call <SID>X("phpIdentifier", s:red, "", "")
+X	call <SID>X("phpInclude", s:red, "", "")
+X	call <SID>X("phpKeyword", s:purple, "", "")
+X	call <SID>X("phpMemberSelector", s:foreground, "", "")
+X	call <SID>X("phpMethodsVar", s:identifiers, "", "")
+X	call <SID>X("phpNumber", s:yellow, "", "")
+X	call <SID>X("phpOperator", s:operators, "", "")
+X	call <SID>X("phpParent", s:operators, "", "")
+X	call <SID>X("phpRegion", s:blue, "", "")
+X	call <SID>X("phpRepeat", s:purple, "", "")
+X	call <SID>X("phpSpecial", s:yellow, "", "")
+X	call <SID>X("phpStatement", s:purple, "", "")
+X	call <SID>X("phpStringSingle", s:stringSingle, "", "")
+X	call <SID>X("phpType", s:keywords, "", "")
+X	call <SID>X("phpVarSelector", s:orange, "", "")
+X
+X	" Ruby Highlighting
+X	call <SID>X("rubySymbol", s:green, "", "")
+X	call <SID>X("rubyConstant", s:yellow, "", "")
+X	call <SID>X("rubyAccess", s:yellow, "", "")
+X	call <SID>X("rubyAttribute", s:blue, "", "")
+X	call <SID>X("rubyInclude", s:blue, "", "")
+X	call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
+X	call <SID>X("rubyCurlyBlock", s:orange, "", "")
+X	call <SID>X("rubyStringDelimiter", s:green, "", "")
+X	call <SID>X("rubyInterpolationDelimiter", s:orange, "", "")
+X	call <SID>X("rubyConditional", s:purple, "", "")
+X	call <SID>X("rubyRepeat", s:purple, "", "")
+X	call <SID>X("rubyControl", s:purple, "", "")
+X	call <SID>X("rubyException", s:purple, "", "")
+X
+X	" Python Highlighting
+X	call <SID>X("pythonBinNumber", s:yellow, "", "")
+X	call <SID>X("pythonBoolean", s:orange, "", "")
+X	call <SID>X("pythonConditional", s:orange, "", "")
+X	call <SID>X("pythonDot", s:red, "", "")
+X	call <SID>X("pythonExClass", s:orange, "", "")
+X	call <SID>X("pythonException", s:purple, "", "")
+X	call <SID>X("pythonFloat", s:yellow, "", "")
+X	call <SID>X("pythonFunction", s:purple, "", "")
+X	call <SID>X("pythonHexNumber", s:yellow, "", "")
+X	call <SID>X("pythonImport", s:red, "", "")
+X	call <SID>X("pythonNumber", s:yellow, "", "")
+X	call <SID>X("pythonOctNumber", s:yellow, "", "")
+X	call <SID>X("pythonPreCondit", s:red, "", "")
+X	call <SID>X("pythonRepeat", s:orange, "", "")
+X	call <SID>X("pythonStatement", s:identifiers, "", "")
+X	call <SID>X("pythonStrFormatting", s:keywords, "", "")
+X	call <SID>X("pythonBytesEscape", s:orange, "", "")
+X
+X	" JavaScript Highlighting
+X	call <SID>X("jEffects", s:identifiers, "", "")
+X	call <SID>X("jEvents", s:identifiers, "", "")
+X	call <SID>X("jForms", s:keywords, "", "")
+X	call <SID>X("jFunc", s:purple, "", "")
+X	call <SID>X("jManipulation", s:identifiers, "", "")
+X	call <SID>X("jQuery", s:yellow, "", "")
+X	call <SID>X("javaScriptBoolean", s:red, "", "")
+X	call <SID>X("javaScriptBraces", s:red, "", "")
+X	call <SID>X("javaScriptConditional", s:purple, "", "")
+X	call <SID>X("javaScriptDOMObjects", s:keywords, "", "")
+X	call <SID>X("javaScriptEndColons", s:operators, "", "")
+X	call <SID>X("javaScriptExceptions", s:identifiers, "", "")
+X	call <SID>X("javaScriptFuncArg", s:orange, "", "")
+X	call <SID>X("javaScriptFuncDef", s:identifiers, "", "")
+X	call <SID>X("javaScriptFuncKeyword", s:purple, "", "")
+X	call <SID>X("javaScriptGlobalObjects", s:blue, "", "")
+X	call <SID>X("javaScriptIdentifier", s:keywords, "", "")
+X	call <SID>X("javaScriptMember", s:orange, "", "")
+X	call <SID>X("javaScriptNumber", s:yellow, "", "")
+X	call <SID>X("javaScriptOpSymbols", s:orange, "", "")
+X	call <SID>X("javaScriptOperator", s:yellow, "", "")
+X	call <SID>X("javaScriptParens", s:operators, "", "")
+X	call <SID>X("javaScriptRepeat", s:purple, "", "")
+X	call <SID>X("javaScriptStatement", s:purple, "", "")
+X	call <SID>X("javaScriptStringD", s:green, "", "")
+X	call <SID>X("javaScriptStringS", s:stringSingle, "", "")
+X
+X	" HTML Highlighting
+X	call <SID>X("htmlTag", s:red, "", "")
+X	call <SID>X("htmlTagName", s:red, "", "")
+X	call <SID>X("htmlArg", s:red, "", "")
+X	call <SID>X("htmlScriptTag", s:red, "", "")
+X
+X	" Diff Highlighting
+X	call <SID>X("diffAdded", s:green, "", "")
+X	call <SID>X("diffRemoved", s:red, "", "")
+X
+X	" ShowMarks Highlighting
+X	call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
+X	call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
+X	call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
+X	call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
+X
+X	" Cucumber Highlighting
+X	call <SID>X("cucumberGiven", s:blue, "", "")
+X	call <SID>X("cucumberGivenAnd", s:blue, "", "")
+X
+X	" Go Highlighting
+X	call <SID>X("goDirective", s:red, "", "")
+X	call <SID>X("goDeclaration", s:purple, "", "")
+X	call <SID>X("goStatement", s:purple, "", "")
+X	call <SID>X("goConditional", s:purple, "", "")
+X	call <SID>X("goConstants", s:orange, "", "")
+X	call <SID>X("goTodo", s:yellow, "", "")
+X	call <SID>X("goDeclType", s:yellow, "", "")
+X	call <SID>X("goBuiltins", s:purple, "", "")
+X	call <SID>X("goOperator", s:blue, "", "")
+X	call <SID>X("goFormatSpecifier", s:keywords, "", "")
+X	call <SID>X("goRepeat", s:sky, "", "")
+X	call <SID>X("goEscapeC", s:orange, "", "")
+X	call <SID>X("goMethod", s:identifiers, "", "")
+X	call <SID>X("goFunction", s:constants, "", "")
+X	call <SID>X("goStructDef", s:functions, "", "")
+X	call <SID>X("goType", s:red, "", "")
+X	call <SID>X("goSignedInts", s:red, "", "")
+X	call <SID>X("goUnsignedInts", s:red, "", "")
+X	call <SID>X("goFloats", s:red, "", "")
+X	call <SID>X("goComplexes", s:red, "", "")
+X	call <SID>X("goString", s:green, "", "")
+X
+X	" Lua Highlighting
+X	call <SID>X("luaStatement", s:purple, "", "")
+X	call <SID>X("luaRepeat", s:purple, "", "")
+X	call <SID>X("luaCondStart", s:purple, "", "")
+X	call <SID>X("luaCondElseif", s:purple, "", "")
+X	call <SID>X("luaCond", s:purple, "", "")
+X	call <SID>X("luaCondEnd", s:purple, "", "")
+X
+X	" Delete Functions
+X	delf <SID>X
+X	delf <SID>rgb
+X	delf <SID>colour
+X	delf <SID>rgb_colour
+X	delf <SID>rgb_level
+X	delf <SID>rgb_number
+X	delf <SID>grey_colour
+X	delf <SID>grey_level
+X	delf <SID>grey_number
+Xendif
+X
+Xset background=dark
+END-of-./.vim/colors/my-colors.vim
 echo x - ./.vim/filetype.vim
-sed 's/^X//' >./.vim/filetype.vim << 'aed337c0ac8742f7cdf77e36d1bbaf0a'
+sed 's/^X//' >./.vim/filetype.vim << 'END-of-./.vim/filetype.vim'
 X" ajust the path to your nginx
 Xau BufRead,BufNewFile /etc/nginx/*,/usr/local/etc/nginx/* if &ft == '' | setfiletype nginx | endif
-aed337c0ac8742f7cdf77e36d1bbaf0a
+END-of-./.vim/filetype.vim
 echo c - ./.vim/syntax
 mkdir -p ./.vim/syntax > /dev/null 2>&1
+echo x - ./.vim/syntax/jquery.vim
+sed 's/^X//' >./.vim/syntax/jquery.vim << 'END-of-./.vim/syntax/jquery.vim'
+X" Vim syntax file
+X" Language:    jQuery
+X" Maintainer:  Bruno Michel <brmichel@free.fr>
+X" Last Change: May 28th, 2011
+X" Version:     0.5.2
+X" URL:         http://api.jquery.com/
+X
+Xif version < 600
+X  syntax clear
+Xelseif exists("b:current_syntax")
+X  finish
+Xendif
+X
+Xif !exists("main_syntax")
+X  let main_syntax = 'javascript'
+Xendif
+X
+Xru! syntax/javascript.vim
+Xunlet b:current_syntax
+X
+Xsyn match   jQuery          /jQuery\|\$/
+X
+X
+Xsyn match   jFunc           /\.\w\+(\@=/ contains=@jFunctions
+X
+Xsyn cluster jFunctions      contains=jAjax,jAttributes,jCore,jCSS,jData,jDeferred,jDimensions,jEffects,jEvents,jManipulation,jMiscellaneous,jOffset,jProperties,jTraversing,jUtilities
+Xsyn keyword jAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
+Xsyn keyword jAjax           contained param serialize serializeArray
+Xsyn keyword jAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
+Xsyn keyword jAjax           contained get getJSON getScript load post
+Xsyn keyword jAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
+Xsyn keyword jCore           contained holdReady noConflict sub when
+Xsyn keyword jCSS            contained css cssHooks
+Xsyn keyword jData           contained clearQueue data dequeue hasData queue removeData
+Xsyn keyword jDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
+Xsyn keyword jDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
+Xsyn keyword jEffects        contained hide show toggle
+Xsyn keyword jEffects        contained animate delay stop
+Xsyn keyword jEffects        contained fadeIn fadeOut fadeTo fadeToggle
+Xsyn keyword jEffects        contained slideDown slideToggle slideUp
+Xsyn keyword jEvents         contained error resize scroll
+Xsyn keyword jEvents         contained ready unload
+Xsyn keyword jEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
+Xsyn keyword jEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
+Xsyn keyword jEvents         contained blur change focus select submit
+Xsyn keyword jEvents         contained focusin focusout keydown keypress keyup
+Xsyn keyword jEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
+Xsyn keyword jManipulation   contained clone
+Xsyn keyword jManipulation   contained unwrap wrap wrapAll wrapInner
+Xsyn keyword jManipulation   contained append appendTo html preprend prependTo text
+Xsyn keyword jManipulation   contained after before insertAfter insertBefore
+Xsyn keyword jManipulation   contained detach empty remove
+Xsyn keyword jManipulation   contained replaceAll replaceWith
+Xsyn keyword jMiscellaneous  contained index size toArray
+Xsyn keyword jOffset         contained offset offsetParent position scrollTop scrollLeft
+Xsyn keyword jProperties     contained browser context fx.interval fx.off length selector support
+Xsyn keyword jTraversing     contained eq filter first has is last map not slice
+Xsyn keyword jTraversing     contained add andSelf contents end
+Xsyn keyword jTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
+Xsyn keyword jUtilities      contained each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
+X
+X
+Xsyn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
+Xsyn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
+X
+Xsyn cluster jSelectors      contains=jId,jClass,jOperators,jBasicFilters,jContentFilters,jVisibility,jChildFilters,jForms,jFormFilters
+Xsyn match   jId             contained /#[0-9A-Za-z_\-]\+/
+Xsyn match   jClass          contained /\.[0-9A-Za-z_\-]\+/
+Xsyn match   jOperators      contained /*\|>\|+\|-\|\~/
+Xsyn match   jBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
+Xsyn match   jChildFilters   contained /:\(first\|last\|nth\|only\)-child/
+Xsyn match   jContentFilters contained /:\(contains\|empty\|has\|parent\)/
+Xsyn match   jForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
+Xsyn match   jVisibility     contained /:\(hidden\|visible\)/
+X
+X
+X" Define the default highlighting.
+X" For version 5.7 and earlier: only when not done already
+X" For version 5.8 and later: only when an item doesn't have highlighting yet
+Xif version >= 508 || !exists("did_lisp_syntax_inits")
+X  if version < 508
+X    let did_lisp_syntax_inits = 1
+X    command -nargs=+ HiLink hi link <args>
+X  else
+X    command -nargs=+ HiLink hi def link <args>
+X  endif
+X
+X  HiLink jQuery          Constant
+X
+X  HiLink jAjax           Function
+X  HiLink jAttributes     Function
+X  HiLink jCore           Function
+X  HiLink jCSS            Function
+X  HiLink jData           Function
+X  HiLink jDeferred       Function
+X  HiLink jDimensions     Function
+X  HiLink jEffects        Function
+X  HiLink jEvents         Function
+X  HiLink jManipulation   Function
+X  HiLink jMiscellaneous  Function
+X  HiLink jOffset         Function
+X  HiLink jProperties     Function
+X  HiLink jTraversing     Function
+X  HiLink jUtilities      Function
+X
+X  HiLink jId             Identifier
+X  HiLink jClass          Constant
+X  HiLink jOperators      Special
+X  HiLink jBasicFilters   Statement
+X  HiLink jContentFilters Statement
+X  HiLink jVisibility     Statement
+X  HiLink jChildFilters   Statement
+X  HiLink jForms          Statement
+X  HiLink jFormFilters    Statement
+X
+X  delcommand HiLink
+Xendif
+X
+X
+Xlet b:current_syntax = 'jquery'
+END-of-./.vim/syntax/jquery.vim
 echo x - ./.vim/syntax/nginx.vim
-sed 's/^X//' >./.vim/syntax/nginx.vim << 'eadb45c12f63f468fea9fd45c8bee4ff'
+sed 's/^X//' >./.vim/syntax/nginx.vim << 'END-of-./.vim/syntax/nginx.vim'
 X" Vim syntax file
 X" Language: nginx.conf
 X
@@ -1772,132 +1413,9 @@ Xhi link ngxDirective Identifier
 Xhi link ngxDirectiveThirdParty Special
 X
 Xlet b:current_syntax = "nginx"
-eadb45c12f63f468fea9fd45c8bee4ff
-echo x - ./.vim/syntax/jquery.vim
-sed 's/^X//' >./.vim/syntax/jquery.vim << '42f3ac147484d5062a1dc63a31facfe4'
-X" Vim syntax file
-X" Language:    jQuery
-X" Maintainer:  Bruno Michel <brmichel@free.fr>
-X" Last Change: May 28th, 2011
-X" Version:     0.5.2
-X" URL:         http://api.jquery.com/
-X
-Xif version < 600
-X  syntax clear
-Xelseif exists("b:current_syntax")
-X  finish
-Xendif
-X
-Xif !exists("main_syntax")
-X  let main_syntax = 'javascript'
-Xendif
-X
-Xru! syntax/javascript.vim
-Xunlet b:current_syntax
-X
-Xsyn match   jQuery          /jQuery\|\$/
-X
-X
-Xsyn match   jFunc           /\.\w\+(\@=/ contains=@jFunctions
-X
-Xsyn cluster jFunctions      contains=jAjax,jAttributes,jCore,jCSS,jData,jDeferred,jDimensions,jEffects,jEvents,jManipulation,jMiscellaneous,jOffset,jProperties,jTraversing,jUtilities
-Xsyn keyword jAjax           contained ajaxComplete ajaxError ajaxSend ajaxStart ajaxStop ajaxSuccess
-Xsyn keyword jAjax           contained param serialize serializeArray
-Xsyn keyword jAjax           contained ajax ajaxPrefilter ajaxSetup ajaxSettings ajaxTransport
-Xsyn keyword jAjax           contained get getJSON getScript load post
-Xsyn keyword jAttributes     contained addClass attr hasClass prop removeAttr removeClass removeProp toggleClass val
-Xsyn keyword jCore           contained holdReady noConflict sub when
-Xsyn keyword jCSS            contained css cssHooks
-Xsyn keyword jData           contained clearQueue data dequeue hasData queue removeData
-Xsyn keyword jDeferred       contained Deferred always done fail isRejected isResolved pipe promise reject rejectWith resolved resolveWith then
-Xsyn keyword jDimensions     contained height innerHeight innerWidth outerHeight outerWidth width
-Xsyn keyword jEffects        contained hide show toggle
-Xsyn keyword jEffects        contained animate delay stop
-Xsyn keyword jEffects        contained fadeIn fadeOut fadeTo fadeToggle
-Xsyn keyword jEffects        contained slideDown slideToggle slideUp
-Xsyn keyword jEvents         contained error resize scroll
-Xsyn keyword jEvents         contained ready unload
-Xsyn keyword jEvents         contained bind delegate die live one proxy trigger triggerHandler unbind undelegate
-Xsyn keyword jEvents         contained Event currentTarget isDefaultPrevented isImmediatePropagationStopped isPropagationStopped namespace pageX pageY preventDefault relatedTarget result stopImmediatePropagation stopPropagation target timeStamp which
-Xsyn keyword jEvents         contained blur change focus select submit
-Xsyn keyword jEvents         contained focusin focusout keydown keypress keyup
-Xsyn keyword jEvents         contained click dblclick hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup
-Xsyn keyword jManipulation   contained clone
-Xsyn keyword jManipulation   contained unwrap wrap wrapAll wrapInner
-Xsyn keyword jManipulation   contained append appendTo html preprend prependTo text
-Xsyn keyword jManipulation   contained after before insertAfter insertBefore
-Xsyn keyword jManipulation   contained detach empty remove
-Xsyn keyword jManipulation   contained replaceAll replaceWith
-Xsyn keyword jMiscellaneous  contained index size toArray
-Xsyn keyword jOffset         contained offset offsetParent position scrollTop scrollLeft
-Xsyn keyword jProperties     contained browser context fx.interval fx.off length selector support
-Xsyn keyword jTraversing     contained eq filter first has is last map not slice
-Xsyn keyword jTraversing     contained add andSelf contents end
-Xsyn keyword jTraversing     contained children closest find next nextAll nextUntil parent parents parentsUntil prev prevAll prevUntil siblings
-Xsyn keyword jUtilities      contained each extend globalEval grep inArray isArray isEmptyObject isFunction isPlainObject isWindow isXMLDoc makeArray merge noop now parseJSON parseXML trim type unique
-X
-X
-Xsyn region  javaScriptStringD          start=+"+  skip=+\\\\\|\\"+  end=+"\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
-Xsyn region  javaScriptStringS          start=+'+  skip=+\\\\\|\\'+  end=+'\|$+  contains=javaScriptSpecial,@htmlPreproc,@jSelectors
-X
-Xsyn cluster jSelectors      contains=jId,jClass,jOperators,jBasicFilters,jContentFilters,jVisibility,jChildFilters,jForms,jFormFilters
-Xsyn match   jId             contained /#[0-9A-Za-z_\-]\+/
-Xsyn match   jClass          contained /\.[0-9A-Za-z_\-]\+/
-Xsyn match   jOperators      contained /*\|>\|+\|-\|\~/
-Xsyn match   jBasicFilters   contained /:\(animated\|eq\|even\|first\|focus\|gt\|header\|last\|lt\|not\|odd\)/
-Xsyn match   jChildFilters   contained /:\(first\|last\|nth\|only\)-child/
-Xsyn match   jContentFilters contained /:\(contains\|empty\|has\|parent\)/
-Xsyn match   jForms          contained /:\(button\|checkbox\|checked\|disabled\|enabled\|file\|image\|input\|password\|radio\|reset\|selected\|submit\|text\)/
-Xsyn match   jVisibility     contained /:\(hidden\|visible\)/
-X
-X
-X" Define the default highlighting.
-X" For version 5.7 and earlier: only when not done already
-X" For version 5.8 and later: only when an item doesn't have highlighting yet
-Xif version >= 508 || !exists("did_lisp_syntax_inits")
-X  if version < 508
-X    let did_lisp_syntax_inits = 1
-X    command -nargs=+ HiLink hi link <args>
-X  else
-X    command -nargs=+ HiLink hi def link <args>
-X  endif
-X
-X  HiLink jQuery          Constant
-X
-X  HiLink jAjax           Function
-X  HiLink jAttributes     Function
-X  HiLink jCore           Function
-X  HiLink jCSS            Function
-X  HiLink jData           Function
-X  HiLink jDeferred       Function
-X  HiLink jDimensions     Function
-X  HiLink jEffects        Function
-X  HiLink jEvents         Function
-X  HiLink jManipulation   Function
-X  HiLink jMiscellaneous  Function
-X  HiLink jOffset         Function
-X  HiLink jProperties     Function
-X  HiLink jTraversing     Function
-X  HiLink jUtilities      Function
-X
-X  HiLink jId             Identifier
-X  HiLink jClass          Constant
-X  HiLink jOperators      Special
-X  HiLink jBasicFilters   Statement
-X  HiLink jContentFilters Statement
-X  HiLink jVisibility     Statement
-X  HiLink jChildFilters   Statement
-X  HiLink jForms          Statement
-X  HiLink jFormFilters    Statement
-X
-X  delcommand HiLink
-Xendif
-X
-X
-Xlet b:current_syntax = 'jquery'
-42f3ac147484d5062a1dc63a31facfe4
+END-of-./.vim/syntax/nginx.vim
 echo x - ./.vim/syntax/php.vim
-sed 's/^X//' >./.vim/syntax/php.vim << '7942d283a9508a18fcb0c0eba3d7eec6'
+sed 's/^X//' >./.vim/syntax/php.vim << 'END-of-./.vim/syntax/php.vim'
 X" Vim syntax file
 X" Language: PHP 5.3 & up
 X" Maintainer: Paul Garvin <paul@paulgarvin.net>
@@ -2414,493 +1932,976 @@ X  unlet main_syntax
 Xendif
 X
 X" vim: ts=8 sts=2 sw=2 expandtab
-7942d283a9508a18fcb0c0eba3d7eec6
-echo c - ./.vim/after
-mkdir -p ./.vim/after > /dev/null 2>&1
-echo c - ./.vim/after/syntax
-mkdir -p ./.vim/after/syntax > /dev/null 2>&1
-echo x - ./.vim/after/syntax/python.vim
-sed 's/^X//' >./.vim/after/syntax/python.vim << '1d75ec098a5c5ff4590b6d9b137d6a18'
-Xsyn region Comment start=/"""/ end=/"""/
-Xsyn region Comment start=/'''/ end=/'''/
-1d75ec098a5c5ff4590b6d9b137d6a18
-echo x - ./.vim/after/syntax/php.vim
-sed 's/^X//' >./.vim/after/syntax/php.vim << '7d6f22c52c3d1ddd134961d6792c2493'
-X" syn match phpParent #;$#
-7d6f22c52c3d1ddd134961d6792c2493
-echo c - ./.vim/autoload
-mkdir -p ./.vim/autoload > /dev/null 2>&1
-echo c - ./.vim/colors
-mkdir -p ./.vim/colors > /dev/null 2>&1
-echo x - ./.vim/colors/my-colors.vim
-sed 's/^X//' >./.vim/colors/my-colors.vim << 'c0416bb63bd39116248e57143b34af7a'
-X" my-colors
-X" Based on Tomorrow Night - Full Colour and 256 Colour
+END-of-./.vim/syntax/php.vim
+echo x - ./.vimrc
+sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
+Xset binary
+Xset nocompatible
 X
-X" Default GUI Colours
-Xlet s:foreground = "c5c8c6"
-Xlet s:background = "1d1f21"
-Xlet s:selection = "373b41"
-Xlet s:line = "282a2e"
-X" let s:comment = "969896"
-Xlet s:comment = "808080"
-Xlet s:red = "cc6666"
-Xlet s:orange = "de935f"
-Xlet s:yellow = "f0c674"
-Xlet s:green = "b5bd68"
-Xlet s:aqua = "8abeb7"
-Xlet s:blue = "81a2be"
-Xlet s:purple = "b294bb"
-Xlet s:window = "4d5057"
-Xlet s:identifiers = "7EA7D8"
-Xlet s:keywords = "7CC576"
-Xlet s:constants = "ffffff"
-Xlet s:stringSingle = "E5E5E5"
-Xlet s:operators = "979797"
-Xlet s:functions = "A67C52"
-Xlet s:sky = "7ec0ee"
+X" Vundle
+Xfiletype off
+Xset rtp+=~/.vim/bundle/Vundle.vim
+Xcall vundle#begin()
 X
-X" Console 256 Colours
-Xif !has("gui_running")
-X	let s:background = "303030"
-X	let s:window = "5e5e5e"
-X	let s:line = "3a3a3a"
-X	let s:selection = "585858"
-Xend
+X" let Vundle manage Vundle
+X" required!
+XBundle 'gmarik/Vundle.vim'
 X
-Xhi clear
-Xsyntax reset
+X" vim plugins
+XPlugin 'Chiel92/vim-autoformat'
+XPlugin 'Raimondi/delimitMate'
+XPlugin 'airblade/vim-gitgutter'
+XPlugin 'fatih/vim-go'
+XPlugin 'groenewege/vim-less'
+XPlugin 'hdima/python-syntax'
+XPlugin 'jelera/vim-javascript-syntax'
+XPlugin 'kana/vim-submode'
+XPlugin 'kien/ctrlp.vim'
+XPlugin 'majutsushi/tagbar'
+XPlugin 'mileszs/ack.vim'
+XPlugin 'mitsuhiko/vim-jinja'
+XPlugin 'msanders/snipmate.vim'
+XPlugin 'plasticboy/vim-markdown'
+XPlugin 'rodjek/vim-puppet'
+XPlugin 'saltstack/salt-vim'
+XPlugin 'scrooloose/nerdcommenter'
+XPlugin 'scrooloose/nerdtree'
+XPlugin 'scrooloose/syntastic'
+XPlugin 'stephpy/vim-php-cs-fixer'
+XPlugin 'tpope/vim-fugitive'
+XPlugin 'tpope/vim-surround'
 X
-Xlet g:colors_name = "my-colors"
+Xcall vundle#end()
 X
-Xif has("gui_running") || &t_Co == 88 || &t_Co == 256
-X	" Returns an approximate grey index for the given grey level
-X	fun <SID>grey_number(x)
-X		if &t_Co == 88
-X			if a:x < 23
-X				return 0
-X			elseif a:x < 69
-X				return 1
-X			elseif a:x < 103
-X				return 2
-X			elseif a:x < 127
-X				return 3
-X			elseif a:x < 150
-X				return 4
-X			elseif a:x < 173
-X				return 5
-X			elseif a:x < 196
-X				return 6
-X			elseif a:x < 219
-X				return 7
-X			elseif a:x < 243
-X				return 8
-X			else
-X				return 9
-X			endif
-X		else
-X			if a:x < 14
-X				return 0
-X			else
-X				let l:n = (a:x - 8) / 10
-X				let l:m = (a:x - 8) % 10
-X				if l:m < 5
-X					return l:n
-X				else
-X					return l:n + 1
-X				endif
-X			endif
-X		endif
-X	endfun
+X"re-enable filetype
+Xfiletype plugin indent on
 X
-X	" Returns the actual grey level represented by the grey index
-X	fun <SID>grey_level(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 0
-X			elseif a:n == 1
-X				return 46
-X			elseif a:n == 2
-X				return 92
-X			elseif a:n == 3
-X				return 115
-X			elseif a:n == 4
-X				return 139
-X			elseif a:n == 5
-X				return 162
-X			elseif a:n == 6
-X				return 185
-X			elseif a:n == 7
-X				return 208
-X			elseif a:n == 8
-X				return 231
-X			else
-X				return 255
-X			endif
-X		else
-X			if a:n == 0
-X				return 0
-X			else
-X				return 8 + (a:n * 10)
-X			endif
-X		endif
-X	endfun
+Xcolorscheme my-colors
 X
-X	" Returns the palette index for the given grey index
-X	fun <SID>grey_colour(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 16
-X			elseif a:n == 9
-X				return 79
-X			else
-X				return 79 + a:n
-X			endif
-X		else
-X			if a:n == 0
-X				return 16
-X			elseif a:n == 25
-X				return 231
-X			else
-X				return 231 + a:n
-X			endif
-X		endif
-X	endfun
+X" change the mapleader from \ to ,
+Xlet mapleader=","
 X
-X	" Returns an approximate colour index for the given colour level
-X	fun <SID>rgb_number(x)
-X		if &t_Co == 88
-X			if a:x < 69
-X				return 0
-X			elseif a:x < 172
-X				return 1
-X			elseif a:x < 230
-X				return 2
-X			else
-X				return 3
-X			endif
-X		else
-X			if a:x < 75
-X				return 0
-X			else
-X				let l:n = (a:x - 55) / 40
-X				let l:m = (a:x - 55) % 40
-X				if l:m < 20
-X					return l:n
-X				else
-X					return l:n + 1
-X				endif
-X			endif
-X		endif
-X	endfun
+X" Encoding
+Xset encoding=utf8 nobomb
 X
-X	" Returns the actual colour level for the given colour index
-X	fun <SID>rgb_level(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 0
-X			elseif a:n == 1
-X				return 139
-X			elseif a:n == 2
-X				return 205
-X			else
-X				return 255
-X			endif
-X		else
-X			if a:n == 0
-X				return 0
-X			else
-X				return 55 + (a:n * 40)
-X			endif
-X		endif
-X	endfun
+X" set up the stuff for color highlighing in an xterm
+X" mac os X t_co=16
+Xset t_Co=256
+X" ctrl+v+Esc
+Xset t_Sf=[3%dm
+Xset t_Sb=[[4%dm
 X
-X	" Returns the palette index for the given R/G/B colour indices
-X	fun <SID>rgb_colour(x, y, z)
-X		if &t_Co == 88
-X			return 16 + (a:x * 16) + (a:y * 4) + a:z
-X		else
-X			return 16 + (a:x * 36) + (a:y * 6) + a:z
-X		endif
-X	endfun
+X" Vim will never flash the screen
+Xset t_vb=
 X
-X	" Returns the palette index to approximate the given R/G/B colour levels
-X	fun <SID>colour(r, g, b)
-X		" Get the closest grey
-X		let l:gx = <SID>grey_number(a:r)
-X		let l:gy = <SID>grey_number(a:g)
-X		let l:gz = <SID>grey_number(a:b)
+X" Terminal title
+Xset title
 X
-X		" Get the closest colour
-X		let l:x = <SID>rgb_number(a:r)
-X		let l:y = <SID>rgb_number(a:g)
-X		let l:z = <SID>rgb_number(a:b)
+X" Search history and undo level
+Xset history=1000
+Xset undolevels=1000
 X
-X		if l:gx == l:gy && l:gy == l:gz
-X			" There are two possibilities
-X			let l:dgr = <SID>grey_level(l:gx) - a:r
-X			let l:dgg = <SID>grey_level(l:gy) - a:g
-X			let l:dgb = <SID>grey_level(l:gz) - a:b
-X			let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
-X			let l:dr = <SID>rgb_level(l:gx) - a:r
-X			let l:dg = <SID>rgb_level(l:gy) - a:g
-X			let l:db = <SID>rgb_level(l:gz) - a:b
-X			let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
-X			if l:dgrey < l:drgb
-X				" Use the grey
-X				return <SID>grey_colour(l:gx)
-X			else
-X				" Use the colour
-X				return <SID>rgb_colour(l:x, l:y, l:z)
-X			endif
-X		else
-X			" Only one possibility
-X			return <SID>rgb_colour(l:x, l:y, l:z)
-X		endif
-X	endfun
+X" Auto reload file on external change
+Xset autoread
 X
-X	" Returns the palette index to approximate the 'rrggbb' hex string
-X	fun <SID>rgb(rgb)
-X		let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
-X		let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
-X		let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
+X" Syntax highlight
+Xsyntax on
 X
-X		return <SID>colour(l:r, l:g, l:b)
-X	endfun
+X" set old regex engine
+X" if version > 703
+X"    set re=1
+X" endif
 X
-X	" Sets the highlighting for the given group
-X	fun <SID>X(group, fg, bg, attr)
-X		if a:fg != ""
-X			exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
-X		endif
-X		if a:bg != ""
-X			exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
-X		endif
-X		if a:attr != ""
-X			exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-X		endif
-X	endfun
+Xset noinsertmode
+Xset number
+Xset hlsearch
+Xnnoremap <leader><space> :noh<CR>
+Xset listchars=tab:▸\ ,eol:¬,trail:·
 X
-X	" Vim Highlighting
-X	call <SID>X("Error", s:constants, "none", "none")
-X	call <SID>X("ErrorMsg", s:constants, "none", "none")
-X	call <SID>X("Normal", s:foreground, s:background, "")
-X	call <SID>X("LineNr", s:selection, "", "")
-X	call <SID>X("NonText", s:selection, "", "")
-X	call <SID>X("SpecialKey", s:selection, "", "")
-X	call <SID>X("Search", s:background, s:yellow, "")
-X	call <SID>X("TabLine", s:window, s:foreground, "reverse")
-X	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-X	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
-X	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
-X	call <SID>X("VertSplit", s:window, s:window, "none")
-X	call <SID>X("Visual", "", s:selection, "")
-X	call <SID>X("Directory", s:blue, "", "")
-X	call <SID>X("ModeMsg", s:green, "", "")
-X	call <SID>X("MoreMsg", s:green, "", "")
-X	call <SID>X("Question", s:green, "", "")
-X	call <SID>X("WarningMsg", s:red, "", "")
-X	call <SID>X("MatchParen", "", s:selection, "")
-X	call <SID>X("Folded", s:comment, s:background, "")
-X	call <SID>X("FoldColumn", "", s:background, "")
-X	if version >= 700
-X		call <SID>X("CursorLine", "", s:line, "none")
-X		call <SID>X("CursorColumn", "", s:line, "none")
-X		call <SID>X("PMenu", s:foreground, s:selection, "none")
-X		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
-X		call <SID>X("SignColumn", "", s:background, "none")
-X	end
-X	if version >= 703
-X		call <SID>X("ColorColumn", "", s:line, "none")
-X	end
+X" Ignore case on search
+Xset ignorecase
+Xset smartcase
 X
-X	" Standard Highlighting
-X	call <SID>X("Comment", s:comment, "", "")
-X	call <SID>X("Todo", s:comment, s:background, "")
-X	call <SID>X("Title", s:comment, "", "")
-X	call <SID>X("Identifier", s:red, "", "none")
-X	call <SID>X("Statement", s:foreground, "", "")
-X	call <SID>X("Conditional", s:foreground, "", "")
-X	call <SID>X("Repeat", s:foreground, "", "")
-X	call <SID>X("Structure", s:purple, "", "")
-X	call <SID>X("Function", s:blue, "", "")
-X	call <SID>X("Constant", s:orange, "", "")
-X	call <SID>X("String", s:green, "", "")
-X	call <SID>X("Special", s:foreground, "", "")
-X	call <SID>X("PreProc", s:purple, "", "")
-X	call <SID>X("Operator", s:aqua, "", "none")
-X	call <SID>X("Type", s:blue, "", "none")
-X	call <SID>X("Define", s:purple, "", "none")
-X	call <SID>X("Include", s:blue, "", "")
-X	"call <SID>X("Ignore", "666666", "", "")
+X" Allow us to backspace before an insert
+Xset backspace=2
 X
-X	" Vim Highlighting
-X	call <SID>X("vimCommand", s:red, "", "none")
+X" Standard file
+Xset ffs=unix
 X
-X	" C Highlighting
-X	call <SID>X("cType", s:yellow, "", "")
-X	call <SID>X("cStorageClass", s:purple, "", "")
-X	call <SID>X("cConditional", s:purple, "", "")
-X	call <SID>X("cRepeat", s:purple, "", "")
+X" No backups
+Xset nobackup
+Xset nowb
+Xset noswapfile
 X
-X	" PHP Highlighting
-X	call <SID>X("phpClasses", s:identifiers, "", "")
-X	call <SID>X("phpConditional", s:purple, "", "")
-X	call <SID>X("phpConstants", s:constants, "", "")
-X	call <SID>X("phpFunctions", s:functions, "", "")
-X	call <SID>X("phpIdentifier", s:red, "", "")
-X	call <SID>X("phpInclude", s:red, "", "")
-X	call <SID>X("phpKeyword", s:purple, "", "")
-X	call <SID>X("phpMemberSelector", s:foreground, "", "")
-X	call <SID>X("phpMethodsVar", s:identifiers, "", "")
-X	call <SID>X("phpNumber", s:yellow, "", "")
-X	call <SID>X("phpOperator", s:operators, "", "")
-X	call <SID>X("phpParent", s:operators, "", "")
-X	call <SID>X("phpRegion", s:blue, "", "")
-X	call <SID>X("phpRepeat", s:purple, "", "")
-X	call <SID>X("phpSpecial", s:yellow, "", "")
-X	call <SID>X("phpStatement", s:purple, "", "")
-X	call <SID>X("phpStringSingle", s:stringSingle, "", "")
-X	call <SID>X("phpType", s:keywords, "", "")
-X	call <SID>X("phpVarSelector", s:orange, "", "")
+X" Spaces instead of tabs
+Xset tabstop=4
+Xset shiftwidth=4
+Xset expandtab
+Xset autoindent
+Xset softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE"
+Xset shiftround    " round indent to multiple of 'shiftwidth'
+Xset smarttab
 X
-X	" Ruby Highlighting
-X	call <SID>X("rubySymbol", s:green, "", "")
-X	call <SID>X("rubyConstant", s:yellow, "", "")
-X	call <SID>X("rubyAccess", s:yellow, "", "")
-X	call <SID>X("rubyAttribute", s:blue, "", "")
-X	call <SID>X("rubyInclude", s:blue, "", "")
-X	call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
-X	call <SID>X("rubyCurlyBlock", s:orange, "", "")
-X	call <SID>X("rubyStringDelimiter", s:green, "", "")
-X	call <SID>X("rubyInterpolationDelimiter", s:orange, "", "")
-X	call <SID>X("rubyConditional", s:purple, "", "")
-X	call <SID>X("rubyRepeat", s:purple, "", "")
-X	call <SID>X("rubyControl", s:purple, "", "")
-X	call <SID>X("rubyException", s:purple, "", "")
+X" create new tab
+Xnnoremap <leader>t :tabnew<CR>
 X
-X	" Python Highlighting
-X	call <SID>X("pythonBinNumber", s:yellow, "", "")
-X	call <SID>X("pythonBoolean", s:orange, "", "")
-X	call <SID>X("pythonConditional", s:orange, "", "")
-X	call <SID>X("pythonDot", s:red, "", "")
-X	call <SID>X("pythonExClass", s:orange, "", "")
-X	call <SID>X("pythonException", s:purple, "", "")
-X	call <SID>X("pythonFloat", s:yellow, "", "")
-X	call <SID>X("pythonFunction", s:purple, "", "")
-X	call <SID>X("pythonHexNumber", s:yellow, "", "")
-X	call <SID>X("pythonImport", s:red, "", "")
-X	call <SID>X("pythonNumber", s:yellow, "", "")
-X	call <SID>X("pythonOctNumber", s:yellow, "", "")
-X	call <SID>X("pythonPreCondit", s:red, "", "")
-X	call <SID>X("pythonRepeat", s:orange, "", "")
-X	call <SID>X("pythonStatement", s:identifiers, "", "")
-X	call <SID>X("pythonStrFormatting", s:keywords, "", "")
-X	call <SID>X("pythonBytesEscape", s:orange, "", "")
+X" Show the ruler for editing
+Xset ruler
 X
-X	" JavaScript Highlighting
-X	call <SID>X("jEffects", s:identifiers, "", "")
-X	call <SID>X("jEvents", s:identifiers, "", "")
-X	call <SID>X("jForms", s:keywords, "", "")
-X	call <SID>X("jFunc", s:purple, "", "")
-X	call <SID>X("jManipulation", s:identifiers, "", "")
-X	call <SID>X("jQuery", s:yellow, "", "")
-X	call <SID>X("javaScriptBoolean", s:red, "", "")
-X	call <SID>X("javaScriptBraces", s:red, "", "")
-X	call <SID>X("javaScriptConditional", s:purple, "", "")
-X	call <SID>X("javaScriptDOMObjects", s:keywords, "", "")
-X	call <SID>X("javaScriptEndColons", s:operators, "", "")
-X	call <SID>X("javaScriptExceptions", s:identifiers, "", "")
-X	call <SID>X("javaScriptFuncArg", s:orange, "", "")
-X	call <SID>X("javaScriptFuncDef", s:identifiers, "", "")
-X	call <SID>X("javaScriptFuncKeyword", s:purple, "", "")
-X	call <SID>X("javaScriptGlobalObjects", s:blue, "", "")
-X	call <SID>X("javaScriptIdentifier", s:keywords, "", "")
-X	call <SID>X("javaScriptMember", s:orange, "", "")
-X	call <SID>X("javaScriptNumber", s:yellow, "", "")
-X	call <SID>X("javaScriptOpSymbols", s:orange, "", "")
-X	call <SID>X("javaScriptOperator", s:yellow, "", "")
-X	call <SID>X("javaScriptParens", s:operators, "", "")
-X	call <SID>X("javaScriptRepeat", s:purple, "", "")
-X	call <SID>X("javaScriptStatement", s:purple, "", "")
-X	call <SID>X("javaScriptStringD", s:green, "", "")
-X	call <SID>X("javaScriptStringS", s:stringSingle, "", "")
+X" Turn off the mouse in the xterm
+Xset mouse=
 X
-X	" HTML Highlighting
-X	call <SID>X("htmlTag", s:red, "", "")
-X	call <SID>X("htmlTagName", s:red, "", "")
-X	call <SID>X("htmlArg", s:red, "", "")
-X	call <SID>X("htmlScriptTag", s:red, "", "")
+X" Show the command in the status line
+Xset showcmd
 X
-X	" Diff Highlighting
-X	call <SID>X("diffAdded", s:green, "", "")
-X	call <SID>X("diffRemoved", s:red, "", "")
+X" Always have a status line
+Xset laststatus=2
 X
-X	" ShowMarks Highlighting
-X	call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
-X	call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
-X	call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
-X	call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
+X" save on losing focus
+Xau FocusLost * :wa
 X
-X	" Cucumber Highlighting
-X	call <SID>X("cucumberGiven", s:blue, "", "")
-X	call <SID>X("cucumberGivenAnd", s:blue, "", "")
+X" Delete trailing white spaces on close
+X"\( ... Start a match group
+X"$\n .. Match a new line (end-of-line character followed by a carriage return).
+X"\) ... End the match group
+X"\+ ... Allow any number of occurrences of this group (one or more).
+X"\%$ .. Match the end of the file
+Xau BufWritePre,FileWritePre * %s/\s\+$//e | %s/\r$//e | %s#\($\n\)\+\%$##e
 X
-X	" Go Highlighting
-X	call <SID>X("goDirective", s:red, "", "")
-X	call <SID>X("goDeclaration", s:purple, "", "")
-X	call <SID>X("goStatement", s:purple, "", "")
-X	call <SID>X("goConditional", s:purple, "", "")
-X	call <SID>X("goConstants", s:orange, "", "")
-X	call <SID>X("goTodo", s:yellow, "", "")
-X	call <SID>X("goDeclType", s:yellow, "", "")
-X	call <SID>X("goBuiltins", s:purple, "", "")
-X	call <SID>X("goOperator", s:blue, "", "")
-X	call <SID>X("goFormatSpecifier", s:keywords, "", "")
-X	call <SID>X("goRepeat", s:sky, "", "")
-X	call <SID>X("goEscapeC", s:orange, "", "")
-X	call <SID>X("goMethod", s:identifiers, "", "")
-X	call <SID>X("goFunction", s:constants, "", "")
-X	call <SID>X("goStructDef", s:functions, "", "")
-X	call <SID>X("goType", s:red, "", "")
-X	call <SID>X("goSignedInts", s:red, "", "")
-X	call <SID>X("goUnsignedInts", s:red, "", "")
-X	call <SID>X("goFloats", s:red, "", "")
-X	call <SID>X("goComplexes", s:red, "", "")
-X	call <SID>X("goString", s:green, "", "")
+X" associate *.tpl with php filetype
+Xau BufRead,BufNewFile *.tpl set ft=php
 X
-X	" Lua Highlighting
-X	call <SID>X("luaStatement", s:purple, "", "")
-X	call <SID>X("luaRepeat", s:purple, "", "")
-X	call <SID>X("luaCondStart", s:purple, "", "")
-X	call <SID>X("luaCondElseif", s:purple, "", "")
-X	call <SID>X("luaCond", s:purple, "", "")
-X	call <SID>X("luaCondEnd", s:purple, "", "")
+X" associate *.json with json filetype
+Xau BufRead,BufNewFile *.json set ft=json syntax=javascript
 X
-X	" Delete Functions
-X	delf <SID>X
-X	delf <SID>rgb
-X	delf <SID>colour
-X	delf <SID>rgb_colour
-X	delf <SID>rgb_level
-X	delf <SID>rgb_number
-X	delf <SID>grey_colour
-X	delf <SID>grey_level
-X	delf <SID>grey_number
+X" associate jquery.*.js
+Xau BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+X
+X" associate *.jinja with jinja filetype
+Xau BufRead,BufNewFile *.jinja set ft=jinja
+X
+X" enable cold folding
+Xau FileType javascript call JavaScriptFold()
+X
+X" Split windows vertically
+Xmap <F11> <C-W>v
+X
+X" NERDTree
+Xnnoremap <leader>n :NERDTreeToggle<CR>
+X
+X" Tagbar
+Xnnoremap <leader>h :TagbarToggle<CR>
+X
+X" folding settings za
+Xset foldmethod=indent   "fold based on indent
+Xset foldnestmax=10      "deepest fold is 10 levels
+Xset nofoldenable        "dont fold by default
+Xset foldlevel=1         "this is just what i use
+X
+X" mapping of space bar to open/close
+Xnnoremap <space> za
+X
+X" status line
+Xset statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%][WORKON=%{pythonworkon}]\ %)
+X
+X" syntastic
+Xlet g:syntastic_error_symbol='✗'
+Xlet g:syntastic_warning_symbol='⚠'
+Xlet g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
+Xlet g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
+Xhi SyntasticErrorSign ctermfg=red ctermbg=none
+Xhi SyntasticWarningSign ctermfg=yellow ctermbg=none
+Xhi SyntasticErrorLine   ctermbg=52
+Xhi SyntasticWarningLine ctermbg=58
+X
+X" CtrlP
+Xlet g:ctrlp_working_path_mode = 'c'
+X
+Xset wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
+X
+X" Autoformat
+Xnnoremap <leader>ff :Autoformat<CR>
+X" Test this to check if autopep8 working
+X" echo "print 'coração niño'" | autopep8 -
+Xlet g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
+Xlet g:formatprg_json = "jsonlint"
+Xlet g:formatprg_args_json = "--pretty-print"
+X
+X" vim-php-cs-fixer
+Xlet g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
+Xlet g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
+Xnnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
+X
+X" Autocomplete PHP
+Xau FileType php set omnifunc=phpcomplete#CompletePHP
+Xau FileType python set omnifunc=pythoncomplete#Complete
+Ximap <leader><tab> <c-x><c-o>
+X
+X" Python ident
+Xau FileType python set ts=8 sts=4 et sw=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+X
+X" abbreviations
+Xinoreabbr datee  <c-r>=strftime("%F")<CR>
+X
+X" cursorline
+X:nnoremap <Leader>x :set cursorline! cursorcolumn!<CR>
+X
+X" :h last-position-jump
+Xau BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+X
+X" map quick quit
+Xmap <leader>qq :qa!<CR>
+X
+X" easy resize
+Xcall submode#enter_with('h/l', 'n', '', '<C-w>h', '<C-w><')
+Xcall submode#enter_with('h/l', 'n', '', '<C-w>l', '<C-w>>')
+Xcall submode#map('h/l', 'n', '', 'h', '<C-w><')
+Xcall submode#map('h/l', 'n', '', 'l', '<C-w>>')
+Xcall submode#enter_with('j/k', 'n', '', '<C-w>j', '<C-w>-')
+Xcall submode#enter_with('j/k', 'n', '', '<C-w>k', '<C-w>+')
+Xcall submode#map('j/k', 'n', '', 'j', '<C-w>-')
+Xcall submode#map('j/k', 'n', '', 'k', '<C-w>+')
+X
+X" scroll
+Xcall submode#enter_with('sj', 'n', '', '<leader>j', '<C-d>')
+Xcall submode#enter_with('sk', 'n', '', '<leader>k', '<C-u>')
+Xcall submode#map('sj', 'n', '', 'j', '<C-d>')
+Xcall submode#map('sk', 'n', '', 'k', '<C-u>')
+X
+X" tmux compatible splits
+Xnnoremap <C-w>" <C-w>s
+Xnnoremap <C-w>% <C-w>v
+Xnnoremap <C-w>! <C-w>T
+X
+X" Maps <C-h/j/k/l> to switch vim splits in the given direction. If there are
+X" no more windows in that direction, forwards the operation to tmux.
+Xif exists('$TMUX')
+X  let s:tmux_is_last_pane = 0
+X  au WinEnter * let s:tmux_is_last_pane = 0
+X
+X  " Like `wincmd` but also change tmux panes instead of vim windows when needed.
+X  function s:TmuxWinCmd(direction, tmuxdir)
+X    let nr = winnr()
+X    " try to switch windows within vim
+X    exec 'wincmd ' . a:direction
+X    " Forward the switch panes command to tmux if:
+X    " we tried switching windows in vim but it didn't have effect.
+X    if nr == winnr()
+X      let cmd = 'tmux select-pane -' . a:tmuxdir
+X      call system(cmd)
+X      let s:tmux_is_last_pane = 1
+X      echo cmd
+X    else
+X      let s:tmux_is_last_pane = 0
+X    endif
+X  endfunction
+X
+X  " navigate between split windows/tmux panes
+X  map <c-h> :call <SID>TmuxWinCmd('h', 'L')<cr>
+X  map <c-j> :call <SID>TmuxWinCmd('j', 'D')<cr>
+X  map <c-k> :call <SID>TmuxWinCmd('k', 'U')<cr>
+X  map <c-l> :call <SID>TmuxWinCmd('l', 'R')<cr>
+Xelse
+X  nnoremap <C-h> <C-w>h
+X  nnoremap <C-j> <C-w>j
+X  nnoremap <C-k> <C-w>k
+X  nnoremap <C-l> <C-w>l
 Xendif
 X
-Xset background=dark
-c0416bb63bd39116248e57143b34af7a
+X" switches delimitMate on and off
+Xnnoremap <leader>d :DelimitMateSwitch<CR>
+X
+Xif executable("par")
+X  set formatprg=par\ -w80
+Xendif
+X
+X" wrap text
+Xmap <leader>w {v}!fmt -w80<CR>
+Xvmap <leader>w !fmt -w80<CR>
+X
+X
+X" Add the virtualenv's site-packages to vim path
+Xlet g:pythonworkon = "System"
+Xif has("python")
+Xpy << EOF
+Ximport os.path
+Ximport sys
+Ximport vim
+Xif 'VIRTUAL_ENV' in os.environ:
+X    project_base_dir = os.environ['VIRTUAL_ENV']
+X    sys.path.insert(0, project_base_dir)
+X    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+X    execfile(activate_this, dict(__file__=activate_this))
+X    # Save virtual environment name to VIM variable
+X    vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
+XEOF
+Xendif
+X
+X" Diff current buffer and the original file
+Xnnoremap <leader>di :w !diff % -<CR>
+X
+X" Ack
+Xnnoremap <leader>a :Ack
+X
+X" underline
+Xnnoremap <leader>1 yypVr=
+Xnnoremap <leader>2 yypVr-
+Xnnoremap <leader>3 yypVr.
+Xnnoremap <leader>0 :put = \"# ----------------------------------------------------------------------------\"<CR>
+X
+X" toogle hex
+Xlet $in_hex=0
+Xfunction HexMe()
+X  set binary
+X  set noeol
+X  if $in_hex > 0
+X    :%!xxd -r
+X    let $in_hex=0
+X  else
+X    :%!xxd
+X    let $in_hex=1
+X  endif
+Xendfunction
+Xnnoremap <leader>hex :call HexMe()<CR>
+X
+X" enable all syntax highlighting features
+Xlet python_highlight_all = 1
+X
+X" keyword information
+Xnnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}}<CR>
+Xnnoremap <leader>ki :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+X
+X" syntax jquery
+Xnnoremap <leader>jq :set syntax=jquery<CR>
+X
+X" replace tabs with spaces
+Xnnoremap <leader>rt :%s/\t/  /g<CR>
+X
+X" spell
+Xnnoremap <leader>s :setlocal spell!<CR>
+Xset spelllang=en
+X
+X" vim-marker
+Xlet g:vim_markdown_folding_disabled=1
+X
+X" browse oldfiles
+Xnnoremap <leader>o :browse oldfiles<CR>
+Xnnoremap <leader>l :CtrlPMRU<CR>
+X
+X" Compile LessCSS on save
+Xautocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
+X
+X" Compile script.src.js -> script.min.js
+Xnnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
+X
+X" prety json
+Xnnoremap <leader>pj :%!python -m json.tool<CR>
+X
+X" found no ASCII
+X" Once you're on a particular one, use ga
+X" to determine the ASCII value of the character in question, and
+Xnnoremap <leader>xa :/[^\x00-\x7F]<CR>
+X"
+X" sh
+Xset shell=/bin/sh
+X
+X" go
+Xau FileType go nmap <leader>r <Plug>(go-run)
+Xlet g:go_highlight_functions = 1
+Xlet g:go_highlight_methods = 1
+Xlet g:go_highlight_structs = 1
+X
+X" diff highlights
+Xhighlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green
+Xhighlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
+Xhighlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
+Xhighlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
+Xautocmd FileType * if &diff | setlocal syntax= | endif
+END-of-./.vimrc
+echo c - ./.zsh
+mkdir -p ./.zsh > /dev/null 2>&1
+echo c - ./.zsh/functions
+mkdir -p ./.zsh/functions > /dev/null 2>&1
+echo x - ./.zsh/functions/pure_prompt
+sed 's/^X//' >./.zsh/functions/pure_prompt << 'END-of-./.zsh/functions/pure_prompt'
+X# see https://github.com/sindresorhus/pure
+X
+X# turns seconds into human readable time
+X# 165392 => 1d 21h 56m 32s
+Xpure_prompt_human_time() {
+X	echo -n " "
+X	local tmp=$1
+X	local days=$(( tmp / 60 / 60 / 24 ))
+X	local hours=$(( tmp / 60 / 60 % 24 ))
+X	local minutes=$(( tmp / 60 % 60 ))
+X	local seconds=$(( tmp % 60 ))
+X	(( $days > 0 )) && echo -n "${days}d "
+X	(( $hours > 0 )) && echo -n "${hours}h "
+X	(( $minutes > 0 )) && echo -n "${minutes}m "
+X	echo "${seconds}s"
+X}
+X
+X# fastest possible way to check if repo is dirty
+Xpure_prompt_git_dirty() {
+X	# check if we're in a git repo
+X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
+X
+X    # ----------------------------------------------------------------------------
+X	# check if it's dirty
+X	# [[ "$PURE_GIT_UNTRACKED_DIRTY" == 0 ]] && local umode="-uno" || local umode="-unormal"
+X	# command test -n "$(git status --porcelain --ignore-submodules ${umode})"
+X	# (($? == 0)) && echo '*'
+X    # ----------------------------------------------------------------------------
+X
+X    local GIT_STATE=""
+X
+X    local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+X    if [ "$NUM_AHEAD" -gt 0 ]; then
+X        GIT_STATE="$GIT_STATE (+$NUM_AHEAD)"
+X    fi
+X
+X    local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+X    if [ "$NUM_BEHIND" -gt 0 ]; then
+X        if [[ -n $GIT_STATE ]]; then
+X            GIT_STATE="$GIT_STATE"
+X        fi
+X        GIT_STATE="$GIT_STATE (-$NUM_BEHIND)"
+X    fi
+X
+X    local GIT_STATUS="$(git status --porcelain | awk -v ORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')"
+X    [[ ! -z "${GIT_STATUS// }" ]] && GIT_STATE="$GIT_STATE %F{5}[$GIT_STATUS]"
+X
+X    if ! git diff --cached --quiet 2> /dev/null; then
+X        GIT_STATE="$GIT_STATE %F{7}[staged]"
+X    fi
+X
+X    echo $GIT_STATE
+X}
+X
+X# displays the exec time of the last command if set threshold was exceeded
+Xpure_prompt_cmd_exec_time() {
+X	local stop=$EPOCHSECONDS
+X	local start=${cmd_timestamp:-$stop}
+X	integer elapsed=$stop-$start
+X	(($elapsed > 5)) && pure_prompt_human_time $elapsed
+X}
+X
+Xpure_prompt_preexec() {
+X	cmd_timestamp=$EPOCHSECONDS
+X
+X	# shows the current dir and executed command in the title when a process is active
+X	print -Pn "\e]0;"
+X	echo -nE "$PWD:t: $2"
+X	print -Pn "\a"
+X}
+X
+X# string length ignoring ansi escapes
+Xpure_prompt_string_length() {
+X	# Subtract one since newline is counted as two characters
+X	#echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
+X    # print at the right side
+X    #echo ${(l:$COLUMNS::-:)}
+X    echo $(($COLUMNS-2))
+X}
+X
+Xpure_prompt_precmd() {
+X	# shows the full path in the title
+X	print -Pn '\e]0;%~\a'
+X
+X	# git info
+X	vcs_info
+X
+X	local pure_prompt_preprompt="\n$pure_prompt_username %F{074}%~%F{3}$vcs_info_msg_0_%F{1}`pure_prompt_git_dirty`%f%F{011}`pure_prompt_cmd_exec_time`%f"
+X	print -P $pure_prompt_preprompt
+X
+X	# check async if there is anything to pull
+X	(( ${PURE_GIT_PULL:-1} )) && {
+X		# check if we're in a git repo
+X		[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] &&
+X		# make sure working tree is not $HOME
+X		[[ "$(command git rev-parse --show-toplevel)" != "$HOME" ]] &&
+X		# check check if there is anything to pull
+X        # set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
+X		GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch &>/dev/null &&
+X		# check if there is an upstream configured for this branch
+X		command git rev-parse --abbrev-ref @'{u}' &>/dev/null && {
+X			local arrows=''
+X			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='-'
+X			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='+'
+X            [[ "$arrows" == '-+' ]] && arrows='±'
+X			print -Pn "\e7\e[A\e[1G\e[`pure_prompt_string_length $pure_prompt_preprompt`C%F{6}${arrows:-%F\{2\}•}%f\e8"
+X		}
+X	} &!
+X
+X	# reset value since `preexec` isn't always triggered
+X	unset cmd_timestamp
+X}
+X
+X
+Xpure_prompt() {
+X	# prevent percentage showing up if output doesn't end with a newline
+X	export PROMPT_EOL_MARK=''
+X
+X	prompt_opts=(cr subst percent)
+X
+X	zmodload zsh/datetime
+X	autoload -Uz add-zsh-hook
+X	autoload -Uz vcs_info
+X
+X	add-zsh-hook precmd pure_prompt_precmd
+X	add-zsh-hook preexec pure_prompt_preexec
+X
+X	zstyle ':vcs_info:*' enable git
+X	zstyle ':vcs_info:*' use-simple true
+X	zstyle ':vcs_info:git*' formats ' %b'
+X	zstyle ':vcs_info:git*' actionformats ' %b|%a'
+X
+X	pure_prompt_username='%F{2}%n'
+X
+X	# show username@host if logged in through SSH
+X	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
+X
+X	# show username@host if root, with username in red
+X	[[ $UID -eq 0 ]] && pure_prompt_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
+X
+X	# prompt turns red if the previous command didn't exit with 0
+X    PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
+X}
+X
+Xpure_prompt "$@"
+END-of-./.zsh/functions/pure_prompt
+echo c - ./.zsh/plugins
+mkdir -p ./.zsh/plugins > /dev/null 2>&1
+echo x - ./.zsh/plugins/git-flow-completion.zsh
+sed 's/^X//' >./.zsh/plugins/git-flow-completion.zsh << 'END-of-./.zsh/plugins/git-flow-completion.zsh'
+X#!zsh
+X#
+X# Installation
+X# ------------
+X#
+X# To achieve git-flow completion nirvana:
+X#
+X#  0. Update your zsh's git-completion module to the newest verion.
+X#     From here. http://zsh.git.sourceforge.net/git/gitweb.cgi?p=zsh/zsh;a=blob_plain;f=Completion/Unix/Command/_git;hb=HEAD
+X#
+X#  1. Install this file. Either:
+X#
+X#     a. Place it in your .zshrc:
+X#
+X#     b. Or, copy it somewhere (e.g. ~/.git-flow-completion.zsh) and put the following line in
+X#        your .zshrc:
+X#
+X#            source ~/.git-flow-completion.zsh
+X#
+X#     c. Or, use this file as a oh-my-zsh plugin.
+X#
+X
+X_git-flow ()
+X{
+X	local curcontext="$curcontext" state line
+X	typeset -A opt_args
+X
+X	_arguments -C \
+X		':command:->command' \
+X		'*::options:->options'
+X
+X	case $state in
+X		(command)
+X
+X			local -a subcommands
+X			subcommands=(
+X				'init:Initialize a new git repo with support for the branching model.'
+X				'feature:Manage your feature branches.'
+X				'config:Manage your configuration.'
+X				'release:Manage your release branches.'
+X				'hotfix:Manage your hotfix branches.'
+X				'support:Manage your support branches.'
+X				'version:Shows version information.'
+X			)
+X			_describe -t commands 'git flow' subcommands
+X		;;
+X
+X		(options)
+X			case $line[1] in
+X
+X				(init)
+X					_arguments \
+X						-f'[Force setting of gitflow branches, even if already configured]'
+X					;;
+X
+X					(version)
+X					;;
+X
+X					(hotfix)
+X						__git-flow-hotfix
+X					;;
+X
+X					(release)
+X						__git-flow-release
+X					;;
+X
+X					(feature)
+X						__git-flow-feature
+X					;;
+X					(config)
+X					__git-flow-config
+X					;;
+X
+X			esac
+X		;;
+X	esac
+X}
+X
+X__git-flow-release ()
+X{
+X	local curcontext="$curcontext" state line
+X	typeset -A opt_args
+X
+X	_arguments -C \
+X		':command:->command' \
+X		'*::options:->options'
+X
+X	case $state in
+X		(command)
+X
+X			local -a subcommands
+X			subcommands=(
+X				'start:Start a new release branch.'
+X				'finish:Finish a release branch.'
+X				'list:List all your release branches. (Alias to `git flow release`)'
+X				'publish:Publish release branch to remote.'
+X				'track:Checkout remote release branch.'
+X				'delete:Delete a release branch.'
+X			)
+X			_describe -t commands 'git flow release' subcommands
+X			_arguments \
+X				-v'[Verbose (more) output]'
+X		;;
+X
+X		(options)
+X			case $line[1] in
+X
+X				(start)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]'\
+X						':version:__git_flow_version_list'
+X				;;
+X
+X				(finish)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]' \
+X						-s'[Sign the release tag cryptographically]'\
+X						-u'[Use the given GPG-key for the digital signature (implies -s)]'\
+X						-m'[Use the given tag message]'\
+X						-p'[Push to $ORIGIN after performing finish]'\
+X						':version:__git_flow_version_list'
+X				;;
+X
+X				(delete)
+X					_arguments \
+X						-f'[Force deletion]' \
+X						-r'[Delete remote branch]' \
+X						':version:__git_flow_version_list'
+X				;;
+X
+X				(publish)
+X					_arguments \
+X						':version:__git_flow_version_list'
+X				;;
+X
+X				(track)
+X					_arguments \
+X						':version:__git_flow_version_list'
+X				;;
+X
+X				*)
+X					_arguments \
+X						-v'[Verbose (more) output]'
+X				;;
+X			esac
+X		;;
+X	esac
+X}
+X
+X__git-flow-hotfix ()
+X{
+X	local curcontext="$curcontext" state line
+X	typeset -A opt_args
+X
+X	_arguments -C \
+X		':command:->command' \
+X		'*::options:->options'
+X
+X	case $state in
+X		(command)
+X
+X			local -a subcommands
+X			subcommands=(
+X				'start:Start a new hotfix branch.'
+X				'finish:Finish a hotfix branch.'
+X				'delete:Delete a hotfix branch.'
+X				'list:List all your hotfix branches. (Alias to `git flow hotfix`)'
+X			)
+X			_describe -t commands 'git flow hotfix' subcommands
+X			_arguments \
+X				-v'[Verbose (more) output]'
+X		;;
+X
+X		(options)
+X			case $line[1] in
+X
+X				(start)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]'\
+X						':hotfix:__git_flow_version_list'\
+X						':branch-name:__git_branch_names'
+X				;;
+X
+X				(finish)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]' \
+X						-s'[Sign the release tag cryptographically]'\
+X						-u'[Use the given GPG-key for the digital signature (implies -s)]'\
+X						-m'[Use the given tag message]'\
+X						-p'[Push to $ORIGIN after performing finish]'\
+X						':hotfix:__git_flow_hotfix_list'
+X				;;
+X
+X				(delete)
+X					_arguments \
+X						-f'[Force deletion]' \
+X						-r'[Delete remote branch]' \
+X						':hotfix:__git_flow_hotfix_list'
+X				;;
+X
+X				*)
+X					_arguments \
+X						-v'[Verbose (more) output]'
+X				;;
+X			esac
+X		;;
+X	esac
+X}
+X
+X__git-flow-feature ()
+X{
+X	local curcontext="$curcontext" state line
+X	typeset -A opt_args
+X
+X	_arguments -C \
+X		':command:->command' \
+X		'*::options:->options'
+X
+X	case $state in
+X		(command)
+X
+X			local -a subcommands
+X			subcommands=(
+X				'start:Start a new feature branch.'
+X				'finish:Finish a feature branch.'
+X				'delete:Delete a feature branch.'
+X				'list:List all your feature branches. (Alias to `git flow feature`)'
+X				'publish:Publish feature branch to remote.'
+X				'track:Checkout remote feature branch.'
+X				'diff:Show all changes.'
+X				'rebase:Rebase from integration branch.'
+X				'checkout:Checkout local feature branch.'
+X				'pull:Pull changes from remote.'
+X			)
+X			_describe -t commands 'git flow feature' subcommands
+X			_arguments \
+X				-v'[Verbose (more) output]'
+X		;;
+X
+X		(options)
+X			case $line[1] in
+X
+X				(start)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]'\
+X						':feature:__git_flow_feature_list'\
+X						':branch-name:__git_branch_names'
+X				;;
+X
+X				(finish)
+X					_arguments \
+X						-F'[Fetch from origin before performing finish]' \
+X						-r'[Rebase instead of merge]'\
+X						':feature:__git_flow_feature_list'
+X				;;
+X
+X				(delete)
+X					_arguments \
+X						-f'[Force deletion]' \
+X						-r'[Delete remote branch]' \
+X						':feature:__git_flow_feature_list'
+X				;;
+X
+X				(publish)
+X					_arguments \
+X						':feature:__git_flow_feature_list'\
+X				;;
+X
+X				(track)
+X					_arguments \
+X						':feature:__git_flow_feature_list'\
+X				;;
+X
+X				(diff)
+X					_arguments \
+X						':branch:__git_branch_names'\
+X				;;
+X
+X				(rebase)
+X					_arguments \
+X						-i'[Do an interactive rebase]' \
+X						':branch:__git_branch_names'
+X				;;
+X
+X				(checkout)
+X					_arguments \
+X						':branch:__git_flow_feature_list'\
+X				;;
+X
+X				(pull)
+X					_arguments \
+X						':remote:__git_remotes'\
+X						':branch:__git_branch_names'
+X				;;
+X
+X				*)
+X					_arguments \
+X						-v'[Verbose (more) output]'
+X				;;
+X			esac
+X		;;
+X	esac
+X}
+X
+X__git-flow-config ()
+X{
+X	local curcontext="$curcontext" state line
+X	typeset -A opt_args
+X
+X	_arguments -C \
+X		':command:->command' \
+X		'*::options:->options'
+X
+X	case $state in
+X		(command)
+X
+X			local -a subcommands
+X			subcommands=(
+X				'list:List the configuration. (Alias to `git flow config`)'
+X				'set:Set the configuration option'
+X			)
+X			_describe -t commands 'git flow config' subcommands
+X		;;
+X
+X		(options)
+X			case $line[1] in
+X
+X				(set)
+X					_arguments \
+X						--local'[Use repository config file]' \
+X						--global'[Use global config file]'\
+X						--system'[Use system config file]'\
+X						--file'[Use given config file]'\
+X						':option:(master develop feature hotfix release support	versiontagprefix)'
+X				;;
+X
+X				*)
+X					_arguments \
+X						--local'[Use repository config file]' \
+X						--global'[Use global config file]'\
+X						--system'[Use system config file]'\
+X						--file'[Use given config file]'
+X				;;
+X			esac
+X		;;
+X	esac
+X}
+X__git_flow_version_list ()
+X{
+X	local expl
+X	declare -a versions
+X
+X	versions=(${${(f)"$(_call_program versions git flow release list 2> /dev/null | tr -d ' |*')"}})
+X	__git_command_successful || return
+X
+X	_wanted versions expl 'version' compadd $versions
+X}
+X
+X__git_flow_feature_list ()
+X{
+X	local expl
+X	declare -a features
+X
+X	features=(${${(f)"$(_call_program features git flow feature list 2> /dev/null | tr -d ' |*')"}})
+X	__git_command_successful || return
+X
+X	_wanted features expl 'feature' compadd $features
+X}
+X
+X__git_remotes () {
+X	local expl gitdir remotes
+X
+X	gitdir=$(_call_program gitdir git rev-parse --git-dir 2>/dev/null)
+X	__git_command_successful || return
+X
+X	remotes=(${${(f)"$(_call_program remotes git config --get-regexp '"^remote\..*\.url$"')"}//#(#b)remote.(*).url */$match[1]})
+X	__git_command_successful || return
+X
+X	# TODO: Should combine the two instead of either or.
+X	if (( $#remotes > 0 )); then
+X		_wanted remotes expl remote compadd $* - $remotes
+X	else
+X		_wanted remotes expl remote _files $* - -W "($gitdir/remotes)" -g "$gitdir/remotes/*"
+X	fi
+X}
+X
+X__git_flow_hotfix_list ()
+X{
+X	local expl
+X	declare -a hotfixes
+X
+X	hotfixes=(${${(f)"$(_call_program hotfixes git flow hotfix list 2> /dev/null | tr -d ' |*')"}})
+X	__git_command_successful || return
+X
+X	_wanted hotfixes expl 'hotfix' compadd $hotfixes
+X}
+X
+X__git_branch_names () {
+X	local expl
+X	declare -a branch_names
+X
+X	branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads 2>/dev/null)"}#refs/heads/})
+X	__git_command_successful || return
+X
+X	_wanted branch-names expl branch-name compadd $* - $branch_names
+X}
+X
+X__git_command_successful () {
+X	if (( ${#pipestatus:#0} > 0 )); then
+X		_message 'not a git repository'
+X		return 1
+X	fi
+X	return 0
+X}
+X
+Xzstyle ':completion:*:*:git:*' user-commands flow:'provide high-level repository operations'
+END-of-./.zsh/plugins/git-flow-completion.zsh
 echo x - ./.zshenv
-sed 's/^X//' >./.zshenv << 'bde289ee531f64684452c31d9deb52c3'
+sed 's/^X//' >./.zshenv << 'END-of-./.zshenv'
 X# ----------------------------------------------------------------------------
 X# Put custom alias, vars here
 X# ----------------------------------------------------------------------------
 X
 Xexport ANSIBLE_HOSTS=~/ansible/hosts
-bde289ee531f64684452c31d9deb52c3
+Xexport ANSIBLE_CONFIG=~/ansible/ansible.cfg
+END-of-./.zshenv
 echo x - ./.zshrc
-sed 's/^X//' >./.zshrc << 'c661f76a246a94857e95cd1f98f2a23f'
+sed 's/^X//' >./.zshrc << 'END-of-./.zshrc'
 X# ----------------------------------------------------------------------------
 X# Put custom alias per host on .zshenv
 X# ----------------------------------------------------------------------------
@@ -2981,7 +2982,7 @@ X# ----------------------------------------------------------------------------
 Xzstyle ':completion::complete:*' use-cache 1
 Xzstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 Xzstyle ':completion:*' use-ip true
-Xzstyle ':completion:*:*:*:*:*' menu yes select
+X# zstyle ':completion:*:*:*:*:*' menu yes select
 Xzstyle ':completion:*:matches' group 'yes'
 Xzstyle ':completion:*:options' description 'yes'
 Xzstyle ':completion:*:options' auto-description '%d'
@@ -2993,10 +2994,9 @@ Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
 Xzstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 Xzstyle ':completion:*' group-name ''
 Xzstyle ':completion:*' verbose yes
+Xzstyle ':completion:*' file-sort modification
 X# Don't prompt for a huge list, page it!
 Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
-X# Have the newer files last so I see them first
-Xzstyle ':completion:*' file-sort modification reverse
 X# kill
 Xzstyle ':completion:*:kill:*' force-list always
 X
@@ -3031,7 +3031,7 @@ X#  --backup-dir=/tmp/rsync - move backup copies to "/tmp/rsync"
 X#  -e /dev/null - only work on local files
 Xalias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 X# git log
-Xalias gl="git log --graph --pretty=format:'%C(bold blue)%h%Creset -%C(bold yellow)%d%Creset %s %C(dim green)(%cr) %C(cyan)<%an>%Creset' --abbrev-commit"
+Xalias gl="git log --graph --pretty=format:'%C(red)%h%Creset -%C(bold yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
 Xcompdef t=tmux
@@ -3140,6 +3140,6 @@ X# prompt
 X# ----------------------------------------------------------------------------
 Xautoload -U pure_prompt && pure_prompt
 XRPROMPT='%F{8}%*'
-c661f76a246a94857e95cd1f98f2a23f
+END-of-./.zshrc
 exit
 

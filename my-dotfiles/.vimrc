@@ -172,6 +172,10 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 let g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
+hi SyntasticErrorSign ctermfg=red ctermbg=none
+hi SyntasticWarningSign ctermfg=yellow ctermbg=none
+hi SyntasticErrorLine   ctermbg=52
+hi SyntasticWarningLine ctermbg=58
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'c'
@@ -370,10 +374,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
-if &diff
-    syntax off
-    highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green gui=NONE guifg=bg guibg=Green
-    highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red gui=NONE guifg=bg guibg=Red
-    highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow gui=NONE guifg=bg guibg=Yellow
-    highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta gui=NONE guifg=bg guibg=Magenta
-endif
+" diff highlights
+highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green
+highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
+highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
+highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
+autocmd FileType * if &diff | setlocal syntax= | endif

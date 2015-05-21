@@ -78,7 +78,7 @@ setopt share_history # share command history data
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 zstyle ':completion:*' use-ip true
-zstyle ':completion:*:*:*:*:*' menu yes select
+# zstyle ':completion:*:*:*:*:*' menu yes select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -127,7 +127,7 @@ alias rm='rm -i'
 #  -e /dev/null - only work on local files
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 # git log
-alias gl="git log --graph --pretty=format:'%C(blue)%h%Creset -%C(bold yellow)%d%Creset %s %C(dim green)(%cr) %C(magenta)<%an>%Creset' --abbrev-commit"
+alias gl="git log --graph --pretty=format:'%C(red)%h%Creset -%C(bold yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
