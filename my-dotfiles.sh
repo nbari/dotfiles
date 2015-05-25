@@ -3409,6 +3409,7 @@ Xalias less='less -FSRX'
 Xalias ll='ls -ALF'
 Xalias mem='top -o vsize'
 Xalias mv='mv -i'
+Xalias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 Xalias path='echo -e ${PATH//:/\\n}'
 Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
