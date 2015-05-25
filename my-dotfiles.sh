@@ -9,6 +9,7 @@
 #	./.cshrc
 #	./.tmux.conf
 #	./.vim
+#	./.vim/.netrwhist
 #	./.vim/after
 #	./.vim/after/syntax
 #	./.vim/after/syntax/php.vim
@@ -23,6 +24,7 @@
 #	./.vimrc
 #	./.zsh
 #	./.zsh/functions
+#	./.zsh/functions/async
 #	./.zsh/functions/pure_prompt
 #	./.zsh/plugins
 #	./.zsh/plugins/git-flow-completion.zsh
@@ -143,6 +145,12 @@ Xbind E setw synchronize-panes off
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
+echo x - ./.vim/.netrwhist
+sed 's/^X//' >./.vim/.netrwhist << 'END-of-./.vim/.netrwhist'
+Xlet g:netrw_dirhistmax  =10
+Xlet g:netrw_dirhist_cnt =1
+Xlet g:netrw_dirhist_1='/Volumes/RAID/MEGA/projects/vpn'
+END-of-./.vim/.netrwhist
 echo c - ./.vim/after
 mkdir -p ./.vim/after > /dev/null 2>&1
 echo c - ./.vim/after/syntax
@@ -2322,13 +2330,284 @@ echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
 echo c - ./.zsh/functions
 mkdir -p ./.zsh/functions > /dev/null 2>&1
+echo x - ./.zsh/functions/async
+sed 's/^X//' >./.zsh/functions/async << 'END-of-./.zsh/functions/async'
+X#!/usr/bin/env zsh
+X
+X#
+X# zsh-async
+X#
+X# version: 0.2.1
+X# author: Mathias Fredriksson
+X# url: https://github.com/mafredri/zsh-async
+X#
+X
+X# Wrapper for jobs executed by the async worker, gives output in parseable format with execution time
+X_async_job() {
+X	# store start time
+X	local start=$EPOCHREALTIME
+X
+X	# run the command
+X	local out
+X	out=$($* 2>&1)
+X	local ret=$?
+X
+X	# Grab mutex lock
+X	read -ep >/dev/null
+X
+X	# return output (<job_name> <return_code> <output> <duration>)
+X	print -r -N -n -- $1 $ret "$out" $(( $EPOCHREALTIME - $start ))$'\0'
+X
+X	# Unlock mutex
+X	print -p "t"
+X}
+X
+X# The background worker manages all tasks and runs them without interfering with other processes
+X_async_worker() {
+X	local -A storage
+X	local unique=0
+X
+X	# Process option parameters passed to worker
+X	while getopts "np:u" opt; do
+X		case "$opt" in
+X		# Use SIGWINCH since many others seem to cause zsh to freeze, e.g. ALRM, INFO, etc.
+X		n) trap 'kill -WINCH $ASYNC_WORKER_PARENT_PID' CHLD;;
+X		p) ASYNC_WORKER_PARENT_PID=$OPTARG;;
+X		u) unique=1;;
+X		esac
+X	done
+X
+X	# Create a mutex for writing to the terminal through coproc
+X	coproc cat
+X	# Insert token into coproc
+X	print -p "t"
+X
+X	while read -r cmd; do
+X		# Separate on spaces into an array
+X		cmd=(${=cmd})
+X		local job=$cmd[1]
+X
+X		# Check for non-job commands sent to worker
+X		case "$job" in
+X		_killjobs)
+X			kill ${${(v)jobstates##*:*:}%=*} &>/dev/null
+X			continue
+X			;;
+X		esac
+X
+X		# If worker should perform unique jobs
+X		if ((unique)); then
+X			# Check if a previous job is still running, if yes, let it finnish
+X			for pid in ${${(v)jobstates##*:*:}%\=*}; do
+X				if [[ "${storage[$job]}" == "$pid" ]]; then
+X					continue 2
+X				fi
+X			done
+X		fi
+X
+X		# run task in background
+X		_async_job $cmd &
+X		# store pid because zsh job manager is extremely unflexible (show jobname as non-unique '$job')...
+X		storage[$job]=$!
+X	done
+X}
+X
+X#
+X#  Get results from finnished jobs and pass it to the to callback function. This is the only way to reliably return the
+X#  job name, return code, output and execution time and with minimal effort.
+X#
+X# usage:
+X# 	async_process_results <worker_name> <callback_function>
+X#
+X# callback_function is called with the following parameters:
+X# 	$1 = job name, e.g. the function passed to async_job
+X# 	$2 = return code
+X# 	$3 = resulting output from execution
+X# 	$4 = execution time, floating point e.g. 2.05 seconds
+X#
+Xasync_process_results() {
+X	integer count=0
+X	local -a items
+X	local IFS=$'\0'
+X
+X	typeset -gA ASYNC_PROCESS_BUFFER
+X	# Read output from zpty and parse it if available
+X	while zpty -rt $1 line 2>/dev/null; do
+X		# Remove unwanted \r from output
+X		ASYNC_PROCESS_BUFFER[$1]+=${line//$'\r'$'\n'/$'\n'}
+X		# Split buffer on null characters, preserve empty elements
+X		items=("${(@)=ASYNC_PROCESS_BUFFER[$1]}")
+X		# Remove last element since it's due to the return string separator structure
+X		items=("${(@)items[1,${#items}-1]}")
+X
+X		# Continue until we receive all information
+X		(( ${#items} % 4 )) && continue
+X
+X		# Work through all results
+X		while ((${#items} > 0)); do
+X			eval '$2 "${(@)=items[1,4]}"'
+X			shift 4 items
+X			count+=1
+X		done
+X
+X		# Empty the buffer
+X		ASYNC_PROCESS_BUFFER[$1]=""
+X	done
+X
+X	# If we processed any results, return success
+X	(( $count )) && return 0
+X
+X	# No results were processed
+X	return 1
+X}
+X
+X#
+X# Start a new asynchronous job on specified worker, assumes the worker is running.
+X#
+X# usage:
+X# 	async_job <worker_name> <my_function> [<function_params>]
+X#
+Xasync_job() {
+X	local worker=$1; shift
+X	zpty -w $worker $*
+X}
+X
+X# This function traps notification signals and calls all registered callbacks
+X_async_notify_trap() {
+X	for k in ${(k)ASYNC_CALLBACKS}; do
+X		async_process_results "${k}" "${ASYNC_CALLBACKS[$k]}"
+X	done
+X}
+X
+X#
+X# Register a callback for completed jobs. As soon as a job is finnished, async_process_results will be called with the
+X# specified callback function. This requires that a worker is initialized with the -n (notify) option.
+X#
+X# usage:
+X# 	async_register_callback <worker_name> <callback_function>
+X#
+Xasync_register_callback() {
+X	typeset -gA ASYNC_CALLBACKS
+X
+X	ASYNC_CALLBACKS[$1]="${*[2,${#*}]}"
+X
+X	trap '_async_notify_trap' WINCH
+X}
+X
+X#
+X# Unregister the callback for a specific worker.
+X#
+X# usage:
+X# 	async_unregister_callback <worker_name>
+X#
+Xasync_unregister_callback() {
+X	typeset -gA ASYNC_CALLBACKS
+X
+X	unset "ASYNC_CALLBACKS[$1]"
+X}
+X
+X#
+X# Flush all current jobs running on a worker. This will terminate any and all running processes under the worker, use
+X# with caution.
+X#
+X# usage:
+X# 	async_flush_jobs <worker_name>
+X#
+Xasync_flush_jobs() {
+X	zpty -t $worker &>/dev/null || return 1
+X
+X	# Send kill command to worker
+X	zpty -w $1 "_killjobs"
+X
+X	# Clear all output buffers
+X	while zpty -r $1 line; do done
+X
+X	# Clear any partial buffers
+X	typeset -gA ASYNC_PROCESS_BUFFER
+X	ASYNC_PROCESS_BUFFER[$1]=""
+X}
+X
+X#
+X# Start a new async worker with optional parameters, a worker can be told to only run unique tasks and to notify a
+X# process when tasks are complete.
+X#
+X# usage:
+X# 	async_start_worker <worker_name> [-u] [-n] [-p <pid>]
+X#
+X# opts:
+X# 	-u unique (only unique job names can run)
+X# 	-n notify through SIGWINCH signal
+X# 	-p pid to notify (defaults to current pid)
+X#
+Xasync_start_worker() {
+X	local worker=$1; shift
+X	zpty -t $worker &>/dev/null || zpty -b $worker _async_worker -p $$ $* || async_stop_worker $worker
+X}
+X
+X#
+X# Stop one or multiple workers that are running, all unfetched and incomplete work will be lost.
+X#
+X# usage:
+X# 	async_stop_worker <worker_name_1> [<worker_name_2>]
+X#
+Xasync_stop_worker() {
+X	local ret=0
+X	for worker in $*; do
+X		async_unregister_callback $worker
+X		zpty -d $worker 2>/dev/null || ret=$?
+X	done
+X
+X	return $ret
+X}
+X
+X#
+X# Initialize the required modules for zsh-async. To be called before using the zsh-async library.
+X#
+X# usage:
+X# 	async_init
+X#
+Xasync_init() {
+X	zmodload zsh/zpty
+X	zmodload zsh/datetime
+X}
+X
+Xasync() {
+X	async_init
+X}
+X
+Xasync "$*"
+END-of-./.zsh/functions/async
 echo x - ./.zsh/functions/pure_prompt
 sed 's/^X//' >./.zsh/functions/pure_prompt << 'END-of-./.zsh/functions/pure_prompt'
-X# see https://github.com/sindresorhus/pure
+X# Pure
+X# by Sindre Sorhus
+X# https://github.com/sindresorhus/pure
+X# MIT License
+X
+X# For my own and others sanity
+X# git:
+X# %b => current branch
+X# %a => current action (rebase/merge)
+X# prompt:
+X# %F => color dict
+X# %f => reset color
+X# %~ => current path
+X# %* => time
+X# %n => username
+X# %m => shortname host
+X# %(?..) => prompt conditional - %(condition.true.false)
+X# terminal codes:
+X# \e7   => save cursor position
+X# \e[2A => move cursor 2 lines up
+X# \e[1G => go to position 1 in terminal
+X# \e8   => restore cursor position
+X# \e[K  => clears everything after the cursor on the current line
+X
 X
 X# turns seconds into human readable time
 X# 165392 => 1d 21h 56m 32s
-Xpure_prompt_human_time() {
+X# https://github.com/sindresorhus/pretty-time-zsh
+Xprompt_pure_human_time() {
 X	echo -n " "
 X	local tmp=$1
 X	local days=$(( tmp / 60 / 60 / 24 ))
@@ -2341,17 +2620,119 @@ X	(( $minutes > 0 )) && echo -n "${minutes}m "
 X	echo "${seconds}s"
 X}
 X
-X# fastest possible way to check if repo is dirty
-Xpure_prompt_git_dirty() {
-X	# check if we're in a git repo
-X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
+X# displays the exec time of the last command if set threshold was exceeded
+Xprompt_pure_check_cmd_exec_time() {
+X	local stop=$EPOCHSECONDS
+X	local start=${prompt_pure_cmd_timestamp:-$stop}
+X	integer elapsed=$stop-$start
+X	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && prompt_pure_human_time $elapsed
+X}
 X
-X    # ----------------------------------------------------------------------------
-X	# check if it's dirty
-X	# [[ "$PURE_GIT_UNTRACKED_DIRTY" == 0 ]] && local umode="-uno" || local umode="-unormal"
-X	# command test -n "$(git status --porcelain --ignore-submodules ${umode})"
-X	# (($? == 0)) && echo '*'
-X    # ----------------------------------------------------------------------------
+Xprompt_pure_check_git_arrows() {
+X	# check if there is an upstream configured for this branch
+X	command git rev-parse --abbrev-ref @'{u}' &>/dev/null || return
+X
+X	local arrows=""
+X	(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='⇣'
+X	(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='⇡'
+X    [[ "$arrows" == '⇣⇡' ]] && arrows='±'
+X	# output the arrows
+X	[[ "$arrows" != "" ]] && echo " ${arrows}"
+X}
+X
+Xprompt_pure_preexec() {
+X	prompt_pure_cmd_timestamp=$EPOCHSECONDS
+X
+X	# shows the current dir and executed command in the title when a process is active
+X	print -Pn "\e]0;"
+X	echo -nE "$PWD:t: $2"
+X	print -Pn "\a"
+X}
+X
+X# string length ignoring ansi escapes
+Xprompt_pure_string_length() {
+X	# Subtract one since newline is counted as two characters
+X	echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
+X}
+X
+Xprompt_pure_preprompt_render() {
+X	# check that no command is currently running, the prompt will otherwise be rendered in the wrong place
+X	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
+X
+X	# set color for git branch/dirty status, change color if dirty checking has been delayed
+X	local git_color=yellow
+X	[[ -n ${prompt_pure_git_delay_dirty_check+x} ]] && git_color=196
+X
+X	# construct prompt, beginning with path
+X	local prompt="$prompt_pure_username %F{074}%~%f"
+X	# git info
+X	prompt+="%F{$git_color}${vcs_info_msg_0_}%F{1}${prompt_pure_git_dirty}%f"
+X	# git pull/push arrows
+X	prompt+="%F{cyan}${prompt_pure_git_arrows}%f"
+X	# execution time
+X	prompt+="%F{yellow}${prompt_pure_cmd_exec_time}%f"
+X
+X	# if executing through precmd, do not perform fancy terminal editing
+X	if [[ "$1" == "precmd" ]]; then
+X		print -P "\n${prompt}"
+X	else
+X		# only redraw if prompt has changed
+X		[[ "${prompt_pure_last_preprompt}" != "${prompt}" ]] || return
+X
+X		# calculate length of prompt for redraw purposes
+X		local prompt_length=$(prompt_pure_string_length $prompt)
+X		local lines=$(( $prompt_length / $COLUMNS + 1 ))
+X
+X		# disable clearing of line if last char of prompt is last column of terminal
+X		local clr="\e[K"
+X		(( $prompt_length * $lines == $COLUMNS - 1 )) && clr=""
+X
+X		# modify previous prompt
+X		print -Pn "\e7\e[${lines}A\e[1G${prompt}${clr}\e8"
+X	fi
+X
+X	# store previous prompt for comparison
+X	prompt_pure_last_preprompt=$prompt
+X}
+X
+Xprompt_pure_precmd() {
+X	# store exec time for when preprompt gets re-rendered
+X	prompt_pure_cmd_exec_time=$(prompt_pure_check_cmd_exec_time)
+X
+X	# by making sure that prompt_pure_cmd_timestamp is defined here the async functions are prevented from interfering
+X	# with the initial preprompt rendering
+X	prompt_pure_cmd_timestamp=
+X
+X	# check for git arrows
+X	prompt_pure_git_arrows=$(prompt_pure_check_git_arrows)
+X
+X	# shows the full path in the title
+X	print -Pn '\e]0;%~\a'
+X
+X	# get vcs info
+X	vcs_info
+X
+X	# preform async git dirty check and fetch
+X	prompt_pure_async_tasks
+X
+X	# print the preprompt
+X	prompt_pure_preprompt_render "precmd"
+X
+X	# remove the prompt_pure_cmd_timestamp, indicating that precmd has completed
+X	unset prompt_pure_cmd_timestamp
+X}
+X
+X# fastest possible way to check if repo is dirty
+Xprompt_pure_async_git_dirty() {
+X	local untracked_dirty=$2
+X	local umode="-unormal"
+X	[[ "$untracked_dirty" == "0" ]] && umode="-uno"
+X
+X	cd "$1"
+X	#command test -n "$(git status --porcelain --ignore-submodules ${umode})"
+X	#(($? == 0)) && echo "*"
+X
+X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
 X
 X    local GIT_STATE=""
 X
@@ -2378,68 +2759,79 @@ X
 X    echo $GIT_STATE
 X}
 X
-X# displays the exec time of the last command if set threshold was exceeded
-Xpure_prompt_cmd_exec_time() {
-X	local stop=$EPOCHSECONDS
-X	local start=${cmd_timestamp:-$stop}
-X	integer elapsed=$stop-$start
-X	(($elapsed > 5)) && pure_prompt_human_time $elapsed
+Xprompt_pure_async_git_fetch() {
+X	cd "$1"
+X
+X	# set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
+X	GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch
 X}
 X
-Xpure_prompt_preexec() {
-X	cmd_timestamp=$EPOCHSECONDS
+Xprompt_pure_async_tasks() {
+X	# initialize async worker
+X	((!${prompt_pure_async_init:-0})) && {
+X		async_start_worker "prompt_pure" -u -n
+X		async_register_callback "prompt_pure" prompt_pure_async_callback
+X		prompt_pure_async_init=1
+X	}
 X
-X	# shows the current dir and executed command in the title when a process is active
-X	print -Pn "\e]0;"
-X	echo -nE "$PWD:t: $2"
-X	print -Pn "\a"
-X}
+X	# get the current git working tree, empty if not inside a git directory
+X	local working_tree="$(command git rev-parse --show-toplevel 2>/dev/null)"
 X
-X# string length ignoring ansi escapes
-Xpure_prompt_string_length() {
-X	# Subtract one since newline is counted as two characters
-X	#echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
-X    # print at the right side
-X    #echo ${(l:$COLUMNS::-:)}
-X    echo $(($COLUMNS-2))
-X}
+X	# check if the working tree changed, it is prefixed with "x" to prevent variable resolution in path
+X	if [ "${prompt_pure_current_working_tree:-x}" != "x${working_tree}" ]; then
+X		# stop any running async jobs
+X		async_flush_jobs "prompt_pure"
 X
-Xpure_prompt_precmd() {
-X	# shows the full path in the title
-X	print -Pn '\e]0;%~\a'
+X		# reset git preprompt variables, switching working tree
+X		unset prompt_pure_git_dirty
+X		unset prompt_pure_git_delay_dirty_check
 X
-X	# git info
-X	vcs_info
+X		# set the new working tree, prefixed with "x"
+X		prompt_pure_current_working_tree="x${working_tree}"
+X	fi
 X
-X	local pure_prompt_preprompt="\n$pure_prompt_username %F{074}%~%F{3}$vcs_info_msg_0_%F{1}`pure_prompt_git_dirty`%f%F{011}`pure_prompt_cmd_exec_time`%f"
-X	print -P $pure_prompt_preprompt
+X	# only perform tasks inside git working tree
+X	[[ "${working_tree}" != "" ]] || return
 X
-X	# check async if there is anything to pull
-X	(( ${PURE_GIT_PULL:-1} )) && {
-X		# check if we're in a git repo
-X		[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] &&
+X	# tell worker to do a git fetch
+X	async_job "prompt_pure" prompt_pure_async_git_fetch $working_tree
+X
+X	# if dirty checking is sufficiently fast, tell worker to check it again, or wait for timeout
+X	local dirty_check=$(( $EPOCHSECONDS - ${prompt_pure_git_delay_dirty_check:-0} ))
+X	if (( $dirty_check > ${PURE_GIT_DELAY_DIRTY_CHECK:-1800} )); then
+X		unset prompt_pure_git_delay_dirty_check
+X		(( ${PURE_GIT_PULL:-1} )) &&
 X		# make sure working tree is not $HOME
-X		[[ "$(command git rev-parse --show-toplevel)" != "$HOME" ]] &&
+X		[[ "${working_tree}" != "$HOME" ]] &&
 X		# check check if there is anything to pull
-X        # set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
-X		GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch &>/dev/null &&
-X		# check if there is an upstream configured for this branch
-X		command git rev-parse --abbrev-ref @'{u}' &>/dev/null && {
-X			local arrows=''
-X			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='-'
-X			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='+'
-X            [[ "$arrows" == '-+' ]] && arrows='±'
-X			print -Pn "\e7\e[A\e[1G\e[`pure_prompt_string_length $pure_prompt_preprompt`C%F{6}${arrows:-%F\{2\}•}%f\e8"
-X		}
-X	} &!
-X
-X	# reset value since `preexec` isn't always triggered
-X	unset cmd_timestamp
+X		async_job "prompt_pure" prompt_pure_async_git_dirty $working_tree $PURE_GIT_UNTRACKED_DIRTY
+X	fi
 X}
 X
+Xprompt_pure_async_callback() {
+X	local job=$1
+X	local output=$3
+X	local exec_time=$4
 X
-Xpure_prompt() {
-X	# prevent percentage showing up if output doesn't end with a newline
+X	case "${job}" in
+X		prompt_pure_async_git_dirty)
+X			prompt_pure_git_dirty=$output
+X			prompt_pure_preprompt_render
+X
+X			# when prompt_pure_git_delay_dirty_check is set, the git info is displayed in a different color, this is why the
+X			# prompt is rendered before the variable is (potentially) set
+X			(( $exec_time > 2 )) && prompt_pure_git_delay_dirty_check=$EPOCHSECONDS
+X			;;
+X		prompt_pure_async_git_fetch)
+X			prompt_pure_git_arrows=$(prompt_pure_check_git_arrows)
+X			prompt_pure_preprompt_render
+X			;;
+X	esac
+X}
+X
+Xprompt_pure_setup() {
+X	# prevent percentage showing up
+X	# if output doesn't end with a newline
 X	export PROMPT_EOL_MARK=''
 X
 X	prompt_opts=(cr subst percent)
@@ -2447,16 +2839,17 @@ X
 X	zmodload zsh/datetime
 X	autoload -Uz add-zsh-hook
 X	autoload -Uz vcs_info
+X	autoload -Uz async && async
 X
-X	add-zsh-hook precmd pure_prompt_precmd
-X	add-zsh-hook preexec pure_prompt_preexec
+X	add-zsh-hook precmd prompt_pure_precmd
+X	add-zsh-hook preexec prompt_pure_preexec
 X
 X	zstyle ':vcs_info:*' enable git
 X	zstyle ':vcs_info:*' use-simple true
 X	zstyle ':vcs_info:git*' formats ' %b'
 X	zstyle ':vcs_info:git*' actionformats ' %b|%a'
 X
-X	pure_prompt_username='%F{2}%n'
+X	prompt_pure_username='%F{2}%n'
 X
 X	# show username@host if logged in through SSH
 X	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
@@ -2468,7 +2861,7 @@ X	# prompt turns red if the previous command didn't exit with 0
 X    PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
 X}
 X
-Xpure_prompt "$@"
+Xprompt_pure_setup "$@"
 END-of-./.zsh/functions/pure_prompt
 echo c - ./.zsh/plugins
 mkdir -p ./.zsh/plugins > /dev/null 2>&1
@@ -3032,7 +3425,7 @@ X#  -e /dev/null - only work on local files
 Xalias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 X# git log
 Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
-Xalias gdiffmaster_develop="git diff --name-status master..develop"
+Xalias gd="echo master diff:; git diff --name-status master"
 X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
 Xcompdef t=tmux
