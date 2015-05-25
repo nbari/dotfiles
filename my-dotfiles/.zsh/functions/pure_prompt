@@ -89,7 +89,7 @@ prompt_pure_preprompt_render() {
 	# git pull/push arrows
 	prompt+="%F{cyan}${prompt_pure_git_arrows}%f"
 	# execution time
-	prompt+="%F{yellow}${prompt_pure_cmd_exec_time}%f"
+	prompt+="%F{red}${prompt_pure_cmd_exec_time}%f"
 
 	# if executing through precmd, do not perform fancy terminal editing
 	if [[ "$1" == "precmd" ]]; then
