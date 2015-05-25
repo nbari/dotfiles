@@ -79,7 +79,7 @@ prompt_pure_preprompt_render() {
 	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
 
 	# set color for git branch/dirty status, change color if dirty checking has been delayed
-	local git_color=3
+	local git_color=yellow
 	[[ -n ${prompt_pure_git_delay_dirty_check+x} ]] && git_color=196
 
 	# construct prompt, beginning with path
