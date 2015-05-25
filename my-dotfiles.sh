@@ -3396,12 +3396,14 @@ X
 X# ----------------------------------------------------------------------------
 X# alias
 X# ----------------------------------------------------------------------------
+Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias cp='cp -i'
 Xalias dh='dirs -v'
 Xalias h='history'
 Xalias j='jobs -l'
 Xalias l='pwd; ls -lhaGF'
+Xalias less='less -FSRX'
 Xalias ll='ls -ALF'
 Xalias mv='mv -i'
 Xalias path='echo -e ${PATH//:/\\n}'
@@ -3412,6 +3414,7 @@ Xalias psmem='ps aux | sort -r -nk 4 | head -n 20'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
+Xalias svi='sudo vim'
 X# copy with a progress bar.
 X# Rsync options are:
 X#  -p - preserve permissions
