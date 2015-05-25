@@ -85,7 +85,7 @@ prompt_pure_preprompt_render() {
 	# construct prompt, beginning with path
 	local prompt="$prompt_pure_username %F{074}%~%f"
 	# git info
-	prompt+="%F{$git_color}${vcs_info_msg_0_}${prompt_pure_git_dirty}%f"
+	prompt+="%F{$git_color}${vcs_info_msg_0_}%F{1}${prompt_pure_git_dirty}%f"
 	# git pull/push arrows
 	prompt+="%F{cyan}${prompt_pure_git_arrows}%f"
 	# execution time
