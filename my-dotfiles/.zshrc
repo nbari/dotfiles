@@ -99,22 +99,28 @@ zstyle ':completion:*:kill:*' force-list always
 # ----------------------------------------------------------------------------
 # alias
 # ----------------------------------------------------------------------------
+alias active='grep -Ev "^($|#)"'
 alias c='clear'
+alias chrome='open -a "Google Chrome"'
 alias cp='cp -i'
+alias cpu='top -o cpu'
 alias dh='dirs -v'
 alias h='history'
 alias j='jobs -l'
 alias l='pwd; ls -lhaGF'
+alias less='less -FSRX'
 alias ll='ls -ALF'
+alias mem='top -o vsize'
 alias mv='mv -i'
 alias path='echo -e ${PATH//:/\\n}'
 alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
-alias pscpu='ps aux | sort -r -nk 3,3 | head -n 20'
-alias psmem='ps aux | sort -r -nk 4 | head -n 20'
+alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
+alias psmem='ps aux | sort -r -nk 4 | head -n 10'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
+alias svi='sudo vim'
 # copy with a progress bar.
 # Rsync options are:
 #  -p - preserve permissions
@@ -149,6 +155,9 @@ alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
 
+pman () {
+    man -t "${1}" | open -f -a /Applications/Preview.app
+}
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
 # ----------------------------------------------------------------------------
