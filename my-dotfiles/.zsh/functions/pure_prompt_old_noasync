@@ -1,0 +1,157 @@
+# see https://github.com/sindresorhus/pure
+
+# turns seconds into human readable time
+# 165392 => 1d 21h 56m 32s
+pure_prompt_human_time() {
+	echo -n " "
+	local tmp=$1
+	local days=$(( tmp / 60 / 60 / 24 ))
+	local hours=$(( tmp / 60 / 60 % 24 ))
+	local minutes=$(( tmp / 60 % 60 ))
+	local seconds=$(( tmp % 60 ))
+	(( $days > 0 )) && echo -n "${days}d "
+	(( $hours > 0 )) && echo -n "${hours}h "
+	(( $minutes > 0 )) && echo -n "${minutes}m "
+	echo "${seconds}s"
+}
+
+# displays the exec time of the last command if set threshold was exceeded
+pure_prompt_cmd_exec_time() {
+	local stop=$EPOCHSECONDS
+	local start=${cmd_timestamp:-$stop}
+	integer elapsed=$stop-$start
+	(($elapsed > 5)) && pure_prompt_human_time $elapsed
+}
+
+prompt_pure_check_git_arrows() {
+	# check if there is an upstream configured for this branch
+	command git rev-parse --abbrev-ref @'{u}' &>/dev/null || return
+
+	local arrows=""
+	(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='⇣'
+	(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='⇡'
+	# output the arrows
+	[[ "$arrows" != "" ]] && echo " ${arrows}"
+}
+
+# fastest possible way to check if repo is dirty
+pure_prompt_git_dirty() {
+	# check if we're in a git repo
+	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
+
+    # ----------------------------------------------------------------------------
+	# check if it's dirty
+	# [[ "$PURE_GIT_UNTRACKED_DIRTY" == 0 ]] && local umode="-uno" || local umode="-unormal"
+	# command test -n "$(git status --porcelain --ignore-submodules ${umode})"
+	# (($? == 0)) && echo '*'
+    # ----------------------------------------------------------------------------
+
+    local GIT_STATE=""
+
+    local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+    if [ "$NUM_AHEAD" -gt 0 ]; then
+        GIT_STATE="$GIT_STATE (+$NUM_AHEAD)"
+    fi
+
+    local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+    if [ "$NUM_BEHIND" -gt 0 ]; then
+        if [[ -n $GIT_STATE ]]; then
+            GIT_STATE="$GIT_STATE"
+        fi
+        GIT_STATE="$GIT_STATE (-$NUM_BEHIND)"
+    fi
+
+    local GIT_STATUS="$(git status --porcelain | awk -v ORS=", " 'NR>0{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sed 's/, $//g')"
+    [[ ! -z "${GIT_STATUS// }" ]] && GIT_STATE="$GIT_STATE %F{5}[$GIT_STATUS]"
+
+    if ! git diff --cached --quiet 2> /dev/null; then
+        GIT_STATE="$GIT_STATE %F{7}[staged]"
+    fi
+
+    echo $GIT_STATE
+}
+
+
+pure_prompt_preexec() {
+	cmd_timestamp=$EPOCHSECONDS
+
+	# shows the current dir and executed command in the title when a process is active
+	print -Pn "\e]0;"
+	echo -nE "$PWD:t: $2"
+	print -Pn "\a"
+}
+
+# string length ignoring ansi escapes
+pure_prompt_string_length() {
+	# Subtract one since newline is counted as two characters
+	#echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
+    # print at the right side
+    #echo ${(l:$COLUMNS::-:)}
+    echo $(($COLUMNS-2))
+}
+
+pure_prompt_precmd() {
+	# shows the full path in the title
+	print -Pn '\e]0;%~\a'
+
+	# git info
+	vcs_info
+
+	local pure_prompt_preprompt="\n$pure_prompt_username %F{074}%~%F{3}$vcs_info_msg_0_%F{1}`pure_prompt_git_dirty`%f%F{011}`pure_prompt_cmd_exec_time`%f"
+	print -P $pure_prompt_preprompt
+
+	# check async if there is anything to pull
+	(( ${PURE_GIT_PULL:-1} )) && {
+		# check if we're in a git repo
+		[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] &&
+		# make sure working tree is not $HOME
+		[[ "$(command git rev-parse --show-toplevel)" != "$HOME" ]] &&
+		# check check if there is anything to pull
+        # set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
+		GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch &>/dev/null &&
+		# check if there is an upstream configured for this branch
+		command git rev-parse --abbrev-ref @'{u}' &>/dev/null && {
+			local arrows=''
+			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='-'
+			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='+'
+            [[ "$arrows" == '-+' ]] && arrows='±'
+			print -Pn "\e7\e[A\e[1G\e[`pure_prompt_string_length $pure_prompt_preprompt`C%F{6}${arrows:-%F\{2\}•}%f\e8"
+		}
+	} &!
+
+	# reset value since `preexec` isn't always triggered
+	unset cmd_timestamp
+}
+
+
+pure_prompt() {
+	# prevent percentage showing up if output doesn't end with a newline
+	export PROMPT_EOL_MARK=''
+
+	prompt_opts=(cr subst percent)
+
+	zmodload zsh/datetime
+	autoload -Uz add-zsh-hook
+	autoload -Uz vcs_info
+
+	add-zsh-hook precmd pure_prompt_precmd
+	add-zsh-hook preexec pure_prompt_preexec
+
+	zstyle ':vcs_info:*' enable git
+	zstyle ':vcs_info:*' use-simple true
+	zstyle ':vcs_info:git*' formats ' %b'
+	zstyle ':vcs_info:git*' actionformats ' %b|%a'
+
+	pure_prompt_username='%F{2}%n'
+
+	# show username@host if logged in through SSH
+	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
+
+	# show username@host if root, with username in red
+	[[ $UID -eq 0 ]] && pure_prompt_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
+
+	# prompt turns red if the previous command didn't exit with 0
+    PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
+}
+
+pure_prompt "$@"
