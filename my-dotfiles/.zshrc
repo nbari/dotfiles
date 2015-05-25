@@ -112,6 +112,7 @@ alias less='less -FSRX'
 alias ll='ls -ALF'
 alias mem='top -o vsize'
 alias mv='mv -i'
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias path='echo -e ${PATH//:/\\n}'
 alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
