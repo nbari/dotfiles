@@ -2670,7 +2670,7 @@ X	prompt+="%F{$git_color}${vcs_info_msg_0_}%F{1}${prompt_pure_git_dirty}%f"
 X	# git pull/push arrows
 X	prompt+="%F{cyan}${prompt_pure_git_arrows}%f"
 X	# execution time
-X	prompt+="%F{yellow}${prompt_pure_cmd_exec_time}%f"
+X	prompt+="%F{red}${prompt_pure_cmd_exec_time}%f"
 X
 X	# if executing through precmd, do not perform fancy terminal editing
 X	if [[ "$1" == "precmd" ]]; then
@@ -3398,19 +3398,22 @@ X# alias
 X# ----------------------------------------------------------------------------
 Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
+Xalias chrome='open -a "Google Chrome"'
 Xalias cp='cp -i'
+Xalias cpu='top -o cpu'
 Xalias dh='dirs -v'
 Xalias h='history'
 Xalias j='jobs -l'
 Xalias l='pwd; ls -lhaGF'
 Xalias less='less -FSRX'
 Xalias ll='ls -ALF'
+Xalias mem='top -o vsize'
 Xalias mv='mv -i'
 Xalias path='echo -e ${PATH//:/\\n}'
 Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
-Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 20'
-Xalias psmem='ps aux | sort -r -nk 4 | head -n 20'
+Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
+Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
@@ -3449,6 +3452,9 @@ Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 X
+Xpman () {
+X    man -t "${1}" | open -f -a /Applications/Preview.app
+X}
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
 X# ----------------------------------------------------------------------------
