@@ -104,6 +104,8 @@ alias c='clear'
 alias chrome='open -a "Google Chrome"'
 alias cp='cp -i'
 alias cpu='top -o cpu'
+alias dev='git checkout develop'
+alias dev='git checkout master'
 alias dh='dirs -v'
 alias h='history'
 alias j='jobs -l'
@@ -247,3 +249,12 @@ bindkey '^Xe' edit-command-line
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
 RPROMPT='%F{8}%*'
+
+# ----------------------------------------------------------------------------
+# tmux
+# ----------------------------------------------------------------------------
+if hash tmux &> /dev/null; then
+    if [ "$TMUX" = "" ]; then
+       tmux -2 attach -d || tmux -2 new
+    fi
+fi
