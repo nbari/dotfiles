@@ -105,6 +105,7 @@ X# utf8
 Xset-window-option -g utf8 on
 X
 X# vi bindings
+Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
 X
 X# Set the maximum number of lines held in window history.
@@ -114,7 +115,8 @@ Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
 Xset-option -g status-interval 5
 Xset-option -g status-right-length 90
-Xset-option -g status-right '#[fg=red,bold][ #H ]#[fg=magenta]#(uptime | grep -o "...user.*")'
+Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")'
+Xset-option -g status-position top
 X
 Xset -g window-status-format '#I #W'
 Xset -g window-status-current-format ' #I #W '
@@ -3421,6 +3423,7 @@ Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
+Xalias tmp='cd ~/tmp'
 Xalias svi='sudo vim'
 X# copy with a progress bar.
 X# Rsync options are:
@@ -3535,25 +3538,26 @@ X# ----------------------------------------------------------------------------
 Xbindkey " " magic-space # do history expansion on space !XX<space>
 X
 X# ----------------------------------------------------------------------------
-X# Edit command using vim - hit ESC and then v or Ctrl-x e
+X# Edit command using vim - hit ESC and then v
+X# emacs mode:  Ctrl-x e -  bindkey '^Xe' edit-command-line
 X# ----------------------------------------------------------------------------
 Xexport KEYTIMEOUT=1
 Xautoload edit-command-line
 Xzle -N edit-command-line
-Xbindkey '^Xe' edit-command-line
+Xbindkey -M vicmd v edit-command-line
 X
 X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
 Xautoload -U pure_prompt && pure_prompt
-XRPROMPT='%F{8}%*'
+XRPROMPT="%F{8}%*"
 X
 X# ----------------------------------------------------------------------------
 X# tmux
 X# ----------------------------------------------------------------------------
 Xif hash tmux &> /dev/null; then
-X    if [ "$TMUX" = "" ]; then
-X       tmux -2 attach -d || tmux -2 new
+X    if [ -z "$TMUX" ]; then
+X        tmux has-session || tmux -2 new
 X    fi
 Xfi
 END-of-./.zshrc
