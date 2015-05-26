@@ -123,6 +123,7 @@ alias psmem='ps aux | sort -r -nk 4 | head -n 10'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
+alias tmp='cd ~/tmp'
 alias svi='sudo vim'
 # copy with a progress bar.
 # Rsync options are:
@@ -237,24 +238,25 @@ disable -r time
 bindkey " " magic-space # do history expansion on space !XX<space>
 
 # ----------------------------------------------------------------------------
-# Edit command using vim - hit ESC and then v or Ctrl-x e
+# Edit command using vim - hit ESC and then v or Ctrl-x e (emacs mode)
 # ----------------------------------------------------------------------------
 export KEYTIMEOUT=1
 autoload edit-command-line
 zle -N edit-command-line
-bindkey '^Xe' edit-command-line
+bindkey -M vicmd v edit-command-line
+# bindkey '^Xe' edit-command-line
 
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
-RPROMPT='%F{8}%*'
+RPROMPT="%F{1}%*"
 
 # ----------------------------------------------------------------------------
 # tmux
 # ----------------------------------------------------------------------------
 if hash tmux &> /dev/null; then
-    if [ "$TMUX" = "" ]; then
-       tmux -2 attach -d || tmux -2 new
+    if [ -z "$TMUX" ]; then
+        tmux has-session || tmux -2 new
     fi
 fi
