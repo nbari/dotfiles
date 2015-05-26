@@ -148,8 +148,9 @@ mkdir -p ./.vim > /dev/null 2>&1
 echo x - ./.vim/.netrwhist
 sed 's/^X//' >./.vim/.netrwhist << 'END-of-./.vim/.netrwhist'
 Xlet g:netrw_dirhistmax  =10
-Xlet g:netrw_dirhist_cnt =1
+Xlet g:netrw_dirhist_cnt =2
 Xlet g:netrw_dirhist_1='/Volumes/RAID/MEGA/projects/vpn'
+Xlet g:netrw_dirhist_2='/Volumes/RAID/MEGA/projects/dotfiles/my-dotfiles/.zsh'
 END-of-./.vim/.netrwhist
 echo c - ./.vim/after
 mkdir -p ./.vim/after > /dev/null 2>&1
@@ -3401,12 +3402,14 @@ Xalias c='clear'
 Xalias chrome='open -a "Google Chrome"'
 Xalias cp='cp -i'
 Xalias cpu='top -o cpu'
+Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
 Xalias j='jobs -l'
 Xalias l='pwd; ls -lhaGF'
 Xalias less='less -FSRX'
 Xalias ll='ls -ALF'
+Xalias master='git checkout master'
 Xalias mem='top -o vsize'
 Xalias mv='mv -i'
 Xalias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -3548,7 +3551,7 @@ X
 X# ----------------------------------------------------------------------------
 X# tmux
 X# ----------------------------------------------------------------------------
-Xif which tmux &> /dev/null; then
+Xif hash tmux &> /dev/null; then
 X    if [ "$TMUX" = "" ]; then
 X       tmux -2 attach -d || tmux -2 new
 X    fi
