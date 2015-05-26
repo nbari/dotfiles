@@ -238,19 +238,19 @@ disable -r time
 bindkey " " magic-space # do history expansion on space !XX<space>
 
 # ----------------------------------------------------------------------------
-# Edit command using vim - hit ESC and then v or Ctrl-x e (emacs mode)
+# Edit command using vim - hit ESC and then v
+# emacs mode:  Ctrl-x e -  bindkey '^Xe' edit-command-line
 # ----------------------------------------------------------------------------
 export KEYTIMEOUT=1
 autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
-# bindkey '^Xe' edit-command-line
 
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
-RPROMPT="%F{1}%*"
+RPROMPT="%F{8}%*"
 
 # ----------------------------------------------------------------------------
 # tmux
