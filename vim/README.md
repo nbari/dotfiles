@@ -36,6 +36,10 @@ For the autoformater plugin:
     pip install --user autopep8
     pip install --user --upgrade pyflakes
 
+For YAML:
+
+    npm install -g js-yaml
+
 
 Install Par text reformatter (,w) see: http://www.nicemice.net/par/, From FreebSD ports:
 
