@@ -630,8 +630,11 @@ Xset background=dark
 END-of-./.vim/colors/my-colors.vim
 echo x - ./.vim/filetype.vim
 sed 's/^X//' >./.vim/filetype.vim << 'END-of-./.vim/filetype.vim'
-X" ajust the path to your nginx
+X" adjust the path to your nginx
 Xau BufRead,BufNewFile /etc/nginx/*,/usr/local/etc/nginx/* if &ft == '' | setfiletype nginx | endif
+X
+X" adjust the path to your ansible playbooks
+Xau BufRead,BufNewFile ~/ansible/*.yml,~/ansible/*/*.yml if &ft == '' | setfiletype ansible | endif
 END-of-./.vim/filetype.vim
 echo c - ./.vim/syntax
 mkdir -p ./.vim/syntax > /dev/null 2>&1
@@ -1962,6 +1965,7 @@ X" vim plugins
 XPlugin 'Chiel92/vim-autoformat'
 XPlugin 'Raimondi/delimitMate'
 XPlugin 'airblade/vim-gitgutter'
+XPlugin 'chase/vim-ansible-yaml'
 XPlugin 'fatih/vim-go'
 XPlugin 'groenewege/vim-less'
 XPlugin 'hdima/python-syntax'
@@ -3308,6 +3312,11 @@ X# ----------------------------------------------------------------------------
 Xfpath=( "$HOME/.zsh/functions" ${fpath[@]} )
 X
 X# ----------------------------------------------------------------------------
+X# vim mode
+X# ----------------------------------------------------------------------------
+Xbindkey -v
+X
+X# ----------------------------------------------------------------------------
 X# Advanced Tab-completion
 X# ----------------------------------------------------------------------------
 Xautoload -U compinit && compinit
@@ -3324,7 +3333,16 @@ X# exports
 X# ----------------------------------------------------------------------------
 Xexport PATH="$HOME/Library/Python/2.7/bin:/opt/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin"
 Xexport CLICOLOR=1
-Xexport LSCOLORS="Exfxcxdxbxegedabagacad"
+X
+X# Do we need Linux or BSD Style?
+Xif ls --color -d . &>/dev/null 2>&1
+Xthen
+X    # Linux Style
+X    alias ls='ls --color=tty'
+Xelse
+X    # BSD Style
+X    export LSCOLORS="Exfxcxdxbxegedabagacad"
+Xfi
 X
 Xexport EDITOR=vim
 Xexport LESSCHARSET=utf-8
@@ -3352,8 +3370,8 @@ Xif [ -z "$HISTFILE" ]; then
 X    HISTFILE=$HOME/.zsh_history
 Xfi
 X
-XHISTSIZE=100
-XSAVEHIST=100
+XHISTSIZE=1000
+XSAVEHIST=1000
 X
 X# Show history
 Xcase $HIST_STAMPS in
@@ -3378,7 +3396,6 @@ X# ----------------------------------------------------------------------------
 Xzstyle ':completion::complete:*' use-cache 1
 Xzstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 Xzstyle ':completion:*' use-ip true
-X# zstyle ':completion:*:*:*:*:*' menu yes select
 Xzstyle ':completion:*:matches' group 'yes'
 Xzstyle ':completion:*:options' description 'yes'
 Xzstyle ':completion:*:options' auto-description '%d'
@@ -3395,6 +3412,12 @@ X# Don't prompt for a huge list, page it!
 Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
 X# kill
 Xzstyle ':completion:*:kill:*' force-list always
+Xzstyle ':completion:*:kill:*' menu yes select
+Xzstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;38=01;31=01;30'
+X# Rehash when completing commands
+Xzstyle ":completion:*:commands" rehash 1
+X# ls colors
+Xzstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 X
 X# ----------------------------------------------------------------------------
 X# alias

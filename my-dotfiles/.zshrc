@@ -8,6 +8,11 @@
 fpath=( "$HOME/.zsh/functions" ${fpath[@]} )
 
 # ----------------------------------------------------------------------------
+# vim mode
+# ----------------------------------------------------------------------------
+bindkey -v
+
+# ----------------------------------------------------------------------------
 # Advanced Tab-completion
 # ----------------------------------------------------------------------------
 autoload -U compinit && compinit
@@ -24,7 +29,16 @@ fi
 # ----------------------------------------------------------------------------
 export PATH="$HOME/Library/Python/2.7/bin:/opt/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin"
 export CLICOLOR=1
-export LSCOLORS="Exfxcxdxbxegedabagacad"
+
+# Do we need Linux or BSD Style?
+if ls --color -d . &>/dev/null 2>&1
+then
+    # Linux Style
+    alias ls='ls --color=tty'
+else
+    # BSD Style
+    export LSCOLORS="Exfxcxdxbxegedabagacad"
+fi
 
 export EDITOR=vim
 export LESSCHARSET=utf-8
@@ -52,8 +66,8 @@ if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history
 fi
 
-HISTSIZE=100
-SAVEHIST=100
+HISTSIZE=1000
+SAVEHIST=1000
 
 # Show history
 case $HIST_STAMPS in
@@ -78,7 +92,6 @@ setopt share_history # share command history data
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path "$HOME/.zcache"
 zstyle ':completion:*' use-ip true
-# zstyle ':completion:*:*:*:*:*' menu yes select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -95,6 +108,12 @@ zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # kill
 zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:kill:*' menu yes select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;38=01;31=01;30'
+# Rehash when completing commands
+zstyle ":completion:*:commands" rehash 1
+# ls colors
+zstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # ----------------------------------------------------------------------------
 # alias
