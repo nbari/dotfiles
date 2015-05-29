@@ -2,13 +2,22 @@
 
 
 Backup
-======
+------
 
 The ``install.sh`` script  will create/overwrite the ``$HOME/.[cz]shrc`` file, and
 also create an ``$HOME/.zsh`` directory, please backup if needed.
 
+Requirements
+------------
+
+* curl
+* git
+* node.js (npm)
+* vim
+* zsh
+
 Setup
-=====
+-----
 
 Open a terminal and type this::
 
