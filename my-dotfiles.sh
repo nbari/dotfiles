@@ -2672,8 +2672,15 @@ X	[[ -n ${prompt_pure_git_delay_dirty_check+x} ]] && git_color=196
 X
 X	# construct prompt, beginning with path
 X	local prompt="$prompt_pure_username %F{074}%~%f"
+X
 X	# git info
-X	prompt+="%F{$git_color}${vcs_info_msg_0_}%F{1}${prompt_pure_git_dirty}%f"
+X    local git_branch=$vcs_info_msg_0_
+X
+X    # blink if branch = master
+X    [[ ${git_branch//[[:space:]]} == "master" ]] && git_branch="\033[05m${git_branch}\033[25m"
+X
+X	prompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
+X
 X	# git pull/push arrows
 X	prompt+="%F{cyan}${prompt_pure_git_arrows}%f"
 X	# execution time
