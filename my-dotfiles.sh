@@ -3331,7 +3331,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="$HOME/Library/Python/2.7/bin:/opt/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin"
+Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin"
 Xexport CLICOLOR=1
 X
 X# Do we need Linux or BSD Style?
@@ -3448,17 +3448,8 @@ Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
 Xalias tmp='cd ~/tmp'
 Xalias svi='sudo vim'
-X# copy with a progress bar.
-X# Rsync options are:
-X#  -p - preserve permissions
-X#  -o - preserve owner
-X#  -g - preserve group
-X#  -h - output in human-readable format
-X#  --progress - display progress
-X#  -b - instead of just overwriting an existing file, save the original
-X#  --backup-dir=/tmp/rsync - move backup copies to "/tmp/rsync"
-X#  -e /dev/null - only work on local files
-Xalias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+X# copy with rsync
+Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 X# git log
 Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
 Xalias gd="echo master diff:; git diff --name-status master"
@@ -3498,8 +3489,6 @@ X
 X# ----------------------------------------------------------------------------
 X# sync .dotfiles
 X# ----------------------------------------------------------------------------
-X# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
-X# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" [source_dir] [dest_host:/dest_dir]
 Xsync-dotfiles() {
 X   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
 X}
