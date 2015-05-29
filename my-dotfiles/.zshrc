@@ -144,17 +144,8 @@ alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
 alias tmp='cd ~/tmp'
 alias svi='sudo vim'
-# copy with a progress bar.
-# Rsync options are:
-#  -p - preserve permissions
-#  -o - preserve owner
-#  -g - preserve group
-#  -h - output in human-readable format
-#  --progress - display progress
-#  -b - instead of just overwriting an existing file, save the original
-#  --backup-dir=/tmp/rsync - move backup copies to "/tmp/rsync"
-#  -e /dev/null - only work on local files
-alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+# copy with rsync
+alias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 # git log
 alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
 alias gd="echo master diff:; git diff --name-status master"
@@ -194,8 +185,6 @@ kill9() {
 # ----------------------------------------------------------------------------
 # sync .dotfiles
 # ----------------------------------------------------------------------------
-# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" user@<source>:<source_dir> <dest_dir>
-# rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x" [source_dir] [dest_host:/dest_dir]
 sync-dotfiles() {
    [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
 }
