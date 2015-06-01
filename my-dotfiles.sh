@@ -2676,8 +2676,8 @@ X
 X	# git info
 X    local git_branch=$vcs_info_msg_0_
 X
-X    # blink if branch = master
-X    [[ ${git_branch//[[:space:]]} == "master" ]] && git_branch="\033[05m${git_branch}\033[25m"
+X    # if branch = master
+X    [[ ${git_branch//[[:space:]]} == "master" ]] && git_branch=" %F{124}${git_branch//[[:space:]]}%f"
 X
 X	prompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
 X
