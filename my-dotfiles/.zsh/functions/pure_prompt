@@ -62,9 +62,13 @@ prompt_pure_check_git_arrows() {
 prompt_pure_preexec() {
 	prompt_pure_cmd_timestamp=$EPOCHSECONDS
 
-	# shows the current dir and executed command in the title when a process is active
+	# tell the terminal we are setting the title
 	print -Pn "\e]0;"
-	echo -nE "$PWD:t: $2"
+	# show hostname if connected through ssh
+	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
+	# shows the current dir and executed command in the title when a process is active
+	# (use print -r to disable potential evaluation of escape characters in cmd)
+	print -Pnr "$PWD:t: $2"
 	print -Pn "\a"
 }
 
@@ -132,8 +136,12 @@ prompt_pure_precmd() {
 	# check for git arrows
 	prompt_pure_git_arrows=$(prompt_pure_check_git_arrows)
 
+	# tell the terminal we are setting the title
+	print -Pn "\e]0;"
+	# show hostname if connected through ssh
+	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
 	# shows the full path in the title
-	print -Pn '\e]0;%~\a'
+	print -Pn "%~\a"
 
 	# get vcs info
 	vcs_info
@@ -150,13 +158,7 @@ prompt_pure_precmd() {
 
 # fastest possible way to check if repo is dirty
 prompt_pure_async_git_dirty() {
-	local untracked_dirty=$2
-	local umode="-unormal"
-	[[ "$untracked_dirty" == "0" ]] && umode="-uno"
-
 	cd "$1"
-	#command test -n "$(git status --porcelain --ignore-submodules ${umode})"
-	#(($? == 0)) && echo "*"
 
 	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
 
@@ -186,7 +188,8 @@ prompt_pure_async_git_dirty() {
 }
 
 prompt_pure_async_git_fetch() {
-	cd "$1"
+	# use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
+	cd -q "$*"
 
 	# set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
 	GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch
@@ -231,7 +234,7 @@ prompt_pure_async_tasks() {
 	if (( $dirty_check > ${PURE_GIT_DELAY_DIRTY_CHECK:-1800} )); then
 		unset prompt_pure_git_delay_dirty_check
 		# check check if there is anything to pull
-        async_job "prompt_pure" prompt_pure_async_git_dirty "${PURE_GIT_UNTRACKED_DIRTY:-1}" "$working_tree"
+        async_job "prompt_pure" prompt_pure_async_git_dirty "$working_tree"
 	fi
 }
 
