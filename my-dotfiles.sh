@@ -2650,9 +2650,13 @@ X
 Xprompt_pure_preexec() {
 X	prompt_pure_cmd_timestamp=$EPOCHSECONDS
 X
-X	# shows the current dir and executed command in the title when a process is active
+X	# tell the terminal we are setting the title
 X	print -Pn "\e]0;"
-X	echo -nE "$PWD:t: $2"
+X	# show hostname if connected through ssh
+X	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
+X	# shows the current dir and executed command in the title when a process is active
+X	# (use print -r to disable potential evaluation of escape characters in cmd)
+X	print -Pnr "$PWD:t: $2"
 X	print -Pn "\a"
 X}
 X
@@ -2720,8 +2724,12 @@ X
 X	# check for git arrows
 X	prompt_pure_git_arrows=$(prompt_pure_check_git_arrows)
 X
+X	# tell the terminal we are setting the title
+X	print -Pn "\e]0;"
+X	# show hostname if connected through ssh
+X	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
 X	# shows the full path in the title
-X	print -Pn '\e]0;%~\a'
+X	print -Pn "%~\a"
 X
 X	# get vcs info
 X	vcs_info
@@ -2738,13 +2746,7 @@ X}
 X
 X# fastest possible way to check if repo is dirty
 Xprompt_pure_async_git_dirty() {
-X	local untracked_dirty=$2
-X	local umode="-unormal"
-X	[[ "$untracked_dirty" == "0" ]] && umode="-uno"
-X
 X	cd "$1"
-X	#command test -n "$(git status --porcelain --ignore-submodules ${umode})"
-X	#(($? == 0)) && echo "*"
 X
 X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
 X
@@ -2774,7 +2776,8 @@ X    echo $GIT_STATE
 X}
 X
 Xprompt_pure_async_git_fetch() {
-X	cd "$1"
+X	# use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
+X	cd -q "$*"
 X
 X	# set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
 X	GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch
@@ -2807,18 +2810,19 @@ X
 X	# only perform tasks inside git working tree
 X	[[ "${working_tree}" != "" ]] || return
 X
-X	# tell worker to do a git fetch
-X	async_job "prompt_pure" prompt_pure_async_git_fetch $working_tree
+X    if (( ${PURE_GIT_PULL:-1} )); then
+X        # make sure working tree is not $HOME
+X        [[ "${working_tree}" != "$HOME" ]] &&
+X        # tell worker to do a git fetch
+X        async_job "prompt_pure" prompt_pure_async_git_fetch "$working_tree"
+X    fi
 X
 X	# if dirty checking is sufficiently fast, tell worker to check it again, or wait for timeout
 X	local dirty_check=$(( $EPOCHSECONDS - ${prompt_pure_git_delay_dirty_check:-0} ))
 X	if (( $dirty_check > ${PURE_GIT_DELAY_DIRTY_CHECK:-1800} )); then
 X		unset prompt_pure_git_delay_dirty_check
-X		(( ${PURE_GIT_PULL:-1} )) &&
-X		# make sure working tree is not $HOME
-X		[[ "${working_tree}" != "$HOME" ]] &&
 X		# check check if there is anything to pull
-X		async_job "prompt_pure" prompt_pure_async_git_dirty $working_tree $PURE_GIT_UNTRACKED_DIRTY
+X        async_job "prompt_pure" prompt_pure_async_git_dirty "$working_tree"
 X	fi
 X}
 X
