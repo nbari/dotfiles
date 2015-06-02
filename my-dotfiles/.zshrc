@@ -28,6 +28,8 @@ fi
 # exports
 # ----------------------------------------------------------------------------
 export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
+# remove duplicates in the PATH
+typeset -U PATH
 export CLICOLOR=1
 
 # Do we need Linux or BSD Style?
