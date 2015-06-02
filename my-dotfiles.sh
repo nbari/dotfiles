@@ -3437,7 +3437,11 @@ Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias chrome='open -a "Google Chrome"'
 Xalias cp='cp -i'
+X# copy with rsync
+Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 Xalias cpu='top -o cpu'
+X# clean dropbox conflicted files
+Xalias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
@@ -3457,10 +3461,8 @@ Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
-Xalias tmp='cd ~/tmp'
 Xalias svi='sudo vim'
-X# copy with rsync
-Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
+Xalias tmp='cd ~/tmp'
 X# git log
 Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
 Xalias gd="echo master diff:; git diff --name-status master"

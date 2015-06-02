@@ -122,7 +122,11 @@ alias active='grep -Ev "^($|#)"'
 alias c='clear'
 alias chrome='open -a "Google Chrome"'
 alias cp='cp -i'
+# copy with rsync
+alias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 alias cpu='top -o cpu'
+# clean dropbox conflicted files
+alias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
@@ -142,10 +146,8 @@ alias psmem='ps aux | sort -r -nk 4 | head -n 10'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
-alias tmp='cd ~/tmp'
 alias svi='sudo vim'
-# copy with rsync
-alias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
+alias tmp='cd ~/tmp'
 # git log
 alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
 alias gd="echo master diff:; git diff --name-status master"
