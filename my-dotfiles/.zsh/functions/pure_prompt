@@ -92,8 +92,8 @@ prompt_pure_preprompt_render() {
 	# git info
     local git_branch=$vcs_info_msg_0_
 
-    # if branch = master
-    [[ ${git_branch//[[:space:]]} == "master" ]] && git_branch=" %F{124}${git_branch//[[:space:]]}%f"
+    # if branch = master | merge
+    [[ ${git_branch//[[:space:]]} == (*"|merge"|"master") ]] && git_branch=" %F{160}${git_branch//[[:space:]]}%f"
 
 	prompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
 

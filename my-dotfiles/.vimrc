@@ -181,7 +181,7 @@ hi SyntasticWarningLine ctermbg=58
 " CtrlP
 let g:ctrlp_working_path_mode = 'c'
 
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
+set wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 
 " Autoformat
 nnoremap <leader>ff :Autoformat<CR>
@@ -381,3 +381,6 @@ highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
 highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
 highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
 autocmd FileType * if &diff | setlocal syntax= | endif
+
+" vertical 3-way diff
+set diffopt=vertical
