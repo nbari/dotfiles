@@ -334,7 +334,7 @@ nnoremap <leader>hex :call HexMe()<CR>
 let python_highlight_all = 1
 
 " keyword information
-nnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}}<CR>
+nnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}<CR>
 nnoremap <leader>ki :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " syntax jquery
