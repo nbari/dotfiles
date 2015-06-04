@@ -23,6 +23,7 @@ let s:stringSingle = "E5E5E5"
 let s:operators = "979797"
 let s:functions = "A67C52"
 let s:sky = "7ec0ee"
+let s:black = "000000"
 
 " Console 256 Colours
 if !has("gui_running")
@@ -247,7 +248,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Vim Highlighting
 	"call <SID>X("Error", "none", s:yellow, "none")
-	"call <SID>X("ErrorMsg", "none", s:yellow, "none")
+	call <SID>X("ErrorMsg", s:red, s:background, "")
 	call <SID>X("Normal", s:foreground, s:background, "")
 	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("NonText", s:selection, "", "")
@@ -255,7 +256,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
+	call <SID>X("StatusLine", s:black, s:blue, "reverse")
 	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
 	call <SID>X("VertSplit", s:window, s:window, "none")
 	call <SID>X("Visual", "", s:selection, "")
@@ -441,6 +442,17 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("luaCond", s:purple, "", "")
 	call <SID>X("luaCondEnd", s:purple, "", "")
 
+    " Shell
+	call <SID>X("shCtrlSeq", s:red, "", "")
+	call <SID>X("shConditional", s:sky, "", "")
+	call <SID>X("shTestOpr", s:orange, "", "")
+	call <SID>X("shStatement", s:purple, "", "")
+	call <SID>X("shRedir", s:identifiers, "", "")
+	call <SID>X("shSet", s:red, "", "")
+	call <SID>X("shHereDoc", s:comment, "", "")
+	call <SID>X("shCommandSub", s:red, "", "")
+	call <SID>X("shRange", s:identifiers, "", "")
+
 	" Delete Functions
 	delf <SID>X
 	delf <SID>rgb
@@ -454,3 +466,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 endif
 
 set background=dark
+
+" diff highlights
+highlight DiffAdd ctermfg=255 ctermbg=022
+highlight DiffDelete ctermfg=bg ctermbg=Red
+highlight DiffChange ctermfg=255 ctermbg=024
+highlight DiffText ctermfg=255 ctermbg=124

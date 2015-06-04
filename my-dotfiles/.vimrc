@@ -166,7 +166,30 @@ set foldlevel=1         "this is just what i use
 nnoremap <space> za
 
 " status line
-set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%][WORKON=%{pythonworkon}]\ %)
+" set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
+
+if has('statusline')
+  hi User1 ctermfg=172 ctermbg=016
+  hi User2 ctermfg=015 ctermbg=016
+  hi User3 ctermfg=003 ctermbg=016
+
+  set statusline=\ "                            " start with one space
+  set statusline+=%1*                           " use color 1
+  set statusline+=\%f                           " file name
+  set statusline+=%*                            "switch back to statusline highlight
+  set statusline+=\ %m%r%w%h\                   " flags
+  set statusline+=%=                            " ident to the right
+  set statusline+=%{&fileformat}\               " file format
+  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
+  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
+  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
+  set statusline+=%2*                           " use color 2
+  set statusline+=[%l,%v]\                      " cursor position/offset
+  set statusline+=%*                            "switch back to statusline highlight
+  set statusline+=%3*                           "switch back to statusline highlight
+  set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+  set statusline+=%*                            "switch back to statusline highlight
+endif
 
 " syntastic
 let g:syntastic_error_symbol='✗'
@@ -181,7 +204,7 @@ hi SyntasticWarningLine ctermbg=58
 " CtrlP
 let g:ctrlp_working_path_mode = 'c'
 
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
+set wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 
 " Autoformat
 nnoremap <leader>ff :Autoformat<CR>
@@ -283,24 +306,6 @@ endif
 map <leader>w {v}!fmt -w80<CR>
 vmap <leader>w !fmt -w80<CR>
 
-
-" Add the virtualenv's site-packages to vim path
-let g:pythonworkon = "System"
-if has("python")
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-    # Save virtual environment name to VIM variable
-    vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
-EOF
-endif
-
 " Diff current buffer and the original file
 nnoremap <leader>di :w !diff % -<CR>
 
@@ -376,8 +381,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
 " diff highlights
-highlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green
-highlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
-highlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
-highlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
 autocmd FileType * if &diff | setlocal syntax= | endif
+
+" vertical 3-way diff
+set diffopt=vertical
