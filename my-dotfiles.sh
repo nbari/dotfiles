@@ -196,6 +196,7 @@ Xlet s:stringSingle = "E5E5E5"
 Xlet s:operators = "979797"
 Xlet s:functions = "A67C52"
 Xlet s:sky = "7ec0ee"
+Xlet s:black = "000000"
 X
 X" Console 256 Colours
 Xif !has("gui_running")
@@ -420,7 +421,7 @@ X	endfun
 X
 X	" Vim Highlighting
 X	"call <SID>X("Error", "none", s:yellow, "none")
-X	"call <SID>X("ErrorMsg", "none", s:yellow, "none")
+X	call <SID>X("ErrorMsg", s:red, s:background, "")
 X	call <SID>X("Normal", s:foreground, s:background, "")
 X	call <SID>X("LineNr", s:selection, "", "")
 X	call <SID>X("NonText", s:selection, "", "")
@@ -428,7 +429,7 @@ X	call <SID>X("SpecialKey", s:selection, "", "")
 X	call <SID>X("Search", s:background, s:yellow, "")
 X	call <SID>X("TabLine", s:window, s:foreground, "reverse")
 X	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-X	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
+X	call <SID>X("StatusLine", s:black, s:blue, "reverse")
 X	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
 X	call <SID>X("VertSplit", s:window, s:window, "none")
 X	call <SID>X("Visual", "", s:selection, "")
@@ -614,6 +615,17 @@ X	call <SID>X("luaCondElseif", s:purple, "", "")
 X	call <SID>X("luaCond", s:purple, "", "")
 X	call <SID>X("luaCondEnd", s:purple, "", "")
 X
+X    " Shell
+X	call <SID>X("shCtrlSeq", s:red, "", "")
+X	call <SID>X("shConditional", s:sky, "", "")
+X	call <SID>X("shTestOpr", s:orange, "", "")
+X	call <SID>X("shStatement", s:purple, "", "")
+X	call <SID>X("shRedir", s:identifiers, "", "")
+X	call <SID>X("shSet", s:red, "", "")
+X	call <SID>X("shHereDoc", s:comment, "", "")
+X	call <SID>X("shCommandSub", s:red, "", "")
+X	call <SID>X("shRange", s:identifiers, "", "")
+X
 X	" Delete Functions
 X	delf <SID>X
 X	delf <SID>rgb
@@ -627,6 +639,12 @@ X	delf <SID>grey_number
 Xendif
 X
 Xset background=dark
+X
+X" diff highlights
+Xhighlight DiffAdd ctermfg=255 ctermbg=022
+Xhighlight DiffDelete ctermfg=bg ctermbg=Red
+Xhighlight DiffChange ctermfg=255 ctermbg=024
+Xhighlight DiffText ctermfg=255 ctermbg=124
 END-of-./.vim/colors/my-colors.vim
 echo x - ./.vim/filetype.vim
 sed 's/^X//' >./.vim/filetype.vim << 'END-of-./.vim/filetype.vim'
@@ -2117,7 +2135,30 @@ X" mapping of space bar to open/close
 Xnnoremap <space> za
 X
 X" status line
-Xset statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%][WORKON=%{pythonworkon}]\ %)
+X" set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
+X
+Xif has('statusline')
+X  hi User1 ctermfg=172 ctermbg=016
+X  hi User2 ctermfg=015 ctermbg=016
+X  hi User3 ctermfg=003 ctermbg=016
+X
+X  set statusline=\ "                            " start with one space
+X  set statusline+=%1*                           " use color 1
+X  set statusline+=\%f                           " file name
+X  set statusline+=%*                            "switch back to statusline highlight
+X  set statusline+=\ %m%r%w%h\                   " flags
+X  set statusline+=%=                            " ident to the right
+X  set statusline+=%{&fileformat}\               " file format
+X  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
+X  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
+X  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
+X  set statusline+=%2*                           " use color 2
+X  set statusline+=[%l,%v]\                      " cursor position/offset
+X  set statusline+=%*                            "switch back to statusline highlight
+X  set statusline+=%3*                           "switch back to statusline highlight
+X  set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+X  set statusline+=%*                            "switch back to statusline highlight
+Xendif
 X
 X" syntastic
 Xlet g:syntastic_error_symbol='✗'
@@ -2132,7 +2173,7 @@ X
 X" CtrlP
 Xlet g:ctrlp_working_path_mode = 'c'
 X
-Xset wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
+Xset wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 X
 X" Autoformat
 Xnnoremap <leader>ff :Autoformat<CR>
@@ -2234,24 +2275,6 @@ X" wrap text
 Xmap <leader>w {v}!fmt -w80<CR>
 Xvmap <leader>w !fmt -w80<CR>
 X
-X
-X" Add the virtualenv's site-packages to vim path
-Xlet g:pythonworkon = "System"
-Xif has("python")
-Xpy << EOF
-Ximport os.path
-Ximport sys
-Ximport vim
-Xif 'VIRTUAL_ENV' in os.environ:
-X    project_base_dir = os.environ['VIRTUAL_ENV']
-X    sys.path.insert(0, project_base_dir)
-X    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-X    execfile(activate_this, dict(__file__=activate_this))
-X    # Save virtual environment name to VIM variable
-X    vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
-XEOF
-Xendif
-X
 X" Diff current buffer and the original file
 Xnnoremap <leader>di :w !diff % -<CR>
 X
@@ -2327,11 +2350,10 @@ Xlet g:go_highlight_methods = 1
 Xlet g:go_highlight_structs = 1
 X
 X" diff highlights
-Xhighlight DiffAdd cterm=NONE ctermfg=bg ctermbg=Green
-Xhighlight DiffDelete cterm=NONE ctermfg=bg ctermbg=Red
-Xhighlight DiffChange cterm=NONE ctermfg=bg ctermbg=Yellow
-Xhighlight DiffText cterm=NONE ctermfg=bg ctermbg=Magenta
 Xautocmd FileType * if &diff | setlocal syntax= | endif
+X
+X" vertical 3-way diff
+Xset diffopt=vertical
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -2680,8 +2702,8 @@ X
 X	# git info
 X    local git_branch=$vcs_info_msg_0_
 X
-X    # if branch = master
-X    [[ ${git_branch//[[:space:]]} == "master" ]] && git_branch=" %F{124}${git_branch//[[:space:]]}%f"
+X    # if branch = master | merge
+X    [[ ${git_branch//[[:space:]]} == (*"|merge"|"master") ]] && git_branch=" %F{160}${git_branch//[[:space:]]}%f"
 X
 X	prompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
 X
