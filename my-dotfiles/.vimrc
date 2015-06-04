@@ -40,7 +40,7 @@ call vundle#end()
 "re-enable filetype
 filetype plugin indent on
 
-colorscheme my-colors
+colorscheme nbari-colors
 
 " change the mapleader from \ to ,
 let mapleader=","
@@ -185,9 +185,6 @@ if has('statusline')
   set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
   set statusline+=%2*                           " use color 2
   set statusline+=[%l,%v]\                      " cursor position/offset
-  set statusline+=%*                            "switch back to statusline highlight
-  set statusline+=%3*                           "switch back to statusline highlight
-  set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
   set statusline+=%*                            "switch back to statusline highlight
 endif
 

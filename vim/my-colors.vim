@@ -237,12 +237,15 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	fun <SID>X(group, fg, bg, attr)
 		if a:fg != ""
 			exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
+			echo "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
 		endif
 		if a:bg != ""
 			exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
+			echo "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
 		endif
 		if a:attr != ""
 			exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+			echo "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
 		endif
 	endfun
 

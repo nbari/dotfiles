@@ -15,12 +15,14 @@
 #	./.vim/after/syntax/php.vim
 #	./.vim/after/syntax/python.vim
 #	./.vim/colors
-#	./.vim/colors/my-colors.vim
+#	./.vim/colors/nbari-colors.vim
 #	./.vim/filetype.vim
 #	./.vim/syntax
 #	./.vim/syntax/jquery.vim
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
+#	./.vim/view
+#	./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
 #	./.vimrc
 #	./.zsh
 #	./.zsh/functions
@@ -169,483 +171,232 @@ Xsyn region Comment start=/'''/ end=/'''/
 END-of-./.vim/after/syntax/python.vim
 echo c - ./.vim/colors
 mkdir -p ./.vim/colors > /dev/null 2>&1
-echo x - ./.vim/colors/my-colors.vim
-sed 's/^X//' >./.vim/colors/my-colors.vim << 'END-of-./.vim/colors/my-colors.vim'
-X" my-colors
-X" Based on Tomorrow Night - Full Colour and 256 Colour
-X
-X" Default GUI Colours
-Xlet s:foreground = "c5c8c6"
-Xlet s:background = "1d1f21"
-Xlet s:selection = "373b41"
-Xlet s:line = "282a2e"
-X" let s:comment = "969896"
-Xlet s:comment = "808080"
-Xlet s:red = "cc6666"
-Xlet s:orange = "de935f"
-Xlet s:yellow = "f0c674"
-Xlet s:green = "b5bd68"
-Xlet s:aqua = "8abeb7"
-Xlet s:blue = "81a2be"
-Xlet s:purple = "b294bb"
-Xlet s:window = "4d5057"
-Xlet s:identifiers = "7EA7D8"
-Xlet s:keywords = "7CC576"
-Xlet s:constants = "ffffff"
-Xlet s:stringSingle = "E5E5E5"
-Xlet s:operators = "979797"
-Xlet s:functions = "A67C52"
-Xlet s:sky = "7ec0ee"
-Xlet s:black = "000000"
-X
-X" Console 256 Colours
-Xif !has("gui_running")
-X	let s:background = "303030"
-X	let s:window = "5e5e5e"
-X	let s:line = "3a3a3a"
-X	let s:selection = "585858"
-Xend
+echo x - ./.vim/colors/nbari-colors.vim
+sed 's/^X//' >./.vim/colors/nbari-colors.vim << 'END-of-./.vim/colors/nbari-colors.vim'
+X" nbari-colors
 X
 Xhi clear
 Xsyntax reset
 X
-Xlet g:colors_name = "my-colors"
+Xlet g:colors_name = "nbari-colors"
 X
-Xif has("gui_running") || &t_Co == 88 || &t_Co == 256
-X	" Returns an approximate grey index for the given grey level
-X	fun <SID>grey_number(x)
-X		if &t_Co == 88
-X			if a:x < 23
-X				return 0
-X			elseif a:x < 69
-X				return 1
-X			elseif a:x < 103
-X				return 2
-X			elseif a:x < 127
-X				return 3
-X			elseif a:x < 150
-X				return 4
-X			elseif a:x < 173
-X				return 5
-X			elseif a:x < 196
-X				return 6
-X			elseif a:x < 219
-X				return 7
-X			elseif a:x < 243
-X				return 8
-X			else
-X				return 9
-X			endif
-X		else
-X			if a:x < 14
-X				return 0
-X			else
-X				let l:n = (a:x - 8) / 10
-X				let l:m = (a:x - 8) % 10
-X				if l:m < 5
-X					return l:n
-X				else
-X					return l:n + 1
-X				endif
-X			endif
-X		endif
-X	endfun
+X" Standard
+Xhi Comment         term=bold ctermfg=243
+Xhi Conditional     ctermfg=250
+Xhi Constant        term=underline ctermfg=173
+Xhi Define          ctermfg=139
+Xhi Error           term=reverse ctermfg=15 ctermbg=9
+Xhi Function        ctermfg=109
+Xhi Identifier      term=underline ctermfg=167
+Xhi Ignore          ctermfg=0
+Xhi Include         ctermfg=109
+Xhi Operator        ctermfg=109
+Xhi PreProc         term=underline ctermfg=139
+Xhi Repeat          ctermfg=250
+Xhi Special         term=bold ctermfg=250
+Xhi Statement       term=bold ctermfg=250
+Xhi String          ctermfg=143
+Xhi Structure       ctermfg=139
+Xhi Todo            term=standout ctermfg=243 ctermbg=235
+Xhi Type            term=underline ctermfg=109
+Xhi Underlined      term=underline cterm=underline ctermfg=81
 X
-X	" Returns the actual grey level represented by the grey index
-X	fun <SID>grey_level(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 0
-X			elseif a:n == 1
-X				return 46
-X			elseif a:n == 2
-X				return 92
-X			elseif a:n == 3
-X				return 115
-X			elseif a:n == 4
-X				return 139
-X			elseif a:n == 5
-X				return 162
-X			elseif a:n == 6
-X				return 185
-X			elseif a:n == 7
-X				return 208
-X			elseif a:n == 8
-X				return 231
-X			else
-X				return 255
-X			endif
-X		else
-X			if a:n == 0
-X				return 0
-X			else
-X				return 8 + (a:n * 10)
-X			endif
-X		endif
-X	endfun
+X" Vim
+Xhi ColorColumn     term=reverse ctermbg=236
+Xhi CursorColumn    term=reverse ctermbg=236
+Xhi CursorLine      term=underline ctermbg=236
+Xhi Directory       term=bold ctermfg=109
+Xhi ErrorMsg        term=standout ctermfg=167 ctermbg=235
+Xhi FoldColumn      term=standout ctermfg=14 ctermbg=235
+Xhi Folded          term=standout ctermfg=243 ctermbg=235
+Xhi IncSearch       term=reverse cterm=reverse
+Xhi LineNr          term=underline ctermfg=239
+Xhi MatchParen      term=reverse ctermbg=239
+Xhi ModeMsg         term=bold cterm=bold ctermfg=143
+Xhi MoreMsg         term=bold ctermfg=143
+Xhi NonText         term=bold ctermfg=239
+Xhi Normal          ctermfg=250 ctermbg=235
+Xhi Pmenu           ctermfg=250 ctermbg=239
+Xhi PmenuSbar       ctermbg=248
+Xhi PmenuSel        cterm=reverse ctermfg=250 ctermbg=239
+Xhi PmenuThumb      cterm=reverse
+Xhi Question        term=standout ctermfg=143
+Xhi Search          term=reverse ctermfg=235 ctermbg=222
+Xhi SignColumn      term=standout ctermfg=14 ctermbg=235
+Xhi SpecialKey      term=bold ctermfg=239
+Xhi SpellBad        term=reverse ctermbg=9
+Xhi SpellCap        term=reverse ctermbg=12
+Xhi SpellLocal      term=underline ctermbg=14
+Xhi SpellRare       term=reverse ctermbg=13
+Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
+Xhi StatusLineNC    term=reverse cterm=reverse ctermfg=240 ctermbg=250
+Xhi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
+Xhi TabLineFill     term=reverse cterm=reverse ctermfg=240 ctermbg=250
+Xhi TabLineSel      term=bold cterm=bold
+Xhi Title           term=bold ctermfg=243
+Xhi VertSplit       term=reverse ctermfg=240 ctermbg=240
+Xhi Visual          term=reverse ctermbg=239
+Xhi WarningMsg      term=standout ctermfg=167
+Xhi WildMenu        term=standout ctermfg=0 ctermbg=11
+Xhi vimCommand      ctermfg=167
 X
-X	" Returns the palette index for the given grey index
-X	fun <SID>grey_colour(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 16
-X			elseif a:n == 9
-X				return 79
-X			else
-X				return 79 + a:n
-X			endif
-X		else
-X			if a:n == 0
-X				return 16
-X			elseif a:n == 25
-X				return 231
-X			else
-X				return 231 + a:n
-X			endif
-X		endif
-X	endfun
+X" C
+Xhi cConditional    ctermfg=139
+Xhi cRepeat         ctermfg=139
+Xhi cStorageClass   ctermfg=139
+Xhi cType           ctermfg=222
 X
-X	" Returns an approximate colour index for the given colour level
-X	fun <SID>rgb_number(x)
-X		if &t_Co == 88
-X			if a:x < 69
-X				return 0
-X			elseif a:x < 172
-X				return 1
-X			elseif a:x < 230
-X				return 2
-X			else
-X				return 3
-X			endif
-X		else
-X			if a:x < 75
-X				return 0
-X			else
-X				let l:n = (a:x - 55) / 40
-X				let l:m = (a:x - 55) % 40
-X				if l:m < 20
-X					return l:n
-X				else
-X					return l:n + 1
-X				endif
-X			endif
-X		endif
-X	endfun
+X" PHP
+Xhi phpClasses      ctermfg=110
+Xhi phpConditional  ctermfg=139
+Xhi phpConstants    ctermfg=231
+Xhi phpFunctions    ctermfg=137
+Xhi phpIdentifier   ctermfg=167
+Xhi phpInclude      ctermfg=167
+Xhi phpKeyword      ctermfg=139
+Xhi phpMemberSelector  ctermfg=250
+Xhi phpMethodsVar   ctermfg=110
+Xhi phpNumber       ctermfg=222
+Xhi phpOperator     ctermfg=245
+Xhi phpParent       ctermfg=245
+Xhi phpRegion       ctermfg=109
+Xhi phpRepeat       ctermfg=139
+Xhi phpSpecial      ctermfg=222
+Xhi phpStatement    ctermfg=139
+Xhi phpStringSingle  ctermfg=253
+Xhi phpType         ctermfg=114
+Xhi phpVarSelector  ctermfg=173
 X
-X	" Returns the actual colour level for the given colour index
-X	fun <SID>rgb_level(n)
-X		if &t_Co == 88
-X			if a:n == 0
-X				return 0
-X			elseif a:n == 1
-X				return 139
-X			elseif a:n == 2
-X				return 205
-X			else
-X				return 255
-X			endif
-X		else
-X			if a:n == 0
-X				return 0
-X			else
-X				return 55 + (a:n * 40)
-X			endif
-X		endif
-X	endfun
+X" Ruby
+Xhi rubyAccess      ctermfg=222
+Xhi rubyAttribute   ctermfg=109
+Xhi rubyConditional  ctermfg=139
+Xhi rubyConstant    ctermfg=222
+Xhi rubyControl     ctermfg=139
+Xhi rubyCurlyBlock  ctermfg=173
+Xhi rubyException   ctermfg=139
+Xhi rubyInclude     ctermfg=109
+Xhi rubyInterpolationDelimiter  ctermfg=173
+Xhi rubyLocalVariableOrMethod  ctermfg=173
+Xhi rubyRepeat      ctermfg=139
+Xhi rubyStringDelimiter  ctermfg=143
+Xhi rubySymbol      ctermfg=143
 X
-X	" Returns the palette index for the given R/G/B colour indices
-X	fun <SID>rgb_colour(x, y, z)
-X		if &t_Co == 88
-X			return 16 + (a:x * 16) + (a:y * 4) + a:z
-X		else
-X			return 16 + (a:x * 36) + (a:y * 6) + a:z
-X		endif
-X	endfun
+X" Python
+Xhi pythonBinNumber  ctermfg=222
+Xhi pythonBoolean   ctermfg=173
+Xhi pythonBytesEscape  ctermfg=173
+Xhi pythonConditional  ctermfg=173
+Xhi pythonDot       ctermfg=167
+Xhi pythonExClass   ctermfg=173
+Xhi pythonException  ctermfg=139
+Xhi pythonFloat     ctermfg=222
+Xhi pythonFunction  ctermfg=139
+Xhi pythonHexNumber  ctermfg=222
+Xhi pythonImport    ctermfg=167
+Xhi pythonNumber    ctermfg=222
+Xhi pythonOctNumber  ctermfg=222
+Xhi pythonPreCondit  ctermfg=167
+Xhi pythonRepeat    ctermfg=173
+Xhi pythonStatement  ctermfg=110
+Xhi pythonStrFormatting  ctermfg=114
 X
-X	" Returns the palette index to approximate the given R/G/B colour levels
-X	fun <SID>colour(r, g, b)
-X		" Get the closest grey
-X		let l:gx = <SID>grey_number(a:r)
-X		let l:gy = <SID>grey_number(a:g)
-X		let l:gz = <SID>grey_number(a:b)
+X" JavaScript
+Xhi jEffects        ctermfg=110
+Xhi jEvents         ctermfg=110
+Xhi jForms          ctermfg=114
+Xhi jFunc           ctermfg=139
+Xhi jManipulation   ctermfg=110
+Xhi jQuery          ctermfg=222
+Xhi javaScriptBoolean  ctermfg=167
+Xhi javaScriptBraces  ctermfg=167
+Xhi javaScriptConditional  ctermfg=139
+Xhi javaScriptDOMObjects  ctermfg=114
+Xhi javaScriptEndColons  ctermfg=245
+Xhi javaScriptExceptions  ctermfg=110
+Xhi javaScriptFuncArg  ctermfg=173
+Xhi javaScriptFuncDef  ctermfg=110
+Xhi javaScriptFuncKeyword  ctermfg=139
+Xhi javaScriptGlobalObjects  ctermfg=109
+Xhi javaScriptIdentifier  ctermfg=114
+Xhi javaScriptMember  ctermfg=173
+Xhi javaScriptNumber  ctermfg=222
+Xhi javaScriptOpSymbols  ctermfg=173
+Xhi javaScriptOperator  ctermfg=222
+Xhi javaScriptParens  ctermfg=245
+Xhi javaScriptRepeat  ctermfg=139
+Xhi javaScriptStatement  ctermfg=139
+Xhi javaScriptStringD  ctermfg=143
+Xhi javaScriptStringS  ctermfg=253
 X
-X		" Get the closest colour
-X		let l:x = <SID>rgb_number(a:r)
-X		let l:y = <SID>rgb_number(a:g)
-X		let l:z = <SID>rgb_number(a:b)
+X" HTML
+Xhi htmlArg         ctermfg=167
+Xhi htmlScriptTag   ctermfg=167
+Xhi htmlTag         ctermfg=167
+Xhi htmlTagName     ctermfg=167
 X
-X		if l:gx == l:gy && l:gy == l:gz
-X			" There are two possibilities
-X			let l:dgr = <SID>grey_level(l:gx) - a:r
-X			let l:dgg = <SID>grey_level(l:gy) - a:g
-X			let l:dgb = <SID>grey_level(l:gz) - a:b
-X			let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
-X			let l:dr = <SID>rgb_level(l:gx) - a:r
-X			let l:dg = <SID>rgb_level(l:gy) - a:g
-X			let l:db = <SID>rgb_level(l:gz) - a:b
-X			let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
-X			if l:dgrey < l:drgb
-X				" Use the grey
-X				return <SID>grey_colour(l:gx)
-X			else
-X				" Use the colour
-X				return <SID>rgb_colour(l:x, l:y, l:z)
-X			endif
-X		else
-X			" Only one possibility
-X			return <SID>rgb_colour(l:x, l:y, l:z)
-X		endif
-X	endfun
+X" Diff
+Xhi diffAdded       ctermfg=143
+Xhi DiffAdd         term=bold ctermfg=255 ctermbg=22
+Xhi DiffChange      term=bold ctermfg=255 ctermbg=24
+Xhi DiffDelete      term=bold ctermfg=235 ctermbg=9
+Xhi DiffText        term=reverse cterm=bold ctermfg=255 ctermbg=124
+Xhi diffRemoved     ctermfg=167
 X
-X	" Returns the palette index to approximate the 'rrggbb' hex string
-X	fun <SID>rgb(rgb)
-X		let l:r = ("0x" . strpart(a:rgb, 0, 2)) + 0
-X		let l:g = ("0x" . strpart(a:rgb, 2, 2)) + 0
-X		let l:b = ("0x" . strpart(a:rgb, 4, 2)) + 0
+X" ShowMarks
+Xhi ShowMarksHLl    ctermfg=173 ctermbg=235
+Xhi ShowMarksHLo    ctermfg=139 ctermbg=235
+Xhi ShowMarksHLu    ctermfg=222 ctermbg=235
+Xhi ShowMarksHLm    ctermfg=109 ctermbg=235
 X
-X		return <SID>colour(l:r, l:g, l:b)
-X	endfun
+X" Cucumber
+Xhi cucumberGiven   ctermfg=109
+Xhi cucumberGivenAnd  ctermfg=109
 X
-X	" Sets the highlighting for the given group
-X	fun <SID>X(group, fg, bg, attr)
-X		if a:fg != ""
-X			exec "hi " . a:group . " guifg=#" . a:fg . " ctermfg=" . <SID>rgb(a:fg)
-X		endif
-X		if a:bg != ""
-X			exec "hi " . a:group . " guibg=#" . a:bg . " ctermbg=" . <SID>rgb(a:bg)
-X		endif
-X		if a:attr != ""
-X			exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-X		endif
-X	endfun
+X" Go
+Xhi goBuiltins      ctermfg=139
+Xhi goComplexes     ctermfg=167
+Xhi goConditional   ctermfg=139
+Xhi goConstants     ctermfg=173
+Xhi goDeclType      ctermfg=222
+Xhi goDeclaration   ctermfg=139
+Xhi goDirective     ctermfg=167
+Xhi goEscapeC       ctermfg=173
+Xhi goFloats        ctermfg=167
+Xhi goFormatSpecifier  ctermfg=114
+Xhi goFunction      ctermfg=231
+Xhi goMethod        ctermfg=110
+Xhi goOperator      ctermfg=109
+Xhi goRepeat        ctermfg=111
+Xhi goSignedInts    ctermfg=167
+Xhi goStatement     ctermfg=139
+Xhi goString        ctermfg=143
+Xhi goStructDef     ctermfg=137
+Xhi goTodo          ctermfg=222
+Xhi goType          ctermfg=167
+Xhi goUnsignedInts  ctermfg=167
 X
-X	" Vim Highlighting
-X	"call <SID>X("Error", "none", s:yellow, "none")
-X	call <SID>X("ErrorMsg", s:red, s:background, "")
-X	call <SID>X("Normal", s:foreground, s:background, "")
-X	call <SID>X("LineNr", s:selection, "", "")
-X	call <SID>X("NonText", s:selection, "", "")
-X	call <SID>X("SpecialKey", s:selection, "", "")
-X	call <SID>X("Search", s:background, s:yellow, "")
-X	call <SID>X("TabLine", s:window, s:foreground, "reverse")
-X	call <SID>X("TabLineFill", s:window, s:foreground, "reverse")
-X	call <SID>X("StatusLine", s:black, s:blue, "reverse")
-X	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
-X	call <SID>X("VertSplit", s:window, s:window, "none")
-X	call <SID>X("Visual", "", s:selection, "")
-X	call <SID>X("Directory", s:blue, "", "")
-X	call <SID>X("ModeMsg", s:green, "", "")
-X	call <SID>X("MoreMsg", s:green, "", "")
-X	call <SID>X("Question", s:green, "", "")
-X	call <SID>X("WarningMsg", s:red, "", "")
-X	call <SID>X("MatchParen", "", s:selection, "")
-X	call <SID>X("Folded", s:comment, s:background, "")
-X	call <SID>X("FoldColumn", "", s:background, "")
-X	if version >= 700
-X		call <SID>X("CursorLine", "", s:line, "none")
-X		call <SID>X("CursorColumn", "", s:line, "none")
-X		call <SID>X("PMenu", s:foreground, s:selection, "none")
-X		call <SID>X("PMenuSel", s:foreground, s:selection, "reverse")
-X		call <SID>X("SignColumn", "", s:background, "none")
-X	end
-X	if version >= 703
-X		call <SID>X("ColorColumn", "", s:line, "none")
-X	end
+X" Lua
+Xhi luaCond         ctermfg=139
+Xhi luaCondElseif   ctermfg=139
+Xhi luaCondEnd      ctermfg=139
+Xhi luaCondStart    ctermfg=139
+Xhi luaRepeat       ctermfg=139
+Xhi luaStatement    ctermfg=139
 X
-X	" Standard Highlighting
-X	call <SID>X("Comment", s:comment, "", "")
-X	call <SID>X("Todo", s:comment, s:background, "")
-X	call <SID>X("Title", s:comment, "", "")
-X	call <SID>X("Identifier", s:red, "", "none")
-X	call <SID>X("Statement", s:foreground, "", "")
-X	call <SID>X("Conditional", s:foreground, "", "")
-X	call <SID>X("Repeat", s:foreground, "", "")
-X	call <SID>X("Structure", s:purple, "", "")
-X	call <SID>X("Function", s:blue, "", "")
-X	call <SID>X("Constant", s:orange, "", "")
-X	call <SID>X("String", s:green, "", "")
-X	call <SID>X("Special", s:foreground, "", "")
-X	call <SID>X("PreProc", s:purple, "", "")
-X	call <SID>X("Operator", s:aqua, "", "none")
-X	call <SID>X("Type", s:blue, "", "none")
-X	call <SID>X("Define", s:purple, "", "none")
-X	call <SID>X("Include", s:blue, "", "")
-X	"call <SID>X("Ignore", "666666", "", "")
-X
-X	" Vim Highlighting
-X	call <SID>X("vimCommand", s:red, "", "none")
-X
-X	" C Highlighting
-X	call <SID>X("cType", s:yellow, "", "")
-X	call <SID>X("cStorageClass", s:purple, "", "")
-X	call <SID>X("cConditional", s:purple, "", "")
-X	call <SID>X("cRepeat", s:purple, "", "")
-X
-X	" PHP Highlighting
-X	call <SID>X("phpClasses", s:identifiers, "", "")
-X	call <SID>X("phpConditional", s:purple, "", "")
-X	call <SID>X("phpConstants", s:constants, "", "")
-X	call <SID>X("phpFunctions", s:functions, "", "")
-X	call <SID>X("phpIdentifier", s:red, "", "")
-X	call <SID>X("phpInclude", s:red, "", "")
-X	call <SID>X("phpKeyword", s:purple, "", "")
-X	call <SID>X("phpMemberSelector", s:foreground, "", "")
-X	call <SID>X("phpMethodsVar", s:identifiers, "", "")
-X	call <SID>X("phpNumber", s:yellow, "", "")
-X	call <SID>X("phpOperator", s:operators, "", "")
-X	call <SID>X("phpParent", s:operators, "", "")
-X	call <SID>X("phpRegion", s:blue, "", "")
-X	call <SID>X("phpRepeat", s:purple, "", "")
-X	call <SID>X("phpSpecial", s:yellow, "", "")
-X	call <SID>X("phpStatement", s:purple, "", "")
-X	call <SID>X("phpStringSingle", s:stringSingle, "", "")
-X	call <SID>X("phpType", s:keywords, "", "")
-X	call <SID>X("phpVarSelector", s:orange, "", "")
-X
-X	" Ruby Highlighting
-X	call <SID>X("rubySymbol", s:green, "", "")
-X	call <SID>X("rubyConstant", s:yellow, "", "")
-X	call <SID>X("rubyAccess", s:yellow, "", "")
-X	call <SID>X("rubyAttribute", s:blue, "", "")
-X	call <SID>X("rubyInclude", s:blue, "", "")
-X	call <SID>X("rubyLocalVariableOrMethod", s:orange, "", "")
-X	call <SID>X("rubyCurlyBlock", s:orange, "", "")
-X	call <SID>X("rubyStringDelimiter", s:green, "", "")
-X	call <SID>X("rubyInterpolationDelimiter", s:orange, "", "")
-X	call <SID>X("rubyConditional", s:purple, "", "")
-X	call <SID>X("rubyRepeat", s:purple, "", "")
-X	call <SID>X("rubyControl", s:purple, "", "")
-X	call <SID>X("rubyException", s:purple, "", "")
-X
-X	" Python Highlighting
-X	call <SID>X("pythonBinNumber", s:yellow, "", "")
-X	call <SID>X("pythonBoolean", s:orange, "", "")
-X	call <SID>X("pythonConditional", s:orange, "", "")
-X	call <SID>X("pythonDot", s:red, "", "")
-X	call <SID>X("pythonExClass", s:orange, "", "")
-X	call <SID>X("pythonException", s:purple, "", "")
-X	call <SID>X("pythonFloat", s:yellow, "", "")
-X	call <SID>X("pythonFunction", s:purple, "", "")
-X	call <SID>X("pythonHexNumber", s:yellow, "", "")
-X	call <SID>X("pythonImport", s:red, "", "")
-X	call <SID>X("pythonNumber", s:yellow, "", "")
-X	call <SID>X("pythonOctNumber", s:yellow, "", "")
-X	call <SID>X("pythonPreCondit", s:red, "", "")
-X	call <SID>X("pythonRepeat", s:orange, "", "")
-X	call <SID>X("pythonStatement", s:identifiers, "", "")
-X	call <SID>X("pythonStrFormatting", s:keywords, "", "")
-X	call <SID>X("pythonBytesEscape", s:orange, "", "")
-X
-X	" JavaScript Highlighting
-X	call <SID>X("jEffects", s:identifiers, "", "")
-X	call <SID>X("jEvents", s:identifiers, "", "")
-X	call <SID>X("jForms", s:keywords, "", "")
-X	call <SID>X("jFunc", s:purple, "", "")
-X	call <SID>X("jManipulation", s:identifiers, "", "")
-X	call <SID>X("jQuery", s:yellow, "", "")
-X	call <SID>X("javaScriptBoolean", s:red, "", "")
-X	call <SID>X("javaScriptBraces", s:red, "", "")
-X	call <SID>X("javaScriptConditional", s:purple, "", "")
-X	call <SID>X("javaScriptDOMObjects", s:keywords, "", "")
-X	call <SID>X("javaScriptEndColons", s:operators, "", "")
-X	call <SID>X("javaScriptExceptions", s:identifiers, "", "")
-X	call <SID>X("javaScriptFuncArg", s:orange, "", "")
-X	call <SID>X("javaScriptFuncDef", s:identifiers, "", "")
-X	call <SID>X("javaScriptFuncKeyword", s:purple, "", "")
-X	call <SID>X("javaScriptGlobalObjects", s:blue, "", "")
-X	call <SID>X("javaScriptIdentifier", s:keywords, "", "")
-X	call <SID>X("javaScriptMember", s:orange, "", "")
-X	call <SID>X("javaScriptNumber", s:yellow, "", "")
-X	call <SID>X("javaScriptOpSymbols", s:orange, "", "")
-X	call <SID>X("javaScriptOperator", s:yellow, "", "")
-X	call <SID>X("javaScriptParens", s:operators, "", "")
-X	call <SID>X("javaScriptRepeat", s:purple, "", "")
-X	call <SID>X("javaScriptStatement", s:purple, "", "")
-X	call <SID>X("javaScriptStringD", s:green, "", "")
-X	call <SID>X("javaScriptStringS", s:stringSingle, "", "")
-X
-X	" HTML Highlighting
-X	call <SID>X("htmlTag", s:red, "", "")
-X	call <SID>X("htmlTagName", s:red, "", "")
-X	call <SID>X("htmlArg", s:red, "", "")
-X	call <SID>X("htmlScriptTag", s:red, "", "")
-X
-X	" Diff Highlighting
-X	call <SID>X("diffAdded", s:green, "", "")
-X	call <SID>X("diffRemoved", s:red, "", "")
-X
-X	" ShowMarks Highlighting
-X	call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
-X	call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
-X	call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
-X	call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
-X
-X	" Cucumber Highlighting
-X	call <SID>X("cucumberGiven", s:blue, "", "")
-X	call <SID>X("cucumberGivenAnd", s:blue, "", "")
-X
-X	" Go Highlighting
-X	call <SID>X("goDirective", s:red, "", "")
-X	call <SID>X("goDeclaration", s:purple, "", "")
-X	call <SID>X("goStatement", s:purple, "", "")
-X	call <SID>X("goConditional", s:purple, "", "")
-X	call <SID>X("goConstants", s:orange, "", "")
-X	call <SID>X("goTodo", s:yellow, "", "")
-X	call <SID>X("goDeclType", s:yellow, "", "")
-X	call <SID>X("goBuiltins", s:purple, "", "")
-X	call <SID>X("goOperator", s:blue, "", "")
-X	call <SID>X("goFormatSpecifier", s:keywords, "", "")
-X	call <SID>X("goRepeat", s:sky, "", "")
-X	call <SID>X("goEscapeC", s:orange, "", "")
-X	call <SID>X("goMethod", s:identifiers, "", "")
-X	call <SID>X("goFunction", s:constants, "", "")
-X	call <SID>X("goStructDef", s:functions, "", "")
-X	call <SID>X("goType", s:red, "", "")
-X	call <SID>X("goSignedInts", s:red, "", "")
-X	call <SID>X("goUnsignedInts", s:red, "", "")
-X	call <SID>X("goFloats", s:red, "", "")
-X	call <SID>X("goComplexes", s:red, "", "")
-X	call <SID>X("goString", s:green, "", "")
-X
-X	" Lua Highlighting
-X	call <SID>X("luaStatement", s:purple, "", "")
-X	call <SID>X("luaRepeat", s:purple, "", "")
-X	call <SID>X("luaCondStart", s:purple, "", "")
-X	call <SID>X("luaCondElseif", s:purple, "", "")
-X	call <SID>X("luaCond", s:purple, "", "")
-X	call <SID>X("luaCondEnd", s:purple, "", "")
-X
-X    " Shell
-X	call <SID>X("shCtrlSeq", s:red, "", "")
-X	call <SID>X("shConditional", s:sky, "", "")
-X	call <SID>X("shTestOpr", s:orange, "", "")
-X	call <SID>X("shStatement", s:purple, "", "")
-X	call <SID>X("shRedir", s:identifiers, "", "")
-X	call <SID>X("shSet", s:red, "", "")
-X	call <SID>X("shHereDoc", s:comment, "", "")
-X	call <SID>X("shCommandSub", s:red, "", "")
-X	call <SID>X("shRange", s:identifiers, "", "")
-X
-X	" Delete Functions
-X	delf <SID>X
-X	delf <SID>rgb
-X	delf <SID>colour
-X	delf <SID>rgb_colour
-X	delf <SID>rgb_level
-X	delf <SID>rgb_number
-X	delf <SID>grey_colour
-X	delf <SID>grey_level
-X	delf <SID>grey_number
-Xendif
+X" SH
+Xhi shCommandSub    ctermfg=167
+Xhi shConditional   ctermfg=111
+Xhi shCtrlSeq       ctermfg=167
+Xhi shHereDoc       ctermfg=243
+Xhi shRange         ctermfg=110
+Xhi shRedir         ctermfg=110
+Xhi shSet           ctermfg=167
+Xhi shStatement     ctermfg=139
+Xhi shTestOpr       ctermfg=173
 X
 Xset background=dark
-X
-X" diff highlights
-Xhighlight DiffAdd ctermfg=255 ctermbg=022
-Xhighlight DiffDelete ctermfg=bg ctermbg=Red
-Xhighlight DiffChange ctermfg=255 ctermbg=024
-Xhighlight DiffText ctermfg=255 ctermbg=124
-END-of-./.vim/colors/my-colors.vim
+END-of-./.vim/colors/nbari-colors.vim
 echo x - ./.vim/filetype.vim
 sed 's/^X//' >./.vim/filetype.vim << 'END-of-./.vim/filetype.vim'
 X" adjust the path to your nginx
@@ -1965,6 +1716,144 @@ Xendif
 X
 X" vim: ts=8 sts=2 sw=2 expandtab
 END-of-./.vim/syntax/php.vim
+echo c - ./.vim/view
+mkdir -p ./.vim/view > /dev/null 2>&1
+echo x - ./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
+sed 's/^X//' >./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim= << 'END-of-./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Ximap <buffer> <S-BS> <Plug>delimitMateS-BS
+Ximap <buffer> <BS> <Plug>delimitMateBS
+Xvnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+Xnnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+Xvnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "bW")
+Xnnoremap <buffer> <silent> [] m':call search('^\s*endf*\%[unction]\>', "bW")
+Xvnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
+Xnnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
+Xvnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+Xnnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+Xvnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "W")
+Xnnoremap <buffer> <silent> ][ m':call search('^\s*endf*\%[unction]\>', "W")
+Xvnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
+Xnnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
+Ximap <buffer> <silent> g <Plug>delimitMateJumpMany
+Ximap <buffer>  <Plug>delimitMateBS
+Ximap <buffer> " <Plug>delimitMate"
+Ximap <buffer> ' <Plug>delimitMate'
+Ximap <buffer> ( <Plug>delimitMate(
+Ximap <buffer> ) <Plug>delimitMate)
+Ximap <buffer> [ <Plug>delimitMate[
+Ximap <buffer> ] <Plug>delimitMate]
+Ximap <buffer> ` <Plug>delimitMate`
+Ximap <buffer> { <Plug>delimitMate{
+Ximap <buffer> } <Plug>delimitMate}
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal autoindent
+Xsetlocal binary
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal nocindent
+Xsetlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+Xsetlocal cinoptions=
+Xsetlocal cinwords=if,else,while,do,for,switch
+Xsetlocal colorcolumn=
+Xsetlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+Xsetlocal commentstring=\"%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=
+Xsetlocal expandtab
+Xif &filetype != 'vim'
+Xsetlocal filetype=vim
+Xendif
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croql
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=0
+Xsetlocal include=
+Xsetlocal includeexpr=
+Xsetlocal indentexpr=GetVimIndent()
+Xsetlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255,#
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal nolist
+Xsetlocal makeprg=
+Xsetlocal matchpairs=(:),{:},[:]
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal norelativenumber
+Xsetlocal noscrollbind
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal nosmartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'vim'
+Xsetlocal syntax=vim
+Xendif
+Xsetlocal tabstop=4
+Xsetlocal tags=
+Xsetlocal textwidth=78
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 246 - ((5 * winheight(0) + 6) / 12)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X246
+Xnormal! 09l
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
@@ -2009,7 +1898,7 @@ X
 X"re-enable filetype
 Xfiletype plugin indent on
 X
-Xcolorscheme my-colors
+Xcolorscheme nbari-colors
 X
 X" change the mapleader from \ to ,
 Xlet mapleader=","
@@ -2154,9 +2043,6 @@ X  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
 X  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
 X  set statusline+=%2*                           " use color 2
 X  set statusline+=[%l,%v]\                      " cursor position/offset
-X  set statusline+=%*                            "switch back to statusline highlight
-X  set statusline+=%3*                           "switch back to statusline highlight
-X  set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 X  set statusline+=%*                            "switch back to statusline highlight
 Xendif
 X
@@ -3470,7 +3356,7 @@ Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
 Xalias j='jobs -l'
-Xalias l='pwd; ls -lhaGF'
+Xalias l='pwd -P; ls -lhaGF'
 Xalias less='less -FSRX'
 Xalias ll='ls -ALF'
 Xalias master='git checkout master'
