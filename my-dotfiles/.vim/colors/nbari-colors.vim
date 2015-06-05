@@ -29,7 +29,7 @@ hi Underlined      term=underline cterm=underline ctermfg=81
 " Vim
 hi ColorColumn     term=reverse ctermbg=236
 hi CursorColumn    term=reverse ctermbg=236
-hi CursorLine      term=underline ctermbg=236
+hi CursorLine      term=bold cterm=bold ctermbg=236
 hi Directory       term=bold ctermfg=109
 hi ErrorMsg        term=standout ctermfg=167 ctermbg=235
 hi FoldColumn      term=standout ctermfg=14 ctermbg=235
@@ -219,5 +219,11 @@ hi shRedir         ctermfg=110
 hi shSet           ctermfg=167
 hi shStatement     ctermfg=139
 hi shTestOpr       ctermfg=173
+
+" ZSH
+hi zshConditional  ctermfg=111
+hi zshCommands     ctermfg=167
+hi zshVariableDef  ctermfg=137
+
 
 set background=dark
