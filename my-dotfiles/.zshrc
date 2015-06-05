@@ -125,9 +125,9 @@ alias c='clear'
 alias chrome='open -a "Google Chrome"'
 alias cp='cp -i'
 # copy with rsync
+# clean dropbox conflicted files
 alias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 alias cpu='top -o cpu'
-# clean dropbox conflicted files
 alias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 alias dev='git checkout develop'
 alias dh='dirs -v'
@@ -145,6 +145,7 @@ alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
 alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 alias psmem='ps aux | sort -r -nk 4 | head -n 10'
+alias pwd='pwd -P'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
