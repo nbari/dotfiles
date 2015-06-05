@@ -146,6 +146,11 @@ X
 X# easily toggle synchronization (mnemonic: e is for echo)
 Xbind e setw synchronize-panes on
 Xbind E setw synchronize-panes off
+X
+X# open in current_path
+Xbind c new-window -c '#{pane_current_path}'
+Xbind % split-window -h -c "#{pane_current_path}"
+Xbind '"' split-window -c "#{pane_current_path}"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
@@ -204,7 +209,7 @@ X
 X" Vim
 Xhi ColorColumn     term=reverse ctermbg=236
 Xhi CursorColumn    term=reverse ctermbg=236
-Xhi CursorLine      term=underline ctermbg=236
+Xhi CursorLine      term=bold cterm=bold ctermbg=236
 Xhi Directory       term=bold ctermfg=109
 Xhi ErrorMsg        term=standout ctermfg=167 ctermbg=235
 Xhi FoldColumn      term=standout ctermfg=14 ctermbg=235
@@ -394,6 +399,12 @@ Xhi shRedir         ctermfg=110
 Xhi shSet           ctermfg=167
 Xhi shStatement     ctermfg=139
 Xhi shTestOpr       ctermfg=173
+X
+X" ZSH
+Xhi zshConditional  ctermfg=111
+Xhi zshCommands     ctermfg=167
+Xhi zshVariableDef  ctermfg=137
+X
 X
 Xset background=dark
 END-of-./.vim/colors/nbari-colors.vim
@@ -2027,23 +2038,24 @@ X" status line
 X" set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
 X
 Xif has('statusline')
-X  hi User1 ctermfg=172 ctermbg=016
-X  hi User2 ctermfg=015 ctermbg=016
-X  hi User3 ctermfg=003 ctermbg=016
+X  hi User1 ctermfg=012 ctermbg=016
+X  hi User2 ctermfg=172 ctermbg=016
+X  hi User3 ctermfg=015 ctermbg=016
 X
 X  set statusline=\ "                            " start with one space
 X  set statusline+=%1*                           " use color 1
 X  set statusline+=\%f                           " file name
-X  set statusline+=%*                            "switch back to statusline highlight
+X  set statusline+=%2*                            " switch back to statusline highlight
 X  set statusline+=\ %m%r%w%h\                   " flags
+X  set statusline+=%*                            " switch back to statusline highlight
 X  set statusline+=%=                            " ident to the right
 X  set statusline+=%{&fileformat}\               " file format
 X  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
 X  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
 X  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
-X  set statusline+=%2*                           " use color 2
+X  set statusline+=%3*                           " use color 2
 X  set statusline+=[%l,%v]\                      " cursor position/offset
-X  set statusline+=%*                            "switch back to statusline highlight
+X  set statusline+=%*                            " switch back to statusline highlight
 Xendif
 X
 X" syntastic
@@ -2192,7 +2204,7 @@ X" enable all syntax highlighting features
 Xlet python_highlight_all = 1
 X
 X" keyword information
-Xnnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}}<CR>
+Xnnoremap <leader>ski :set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}<CR>
 Xnnoremap <leader>ki :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 X
 X" syntax jquery
@@ -3218,6 +3230,7 @@ X# ----------------------------------------------------------------------------
 X
 Xexport ANSIBLE_HOSTS=~/ansible/hosts
 Xexport ANSIBLE_CONFIG=~/ansible/ansible.cfg
+Xexport ANSIBLE_RETRY_FILES_ENABLE=0
 END-of-./.zshenv
 echo x - ./.zshrc
 sed 's/^X//' >./.zshrc << 'END-of-./.zshrc'
@@ -3348,9 +3361,9 @@ Xalias c='clear'
 Xalias chrome='open -a "Google Chrome"'
 Xalias cp='cp -i'
 X# copy with rsync
+X# clean dropbox conflicted files
 Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 Xalias cpu='top -o cpu'
-X# clean dropbox conflicted files
 Xalias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
@@ -3368,6 +3381,7 @@ Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
 Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
+Xalias pwd='pwd -P'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
