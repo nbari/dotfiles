@@ -383,3 +383,8 @@ autocmd FileType * if &diff | setlocal syntax= | endif
 
 " vertical 3-way diff
 set diffopt=vertical
+
+" txt strikeout ~~ (background black) ~~
+au BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
+hi def  StrikeoutColor   ctermbg=016 ctermfg=black
+hi link StrikeoutMatch StrikeoutColor
