@@ -157,9 +157,10 @@ mkdir -p ./.vim > /dev/null 2>&1
 echo x - ./.vim/.netrwhist
 sed 's/^X//' >./.vim/.netrwhist << 'END-of-./.vim/.netrwhist'
 Xlet g:netrw_dirhistmax  =10
-Xlet g:netrw_dirhist_cnt =2
+Xlet g:netrw_dirhist_cnt =3
 Xlet g:netrw_dirhist_1='/Volumes/RAID/MEGA/projects/vpn'
 Xlet g:netrw_dirhist_2='/Volumes/RAID/MEGA/projects/dotfiles/my-dotfiles/.zsh'
+Xlet g:netrw_dirhist_3='/Volumes/RAID/Dropbox/job search'
 END-of-./.vim/.netrwhist
 echo c - ./.vim/after
 mkdir -p ./.vim/after > /dev/null 2>&1
@@ -2252,6 +2253,11 @@ Xautocmd FileType * if &diff | setlocal syntax= | endif
 X
 X" vertical 3-way diff
 Xset diffopt=vertical
+X
+X" txt strikeout ~~ (background black) ~~
+Xau BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
+Xhi def  StrikeoutColor   ctermbg=016 ctermfg=black
+Xhi link StrikeoutMatch StrikeoutColor
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -2264,7 +2270,7 @@ X
 X#
 X# zsh-async
 X#
-X# version: 0.2.1
+X# version: 0.2.3
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
@@ -2276,14 +2282,14 @@ X	local start=$EPOCHREALTIME
 X
 X	# run the command
 X	local out
-X	out=$($* 2>&1)
+X	out=$(eval "$@" 2>&1)
 X	local ret=$?
 X
 X	# Grab mutex lock
 X	read -ep >/dev/null
 X
 X	# return output (<job_name> <return_code> <output> <duration>)
-X	print -r -N -n -- $1 $ret "$out" $(( $EPOCHREALTIME - $start ))$'\0'
+X	print -r -N -n -- "$1" "$ret" "$out" $(( $EPOCHREALTIME - $start ))$'\0'
 X
 X	# Unlock mutex
 X	print -p "t"
@@ -2317,7 +2323,7 @@ X
 X		# Check for non-job commands sent to worker
 X		case "$job" in
 X		_killjobs)
-X			kill ${${(v)jobstates##*:*:}%=*} &>/dev/null
+X			kill -KILL ${${(v)jobstates##*:*:}%\=*} &>/dev/null
 X			continue
 X			;;
 X		esac
@@ -2354,12 +2360,14 @@ X# 	$4 = execution time, floating point e.g. 2.05 seconds
 X#
 Xasync_process_results() {
 X	integer count=0
+X	local worker=$1
+X	local callback=$2
 X	local -a items
 X	local IFS=$'\0'
 X
 X	typeset -gA ASYNC_PROCESS_BUFFER
 X	# Read output from zpty and parse it if available
-X	while zpty -rt $1 line 2>/dev/null; do
+X	while zpty -rt "$worker" line 2>/dev/null; do
 X		# Remove unwanted \r from output
 X		ASYNC_PROCESS_BUFFER[$1]+=${line//$'\r'$'\n'/$'\n'}
 X		# Split buffer on null characters, preserve empty elements
@@ -2371,8 +2379,8 @@ X		# Continue until we receive all information
 X		(( ${#items} % 4 )) && continue
 X
 X		# Work through all results
-X		while ((${#items} > 0)); do
-X			eval '$2 "${(@)=items[1,4]}"'
+X		while (( ${#items} > 0 )); do
+X			"$callback" "${(@)=items[1,4]}"
 X			shift 4 items
 X			count+=1
 X		done
@@ -2396,7 +2404,7 @@ X# 	async_job <worker_name> <my_function> [<function_params>]
 X#
 Xasync_job() {
 X	local worker=$1; shift
-X	zpty -w $worker $*
+X	zpty -w "$worker" "$@"
 X}
 X
 X# This function traps notification signals and calls all registered callbacks
@@ -2415,8 +2423,9 @@ X# 	async_register_callback <worker_name> <callback_function>
 X#
 Xasync_register_callback() {
 X	typeset -gA ASYNC_CALLBACKS
+X	local worker=$1; shift
 X
-X	ASYNC_CALLBACKS[$1]="${*[2,${#*}]}"
+X	ASYNC_CALLBACKS[$worker]="$*"
 X
 X	trap '_async_notify_trap' WINCH
 X}
@@ -2441,13 +2450,16 @@ X# usage:
 X# 	async_flush_jobs <worker_name>
 X#
 Xasync_flush_jobs() {
-X	zpty -t $worker &>/dev/null || return 1
+X	local worker=$1; shift
+X
+X	# Check if the worker exists
+X	zpty -t "$worker" &>/dev/null || return 1
 X
 X	# Send kill command to worker
-X	zpty -w $1 "_killjobs"
+X	zpty -w "$worker" "_killjobs"
 X
 X	# Clear all output buffers
-X	while zpty -r $1 line; do done
+X	while zpty -r "$worker" line; do true; done
 X
 X	# Clear any partial buffers
 X	typeset -gA ASYNC_PROCESS_BUFFER
@@ -2468,7 +2480,7 @@ X# 	-p pid to notify (defaults to current pid)
 X#
 Xasync_start_worker() {
 X	local worker=$1; shift
-X	zpty -t $worker &>/dev/null || zpty -b $worker _async_worker -p $$ $* || async_stop_worker $worker
+X	zpty -t "$worker" &>/dev/null || zpty -b "$worker" _async_worker -p $$ "$@" || async_stop_worker "$worker"
 X}
 X
 X#
@@ -2479,9 +2491,9 @@ X# 	async_stop_worker <worker_name_1> [<worker_name_2>]
 X#
 Xasync_stop_worker() {
 X	local ret=0
-X	for worker in $*; do
-X		async_unregister_callback $worker
-X		zpty -d $worker 2>/dev/null || ret=$?
+X	for worker in "$@"; do
+X		async_unregister_callback "$worker"
+X		zpty -d "$worker" 2>/dev/null || ret=$?
 X	done
 X
 X	return $ret
@@ -2502,7 +2514,7 @@ Xasync() {
 X	async_init
 X}
 X
-Xasync "$*"
+Xasync "$@"
 END-of-./.zsh/functions/async
 echo x - ./.zsh/functions/pure_prompt
 sed 's/^X//' >./.zsh/functions/pure_prompt << 'END-of-./.zsh/functions/pure_prompt'
