@@ -122,7 +122,6 @@ zstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43
 # ----------------------------------------------------------------------------
 alias active='grep -Ev "^($|#)"'
 alias c='clear'
-alias chrome='open -a "Google Chrome"'
 alias cp='cp -i'
 # copy with rsync
 # clean dropbox conflicted files
@@ -173,6 +172,10 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
+
+chrome() {
+    open -a "Google Chrome" "http://www.google.com/search?q=$1";
+}
 
 pman () {
     man -t "${1}" | open -f -a /Applications/Preview.app
