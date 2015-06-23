@@ -10,7 +10,7 @@ hi Comment         term=bold ctermfg=243
 hi Conditional     ctermfg=250
 hi Constant        term=underline ctermfg=173
 hi Define          ctermfg=139
-hi Error           term=reverse ctermfg=15 ctermbg=9
+hi Error           term=reverse ctermfg=16 ctermbg=9
 hi Function        ctermfg=109
 hi Identifier      term=underline ctermfg=167
 hi Ignore          ctermfg=0
@@ -49,10 +49,10 @@ hi Question        term=standout ctermfg=143
 hi Search          term=reverse ctermfg=235 ctermbg=222
 hi SignColumn      term=standout ctermfg=14 ctermbg=235
 hi SpecialKey      term=bold ctermfg=239
-hi SpellBad        term=reverse ctermbg=9
+hi SpellBad        term=reverse ctermbg=52
 hi SpellCap        term=reverse ctermbg=12
 hi SpellLocal      term=underline ctermbg=14
-hi SpellRare       term=reverse ctermbg=13
+hi SpellRare       term=reverse ctermbg=55
 hi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
 hi StatusLineNC    term=reverse cterm=reverse ctermfg=240 ctermbg=250
 hi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
