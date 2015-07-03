@@ -2669,7 +2669,7 @@ X}
 X
 X# fastest possible way to check if repo is dirty
 Xprompt_pure_async_git_dirty() {
-X	cd "$1"
+X	cd -q "$*"
 X
 X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
 X
@@ -3383,7 +3383,6 @@ Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
 Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
-Xalias pwd='pwd -P'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
