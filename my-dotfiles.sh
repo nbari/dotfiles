@@ -157,10 +157,9 @@ mkdir -p ./.vim > /dev/null 2>&1
 echo x - ./.vim/.netrwhist
 sed 's/^X//' >./.vim/.netrwhist << 'END-of-./.vim/.netrwhist'
 Xlet g:netrw_dirhistmax  =10
-Xlet g:netrw_dirhist_cnt =3
-Xlet g:netrw_dirhist_1='/Volumes/RAID/MEGA/projects/vpn'
-Xlet g:netrw_dirhist_2='/Volumes/RAID/MEGA/projects/dotfiles/my-dotfiles/.zsh'
-Xlet g:netrw_dirhist_3='/Volumes/RAID/Dropbox/job search'
+Xlet g:netrw_dirhist_cnt =2
+Xlet g:netrw_dirhist_1='/Volumes/cloud/Gdrive/projects/dotfiles'
+Xlet g:netrw_dirhist_2='/Users/nbari/Library/Mobile Documents/com~apple~ScriptEditor2/Documents/delay start.app'
 END-of-./.vim/.netrwhist
 echo c - ./.vim/after
 mkdir -p ./.vim/after > /dev/null 2>&1
@@ -191,7 +190,7 @@ Xhi Comment         term=bold ctermfg=243
 Xhi Conditional     ctermfg=250
 Xhi Constant        term=underline ctermfg=173
 Xhi Define          ctermfg=139
-Xhi Error           term=reverse ctermfg=15 ctermbg=9
+Xhi Error           term=reverse ctermfg=16 ctermbg=9
 Xhi Function        ctermfg=109
 Xhi Identifier      term=underline ctermfg=167
 Xhi Ignore          ctermfg=0
@@ -230,10 +229,10 @@ Xhi Question        term=standout ctermfg=143
 Xhi Search          term=reverse ctermfg=235 ctermbg=222
 Xhi SignColumn      term=standout ctermfg=14 ctermbg=235
 Xhi SpecialKey      term=bold ctermfg=239
-Xhi SpellBad        term=reverse ctermbg=9
+Xhi SpellBad        term=reverse ctermbg=52
 Xhi SpellCap        term=reverse ctermbg=12
 Xhi SpellLocal      term=underline ctermbg=14
-Xhi SpellRare       term=reverse ctermbg=13
+Xhi SpellRare       term=reverse ctermbg=55
 Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
 Xhi StatusLineNC    term=reverse cterm=reverse ctermfg=240 ctermbg=250
 Xhi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
@@ -3370,7 +3369,6 @@ X# alias
 X# ----------------------------------------------------------------------------
 Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
-Xalias chrome='open -a "Google Chrome"'
 Xalias cp='cp -i'
 X# copy with rsync
 X# clean dropbox conflicted files
@@ -3421,6 +3419,10 @@ Xalias 7='cd -7'
 Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
+X
+Xchrome() {
+X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
+X}
 X
 Xpman () {
 X    man -t "${1}" | open -f -a /Applications/Preview.app
