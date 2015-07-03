@@ -9,7 +9,6 @@
 #	./.cshrc
 #	./.tmux.conf
 #	./.vim
-#	./.vim/.netrwhist
 #	./.vim/after
 #	./.vim/after/syntax
 #	./.vim/after/syntax/php.vim
@@ -154,13 +153,6 @@ Xbind '"' split-window -c "#{pane_current_path}"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
-echo x - ./.vim/.netrwhist
-sed 's/^X//' >./.vim/.netrwhist << 'END-of-./.vim/.netrwhist'
-Xlet g:netrw_dirhistmax  =10
-Xlet g:netrw_dirhist_cnt =2
-Xlet g:netrw_dirhist_1='/Volumes/cloud/Gdrive/projects/dotfiles'
-Xlet g:netrw_dirhist_2='/Users/nbari/Library/Mobile Documents/com~apple~ScriptEditor2/Documents/delay start.app'
-END-of-./.vim/.netrwhist
 echo c - ./.vim/after
 mkdir -p ./.vim/after > /dev/null 2>&1
 echo c - ./.vim/after/syntax
