@@ -144,7 +144,6 @@ alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
 alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 alias psmem='ps aux | sort -r -nk 4 | head -n 10'
-alias pwd='pwd -P'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
