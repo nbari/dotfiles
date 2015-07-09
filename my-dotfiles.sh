@@ -21,7 +21,6 @@
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
 #	./.vim/view
-#	./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
 #	./.vimrc
 #	./.zsh
 #	./.zsh/functions
@@ -1721,142 +1720,6 @@ X" vim: ts=8 sts=2 sw=2 expandtab
 END-of-./.vim/syntax/php.vim
 echo c - ./.vim/view
 mkdir -p ./.vim/view > /dev/null 2>&1
-echo x - ./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
-sed 's/^X//' >./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim= << 'END-of-./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim='
-Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
-Xargglobal
-Xlet s:cpo_save=&cpo
-Xset cpo&vim
-Ximap <buffer> <S-BS> <Plug>delimitMateS-BS
-Ximap <buffer> <BS> <Plug>delimitMateBS
-Xvnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-Xnnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
-Xvnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "bW")
-Xnnoremap <buffer> <silent> [] m':call search('^\s*endf*\%[unction]\>', "bW")
-Xvnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
-Xnnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
-Xvnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-Xnnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
-Xvnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "W")
-Xnnoremap <buffer> <silent> ][ m':call search('^\s*endf*\%[unction]\>', "W")
-Xvnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
-Xnnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
-Ximap <buffer> <silent> g <Plug>delimitMateJumpMany
-Ximap <buffer>  <Plug>delimitMateBS
-Ximap <buffer> " <Plug>delimitMate"
-Ximap <buffer> ' <Plug>delimitMate'
-Ximap <buffer> ( <Plug>delimitMate(
-Ximap <buffer> ) <Plug>delimitMate)
-Ximap <buffer> [ <Plug>delimitMate[
-Ximap <buffer> ] <Plug>delimitMate]
-Ximap <buffer> ` <Plug>delimitMate`
-Ximap <buffer> { <Plug>delimitMate{
-Ximap <buffer> } <Plug>delimitMate}
-Xlet &cpo=s:cpo_save
-Xunlet s:cpo_save
-Xsetlocal autoindent
-Xsetlocal binary
-Xsetlocal bufhidden=
-Xsetlocal buflisted
-Xsetlocal buftype=
-Xsetlocal nocindent
-Xsetlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-Xsetlocal cinoptions=
-Xsetlocal cinwords=if,else,while,do,for,switch
-Xsetlocal colorcolumn=
-Xsetlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
-Xsetlocal commentstring=\"%s
-Xsetlocal complete=.,w,b,u,t,i
-Xsetlocal completefunc=
-Xsetlocal nocopyindent
-Xsetlocal cryptmethod=
-Xsetlocal nocursorbind
-Xsetlocal nocursorcolumn
-Xsetlocal nocursorline
-Xsetlocal define=
-Xsetlocal dictionary=
-Xsetlocal nodiff
-Xsetlocal equalprg=
-Xsetlocal errorformat=
-Xsetlocal expandtab
-Xif &filetype != 'vim'
-Xsetlocal filetype=vim
-Xendif
-Xsetlocal foldcolumn=0
-Xsetlocal nofoldenable
-Xsetlocal foldexpr=0
-Xsetlocal foldignore=#
-Xsetlocal foldlevel=1
-Xsetlocal foldmarker={{{,}}}
-Xsetlocal foldmethod=indent
-Xsetlocal foldminlines=1
-Xsetlocal foldnestmax=10
-Xsetlocal foldtext=foldtext()
-Xsetlocal formatexpr=
-Xsetlocal formatoptions=croql
-Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-Xsetlocal grepprg=
-Xsetlocal iminsert=0
-Xsetlocal imsearch=0
-Xsetlocal include=
-Xsetlocal includeexpr=
-Xsetlocal indentexpr=GetVimIndent()
-Xsetlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
-Xsetlocal noinfercase
-Xsetlocal iskeyword=@,48-57,_,192-255,#
-Xsetlocal keywordprg=
-Xsetlocal nolinebreak
-Xsetlocal nolisp
-Xsetlocal nolist
-Xsetlocal makeprg=
-Xsetlocal matchpairs=(:),{:},[:]
-Xsetlocal modeline
-Xsetlocal modifiable
-Xsetlocal nrformats=octal,hex
-Xsetlocal number
-Xsetlocal numberwidth=4
-Xsetlocal omnifunc=
-Xsetlocal path=
-Xsetlocal nopreserveindent
-Xsetlocal nopreviewwindow
-Xsetlocal quoteescape=\\
-Xsetlocal noreadonly
-Xsetlocal norelativenumber
-Xsetlocal noscrollbind
-Xsetlocal shiftwidth=4
-Xsetlocal noshortname
-Xsetlocal nosmartindent
-Xsetlocal softtabstop=4
-Xsetlocal nospell
-Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-Xsetlocal spellfile=
-Xsetlocal spelllang=en
-Xsetlocal statusline=
-Xsetlocal suffixesadd=
-Xsetlocal noswapfile
-Xsetlocal synmaxcol=3000
-Xif &syntax != 'vim'
-Xsetlocal syntax=vim
-Xendif
-Xsetlocal tabstop=4
-Xsetlocal tags=
-Xsetlocal textwidth=78
-Xsetlocal thesaurus=
-Xsetlocal noundofile
-Xsetlocal nowinfixheight
-Xsetlocal nowinfixwidth
-Xsetlocal wrap
-Xsetlocal wrapmargin=0
-Xlet s:l = 246 - ((5 * winheight(0) + 6) / 12)
-Xif s:l < 1 | let s:l = 1 | endif
-Xexe s:l
-Xnormal! zt
-X246
-Xnormal! 09l
-Xlet &so = s:so_save | let &siso = s:siso_save
-Xdoautoall SessionLoadPost
-X" vim: set ft=vim :
-END-of-./.vim/view/=+Volumes=+RAID=+MEGA=+projects=+dotfiles=+my-dotfiles=+.vim=+colors=+my-colors.vim=
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
@@ -2579,7 +2442,7 @@ X	# show hostname if connected through ssh
 X	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
 X	# shows the current dir and executed command in the title when a process is active
 X	# (use print -r to disable potential evaluation of escape characters in cmd)
-X	print -Pnr "$PWD:t: $2"
+X	print -nr "$PWD:t: $2"
 X	print -Pn "\a"
 X}
 X
