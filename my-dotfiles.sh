@@ -20,7 +20,6 @@
 #	./.vim/syntax/jquery.vim
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
-#	./.vim/view
 #	./.vimrc
 #	./.zsh
 #	./.zsh/functions
@@ -1718,8 +1717,6 @@ Xendif
 X
 X" vim: ts=8 sts=2 sw=2 expandtab
 END-of-./.vim/syntax/php.vim
-echo c - ./.vim/view
-mkdir -p ./.vim/view > /dev/null 2>&1
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
@@ -2656,13 +2653,13 @@ X
 X	prompt_pure_username='%F{2}%n'
 X
 X	# show username@host if logged in through SSH
-X	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
+X	[[ ! -z "$SSH_CONNECTION" ]] && prompt_pure_username='%F{2}%n%F{8}@%M'
 X
 X	# show username@host if root, with username in red
-X	[[ $UID -eq 0 ]] && pure_prompt_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
+X	[[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
 X
 X	# prompt turns red if the previous command didn't exit with 0
-X    PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
+X	PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
 X}
 X
 Xprompt_pure_setup "$@"
