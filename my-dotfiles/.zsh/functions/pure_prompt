@@ -282,10 +282,10 @@ prompt_pure_setup() {
 	prompt_pure_username='%F{2}%n'
 
 	# show username@host if logged in through SSH
-	[[ "$SSH_CONNECTION" != '' ]] && pure_prompt_username='%F{2}%n%F{8}@%M'
+	[[ ! -z "$SSH_CONNECTION" ]] && prompt_pure_username='%F{2}%n%F{8}@%M'
 
 	# show username@host if root, with username in red
-	[[ $UID -eq 0 ]] && pure_prompt_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
+	[[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PROMPT_SYMBOL='%F{3}#'
 
 	# prompt turns red if the previous command didn't exit with 0
     PROMPT="%(?.%F{5}.%F{1})${PROMPT_SYMBOL:-$}%f "
