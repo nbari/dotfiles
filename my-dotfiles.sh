@@ -3223,10 +3223,12 @@ Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias cp='cp -i'
 X# copy with rsync
-X# clean dropbox conflicted files
 Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 Xalias cpu='top -o cpu'
-Xalias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+X# clean dropbox conflicted files
+Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+X# clean gdrive
+Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'

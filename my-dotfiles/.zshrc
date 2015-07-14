@@ -124,10 +124,12 @@ alias active='grep -Ev "^($|#)"'
 alias c='clear'
 alias cp='cp -i'
 # copy with rsync
-# clean dropbox conflicted files
 alias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
 alias cpu='top -o cpu'
-alias dbclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+# clean dropbox conflicted files
+alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+# clean gdrive
+alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
