@@ -281,3 +281,5 @@ if hash tmux &> /dev/null; then
         tmux set-option -g window-status-current-bg colour071 > /dev/null
     fi
 fi
+
+unsetopt prompt_cr

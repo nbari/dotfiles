@@ -1929,9 +1929,8 @@ X" Autoformat
 Xnnoremap <leader>ff :Autoformat<CR>
 X" Test this to check if autopep8 working
 X" echo "print 'coração niño'" | autopep8 -
-Xlet g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
-Xlet g:formatprg_json = "jsonlint"
-Xlet g:formatprg_args_json = "--pretty-print"
+X" let g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
+Xlet g:formatdef_autopep8 = '"- --aggressive --aggressive --indent-size 4"'
 X
 X" vim-php-cs-fixer
 Xlet g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
@@ -3380,6 +3379,8 @@ X        tmux set-option -g status-position bottom > /dev/null
 X        tmux set-option -g window-status-current-bg colour071 > /dev/null
 X    fi
 Xfi
+X
+Xunsetopt prompt_cr
 END-of-./.zshrc
 exit
 
