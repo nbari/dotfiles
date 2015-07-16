@@ -2,53 +2,54 @@ set -e
 
 cd $HOME
 
+NOW=$(date -u +%Y%m%dT%H%M%S)
+
 if [ ! -n "$ZSH" ]; then
     ZSH=~/.zsh
 fi
 
 if [ -d "$ZSH" ]; then
-  echo "\033[0;33mYou already have an .zsh dir.\033[0m You'll need to remove $ZSH if you want to install"
-  exit
+  echo "Backing up .zsh dir"
+  mv ~/.zsh ~/.zsh.${NOW}
 fi
 
 if [ -d ~/.vim ]; then
-  echo "\033[0;33mYou already have an .vim dir.\033[0m You'll need to remove it if you want to install"
-  exit
+  echo "Backing up .vim dir"
+  mv ~/.vim ~/.vim.${NOW}
 fi
 
-echo "\033[0;34mLooking for an existing zsh config...\033[0m"
+echo "Looking for an existing zsh config..."
 if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
-  echo "\033[0;33mFound ~/.zshrc.\033[0m \033[0;32mBacking up to ~/.zshrc.bak\033[0m";
-  mv ~/.zshrc ~/.zshrc.bak;
+  echo "Found ~/.zshrc. Backing up to ~/.zshrc.${NOW}";
+  mv ~/.zshrc ~/.zshrc.${NOW};
 fi
 
-echo "\033[0;34mLooking for an existing csh config...\033[0m"
+echo "Looking for an existing csh config..."
 if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
-  echo "\033[0;33mFound ~/.cshrc.\033[0m \033[0;32mBacking up to ~/.cshrc.bak\033[0m";
-  mv ~/.cshrc ~/.cshrc.bak;
+  echo "Found ~/.cshrc. Backing up to ~/.cshrc.${NOW}";
+  mv ~/.cshrc ~/.cshrc.${NOW};
 fi
 
-echo "\033[0;34mGetting my dotfiles...\033[0m"
+echo "Getting dotfiles..."
 hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/dotfiles/master/my-dotfiles.sh | sh || {
   echo "curl not installed"
   exit
 }
 
-echo "\033[0;32mTo change your default shell to zsh: \033[0m chsh -s `which zsh`"
-
-echo "\033[0;33mCloning vim Vundle\033[0m"
+echo "Cloning vim Vundle"
 hash git >/dev/null 2>&1 && env git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim || {
   echo "git not installed"
   exit
 }
 
-echo "\033[0;33mInstalling node packages\033[0m"
+echo "Installing node packages"
 hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint || {
   echo "npm not installed"
-  exit
 }
 
-echo "\033[0;33mInstalling Vundle plugins run: \033[0m vim +PluginInstall +qall"
+echo "Installing Vundle plugins run: vim +PluginInstall +qall"
 vim +PluginInstall +qall
+
+echo "To change your default shell to zsh:  chsh -s `which zsh`"
 
 echo "Fin"
