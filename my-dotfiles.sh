@@ -91,12 +91,6 @@ X    bindkey -k down history-search-forward
 X  endif
 X
 Xendif
-X
-X#setenv IF_VIRTUAL_ENV 'if [ -n "$VIRTUAL_ENV" ]; then echo [`basename $VIRTUAL_ENV`]; fi'
-X#setenv ENV_NAME "sh -c '$IF_VIRTUAL_ENV'"
-X# setenv GIT_BRANCH_CMD "sh -c 'python ~/.gitstatus.py'"
-X# alias setprompt 'set prompt="`$ENV_NAME`$COLOR2\[$COLOR3%n@%m$COLOR2\:$COLOR1%~$COLOR2$COLOR3`$GIT_BRANCH_CMD`$COLOR2\] [%p %d]\n$COLOR5>$COLOR4 "'
-X# alias precmd setprompt
 END-of-./.cshrc
 echo x - ./.tmux.conf
 sed 's/^X//' >./.tmux.conf << 'END-of-./.tmux.conf'
