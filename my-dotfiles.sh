@@ -3266,6 +3266,10 @@ Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 X
+Xget_headers() {
+X    curl -k -I -L -H 'Accept-Encoding: gzip,deflate' $1
+X}
+X
 Xchrome() {
 X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
 X}
