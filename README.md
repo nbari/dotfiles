@@ -12,9 +12,10 @@ Requirements
 
 * curl
 * git
-* node.js (npm)
+* npm (node.js)
 * vim
 * zsh
+* tmux
 
 Setup
 -----
