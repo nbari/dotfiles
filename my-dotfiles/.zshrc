@@ -195,7 +195,7 @@ kill9() {
 # sync .dotfiles
 # ----------------------------------------------------------------------------
 sync-dotfiles() {
-   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf | pv | ssh $1 "tar mxf - -C ~/"
+   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 }
 
 # ----------------------------------------------------------------------------
