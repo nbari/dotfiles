@@ -174,6 +174,10 @@ alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
 
+get_headers() {
+    curl -k -I -L -H 'Accept-Encoding: gzip,deflate' $1
+}
+
 chrome() {
     open -a "Google Chrome" "http://www.google.com/search?q=$1";
 }
