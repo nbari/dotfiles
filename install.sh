@@ -30,19 +30,25 @@ if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
   mv ~/.cshrc ~/.cshrc.${NOW};
 fi
 
+echo "Looking for an existing tmux config..."
+if [ -f ~/.tmux.conf ] || [ -h ~/.tmux.conf ]; then
+  echo "Found ~/.tmux.conf. Backing up to ~/.tmux.conf.${NOW}";
+  mv ~/.tmux.conf ~/.tmux.conf.${NOW};
+fi
+
 echo "Getting dotfiles..."
 hash curl >/dev/null 2>&1 && env curl https://raw.githubusercontent.com/nbari/dotfiles/master/my-dotfiles.sh | sh || {
   echo "curl not installed"
   exit
 }
 
-echo "Cloning vim Vundle"
+echo "Cloning vim Vundle..."
 hash git >/dev/null 2>&1 && env git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim || {
   echo "git not installed"
   exit
 }
 
-echo "Installing node packages"
+echo "Installing node packages..."
 hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint || {
   echo "npm not installed"
 }
