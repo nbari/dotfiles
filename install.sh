@@ -63,4 +63,4 @@ vim +PluginInstall +qall
 
 echo "To change your default shell to zsh:  chsh -s `which zsh`"
 
-echo "\nFin"
+echo "Fin"
