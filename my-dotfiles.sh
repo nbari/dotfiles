@@ -364,6 +364,7 @@ Xhi goStructDef     ctermfg=137
 Xhi goTodo          ctermfg=222
 Xhi goType          ctermfg=167
 Xhi goUnsignedInts  ctermfg=167
+Xhi goRawString     ctermfg=253
 X
 X" Lua
 Xhi luaCond         ctermfg=139
