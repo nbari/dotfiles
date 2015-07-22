@@ -200,6 +200,7 @@ hi goStructDef     ctermfg=137
 hi goTodo          ctermfg=222
 hi goType          ctermfg=167
 hi goUnsignedInts  ctermfg=167
+hi goRawString     ctermfg=253
 
 " Lua
 hi luaCond         ctermfg=139
