@@ -3268,7 +3268,7 @@ Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 X
 Xget_headers() {
-X    curl -k -I -L -H 'Accept-Encoding: gzip,deflate' $1
+X    curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
 X}
 X
 Xchrome() {
