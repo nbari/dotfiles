@@ -175,7 +175,7 @@ alias 9='cd -9'
 alias d='dirs -v | head -10'
 
 get_headers() {
-    curl -k -I -L -H 'Accept-Encoding: gzip,deflate' $1
+    curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
 }
 
 chrome() {
