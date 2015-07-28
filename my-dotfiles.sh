@@ -3271,6 +3271,10 @@ Xget_headers() {
 X    curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
 X}
 X
+Xget_options() {
+X    curl -k -I -L -X OPTIONS $1
+X}
+X
 Xchrome() {
 X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
 X}
