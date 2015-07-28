@@ -178,6 +178,10 @@ get_headers() {
     curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
 }
 
+get_options() {
+    curl -k -I -L -X OPTIONS $1
+}
+
 chrome() {
     open -a "Google Chrome" "http://www.google.com/search?q=$1";
 }
