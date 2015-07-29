@@ -179,7 +179,7 @@ get_headers() {
 }
 
 get_options() {
-    curl -k -I -L -X OPTIONS $1
+    curl -k -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: POST" -H "Access-Control-Request-Headers: X-Requested-With" $1
 }
 
 chrome() {
