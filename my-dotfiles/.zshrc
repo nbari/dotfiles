@@ -189,6 +189,14 @@ chrome() {
 pman () {
     man -t "${1}" | open -f -a /Applications/Preview.app
 }
+
+set_env() {
+    if [ -r $PWD/.zsh_config ]; then
+        source $PWD/.zsh_config
+    else
+        print -P -- %F{09}No .zsh_config found%f
+    fi
+}
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
 # ----------------------------------------------------------------------------
