@@ -179,7 +179,7 @@ get_headers() {
 }
 
 get_options() {
-    curl -k -I -L -X OPTIONS $1
+    curl -k -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
 }
 
 chrome() {
@@ -188,6 +188,14 @@ chrome() {
 
 pman () {
     man -t "${1}" | open -f -a /Applications/Preview.app
+}
+
+set_env() {
+    if [ -r $PWD/.zsh_config ]; then
+        source $PWD/.zsh_config
+    else
+        print -P -- %F{09}No .zsh_config found%f
+    fi
 }
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
