@@ -3272,7 +3272,7 @@ X    curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example
 X}
 X
 Xget_options() {
-X    curl -k -I -L -X OPTIONS $1
+X    curl -k -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
 X}
 X
 Xchrome() {
@@ -3281,6 +3281,14 @@ X}
 X
 Xpman () {
 X    man -t "${1}" | open -f -a /Applications/Preview.app
+X}
+X
+Xset_env() {
+X    if [ -r $PWD/.zsh_config ]; then
+X        source $PWD/.zsh_config
+X    else
+X        print -P -- %F{09}No .zsh_config found%f
+X    fi
 X}
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
