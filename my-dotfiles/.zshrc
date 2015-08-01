@@ -193,9 +193,14 @@ pman () {
 set_env() {
     if [ -r $PWD/.zsh_config ]; then
         source $PWD/.zsh_config
+        print -P -- %F{2}Ok%f
     else
-        print -P -- %F{09}No .zsh_config found%f
+        print -P -- %F{9}No .zsh_config found%f
     fi
+}
+
+mkdir_ansible_roles() {
+    mkdir files templates tasks handlers vars defaults meta
 }
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
