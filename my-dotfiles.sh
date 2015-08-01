@@ -3286,9 +3286,14 @@ X
 Xset_env() {
 X    if [ -r $PWD/.zsh_config ]; then
 X        source $PWD/.zsh_config
+X        print -P -- %F{2}Ok%f
 X    else
-X        print -P -- %F{09}No .zsh_config found%f
+X        print -P -- %F{9}No .zsh_config found%f
 X    fi
+X}
+X
+Xmkdir_ansible_roles() {
+X    mkdir files templates tasks handlers vars defaults meta
 X}
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
