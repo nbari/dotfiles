@@ -200,16 +200,7 @@ set_env() {
 }
 
 mkdir_ansible_roles() {
-    if [ ! -z $1 ]; then
-        mkdir $1
-        role=(files templates tasks handlers vars defaults meta)
-        for d in $role; do
-            mkdir $1/$d
-        done
-        print -P -- %F{2}Ok%f
-    else
-        print -P -- %F{9}need to specify a role namedir%f
-    fi
+    echo "ansible-galaxy init <name_of_role> --force"
 }
 
 # ----------------------------------------------------------------------------
