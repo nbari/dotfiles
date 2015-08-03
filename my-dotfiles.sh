@@ -3293,16 +3293,7 @@ X    fi
 X}
 X
 Xmkdir_ansible_roles() {
-X    if [ ! -z $1 ]; then
-X        mkdir $1
-X        role=(files templates tasks handlers vars defaults meta)
-X        for d in $role; do
-X            mkdir $1/$d
-X        done
-X        print -P -- %F{2}Ok%f
-X    else
-X        print -P -- %F{9}need to specify a role namedir%f
-X    fi
+X    echo "ansible-galaxy init <name_of_role> --force"
 X}
 X
 X# ----------------------------------------------------------------------------
