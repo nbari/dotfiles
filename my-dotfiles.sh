@@ -3293,14 +3293,23 @@ X    fi
 X}
 X
 Xmkdir_ansible_roles() {
-X    mkdir files templates tasks handlers vars defaults meta
+X    if [ ! -z $1 ]; then
+X        mkdir $1
+X        role=(files templates tasks handlers vars defaults meta)
+X        for d in $role; do
+X            mkdir $1/$d
+X        done
+X        print -P -- %F{2}Ok%f
+X    else
+X        print -P -- %F{9}need to specify a role namedir%f
+X    fi
 X}
+X
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
 X# ----------------------------------------------------------------------------
 Xkill9() {
-X    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`
-X    do
+X    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`; do
 X        kill -9 $pid && echo "Killed ${pid}"
 X    done
 X}
