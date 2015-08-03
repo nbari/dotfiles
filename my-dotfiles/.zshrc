@@ -200,14 +200,23 @@ set_env() {
 }
 
 mkdir_ansible_roles() {
-    mkdir files templates tasks handlers vars defaults meta
+    if [ ! -z $1 ]; then
+        mkdir $1
+        role=(files templates tasks handlers vars defaults meta)
+        for d in $role; do
+            mkdir $1/$d
+        done
+        print -P -- %F{2}Ok%f
+    else
+        print -P -- %F{9}need to specify a role namedir%f
+    fi
 }
+
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
 # ----------------------------------------------------------------------------
 kill9() {
-    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`
-    do
+    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`; do
         kill -9 $pid && echo "Killed ${pid}"
     done
 }
