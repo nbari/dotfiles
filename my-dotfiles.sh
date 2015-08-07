@@ -3275,6 +3275,10 @@ Xget_options() {
 X    curl -k -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
 X}
 X
+Xget_akamai() {
+X    curl -k -I -L -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id, akamai-x-request-trace, akamai-x--meta-trace, akama-xi-get-extracted-values" $1
+X}
+X
 Xchrome() {
 X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
 X}
