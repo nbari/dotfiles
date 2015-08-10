@@ -148,6 +148,7 @@ alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 alias psmem='ps aux | sort -r -nk 4 | head -n 10'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
+alias www="twistd -no web --path=."
 alias rm='rm -i'
 alias svi='sudo vim'
 alias tmp='cd ~/tmp'
@@ -173,6 +174,10 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
+
+get_headers_GET() {
+    curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
+}
 
 get_headers() {
     curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
