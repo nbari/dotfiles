@@ -3241,6 +3241,7 @@ Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
+Xalias www="twistd -no web --path=."
 Xalias rm='rm -i'
 Xalias svi='sudo vim'
 Xalias tmp='cd ~/tmp'
@@ -3266,6 +3267,10 @@ Xalias 7='cd -7'
 Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
+X
+Xget_headers_GET() {
+X    curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
+X}
 X
 Xget_headers() {
 X    curl -k -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
