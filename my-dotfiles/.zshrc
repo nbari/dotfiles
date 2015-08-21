@@ -140,7 +140,7 @@ alias ll='ls -ALF'
 alias master='git checkout master'
 alias mem='top -o vsize'
 alias mv='mv -i'
-alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
 alias path='echo -e ${PATH//:/\\n}'
 alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
