@@ -3233,7 +3233,7 @@ Xalias ll='ls -ALF'
 Xalias master='git checkout master'
 Xalias mem='top -o vsize'
 Xalias mv='mv -i'
-Xalias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+Xalias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
 Xalias path='echo -e ${PATH//:/\\n}'
 Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
