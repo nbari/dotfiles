@@ -2016,8 +2016,8 @@ X  set formatprg=par\ -w80
 Xendif
 X
 X" wrap text
-Xmap <leader>w {v}!fmt -w80<CR>
-Xvmap <leader>w !fmt -w80<CR>
+Xmap <leader>w {v}!par -w80<CR>
+Xvmap <leader>w !par -w80<CR>
 X
 X" Diff current buffer and the original file
 Xnnoremap <leader>di :w !diff % -<CR>
