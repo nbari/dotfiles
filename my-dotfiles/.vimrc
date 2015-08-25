@@ -300,8 +300,8 @@ if executable("par")
 endif
 
 " wrap text
-map <leader>w {v}!fmt -w80<CR>
-vmap <leader>w !fmt -w80<CR>
+map <leader>w {v}!par -w80<CR>
+vmap <leader>w !par -w80<CR>
 
 " Diff current buffer and the original file
 nnoremap <leader>di :w !diff % -<CR>
