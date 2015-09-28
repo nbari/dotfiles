@@ -2089,6 +2089,8 @@ Xset shell=/bin/sh
 X
 X" go
 Xau FileType go nmap <leader>r <Plug>(go-run)
+Xau FileType go nmap <leader>b <Plug>(go-build)
+Xau FileType go nmap <leader>t <Plug>(go-test)
 Xlet g:go_highlight_functions = 1
 Xlet g:go_highlight_methods = 1
 Xlet g:go_highlight_structs = 1
