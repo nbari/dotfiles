@@ -185,7 +185,7 @@ if has('statusline')
   set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
   set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
   set statusline+=%3*                           " use color 2
-  set statusline+=[%l,%v]\                      " cursor position/offset
+  set statusline+=[%l,%v][%p%%]\                " cursor position/offset
   set statusline+=%*                            " switch back to statusline highlight
 endif
 
@@ -375,9 +375,12 @@ set shell=/bin/sh
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>gd <Plug>(go-doc-browser)
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 " diff highlights
 autocmd FileType * if &diff | setlocal syntax= | endif

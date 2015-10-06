@@ -208,6 +208,10 @@ set_env() {
     fi
 }
 
+enc () {
+   [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
+}
+
 mkdir_ansible_roles() {
     echo "ansible-galaxy init <name_of_role> --force"
 }
