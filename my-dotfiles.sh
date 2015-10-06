@@ -1901,7 +1901,7 @@ X  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
 X  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
 X  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
 X  set statusline+=%3*                           " use color 2
-X  set statusline+=[%l,%v]\                      " cursor position/offset
+X  set statusline+=[%l,%v][%p%%]\                " cursor position/offset
 X  set statusline+=%*                            " switch back to statusline highlight
 Xendif
 X
@@ -2091,9 +2091,12 @@ X" go
 Xau FileType go nmap <leader>r <Plug>(go-run)
 Xau FileType go nmap <leader>b <Plug>(go-build)
 Xau FileType go nmap <leader>t <Plug>(go-test)
+Xau FileType go nmap <leader>gd <Plug>(go-doc-browser)
 Xlet g:go_highlight_functions = 1
 Xlet g:go_highlight_methods = 1
 Xlet g:go_highlight_structs = 1
+Xlet g:go_highlight_operators = 1
+Xlet g:go_highlight_build_constraints = 1
 X
 X" diff highlights
 Xautocmd FileType * if &diff | setlocal syntax= | endif
@@ -2117,26 +2120,51 @@ X
 X#
 X# zsh-async
 X#
-X# version: 0.2.3
+X# version: 1.0.0
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
 X
 X# Wrapper for jobs executed by the async worker, gives output in parseable format with execution time
 X_async_job() {
-X	# store start time
-X	local start=$EPOCHREALTIME
+X	# Store start time as double precision (+E disables scientific notation)
+X	float -F duration=$EPOCHREALTIME
 X
-X	# run the command
-X	local out
-X	out=$(eval "$@" 2>&1)
-X	local ret=$?
+X	# Run the command
+X	#
+X	# What is happening here is that we are assigning stdout, stderr and ret to
+X	# variables, and then we are printing out the variable assignment through
+X	# typeset -p. This way when we run eval we get something along the lines of:
+X	# 	eval "
+X	# 		typeset stdout=' M async.test.sh\n M async.zsh'
+X	# 		typeset ret=0
+X	# 		typeset stderr=''
+X	# 	"
+X	unset stdout stderr ret
+X	eval "$(
+X		{
+X			stdout=$(eval "$@")
+X			ret=$?
+X			typeset -p stdout ret
+X		} 2> >(stderr=$(cat); typeset -p stderr)
+X	)"
+X
+X	# Calculate duration
+X	duration=$(( EPOCHREALTIME - duration ))
+X
+X	# stip all null-characters from stdout and stderr
+X	stdout="${stdout//$'\0'/}"
+X	stderr="${stderr//$'\0'/}"
+X
+X	# if ret is missing for some unknown reason, set it to -1 to indicate we
+X	# have run into a bug
+X	ret=${ret:--1}
 X
 X	# Grab mutex lock
 X	read -ep >/dev/null
 X
-X	# return output (<job_name> <return_code> <output> <duration>)
-X	print -r -N -n -- "$1" "$ret" "$out" $(( $EPOCHREALTIME - $start ))$'\0'
+X	# return output (<job_name> <return_code> <stdout> <duration> <stderr>)
+X	print -r -N -n -- "$1" "$ret" "$stdout" "$duration" "$stderr"$'\0'
 X
 X	# Unlock mutex
 X	print -p "t"
@@ -2202,8 +2230,9 @@ X#
 X# callback_function is called with the following parameters:
 X# 	$1 = job name, e.g. the function passed to async_job
 X# 	$2 = return code
-X# 	$3 = resulting output from execution
+X# 	$3 = resulting stdout from execution
 X# 	$4 = execution time, floating point e.g. 2.05 seconds
+X# 	$5 = resulting stderr from execution
 X#
 Xasync_process_results() {
 X	integer count=0
@@ -2216,24 +2245,24 @@ X	typeset -gA ASYNC_PROCESS_BUFFER
 X	# Read output from zpty and parse it if available
 X	while zpty -rt "$worker" line 2>/dev/null; do
 X		# Remove unwanted \r from output
-X		ASYNC_PROCESS_BUFFER[$1]+=${line//$'\r'$'\n'/$'\n'}
+X		ASYNC_PROCESS_BUFFER[$worker]+=${line//$'\r'$'\n'/$'\n'}
 X		# Split buffer on null characters, preserve empty elements
-X		items=("${(@)=ASYNC_PROCESS_BUFFER[$1]}")
+X		items=("${(@)=ASYNC_PROCESS_BUFFER[$worker]}")
 X		# Remove last element since it's due to the return string separator structure
 X		items=("${(@)items[1,${#items}-1]}")
 X
 X		# Continue until we receive all information
-X		(( ${#items} % 4 )) && continue
+X		(( ${#items} % 5 )) && continue
 X
 X		# Work through all results
 X		while (( ${#items} > 0 )); do
-X			"$callback" "${(@)=items[1,4]}"
-X			shift 4 items
+X			"$callback" "${(@)=items[1,5]}"
+X			shift 5 items
 X			count+=1
 X		done
 X
 X		# Empty the buffer
-X		ASYNC_PROCESS_BUFFER[$1]=""
+X		ASYNC_PROCESS_BUFFER[$worker]=""
 X	done
 X
 X	# If we processed any results, return success
@@ -2310,7 +2339,7 @@ X	while zpty -r "$worker" line; do true; done
 X
 X	# Clear any partial buffers
 X	typeset -gA ASYNC_PROCESS_BUFFER
-X	ASYNC_PROCESS_BUFFER[$1]=""
+X	ASYNC_PROCESS_BUFFER[$worker]=""
 X}
 X
 X#
@@ -2393,56 +2422,95 @@ X
 X# turns seconds into human readable time
 X# 165392 => 1d 21h 56m 32s
 X# https://github.com/sindresorhus/pretty-time-zsh
-Xprompt_pure_human_time() {
-X	echo -n " "
-X	local tmp=$1
-X	local days=$(( tmp / 60 / 60 / 24 ))
-X	local hours=$(( tmp / 60 / 60 % 24 ))
-X	local minutes=$(( tmp / 60 % 60 ))
-X	local seconds=$(( tmp % 60 ))
-X	(( $days > 0 )) && echo -n "${days}d "
-X	(( $hours > 0 )) && echo -n "${hours}h "
-X	(( $minutes > 0 )) && echo -n "${minutes}m "
-X	echo "${seconds}s"
+Xprompt_pure_human_time_to_var() {
+X	local human=" " total_seconds=$1 var=$2
+X	local days=$(( total_seconds / 60 / 60 / 24 ))
+X	local hours=$(( total_seconds / 60 / 60 % 24 ))
+X	local minutes=$(( total_seconds / 60 % 60 ))
+X	local seconds=$(( total_seconds % 60 ))
+X	(( days > 0 )) && human+="${days}d "
+X	(( hours > 0 )) && human+="${hours}h "
+X	(( minutes > 0 )) && human+="${minutes}m "
+X	human+="${seconds}s"
+X
+X	# store human readable time in variable as specified by caller
+X	typeset -g "${var}"="${human}"
 X}
 X
-X# displays the exec time of the last command if set threshold was exceeded
+X# stores (into prompt_pure_cmd_exec_time) the exec time of the last command if set threshold was exceeded
 Xprompt_pure_check_cmd_exec_time() {
-X	local stop=$EPOCHSECONDS
-X	local start=${prompt_pure_cmd_timestamp:-$stop}
-X	integer elapsed=$stop-$start
-X	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && prompt_pure_human_time $elapsed
+X	integer elapsed
+X	(( elapsed = EPOCHSECONDS - ${prompt_pure_cmd_timestamp:-$EPOCHSECONDS} ))
+X	prompt_pure_cmd_exec_time=
+X	(( elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5} )) && {
+X		prompt_pure_human_time_to_var $elapsed "prompt_pure_cmd_exec_time"
+X	}
+X}
+X
+Xprompt_pure_clear_screen() {
+X	# enable output to terminal
+X	zle -I
+X	# clear screen and move cursor to (0, 0)
+X	print -n '\e[2J\e[0;0H'
+X	# print preprompt
+X	prompt_pure_preprompt_render precmd
 X}
 X
 Xprompt_pure_check_git_arrows() {
+X	# reset git arrows
+X	prompt_pure_git_arrows=
+X
 X	# check if there is an upstream configured for this branch
 X	command git rev-parse --abbrev-ref @'{u}' &>/dev/null || return
 X
-X	local arrows=""
-X	(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='⇣'
-X	(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='⇡'
-X    [[ "$arrows" == '⇣⇡' ]] && arrows='±'
-X	# output the arrows
-X	[[ "$arrows" != "" ]] && echo " ${arrows}"
+X	local arrow_status
+X	# check git left and right arrow_status
+X	arrow_status="$(command git rev-list --left-right --count HEAD...@'{u}' 2>/dev/null)"
+X	# exit if the command failed
+X	(( !$? )) || return
+X
+X	# left and right are tab-separated, split on tab and store as array
+X	arrow_status=(${(ps:\t:)arrow_status})
+X	local arrows left=${arrow_status[1]} right=${arrow_status[2]}
+X
+X	(( ${right:-0} > 0 )) && arrows+="${PURE_GIT_DOWN_ARROW:-⇣}"
+X	(( ${left:-0} > 0 )) && arrows+="${PURE_GIT_UP_ARROW:-⇡}"
+X
+X    [[ "${arrows}" == '⇣⇡' ]] && arrows='±'
+X
+X	[[ -n $arrows ]] && prompt_pure_git_arrows=" ${arrows}"
+X}
+X
+Xprompt_pure_set_title() {
+X	# tell the terminal we are setting the title
+X	print -n '\e]0;'
+X	# show hostname if connected through ssh
+X	[[ -n $SSH_CONNECTION ]] && print -Pn '(%m) '
+X	case $1 in
+X		expand-prompt)
+X			print -Pn $2;;
+X		ignore-escape)
+X			print -rn $2;;
+X	esac
+X	# end set title
+X	print -n '\a'
 X}
 X
 Xprompt_pure_preexec() {
 X	prompt_pure_cmd_timestamp=$EPOCHSECONDS
 X
-X	# tell the terminal we are setting the title
-X	print -Pn "\e]0;"
-X	# show hostname if connected through ssh
-X	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
-X	# shows the current dir and executed command in the title when a process is active
-X	# (use print -r to disable potential evaluation of escape characters in cmd)
-X	print -nr "$PWD:t: $2"
-X	print -Pn "\a"
+X	# shows the current dir and executed command in the title while a process is active
+X	prompt_pure_set_title 'ignore-escape' "$PWD:t: $2"
 X}
 X
 X# string length ignoring ansi escapes
-Xprompt_pure_string_length() {
-X	# Subtract one since newline is counted as two characters
-X	echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
+Xprompt_pure_string_length_to_var() {
+X	local str=$1 var=$2 length
+X	# perform expansion on str and check length
+X	length=$(( ${#${(S%%)str//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+X
+X	# store string length in variable as specified by caller
+X	typeset -g "${var}"="${length}"
 X}
 X
 Xprompt_pure_preprompt_render() {
@@ -2473,42 +2541,68 @@ X	# if executing through precmd, do not perform fancy terminal editing
 X	if [[ "$1" == "precmd" ]]; then
 X		print -P "\n${prompt}"
 X	else
-X		# only redraw if prompt has changed
-X		[[ "${prompt_pure_last_preprompt}" != "${prompt}" ]] || return
+X		# only redraw if preprompt has changed
+X		[[ "${prompt_pure_last_preprompt}" != "${preprompt}" ]] || return
 X
-X		# calculate length of prompt for redraw purposes
-X		local prompt_length=$(prompt_pure_string_length $prompt)
-X		local lines=$(( $prompt_length / $COLUMNS + 1 ))
+X		# calculate length of preprompt and store it locally in preprompt_length
+X		integer preprompt_length lines
+X		prompt_pure_string_length_to_var "${preprompt}" "preprompt_length"
 X
-X		# disable clearing of line if last char of prompt is last column of terminal
-X		local clr="\e[K"
-X		(( $prompt_length * $lines == $COLUMNS - 1 )) && clr=""
+X		# calculate number of preprompt lines for redraw purposes
+X		(( lines = ( preprompt_length - 1 ) / COLUMNS + 1 ))
 X
-X		# modify previous prompt
-X		print -Pn "\e7\e[${lines}A\e[1G${prompt}${clr}\e8"
+X		# calculate previous preprompt lines to figure out how the new preprompt should behave
+X		integer last_preprompt_length last_lines
+X		prompt_pure_string_length_to_var "${prompt_pure_last_preprompt}" "last_preprompt_length"
+X		(( last_lines = ( last_preprompt_length - 1 ) / COLUMNS + 1 ))
+X
+X		# clr_prev_preprompt erases visual artifacts from previous preprompt
+X		local clr_prev_preprompt
+X		if (( last_lines > lines )); then
+X			# move cursor up by last_lines, clear the line and move it down by one line
+X			clr_prev_preprompt="\e[${last_lines}A\e[2K\e[1B"
+X			while (( last_lines - lines > 1 )); do
+X				# clear the line and move cursor down by one
+X				clr_prev_preprompt+='\e[2K\e[1B'
+X				(( last_lines-- ))
+X			done
+X
+X			# move cursor into correct position for preprompt update
+X			clr_prev_preprompt+="\e[${lines}B"
+X		# create more space for preprompt if new preprompt has more lines than last
+X		elif (( last_lines < lines )); then
+X			# move cursor using newlines because ansi cursor movement can't push the cursor beyond the last line
+X			printf $'\n'%.0s {1..$(( lines - last_lines ))}
+X
+X			# redraw the prompt since it has been moved by print
+X			zle && zle .reset-prompt
+X		fi
+X
+X		# disable clearing of line if last char of preprompt is last column of terminal
+X		local clr='\e[K'
+X		(( COLUMNS * lines == preprompt_length )) && clr=
+X
+X		# modify previous preprompt
+X		print -Pn "\e7${clr_prev_preprompt}\e[${lines}A\e[1G${preprompt}${clr}\e8"
 X	fi
 X
-X	# store previous prompt for comparison
-X	prompt_pure_last_preprompt=$prompt
+X	# store previous preprompt for comparison
+X	prompt_pure_last_preprompt=$preprompt
 X}
 X
 Xprompt_pure_precmd() {
-X	# store exec time for when preprompt gets re-rendered
-X	prompt_pure_cmd_exec_time=$(prompt_pure_check_cmd_exec_time)
+X	# check exec time and store it in a variable
+X	prompt_pure_check_cmd_exec_time
 X
 X	# by making sure that prompt_pure_cmd_timestamp is defined here the async functions are prevented from interfering
 X	# with the initial preprompt rendering
 X	prompt_pure_cmd_timestamp=
 X
 X	# check for git arrows
-X	prompt_pure_git_arrows=$(prompt_pure_check_git_arrows)
+X	prompt_pure_check_git_arrows
 X
-X	# tell the terminal we are setting the title
-X	print -Pn "\e]0;"
-X	# show hostname if connected through ssh
-X	[[ "$SSH_CONNECTION" != '' ]] && print -Pn "(%m) "
 X	# shows the full path in the title
-X	print -Pn "%~\a"
+X	prompt_pure_set_title 'expand-prompt' '%~'
 X
 X	# get vcs info
 X	vcs_info
@@ -2631,9 +2725,10 @@ X	# prevent percentage showing up
 X	# if output doesn't end with a newline
 X	export PROMPT_EOL_MARK=''
 X
-X	prompt_opts=(cr subst percent)
+X	prompt_opts=(subst percent)
 X
 X	zmodload zsh/datetime
+X	zmodload zsh/zle
 X	autoload -Uz add-zsh-hook
 X	autoload -Uz vcs_info
 X	autoload -Uz async && async
@@ -2643,8 +2738,19 @@ X	add-zsh-hook preexec prompt_pure_preexec
 X
 X	zstyle ':vcs_info:*' enable git
 X	zstyle ':vcs_info:*' use-simple true
-X	zstyle ':vcs_info:git*' formats ' %b'
-X	zstyle ':vcs_info:git*' actionformats ' %b|%a'
+X	# only export two msg variables from vcs_info
+X	zstyle ':vcs_info:*' max-exports 2
+X	# vcs_info_msg_0_ = ' %b' (for branch)
+X	# vcs_info_msg_1_ = 'x%R' git top level (%R), x-prefix prevents creation of a named path (AUTO_NAME_DIRS)
+X	zstyle ':vcs_info:git*' formats ' %b' 'x%R'
+X	zstyle ':vcs_info:git*' actionformats ' %b|%a' 'x%R'
+X
+X	# if the user has not registered a custom zle widget for clear-screen,
+X	# override the builtin one so that the preprompt is displayed correctly when
+X	# ^L is issued.
+X	if [[ $widgets[clear-screen] == 'builtin' ]]; then
+X		zle -N clear-screen prompt_pure_clear_screen
+X	fi
 X
 X	prompt_pure_username='%F{2}%n'
 X
@@ -3301,6 +3407,10 @@ X        print -P -- %F{2}Ok%f
 X    else
 X        print -P -- %F{9}No .zsh_config found%f
 X    fi
+X}
+X
+Xenc () {
+X   [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
 X}
 X
 Xmkdir_ansible_roles() {
