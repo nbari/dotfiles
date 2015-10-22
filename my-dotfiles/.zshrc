@@ -302,6 +302,10 @@ bindkey -M vicmd v edit-command-line
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
 RPROMPT="%F{8}%*"
+TMOUT=1
+TRAPALRM() {
+    zle reset-prompt
+}
 
 # ----------------------------------------------------------------------------
 # tmux
