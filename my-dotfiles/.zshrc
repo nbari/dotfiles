@@ -130,6 +130,7 @@ alias cpu='top -o cpu'
 alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 # clean gdrive
 alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+alias git_empty='git commit -m "empty commit" --allow-empty'
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
@@ -154,7 +155,7 @@ alias svi='sudo vim'
 alias tmp='cd ~/tmp'
 # git log
 alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
-alias gd="echo master diff:; git diff --name-status master"
+alias gd="echo master diff:; git diff --name-status master develop"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
