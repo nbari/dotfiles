@@ -3361,7 +3361,7 @@ Xalias svi='sudo vim'
 Xalias tmp='cd ~/tmp'
 X# git log
 Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
-Xalias gd="echo master diff:; git diff --name-status master"
+Xalias gd="echo master diff:; git diff --name-status master develop"
 X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
 Xcompdef t=tmux
