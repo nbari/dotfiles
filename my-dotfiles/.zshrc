@@ -130,6 +130,7 @@ alias cpu='top -o cpu'
 alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 # clean gdrive
 alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+alias git_empty='git commit -m "empty commit" --allow-empty'
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'

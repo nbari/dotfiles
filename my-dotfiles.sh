@@ -3336,6 +3336,7 @@ X# clean dropbox conflicted files
 Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
 X# clean gdrive
 Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+Xalias git_empty='git commit -m "empty commit" --allow-empty'
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
