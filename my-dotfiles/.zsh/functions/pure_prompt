@@ -116,6 +116,12 @@ prompt_pure_string_length_to_var() {
 	typeset -g "${var}"="${length}"
 }
 
+prompt_pure_apply_rprompt() {
+   str='%F{8}%*%f'
+   pos=$(( COLUMNS - 8 ))
+   print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
+}
+
 prompt_pure_preprompt_render() {
 	# check that no command is currently running, the preprompt will otherwise be rendered in the wrong place
 	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
@@ -188,6 +194,8 @@ prompt_pure_preprompt_render() {
 		# modify previous preprompt
 		print -Pn "\e7${clr_prev_preprompt}\e[${lines}A\e[1G${preprompt}${clr}\e8"
 	fi
+
+    prompt_pure_apply_rprompt
 
 	# store previous preprompt for comparison
 	prompt_pure_last_preprompt=$preprompt
