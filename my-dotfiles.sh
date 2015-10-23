@@ -2515,6 +2515,12 @@ X	# store string length in variable as specified by caller
 X	typeset -g "${var}"="${length}"
 X}
 X
+Xprompt_pure_apply_rprompt() {
+X   str='%F{8}%*%f'
+X   pos=$(( COLUMNS - 8 ))
+X   print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
+X}
+X
 Xprompt_pure_preprompt_render() {
 X	# check that no command is currently running, the preprompt will otherwise be rendered in the wrong place
 X	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
@@ -2587,6 +2593,8 @@ X
 X		# modify previous preprompt
 X		print -Pn "\e7${clr_prev_preprompt}\e[${lines}A\e[1G${preprompt}${clr}\e8"
 X	fi
+X
+X    prompt_pure_apply_rprompt
 X
 X	# store previous preprompt for comparison
 X	prompt_pure_last_preprompt=$preprompt
@@ -3508,10 +3516,9 @@ X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
 Xautoload -U pure_prompt && pure_prompt
-XRPROMPT="%F{8}%*"
 XTMOUT=1
 XTRAPALRM() {
-X    zle reset-prompt
+X    prompt_pure_apply_rprompt
 X}
 X
 X# ----------------------------------------------------------------------------

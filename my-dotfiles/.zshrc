@@ -302,10 +302,9 @@ bindkey -M vicmd v edit-command-line
 # prompt
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
-RPROMPT="%F{8}%*"
 TMOUT=1
 TRAPALRM() {
-    zle reset-prompt
+    prompt_pure_apply_rprompt
 }
 
 # ----------------------------------------------------------------------------
