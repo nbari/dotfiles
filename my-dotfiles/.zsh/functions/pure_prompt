@@ -118,7 +118,7 @@ prompt_pure_string_length_to_var() {
 
 prompt_pure_apply_rprompt() {
    str='%F{8}%*%f'
-   pos=$(( COLUMNS - 8 ))
+   pos=$(( COLUMNS - 7 ))
    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 }
 
