@@ -2517,7 +2517,7 @@ X}
 X
 Xprompt_pure_apply_rprompt() {
 X   str='%F{8}%*%f'
-X   pos=$(( COLUMNS - 8 ))
+X   pos=$(( COLUMNS - 7 ))
 X   print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 X}
 X
