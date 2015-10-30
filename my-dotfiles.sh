@@ -3338,7 +3338,7 @@ Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias cp='cp -i'
 X# copy with rsync
-Xalias cpr="rsync --delay-updates --delete-after --checksum --archive --progress -h"
+Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --info=progress2"
 Xalias cpu='top -o cpu'
 X# clean dropbox conflicted files
 Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
