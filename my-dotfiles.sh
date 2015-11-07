@@ -1752,6 +1752,7 @@ XPlugin 'scrooloose/nerdtree'
 XPlugin 'scrooloose/syntastic'
 XPlugin 'stephpy/vim-php-cs-fixer'
 XPlugin 'tpope/vim-fugitive'
+XPlugin 'tpope/vim-haml'
 XPlugin 'tpope/vim-surround'
 X
 Xcall vundle#end()
@@ -2075,6 +2076,9 @@ Xnnoremap <leader>l :CtrlPMRU<CR>
 X
 X" Compile LessCSS on save
 Xautocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
+X
+X" Compile SASS scss on save
+Xnnoremap <leader>sc :!node-sass --output-style compressed % %:p:r.css<CR>
 X
 X" Compile script.src.js -> script.min.js
 Xnnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
@@ -3338,7 +3342,7 @@ Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias cp='cp -i'
 X# copy with rsync
-Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --info=progress2"
+Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
 Xalias cpu='top -o cpu'
 X# clean dropbox conflicted files
 Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"

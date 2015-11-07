@@ -124,7 +124,7 @@ alias active='grep -Ev "^($|#)"'
 alias c='clear'
 alias cp='cp -i'
 # copy with rsync
-alias cpr="rsync --delete --archive --numeric-ids --human-readable --info=progress2"
+alias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
 alias cpu='top -o cpu'
 # clean dropbox conflicted files
 alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"

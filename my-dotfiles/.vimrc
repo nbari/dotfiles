@@ -33,6 +33,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'stephpy/vim-php-cs-fixer'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-surround'
 
 call vundle#end()
@@ -356,6 +357,9 @@ nnoremap <leader>l :CtrlPMRU<CR>
 
 " Compile LessCSS on save
 autocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
+
+" Compile SASS scss on save
+nnoremap <leader>sc :!node-sass --output-style compressed % %:p:r.css<CR>
 
 " Compile script.src.js -> script.min.js
 nnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
