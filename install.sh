@@ -54,7 +54,7 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/gmarik/Vundle.vim.g
 }
 
 echo "Installing node packages..."
-hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint || {
+hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint node-sass || {
   echo "npm not installed"
 }
 
