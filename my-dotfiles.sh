@@ -145,6 +145,11 @@ Xbind '"' split-window -c "#{pane_current_path}"
 X
 X# reset & clear history
 Xbind -n C-r send-keys -R Enter \; clear-history \;
+X
+X# $ brew update
+X# $ brew install reattach-to-user-namespace
+X# $ brew upgrade reattach-to-user-namespace
+Xset -g default-command "reattach-to-user-namespace -l /bin/zsh"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
