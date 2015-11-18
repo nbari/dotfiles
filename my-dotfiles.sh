@@ -149,7 +149,7 @@ X
 X# $ brew update
 X# $ brew install reattach-to-user-namespace
 X# $ brew upgrade reattach-to-user-namespace
-Xset -g default-command "reattach-to-user-namespace -l /bin/zsh"
+X# set -g default-command "reattach-to-user-namespace -l /bin/zsh"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
@@ -2132,7 +2132,7 @@ X
 X#
 X# zsh-async
 X#
-X# version: 1.0.0
+X# version: 1.1.0
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
@@ -2165,8 +2165,8 @@ X	# Calculate duration
 X	duration=$(( EPOCHREALTIME - duration ))
 X
 X	# stip all null-characters from stdout and stderr
-X	stdout="${stdout//$'\0'/}"
-X	stderr="${stderr//$'\0'/}"
+X	stdout=${stdout//$'\0'/}
+X	stderr=${stderr//$'\0'/}
 X
 X	# if ret is missing for some unknown reason, set it to -1 to indicate we
 X	# have run into a bug
@@ -2189,11 +2189,11 @@ X	local unique=0
 X
 X	# Process option parameters passed to worker
 X	while getopts "np:u" opt; do
-X		case "$opt" in
-X		# Use SIGWINCH since many others seem to cause zsh to freeze, e.g. ALRM, INFO, etc.
-X		n) trap 'kill -WINCH $ASYNC_WORKER_PARENT_PID' CHLD;;
-X		p) ASYNC_WORKER_PARENT_PID=$OPTARG;;
-X		u) unique=1;;
+X		case $opt in
+X			# Use SIGWINCH since many others seem to cause zsh to freeze, e.g. ALRM, INFO, etc.
+X			n) trap 'kill -WINCH $ASYNC_WORKER_PARENT_PID' CHLD;;
+X			p) ASYNC_WORKER_PARENT_PID=$OPTARG;;
+X			u) unique=1;;
 X		esac
 X	done
 X
@@ -2208,26 +2208,33 @@ X		cmd=(${=cmd})
 X		local job=$cmd[1]
 X
 X		# Check for non-job commands sent to worker
-X		case "$job" in
-X		_killjobs)
-X			kill -KILL ${${(v)jobstates##*:*:}%\=*} &>/dev/null
-X			continue
-X			;;
+X		case $job in
+X			_unset_trap)
+X				trap - CHLD; continue;;
+X			_killjobs)
+X				# Do nothing in the worker when receiving the TERM signal
+X				trap '' TERM
+X				# Send TERM to the entire process group (PID and all children)
+X				kill -TERM -$$ &>/dev/null
+X				# Reset trap
+X				trap - TERM
+X				continue
+X				;;
 X		esac
 X
 X		# If worker should perform unique jobs
-X		if ((unique)); then
+X		if (( unique )); then
 X			# Check if a previous job is still running, if yes, let it finnish
 X			for pid in ${${(v)jobstates##*:*:}%\=*}; do
-X				if [[ "${storage[$job]}" == "$pid" ]]; then
+X				if [[ ${storage[$job]} == $pid ]]; then
 X					continue 2
 X				fi
 X			done
 X		fi
 X
-X		# run task in background
+X		# Run task in background
 X		_async_job $cmd &
-X		# store pid because zsh job manager is extremely unflexible (show jobname as non-unique '$job')...
+X		# Store pid because zsh job manager is extremely unflexible (show jobname as non-unique '$job')...
 X		storage[$job]=$!
 X	done
 X}
@@ -2247,6 +2254,8 @@ X# 	$4 = execution time, floating point e.g. 2.05 seconds
 X# 	$5 = resulting stderr from execution
 X#
 Xasync_process_results() {
+X	setopt localoptions noshwordsplit
+X
 X	integer count=0
 X	local worker=$1
 X	local callback=$2
@@ -2255,7 +2264,7 @@ X	local IFS=$'\0'
 X
 X	typeset -gA ASYNC_PROCESS_BUFFER
 X	# Read output from zpty and parse it if available
-X	while zpty -rt "$worker" line 2>/dev/null; do
+X	while zpty -rt $worker line 2>/dev/null; do
 X		# Remove unwanted \r from output
 X		ASYNC_PROCESS_BUFFER[$worker]+=${line//$'\r'$'\n'/$'\n'}
 X		# Split buffer on null characters, preserve empty elements
@@ -2268,20 +2277,32 @@ X		(( ${#items} % 5 )) && continue
 X
 X		# Work through all results
 X		while (( ${#items} > 0 )); do
-X			"$callback" "${(@)=items[1,5]}"
+X			$callback "${(@)=items[1,5]}"
 X			shift 5 items
 X			count+=1
 X		done
 X
 X		# Empty the buffer
-X		ASYNC_PROCESS_BUFFER[$worker]=""
+X		unset "ASYNC_PROCESS_BUFFER[$worker]"
 X	done
 X
 X	# If we processed any results, return success
-X	(( $count )) && return 0
+X	(( count )) && return 0
 X
 X	# No results were processed
 X	return 1
+X}
+X
+X# Watch worker for output
+X_async_zle_watcher() {
+X	setopt localoptions noshwordsplit
+X	typeset -gA ASYNC_PTYS ASYNC_CALLBACKS
+X	local worker=$ASYNC_PTYS[$1]
+X	local callback=$ASYNC_CALLBACKS[$worker]
+X
+X	if [[ -n $callback ]]; then
+X		async_process_results $worker $callback
+X	fi
 X}
 X
 X#
@@ -2291,14 +2312,18 @@ X# usage:
 X# 	async_job <worker_name> <my_function> [<function_params>]
 X#
 Xasync_job() {
+X	setopt localoptions noshwordsplit
+X
 X	local worker=$1; shift
-X	zpty -w "$worker" "$@"
+X	zpty -w $worker $@
 X}
 X
 X# This function traps notification signals and calls all registered callbacks
 X_async_notify_trap() {
+X	setopt localoptions noshwordsplit
+X
 X	for k in ${(k)ASYNC_CALLBACKS}; do
-X		async_process_results "${k}" "${ASYNC_CALLBACKS[$k]}"
+X		async_process_results $k ${ASYNC_CALLBACKS[$k]}
 X	done
 X}
 X
@@ -2310,12 +2335,16 @@ X# usage:
 X# 	async_register_callback <worker_name> <callback_function>
 X#
 Xasync_register_callback() {
+X	setopt localoptions noshwordsplit nolocaltraps
+X
 X	typeset -gA ASYNC_CALLBACKS
 X	local worker=$1; shift
 X
 X	ASYNC_CALLBACKS[$worker]="$*"
 X
-X	trap '_async_notify_trap' WINCH
+X	if (( ! ASYNC_USE_ZLE_HANDLER )); then
+X		trap '_async_notify_trap' WINCH
+X	fi
 X}
 X
 X#
@@ -2338,20 +2367,22 @@ X# usage:
 X# 	async_flush_jobs <worker_name>
 X#
 Xasync_flush_jobs() {
+X	setopt localoptions noshwordsplit
+X
 X	local worker=$1; shift
 X
 X	# Check if the worker exists
-X	zpty -t "$worker" &>/dev/null || return 1
+X	zpty -t $worker &>/dev/null || return 1
 X
 X	# Send kill command to worker
-X	zpty -w "$worker" "_killjobs"
+X	zpty -w $worker "_killjobs"
 X
 X	# Clear all output buffers
-X	while zpty -r "$worker" line; do true; done
+X	while zpty -r $worker line; do true; done
 X
 X	# Clear any partial buffers
 X	typeset -gA ASYNC_PROCESS_BUFFER
-X	ASYNC_PROCESS_BUFFER[$worker]=""
+X	unset "ASYNC_PROCESS_BUFFER[$worker]"
 X}
 X
 X#
@@ -2367,8 +2398,25 @@ X# 	-n notify through SIGWINCH signal
 X# 	-p pid to notify (defaults to current pid)
 X#
 Xasync_start_worker() {
+X	setopt localoptions noshwordsplit
+X
 X	local worker=$1; shift
-X	zpty -t "$worker" &>/dev/null || zpty -b "$worker" _async_worker -p $$ "$@" || async_stop_worker "$worker"
+X	zpty -t $worker &>/dev/null && return
+X
+X	typeset -gA ASYNC_PTYS
+X	typeset -h REPLY
+X	zpty -b $worker _async_worker -p $$ $@ || {
+X		async_stop_worker $worker
+X		return 1
+X	}
+X
+X	if (( ASYNC_USE_ZLE_HANDLER )); then
+X		ASYNC_PTYS[$REPLY]=$worker
+X		zle -F $REPLY _async_zle_watcher
+X
+X		# If worker was called with -n, disable trap in favor of zle handler
+X		async_job $worker _unset_trap
+X	fi
 X}
 X
 X#
@@ -2378,10 +2426,19 @@ X# usage:
 X# 	async_stop_worker <worker_name_1> [<worker_name_2>]
 X#
 Xasync_stop_worker() {
+X	setopt localoptions noshwordsplit
+X
 X	local ret=0
-X	for worker in "$@"; do
-X		async_unregister_callback "$worker"
-X		zpty -d "$worker" 2>/dev/null || ret=$?
+X	for worker in $@; do
+X		# Find and unregister the zle handler for the worker
+X		for k v in ${(@kv)ASYNC_PTYS}; do
+X			if [[ $v == $worker ]]; then
+X				zle -F $k
+X				unset "ASYNC_PTYS[$k]"
+X			fi
+X		done
+X		async_unregister_callback $worker
+X		zpty -d $worker 2>/dev/null || ret=$?
 X	done
 X
 X	return $ret
@@ -2394,8 +2451,20 @@ X# usage:
 X# 	async_init
 X#
 Xasync_init() {
+X	(( ASYNC_INIT_DONE )) && return
+X	ASYNC_INIT_DONE=1
+X
 X	zmodload zsh/zpty
 X	zmodload zsh/datetime
+X
+X	# Check if zsh/zpty returns a file descriptor or not, shell must also be interactive
+X	ASYNC_USE_ZLE_HANDLER=0
+X	[[ -o interactive ]] && {
+X		typeset -h REPLY
+X		zpty _async_test cat
+X		(( REPLY )) && ASYNC_USE_ZLE_HANDLER=1
+X		zpty -d _async_test
+X	}
 X}
 X
 Xasync() {
@@ -2508,6 +2577,9 @@ X	print -n '\a'
 X}
 X
 Xprompt_pure_preexec() {
+X	# attempt to detect and prevent prompt_pure_async_git_fetch from interfering with user initiated git or hub fetch
+X	[[ $2 =~ (git|hub)\ .*(pull|fetch) ]] && async_flush_jobs 'prompt_pure'
+X
 X	prompt_pure_cmd_timestamp=$EPOCHSECONDS
 X
 X	# shows the current dir and executed command in the title while a process is active
