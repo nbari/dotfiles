@@ -2083,7 +2083,7 @@ X" Compile LessCSS on save
 Xautocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
 X
 X" Compile SASS scss on save
-Xnnoremap <leader>sc :!node-sass --output-style compressed % %:p:r.css<CR>
+Xnnoremap <leader>sc :!node-sass --output-style compressed % "%:p:r.css"<CR>
 X
 X" Compile script.src.js -> script.min.js
 Xnnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
