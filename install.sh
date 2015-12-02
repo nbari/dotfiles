@@ -59,7 +59,7 @@ hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less js
 }
 
 echo "Installing pip packages..."
-hash pip >/dev/null 2>&1 && env pip install --user --upgrade autopep8 pyflakes pylint || {
+hash pip >/dev/null 2>&1 && env pip install --user --upgrade autopep8 pyflakes pylint cryptography || {
   echo "pip not installed"
 }
 
