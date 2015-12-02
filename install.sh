@@ -58,6 +58,11 @@ hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less js
   echo "npm not installed"
 }
 
+echo "Installing pip packages..."
+hash pip >/dev/null 2>&1 && env pip install --user --upgrade autopep8 pyflakes pylint || {
+  echo "pip not installed"
+}
+
 echo "Installing Vundle plugins run: vim +PluginInstall +qall"
 vim +PluginInstall +qall
 
