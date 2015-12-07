@@ -1933,8 +1933,7 @@ X" Autoformat
 Xnnoremap <leader>ff :Autoformat<CR>
 X" Test this to check if autopep8 working
 X" echo "print 'coração niño'" | autopep8 -
-X" let g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
-Xlet g:formatdef_autopep8 = '"- --aggressive --aggressive --indent-size 4"'
+Xlet g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
 X
 X" vim-php-cs-fixer
 Xlet g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
