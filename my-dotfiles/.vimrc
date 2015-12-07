@@ -209,8 +209,7 @@ set wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 nnoremap <leader>ff :Autoformat<CR>
 " Test this to check if autopep8 working
 " echo "print 'coração niño'" | autopep8 -
-" let g:formatprg_args_expr_python = '"- --aggressive --aggressive --indent-size 4"'
-let g:formatdef_autopep8 = '"- --aggressive --aggressive --indent-size 4"'
+let g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
 
 " vim-php-cs-fixer
 let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
