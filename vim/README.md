@@ -140,3 +140,8 @@ AUTOSSH + TMUX
 csh Alias:
 
     ssh_example (autossh -M 0 -t 1.2.3.4 "tmux attach -t nbari!:1 -d || tmux new -s nbari!:1 ")
+
+
+:set fileformat=unix
+
+The file will be written back without carriage return (CR, ^M) characters.
