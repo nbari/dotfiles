@@ -144,7 +144,7 @@ Xbind % split-window -h -c "#{pane_current_path}"
 Xbind '"' split-window -c "#{pane_current_path}"
 X
 X# reset & clear history
-Xbind -n C-r send-keys -R Enter \; clear-history \;
+Xbind -n C-k send-keys -R Enter \; clear-history \;
 X
 X# $ brew update
 X# $ brew install reattach-to-user-namespace
