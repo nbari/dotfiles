@@ -17,6 +17,7 @@
 #	./.vim/colors/nbari-colors.vim
 #	./.vim/filetype.vim
 #	./.vim/syntax
+#	./.vim/syntax/haproxy.vim
 #	./.vim/syntax/jquery.vim
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
@@ -411,6 +412,168 @@ Xau BufRead,BufNewFile ~/ansible/*.yml,~/ansible/*/*.yml if &ft == '' | setfilet
 END-of-./.vim/filetype.vim
 echo c - ./.vim/syntax
 mkdir -p ./.vim/syntax > /dev/null 2>&1
+echo x - ./.vim/syntax/haproxy.vim
+sed 's/^X//' >./.vim/syntax/haproxy.vim << 'END-of-./.vim/syntax/haproxy.vim'
+X" Vim syntax file
+X" Language:    HAproxy
+X" Maintainer:  Bruno Michel <brmichel@free.fr>
+X" Last Change: Mar 30, 2007
+X" Version:     0.3
+X" URL:         http://haproxy.1wt.eu/
+X
+X" For version 5.x: Clear all syntax items
+X" For version 6.x: Quit when a syntax file was already loaded
+Xif version < 600
+X	syntax clear
+Xelseif exists("b:current_syntax")
+X	finish
+Xendif
+X
+Xif version >= 600
+X	setlocal iskeyword=_,-,a-z,A-Z,48-57
+Xelse
+X	set iskeyword=_,-,a-z,A-Z,48-57
+Xendif
+X
+X
+X" Escaped chars
+Xsyn match   hapEscape    +\\\(\\\| \|n\|r\|t\|#\|x\x\x\)+
+X
+X" Comments
+Xsyn match   hapComment   /#.*$/ contains=hapTodo
+Xsyn keyword hapTodo      contained TODO FIXME XXX
+Xsyn case ignore
+X
+X" Sections
+Xsyn match   hapSection   /^\s*\(global\|defaults\)/
+Xsyn match   hapSection   /^\s*\(listen\|frontend\|backend\|ruleset\)/         skipwhite nextgroup=hapSectLabel
+Xsyn match   hapSectLabel /\S\+/                                               skipwhite nextgroup=hapIp1 contained
+Xsyn match   hapIp1       /\(\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\)\?:\d\{1,5}/        nextgroup=hapIp2 contained
+Xsyn match   hapIp2       /,\(\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\)\?:\d\{1,5}/hs=s+1 nextgroup=hapIp2 contained
+X
+X" Parameters
+Xsyn keyword hapParam     chroot cliexp clitimeout contimeout
+Xsyn keyword hapParam     daemon debug disabled
+Xsyn keyword hapParam     enabled
+Xsyn keyword hapParam     fullconn
+Xsyn keyword hapParam     gid grace
+Xsyn keyword hapParam     maxconn monitor-uri
+Xsyn keyword hapParam     nbproc noepoll nopoll
+Xsyn keyword hapParam     pidfile
+Xsyn keyword hapParam     quiet
+Xsyn keyword hapParam     redispatch retries
+Xsyn keyword hapParam     reqallow  reqdel  reqdeny  reqpass  reqtarpit  skipwhite nextgroup=hapRegexp
+Xsyn keyword hapParam     reqiallow reqidel reqideny reqipass reqitarpit skipwhite nextgroup=hapRegexp
+Xsyn keyword hapParam     rspdel  rspdeny    skipwhite nextgroup=hapRegexp
+Xsyn keyword hapParam     rspidel rspideny   skipwhite nextgroup=hapRegexp
+Xsyn keyword hapParam     reqsetbe reqisetbe skipwhite nextgroup=hapRegexp2
+Xsyn keyword hapParam     reqadd reqiadd rspadd rspiadd
+Xsyn keyword hapParam     server source srvexp srvtimeout
+Xsyn keyword hapParam     uid ulimit-n
+Xsyn keyword hapParam     reqrep reqirep rsprep rspirep    skipwhite nextgroup=hapRegexp
+Xsyn keyword hapParam     errorloc errorloc302 errorloc303 skipwhite nextgroup=hapStatus
+Xsyn keyword hapParam     default_backend                  skipwhite nextgroup=hapSectLabel
+Xsyn keyword hapParam     appsession  skipwhite nextgroup=hapAppSess
+Xsyn keyword hapParam     bind        skipwhite nextgroup=hapIp1
+Xsyn keyword hapParam     balance     skipwhite nextgroup=hapBalance
+Xsyn keyword hapParam     cookie      skipwhite nextgroup=hapCookieNam
+Xsyn keyword hapParam     capture     skipwhite nextgroup=hapCapture
+Xsyn keyword hapParam     dispatch    skipwhite nextgroup=hapIpPort
+Xsyn keyword hapParam     source      skipwhite nextgroup=hapIpPort
+Xsyn keyword hapParam     mode        skipwhite nextgroup=hapMode
+Xsyn keyword hapParam     monitor-net skipwhite nextgroup=hapMonitorN
+Xsyn keyword hapParam     option      skipwhite nextgroup=hapOption
+Xsyn keyword hapParam     stats       skipwhite nextgroup=hapStats
+Xsyn keyword hapParam     server      skipwhite nextgroup=hapServerN
+Xsyn keyword hapParam     source      skipwhite nextgroup=hapServerEOL
+Xsyn keyword hapParam     log         skipwhite nextgroup=hapGLog,hapLogIp
+X
+X" Options and additional parameters
+Xsyn keyword hapAppSess   contained len timeout
+Xsyn keyword hapBalance   contained roundrobin source
+Xsyn keyword hapLen       contained len
+Xsyn keyword hapGLog      contained global
+Xsyn keyword hapMode      contained http tcp health
+Xsyn keyword hapOption    contained abortonclose allbackups checkcache clitcpka dontlognull forceclose forwardfor
+Xsyn keyword hapOption    contained httpchk httpclose httplog keepalive logasap persist srvtcpka ssl-hello-chk
+Xsyn keyword hapOption    contained tcplog tcpka tcpsplice
+Xsyn keyword hapStats     contained uri realm auth scope enable
+Xsyn keyword hapLogFac    contained kern user mail daemon auth syslog lpr news nextgroup=hapLogLvl skipwhite
+Xsyn keyword hapLogFac    contained uucp cron auth2 ftp ntp audit alert cron2  nextgroup=hapLogLvl skipwhite
+Xsyn keyword hapLogFac    contained local0 local1 local2 local3 local4 local5 local6 local7 nextgroup=hapLogLvl skipwhite
+Xsyn keyword hapLogLvl    contained emerg alert crit err warning notice info debug
+Xsyn keyword hapCookieKey contained rewrite insert nocache postonly indirect prefix nextgroup=hapCookieKey skipwhite
+Xsyn keyword hapCapture   contained cookie nextgroup=hapNameLen skipwhite
+Xsyn keyword hapCapture   contained request response nextgroup=hapHeader skipwhite
+Xsyn keyword hapHeader    contained header nextgroup=hapNameLen skipwhite
+Xsyn keyword hapSrvKey    contained backup cookie check inter rise fall port source minconn maxconn weight usesrc
+Xsyn match   hapStatus    contained /\d\{3}/
+Xsyn match   hapMonitorN  contained /\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\(\/\d\{1,2}\)\?/
+Xsyn match   hapLogIp     contained /\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}/   nextgroup=hapLogFac skipwhite
+Xsyn match   hapIpPort    contained /\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}:\d\{1,5}/
+Xsyn match   hapServerAd  contained /\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\(:[+-]\?\d\{1,5}\)\?/ nextgroup=hapSrvEOL skipwhite
+Xsyn match   hapNameLen   contained /\S\+/ nextgroup=hapLen       skipwhite
+Xsyn match   hapCookieNam contained /\S\+/ nextgroup=hapCookieKey skipwhite
+Xsyn match   hapServerN   contained /\S\+/ nextgroup=hapServerAd  skipwhite
+Xsyn region  hapSrvEOL    contained start=/\S/ end=/$/ contains=hapSrvKey
+Xsyn region  hapRegexp    contained start=/\S/ end=/\(\s\|$\)/ skip=/\\ / nextgroup=hapRegRepl skipwhite
+Xsyn region  hapRegRepl   contained start=/\S/ end=/$/ contains=hapComment,hapEscape,hapBackRef
+Xsyn region  hapRegexp2   contained start=/\S/ end=/\(\s\|$\)/ skip=/\\ / nextgroup=hapSectLabel skipwhite
+Xsyn match   hapBackref   contained /\\\d/
+X
+X
+X" Transparent is a Vim keyword, so we need a regexp to match it
+Xsyn match   hapParam     +transparent+
+Xsyn match   hapOption    +transparent+ contained
+X
+X
+X" Define the default highlighting.
+X" For version 5.7 and earlier: only when not done already
+X" For version 5.8 and later: only when an item doesn't have highlighting yet
+Xif version < 508
+X	command -nargs=+ HiLink hi link <args>
+Xelse
+X	command -nargs=+ HiLink hi def link <args>
+Xendif
+X
+XHiLink      hapEscape    SpecialChar
+XHiLink      hapBackRef   Special
+XHiLink      hapComment   Comment
+XHiLink      hapTodo      Todo
+XHiLink      hapSection   Constant
+XHiLink      hapSectLabel Identifier
+XHiLink      hapParam     Keyword
+X
+XHiLink      hapRegexp    String
+XHiLink      hapRegexp2   hapRegexp
+XHiLink      hapIp1       Number
+XHiLink      hapIp2       hapIp1
+XHiLink      hapLogIp     hapIp1
+XHiLink      hapIpPort    hapIp1
+XHiLink      hapMonitorN  hapIp1
+XHiLink      hapServerAd  hapIp1
+XHiLink      hapStatus    Number
+X
+XHiLink      hapOption    Operator
+XHiLink      hapAppSess   hapOption
+XHiLink      hapBalance   hapOption
+XHiLink      hapCapture   hapOption
+XHiLink      hapCookieKey hapOption
+XHiLink      hapHeader    hapOption
+XHiLink      hapGLog      hapOption
+XHiLink      hapLogFac    hapOption
+XHiLink      hapLogLvl    hapOption
+XHiLink      hapMode      hapOption
+XHiLink      hapStats     hapOption
+XHiLink      hapLen       hapOption
+XHiLink      hapSrvKey    hapOption
+X
+X
+Xdelcommand HiLink
+X
+Xlet b:current_syntax = "haproxy"
+X" vim: ts=8
+END-of-./.vim/syntax/haproxy.vim
 echo x - ./.vim/syntax/jquery.vim
 sed 's/^X//' >./.vim/syntax/jquery.vim << 'END-of-./.vim/syntax/jquery.vim'
 X" Vim syntax file
