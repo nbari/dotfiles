@@ -3452,6 +3452,17 @@ X
 Xexport ANSIBLE_HOSTS=~/ansible/hosts
 Xexport ANSIBLE_CONFIG=~/ansible/ansible.cfg
 Xexport ANSIBLE_RETRY_FILES_ENABLE=0
+X
+X# The next line updates PATH for the Google Cloud SDK.
+Xif [[  -a ~/google-cloud-sdk/path.zsh.inc ]]; then
+X    source ~/google-cloud-sdk/path.zsh.inc
+Xfi
+X
+X
+X# The next line enables shell command completion for gcloud.
+Xif [[ -a ~/google-cloud-sdk/completion.zsh.inc ]]; then
+X    source ~/google-cloud-sdk/completion.zsh.inc
+Xfi
 END-of-./.zshenv
 echo x - ./.zshrc
 sed 's/^X//' >./.zshrc << 'END-of-./.zshrc'
@@ -3778,6 +3789,8 @@ X    fi
 Xfi
 X
 Xunsetopt prompt_cr
+X#
+X# compdef -d adb
 END-of-./.zshrc
 exit
 
