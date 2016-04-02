@@ -1,2 +1,3 @@
+.DS_Store
 my-dotfiles/.vim/bundle/*
 my-dotfiles/.vim/.netrwhist

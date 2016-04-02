@@ -321,3 +321,5 @@ if hash tmux &> /dev/null; then
 fi
 
 unsetopt prompt_cr
+#
+# compdef -d adb
