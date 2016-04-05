@@ -70,6 +70,9 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade autopep8 pyflakes p
 
 echo "Installing Vundle plugins run: vim +PluginInstall +qall"
 vim +PluginInstall +qall
+vim +'silent! PluginInstall' +qall
+
+clear
 
 echo "To change your default shell to zsh:  chsh -s `which zsh`"
 
