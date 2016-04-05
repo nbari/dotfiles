@@ -213,10 +213,6 @@ enc () {
    [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
 }
 
-gh() {
-    git log --follow -p -- $1
-}
-
 mkdir_ansible_roles() {
     echo "ansible-galaxy init <name_of_role> --force"
 }
