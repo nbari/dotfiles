@@ -21,9 +21,11 @@ umask 22
 
 set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin $HOME/bin)
 
-setenv  EDITOR  vim
-setenv  PAGER  less
-setenv  BLOCKSIZE  K
+setenv EDITOR  vim
+setenv PAGER  less
+setenv BLOCKSIZE  K
+setenv CLICOLOR
+setenv LSCOLORS gxfxcxdxbxegedabagacad
 
 set COLOR1="%{\e[0;32m%}"
 set COLOR2="%{\e[0;33m%}"
