@@ -58,9 +58,13 @@ Xumask 22
 X
 Xset path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin $HOME/bin)
 X
-Xsetenv  EDITOR  vim
-Xsetenv  PAGER  less
-Xsetenv  BLOCKSIZE  K
+Xset autologout = 300
+X
+Xsetenv EDITOR  vim
+Xsetenv PAGER  less
+Xsetenv BLOCKSIZE  K
+Xsetenv CLICOLOR
+Xsetenv LSCOLORS gxfxcxdxbxegedabagacad
 X
 Xset COLOR1="%{\e[0;32m%}"
 Xset COLOR2="%{\e[0;33m%}"
