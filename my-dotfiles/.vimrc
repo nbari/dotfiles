@@ -11,6 +11,7 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " vim plugins
+
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
@@ -27,6 +28,7 @@ Plugin 'mitsuhiko/vim-jinja'
 Plugin 'msanders/snipmate.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rodjek/vim-puppet'
+Plugin 'rust-lang/rust.vim'
 Plugin 'saltstack/salt-vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
@@ -35,7 +37,6 @@ Plugin 'stephpy/vim-php-cs-fixer'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-surround'
-
 call vundle#end()
 
 "re-enable filetype
