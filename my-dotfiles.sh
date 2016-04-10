@@ -1902,6 +1902,7 @@ X" required!
 XBundle 'gmarik/Vundle.vim'
 X
 X" vim plugins
+X
 XPlugin 'Chiel92/vim-autoformat'
 XPlugin 'Raimondi/delimitMate'
 XPlugin 'airblade/vim-gitgutter'
@@ -1918,6 +1919,7 @@ XPlugin 'mitsuhiko/vim-jinja'
 XPlugin 'msanders/snipmate.vim'
 XPlugin 'plasticboy/vim-markdown'
 XPlugin 'rodjek/vim-puppet'
+XPlugin 'rust-lang/rust.vim'
 XPlugin 'saltstack/salt-vim'
 XPlugin 'scrooloose/nerdcommenter'
 XPlugin 'scrooloose/nerdtree'
@@ -1926,7 +1928,6 @@ XPlugin 'stephpy/vim-php-cs-fixer'
 XPlugin 'tpope/vim-fugitive'
 XPlugin 'tpope/vim-haml'
 XPlugin 'tpope/vim-surround'
-X
 Xcall vundle#end()
 X
 X"re-enable filetype
