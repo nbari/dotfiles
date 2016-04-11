@@ -223,6 +223,7 @@ hi rustStorage     ctermfg=102
 hi rustStructure   ctermfg=222
 hi rustTrait       ctermfg=167
 hi rustType        ctermfg=167
+hi rustModPathSep  ctermfg=102
 
 " Lua
 hi luaCond         ctermfg=139
