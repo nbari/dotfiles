@@ -180,6 +180,7 @@ hi cucumberGivenAnd  ctermfg=109
 
 " Go
 hi goBuiltins      ctermfg=139
+hi goComment       ctermfg=243
 hi goComplexes     ctermfg=167
 hi goConditional   ctermfg=139
 hi goConstants     ctermfg=173
@@ -192,6 +193,7 @@ hi goFormatSpecifier  ctermfg=114
 hi goFunction      ctermfg=231
 hi goMethod        ctermfg=110
 hi goOperator      ctermfg=109
+hi goRawString     ctermfg=253
 hi goRepeat        ctermfg=111
 hi goSignedInts    ctermfg=167
 hi goStatement     ctermfg=139
@@ -200,7 +202,27 @@ hi goStructDef     ctermfg=137
 hi goTodo          ctermfg=222
 hi goType          ctermfg=167
 hi goUnsignedInts  ctermfg=167
-hi goRawString     ctermfg=253
+
+" Rust
+hi rustAttribute   ctermfg=110
+hi rustBoolean     ctermfg=173
+hi rustCharacter   ctermfg=143
+hi rustCommentLine ctermfg=243
+hi rustConditional ctermfg=139
+hi rustDecNumber   ctermfg=173
+hi rustEscape      ctermfg=173
+hi rustFuncCall    ctermfg=139
+hi rustFuncName    ctermfg=231
+hi rustIdentifier  ctermfg=137
+hi rustKeyword     ctermfg=139
+hi rustMacro       ctermfg=110
+hi rustModPath     ctermfg=167
+hi rustRepeat      ctermfg=111
+hi rustSigil       ctermfg=167
+hi rustStorage     ctermfg=231
+hi rustStructure   ctermfg=222
+hi rustTrait       ctermfg=167
+hi rustType        ctermfg=167
 
 " Lua
 hi luaCond         ctermfg=139

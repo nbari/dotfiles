@@ -11,10 +11,10 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " vim plugins
-
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'cespare/vim-toml'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'fatih/vim-go'
 Plugin 'groenewege/vim-less'
