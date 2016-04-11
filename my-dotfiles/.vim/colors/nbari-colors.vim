@@ -211,19 +211,20 @@ hi rustCommentLine ctermfg=243
 hi rustConditional ctermfg=139
 hi rustDecNumber   ctermfg=173
 hi rustEscape      ctermfg=173
+hi rustExternCrate ctermfg=222
 hi rustFuncCall    ctermfg=110
 hi rustFuncName    ctermfg=231
 hi rustIdentifier  ctermfg=137
 hi rustKeyword     ctermfg=139
 hi rustMacro       ctermfg=72
 hi rustModPath     ctermfg=167
+hi rustModPathSep  ctermfg=102
 hi rustRepeat      ctermfg=111
 hi rustSigil       ctermfg=167
 hi rustStorage     ctermfg=102
 hi rustStructure   ctermfg=222
 hi rustTrait       ctermfg=167
 hi rustType        ctermfg=167
-hi rustModPathSep  ctermfg=102
 
 " Lua
 hi luaCond         ctermfg=139
