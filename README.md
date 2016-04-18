@@ -43,7 +43,7 @@ Update zsh using Homebrew:
 	brew info zsh
 
 	# install zsh
-	brew install --without-etcdir zsh
+	brew install zsh
 
 	# add shell path
 	sudo vim /etc/shells
@@ -53,3 +53,10 @@ Update zsh using Homebrew:
 
 	# change default shell
 	chsh -s /usr/local/bin/zsh
+
+brew
+----
+
+Install extra packages:
+
+    brew install tree colordiff ack
