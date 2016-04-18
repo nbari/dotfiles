@@ -33,3 +33,23 @@ VIM
 Update vim on mac with:
 
     brew install vim --override-system-vi
+
+ZSH
+---
+
+Update zsh using Homebrew:
+
+	# check the zsh info
+	brew info zsh
+
+	# install zsh
+	brew install --without-etcdir zsh
+
+	# add shell path
+	sudo vim /etc/shells
+
+	# add the following line into the very end of the file(/etc/shells)
+	/usr/local/bin/zsh
+
+	# change default shell
+	chsh -s /usr/local/bin/zsh
