@@ -1,5 +1,5 @@
 #!zsh
-#
+
 # Installation
 # ------------
 #
