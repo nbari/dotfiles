@@ -34,6 +34,15 @@ Update vim on mac with:
 
     brew install vim --override-system-vi
 
+
+GIT
+---
+
+Update git:
+
+    brew install git --without-completions
+
+
 ZSH
 ---
 
