@@ -16,3 +16,8 @@ fi
 if [[ -a ~/google-cloud-sdk/completion.zsh.inc ]]; then
     source ~/google-cloud-sdk/completion.zsh.inc
 fi
+
+# App Engine
+if [[ -d ~/go_appengine ]]; then
+    export PATH=$HOME/go_appengine:$PATH
+fi
