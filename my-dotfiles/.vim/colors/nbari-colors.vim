@@ -204,7 +204,7 @@ hi goType          ctermfg=167
 hi goUnsignedInts  ctermfg=167
 
 " Rust
-hi rustAttribute   ctermfg=110
+hi rustAttribute   ctermfg=167
 hi rustBoolean     ctermfg=173
 hi rustCharacter   ctermfg=143
 hi rustCommentLine ctermfg=243
