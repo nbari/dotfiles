@@ -27,7 +27,7 @@ fi
 # ----------------------------------------------------------------------------
 # exports
 # ----------------------------------------------------------------------------
-export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
+export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
 # remove duplicates in the PATH
 typeset -U PATH
 export CLICOLOR=1
@@ -137,7 +137,7 @@ alias h='history'
 alias j='jobs -l'
 alias l='pwd -P; ls -lhaGF'
 alias less='less -FSRX'
-alias ll='ls -ALF'
+alias ll='ls -AlF'
 alias master='git checkout master'
 alias mem='top -o vsize'
 alias mv='mv -i'

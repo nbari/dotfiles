@@ -357,6 +357,7 @@ Xhi cucumberGivenAnd  ctermfg=109
 X
 X" Go
 Xhi goBuiltins      ctermfg=139
+Xhi goComment       ctermfg=243
 Xhi goComplexes     ctermfg=167
 Xhi goConditional   ctermfg=139
 Xhi goConstants     ctermfg=173
@@ -369,6 +370,7 @@ Xhi goFormatSpecifier  ctermfg=114
 Xhi goFunction      ctermfg=231
 Xhi goMethod        ctermfg=110
 Xhi goOperator      ctermfg=109
+Xhi goRawString     ctermfg=253
 Xhi goRepeat        ctermfg=111
 Xhi goSignedInts    ctermfg=167
 Xhi goStatement     ctermfg=139
@@ -377,7 +379,29 @@ Xhi goStructDef     ctermfg=137
 Xhi goTodo          ctermfg=222
 Xhi goType          ctermfg=167
 Xhi goUnsignedInts  ctermfg=167
-Xhi goRawString     ctermfg=253
+X
+X" Rust
+Xhi rustAttribute   ctermfg=167
+Xhi rustBoolean     ctermfg=173
+Xhi rustCharacter   ctermfg=143
+Xhi rustCommentLine ctermfg=243
+Xhi rustConditional ctermfg=139
+Xhi rustDecNumber   ctermfg=173
+Xhi rustEscape      ctermfg=173
+Xhi rustExternCrate ctermfg=222
+Xhi rustFuncCall    ctermfg=110
+Xhi rustFuncName    ctermfg=231
+Xhi rustIdentifier  ctermfg=137
+Xhi rustKeyword     ctermfg=139
+Xhi rustMacro       ctermfg=72
+Xhi rustModPath     ctermfg=167
+Xhi rustModPathSep  ctermfg=102
+Xhi rustRepeat      ctermfg=111
+Xhi rustSigil       ctermfg=167
+Xhi rustStorage     ctermfg=102
+Xhi rustStructure   ctermfg=222
+Xhi rustTrait       ctermfg=167
+Xhi rustType        ctermfg=167
 X
 X" Lua
 Xhi luaCond         ctermfg=139
@@ -1902,10 +1926,10 @@ X" required!
 XBundle 'gmarik/Vundle.vim'
 X
 X" vim plugins
-X
 XPlugin 'Chiel92/vim-autoformat'
 XPlugin 'Raimondi/delimitMate'
 XPlugin 'airblade/vim-gitgutter'
+XPlugin 'cespare/vim-toml'
 XPlugin 'chase/vim-ansible-yaml'
 XPlugin 'fatih/vim-go'
 XPlugin 'groenewege/vim-less'
@@ -3032,7 +3056,7 @@ mkdir -p ./.zsh/plugins > /dev/null 2>&1
 echo x - ./.zsh/plugins/git-flow-completion.zsh
 sed 's/^X//' >./.zsh/plugins/git-flow-completion.zsh << 'END-of-./.zsh/plugins/git-flow-completion.zsh'
 X#!zsh
-X#
+X
 X# Installation
 X# ------------
 X#
@@ -3468,6 +3492,11 @@ X# The next line enables shell command completion for gcloud.
 Xif [[ -a ~/google-cloud-sdk/completion.zsh.inc ]]; then
 X    source ~/google-cloud-sdk/completion.zsh.inc
 Xfi
+X
+X# App Engine
+Xif [[ -d ~/go_appengine ]]; then
+X    export PATH=$HOME/go_appengine:$PATH
+Xfi
 END-of-./.zshenv
 echo x - ./.zshrc
 sed 's/^X//' >./.zshrc << 'END-of-./.zshrc'
@@ -3500,7 +3529,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
+Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
@@ -3610,7 +3639,7 @@ Xalias h='history'
 Xalias j='jobs -l'
 Xalias l='pwd -P; ls -lhaGF'
 Xalias less='less -FSRX'
-Xalias ll='ls -ALF'
+Xalias ll='ls -AlF'
 Xalias master='git checkout master'
 Xalias mem='top -o vsize'
 Xalias mv='mv -i'

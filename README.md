@@ -33,3 +33,39 @@ VIM
 Update vim on mac with:
 
     brew install vim --override-system-vi
+
+
+GIT
+---
+
+Update git:
+
+    brew install git --without-completions
+
+
+ZSH
+---
+
+Update zsh using Homebrew:
+
+	# check the zsh info
+	brew info zsh
+
+	# install zsh
+	brew install zsh
+
+	# add shell path
+	sudo vim /etc/shells
+
+	# add the following line into the very end of the file(/etc/shells)
+	/usr/local/bin/zsh
+
+	# change default shell
+	chsh -s /usr/local/bin/zsh
+
+brew
+----
+
+Install extra packages:
+
+    brew install tree colordiff ack
