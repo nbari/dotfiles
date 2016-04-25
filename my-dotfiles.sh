@@ -381,12 +381,14 @@ Xhi goType          ctermfg=167
 Xhi goUnsignedInts  ctermfg=167
 X
 X" Rust
+Xhi rustAssert      ctermfg=72
 Xhi rustAttribute   ctermfg=167
 Xhi rustBoolean     ctermfg=173
 Xhi rustCharacter   ctermfg=143
 Xhi rustCommentLine ctermfg=243
 Xhi rustConditional ctermfg=139
 Xhi rustDecNumber   ctermfg=173
+Xhi rustEnumVariant ctermfg=167
 Xhi rustEscape      ctermfg=173
 Xhi rustExternCrate ctermfg=222
 Xhi rustFuncCall    ctermfg=110
@@ -400,8 +402,9 @@ Xhi rustRepeat      ctermfg=111
 Xhi rustSigil       ctermfg=167
 Xhi rustStorage     ctermfg=102
 Xhi rustStructure   ctermfg=222
-Xhi rustTrait       ctermfg=167
+Xhi rustTrait       ctermfg=178
 Xhi rustType        ctermfg=167
+Xhi rustPanic       ctermfg=72
 X
 X" Lua
 Xhi luaCond         ctermfg=139
