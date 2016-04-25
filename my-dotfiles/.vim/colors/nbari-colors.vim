@@ -204,12 +204,14 @@ hi goType          ctermfg=167
 hi goUnsignedInts  ctermfg=167
 
 " Rust
+hi rustAssert      ctermfg=72
 hi rustAttribute   ctermfg=167
 hi rustBoolean     ctermfg=173
 hi rustCharacter   ctermfg=143
 hi rustCommentLine ctermfg=243
 hi rustConditional ctermfg=139
 hi rustDecNumber   ctermfg=173
+hi rustEnumVariant ctermfg=167
 hi rustEscape      ctermfg=173
 hi rustExternCrate ctermfg=222
 hi rustFuncCall    ctermfg=110
@@ -223,8 +225,9 @@ hi rustRepeat      ctermfg=111
 hi rustSigil       ctermfg=167
 hi rustStorage     ctermfg=102
 hi rustStructure   ctermfg=222
-hi rustTrait       ctermfg=167
+hi rustTrait       ctermfg=178
 hi rustType        ctermfg=167
+hi rustPanic       ctermfg=72
 
 " Lua
 hi luaCond         ctermfg=139
