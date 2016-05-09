@@ -405,6 +405,7 @@ Xhi rustStructure   ctermfg=222
 Xhi rustTrait       ctermfg=178
 Xhi rustType        ctermfg=167
 Xhi rustPanic       ctermfg=72
+Xhi rustLifetime    ctermfg=222
 X
 X" Lua
 Xhi luaCond         ctermfg=139
