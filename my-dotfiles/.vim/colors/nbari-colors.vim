@@ -228,6 +228,7 @@ hi rustStructure   ctermfg=222
 hi rustTrait       ctermfg=178
 hi rustType        ctermfg=167
 hi rustPanic       ctermfg=72
+hi rustLifetime    ctermfg=222
 
 " Lua
 hi luaCond         ctermfg=139
