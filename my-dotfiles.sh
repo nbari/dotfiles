@@ -100,7 +100,7 @@ END-of-./.cshrc
 echo x - ./.tmux.conf
 sed 's/^X//' >./.tmux.conf << 'END-of-./.tmux.conf'
 X# utf8
-Xset-window-option -g utf8 on
+X# set-window-option -g utf8 on
 X
 X# vi bindings
 Xset-option -g status-key vi
@@ -108,7 +108,7 @@ Xset-window-option -g mode-keys vi
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
-Xset-option -g status-utf8 on
+X# set-option -g status-utf8 on
 Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
 Xset-option -g status-interval 5
