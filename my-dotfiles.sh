@@ -1932,6 +1932,8 @@ X
 X" vim plugins
 XPlugin 'Chiel92/vim-autoformat'
 XPlugin 'Raimondi/delimitMate'
+XPlugin 'SirVer/ultisnips'
+XPlugin 'honza/vim-snippets'
 XPlugin 'airblade/vim-gitgutter'
 XPlugin 'cespare/vim-toml'
 XPlugin 'chase/vim-ansible-yaml'
@@ -1944,7 +1946,7 @@ XPlugin 'kien/ctrlp.vim'
 XPlugin 'majutsushi/tagbar'
 XPlugin 'mileszs/ack.vim'
 XPlugin 'mitsuhiko/vim-jinja'
-XPlugin 'msanders/snipmate.vim'
+X" Plugin 'msanders/snipmate.vim'
 XPlugin 'plasticboy/vim-markdown'
 XPlugin 'rodjek/vim-puppet'
 XPlugin 'rust-lang/rust.vim'
@@ -3634,8 +3636,11 @@ Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --
 Xalias cpu='top -o cpu'
 X# clean dropbox conflicted files
 Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+X# flush dns
+Xalias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
 X# clean gdrive
 Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+Xalias gdrive='cd ~/Google\ Drive'
 Xalias git_empty='git commit -m "empty commit" --allow-empty'
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
