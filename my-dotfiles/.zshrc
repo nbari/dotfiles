@@ -128,6 +128,8 @@ alias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --i
 alias cpu='top -o cpu'
 # clean dropbox conflicted files
 alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+# flush dns
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
 # clean gdrive
 alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 alias gdrive='cd ~/Google\ Drive'
