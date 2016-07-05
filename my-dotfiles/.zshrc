@@ -163,6 +163,7 @@ alias gd="echo master diff:; git diff --name-status master develop"
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
 alias tl='tmux list-sessions'
+alias tn='tmux -2 new'
 # alias for directories
 alias -g ...='../..'
 alias -g ....='../../..'
@@ -178,6 +179,16 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
+
+# tmux
+ts() {
+    tmux switch -t $1
+}
+
+# tmux open command in new window
+tc() {
+    tmux new-window $1
+}
 
 get_headers_GET() {
     curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
@@ -315,7 +326,8 @@ TRAPALRM() {
 # ----------------------------------------------------------------------------
 if hash tmux &> /dev/null; then
     if [ -z "$TMUX" ]; then
-        tmux has-session || tmux -2 new
+        # tmux has-session || tmux -2 new
+        tmux -2 new
     elif [ ! -z "$SSH_CONNECTION" ]; then
         tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
         tmux set-option -g status-position bottom > /dev/null
