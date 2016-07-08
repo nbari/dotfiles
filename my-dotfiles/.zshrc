@@ -232,6 +232,10 @@ mkdir_ansible_roles() {
     echo "ansible-galaxy init <name_of_role> --force"
 }
 
+gpg_encrypt() {
+    echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
+}
+
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
 # ----------------------------------------------------------------------------
