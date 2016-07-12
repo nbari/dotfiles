@@ -191,6 +191,11 @@ tc() {
     tmux new-window $1
 }
 
+# get PID/PGID/PPID/SID to certain process or pid:
+pgid() {
+    ps -ejf | egrep "STIME | $1" | grep -v egrep
+}
+
 get_headers_GET() {
     curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
 }
