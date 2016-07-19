@@ -346,5 +346,6 @@ if hash tmux &> /dev/null; then
 fi
 
 unsetopt prompt_cr
-#
+
+# delete coplete for android
 # compdef -d adb

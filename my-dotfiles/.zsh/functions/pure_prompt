@@ -151,7 +151,7 @@ prompt_pure_preprompt_render() {
 
 	# if executing through precmd, do not perform fancy terminal editing
 	if [[ "$1" == "precmd" ]]; then
-		print -P "\n${preprompt}"
+		print -P "${preprompt}"
 	else
 		# only redraw if preprompt has changed
 		[[ "${prompt_pure_last_preprompt}" != "${preprompt}" ]] || return
