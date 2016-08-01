@@ -194,6 +194,7 @@ hi goFunction      ctermfg=231
 hi goMethod        ctermfg=110
 hi goOperator      ctermfg=109
 hi goRawString     ctermfg=253
+hi goReceiverType  ctermfg=109
 hi goRepeat        ctermfg=111
 hi goSignedInts    ctermfg=167
 hi goStatement     ctermfg=139
