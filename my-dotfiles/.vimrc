@@ -17,10 +17,8 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'benmills/vimux'
-Plugin 'benmills/vimux-golang'
 Plugin 'cespare/vim-toml'
 Plugin 'chase/vim-ansible-yaml'
-Plugin 'fatih/vim-go'
 Plugin 'groenewege/vim-less'
 Plugin 'hdima/python-syntax'
 Plugin 'honza/vim-snippets'
@@ -414,7 +412,7 @@ noremap <Right> <NOP>
 " golang
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
+au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
