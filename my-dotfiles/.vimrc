@@ -398,3 +398,13 @@ set diffopt=vertical
 au BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
 hi def  StrikeoutColor   ctermbg=016 ctermfg=black
 hi link StrikeoutMatch StrikeoutColor
+
+" relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+" habit breaking
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
