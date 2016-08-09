@@ -203,6 +203,7 @@ hi goStatement     ctermfg=139
 hi goString        ctermfg=143
 hi goStructDef     ctermfg=137
 hi goTodo          ctermfg=222
+hi goField         ctermfg=202
 hi goType          ctermfg=167
 hi goUnsignedInts  ctermfg=167
 
