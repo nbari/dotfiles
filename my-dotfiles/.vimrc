@@ -1,50 +1,37 @@
 set binary
 set nocompatible
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/Vundle.vim'
-
+call plug#begin('~/.vim/plugged')
 " vim plugins
-" Plugin 'msanders/snipmate.vim'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'Raimondi/delimitMate'
-Plugin 'SirVer/ultisnips'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'benmills/vimux'
-Plugin 'benmills/vimux-golang'
-Plugin 'cespare/vim-toml'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'fatih/vim-go'
-Plugin 'groenewege/vim-less'
-Plugin 'hdima/python-syntax'
-Plugin 'honza/vim-snippets'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'kana/vim-submode'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'mitsuhiko/vim-jinja'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'rodjek/vim-puppet'
-Plugin 'rust-lang/rust.vim'
-Plugin 'saltstack/salt-vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'stephpy/vim-php-cs-fixer'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-surround'
-call vundle#end()
-
-"re-enable filetype
-filetype plugin indent on
+Plug 'Chiel92/vim-autoformat'
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'
+Plug 'benmills/vimux-golang', { 'for': 'go' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'chase/vim-ansible-yaml'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'hdima/python-syntax'
+Plug 'honza/vim-snippets'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'kana/vim-submode'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
+Plug 'mitsuhiko/vim-jinja'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'rust-lang/rust.vim'
+Plug 'saltstack/salt-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml',
+Plug 'tpope/vim-surround'
+call plug#end()
 
 colorscheme nbari-colors
 
