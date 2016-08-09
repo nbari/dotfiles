@@ -1,11 +1,12 @@
 set binary
 set nocompatible
+set autowrite
 
 call plug#begin('~/.vim/plugged')
 " vim plugins
 Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
@@ -187,6 +188,8 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 let g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 hi SyntasticErrorSign ctermfg=red ctermbg=none
 hi SyntasticWarningSign ctermfg=yellow ctermbg=none
 hi SyntasticErrorLine   ctermbg=52
@@ -402,7 +405,17 @@ noremap <Right> <NOP>
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
-au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <leader>dt <Plug>(go-def-tab)
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
