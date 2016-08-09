@@ -410,6 +410,7 @@ au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <leader>dt <Plug>(go-def-tab)
+au FileType go nmap <leader>i <Plug>(go-info)
 let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
