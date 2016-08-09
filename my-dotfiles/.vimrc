@@ -10,7 +10,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'chase/vim-ansible-yaml'
+Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hdima/python-syntax'
@@ -20,16 +20,16 @@ Plug 'kana/vim-submode'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-jinja'
+Plug 'mitsuhiko/vim-jinja', { 'for': 'yaml' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rust-lang/rust.vim'
-Plug 'saltstack/salt-vim'
+Plug 'saltstack/salt-vim', { 'for': 'yaml' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-haml',
+Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
 call plug#end()
 
