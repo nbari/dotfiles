@@ -4261,6 +4261,12 @@ Xset binary
 Xset nocompatible
 Xset autowrite
 X
+Xif empty(glob('~/.vim/autoload/plug.vim'))
+X  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+X    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+X  autocmd VimEnter * PlugInstall | source $MYVIMRC
+Xendif
+X
 Xcall plug#begin('~/.vim/plugged')
 X" vim plugins
 XPlug 'Chiel92/vim-autoformat'
