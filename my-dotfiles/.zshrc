@@ -335,12 +335,10 @@ TRAPALRM() {
 # ----------------------------------------------------------------------------
 # tmux
 # ----------------------------------------------------------------------------
-whoami=$(who am i)
 if hash tmux &> /dev/null; then
     if [ -z "$TMUX" ]; then
         tmux -2 new
-#    elif [ ! -z "$SSH_CONNECTION" ] || [ ! -z "$REMOTEHOST" ]; then
-    elif [[ $whoami =~ \([-a-zA-Z0-9\.]+\)$ ]] ; then
+    elif [ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ] || [ ! -z "$SSH_CONNECTION" ] ; then
         tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
         tmux set-option -g status-position bottom > /dev/null
         tmux set-option -g window-status-current-bg colour071 > /dev/null
