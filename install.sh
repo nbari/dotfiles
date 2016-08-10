@@ -79,7 +79,7 @@ if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
 fi
 
 if [ -f ~/.tmux.conf ] || [ -h ~/.tmux.conf ]; then
-  echo "~/.tmux.conf  exists"; else
+  echo "~/.tmux.conf exists"; else
 	echo "creating .tmux.conf link"
 	ln -s ~/projects/dotfiles/my-dotfiles/.tmux.conf
 fi
@@ -96,7 +96,7 @@ if [ -f ~/.vimrc ] && [ -h ~/.vimrc ]; then
 	ln -s ~/projects/dotfiles/my-dotfiles/.vimrc ~/.vimrc
 fi
 
-if [ ! -d ~/.vim/autoload/plug.vim ]; then
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
 	echo "getting vim-plug"
 	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall || {
    	 echo "curl not installed or and error occured"
