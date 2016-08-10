@@ -23,7 +23,6 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jelera/vim-javascript-syntax'
-Plug 'kana/vim-submode'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
@@ -236,22 +235,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " map quick quit
 map <leader>qq :qa!<CR>
-
-" easy resize
-call submode#enter_with('h/l', 'n', '', '<C-w>h', '<C-w><')
-call submode#enter_with('h/l', 'n', '', '<C-w>l', '<C-w>>')
-call submode#map('h/l', 'n', '', 'h', '<C-w><')
-call submode#map('h/l', 'n', '', 'l', '<C-w>>')
-call submode#enter_with('j/k', 'n', '', '<C-w>j', '<C-w>-')
-call submode#enter_with('j/k', 'n', '', '<C-w>k', '<C-w>+')
-call submode#map('j/k', 'n', '', 'j', '<C-w>-')
-call submode#map('j/k', 'n', '', 'k', '<C-w>+')
-
-" scroll
-call submode#enter_with('sj', 'n', '', '<leader>j', '<C-d>')
-call submode#enter_with('sk', 'n', '', '<leader>k', '<C-u>')
-call submode#map('sj', 'n', '', 'j', '<C-d>')
-call submode#map('sk', 'n', '', 'k', '<C-u>')
 
 " tmux compatible splits
 nnoremap <C-w>" <C-w>s
