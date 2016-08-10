@@ -104,6 +104,9 @@ sed 's/^X//' >./.tmux.conf << 'END-of-./.tmux.conf'
 X# utf8
 X# set-window-option -g utf8 on
 X
+X# zsh
+Xset-option -g default-shell /usr/local/bin/zsh
+X
 X# vi bindings
 Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
@@ -151,7 +154,7 @@ Xbind % split-window -h -c "#{pane_current_path}"
 Xbind '"' split-window -c "#{pane_current_path}"
 X
 X# reset & clear history
-X# bind -n C-k send-keys -R Enter \; clear-history \;
+Xbind r send-keys C-l \; clear-history \;
 X
 X# $ brew update
 X# $ brew install reattach-to-user-namespace
@@ -4282,7 +4285,6 @@ XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
-XPlug 'kana/vim-submode'
 XPlug 'kien/ctrlp.vim'
 XPlug 'majutsushi/tagbar'
 XPlug 'mileszs/ack.vim'
@@ -4495,22 +4497,6 @@ Xau BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! 
 X
 X" map quick quit
 Xmap <leader>qq :qa!<CR>
-X
-X" easy resize
-Xcall submode#enter_with('h/l', 'n', '', '<C-w>h', '<C-w><')
-Xcall submode#enter_with('h/l', 'n', '', '<C-w>l', '<C-w>>')
-Xcall submode#map('h/l', 'n', '', 'h', '<C-w><')
-Xcall submode#map('h/l', 'n', '', 'l', '<C-w>>')
-Xcall submode#enter_with('j/k', 'n', '', '<C-w>j', '<C-w>-')
-Xcall submode#enter_with('j/k', 'n', '', '<C-w>k', '<C-w>+')
-Xcall submode#map('j/k', 'n', '', 'j', '<C-w>-')
-Xcall submode#map('j/k', 'n', '', 'k', '<C-w>+')
-X
-X" scroll
-Xcall submode#enter_with('sj', 'n', '', '<leader>j', '<C-d>')
-Xcall submode#enter_with('sk', 'n', '', '<leader>k', '<C-u>')
-Xcall submode#map('sj', 'n', '', 'j', '<C-d>')
-Xcall submode#map('sk', 'n', '', 'k', '<C-u>')
 X
 X" tmux compatible splits
 Xnnoremap <C-w>" <C-w>s
@@ -6250,12 +6236,12 @@ X# tmux
 X# ----------------------------------------------------------------------------
 Xif hash tmux &> /dev/null; then
 X    if [ -z "$TMUX" ]; then
-X        # tmux has-session || tmux -2 new
 X        tmux -2 new
-X    elif [ ! -z "$SSH_CONNECTION" ]; then
+X    elif [ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ] || [ ! -z "$SSH_CONNECTION" ] ; then
 X        tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
 X        tmux set-option -g status-position bottom > /dev/null
 X        tmux set-option -g window-status-current-bg colour071 > /dev/null
+X        tmux has-session || tmux -2 new
 X    fi
 Xfi
 X
