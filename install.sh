@@ -23,7 +23,7 @@ set -e
 
 cd $home
 
-now=$(date -u +%Y%m%dT%H%M%S)
+# now=$(date -u +%Y%m%dT%H%M%S)
 
 if [ ! -n "$ZSH" ]; then
     zsh=~/.zsh
@@ -95,7 +95,7 @@ if [ -f ~/.vimrc ] && [ -h ~/.vimrc ]; then
 	ln -s ~/projects/dotfiles/my-dotfiles/.vimrc ~/.vimrc
 fi
 
-if [ ! d ~/.vim/autoload/plug.vim ]; then
+if [ ! -d ~/.vim/autoload/plug.vim ]; then
 	echo "getting vim-plug"
 	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || {
    	 echo "curl not installed or and error occured"
