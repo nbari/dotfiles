@@ -97,22 +97,14 @@ if [ -f ~/.vimrc ] && [ -h ~/.vimrc ]; then
 	ln -s ~/projects/dotfiles/my-dotfiles/.vimrc ~/.vimrc
 fi
 
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-	echo "getting vim-plug"
-	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall || {
-   	 echo "curl not installed or and error occured"
-   	 exit 1
-	}
-fi
-
 echo "Installing node packages..."
 hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint node-sass || {
-  echo "npm not installed"
+    echo "npm not installed"
 }
 
 echo "Installing pip packages..."
 hash pip >/dev/null 2>&1 && env pip install --user --upgrade autopep8 pyflakes pylint cryptography || {
-  echo "pip not installed"
+    echo "pip not installed (python -m ensurepip --upgrade)"
 }
 
 echo "To change your default shell to zsh:  chsh -s `which zsh`"
