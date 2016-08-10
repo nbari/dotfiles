@@ -52,11 +52,12 @@ if [ ! -d ~/projects ]; then
 fi
 
 if [ ! -d ~/projects/dotfiles ]; then
-echo "getting dotfiles..."
-git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles
-if [ $? -ne 0 ]; then
-    echo "Could not clone dotfiles"
-    exit 1
+    echo "getting dotfiles..."
+    git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles
+    if [ $? -ne 0 ]; then
+        echo "Could not clone dotfiles"
+        exit 1
+    fi
 fi
 
 if [ -d ~/.zsh ] || [ -h ~/.zsh ]; then
