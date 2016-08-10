@@ -43,7 +43,7 @@ fi
 
 hash git >/dev/null 2>&1 ||  {
   echo "git not installed"
-  exit
+  exit 1
 }
 
 if [ ! -d ~/projects ]; then
@@ -52,11 +52,12 @@ if [ ! -d ~/projects ]; then
 fi
 
 if [ ! -d ~/projects/dotfiles ]; then
-echo "getting dotfiles..."
-hash git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles || {
-  echo "not available to clone dotfiles"
-  exit
-}
+    echo "getting dotfiles..."
+    git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles
+    if [ $? -ne 0 ]; then
+        echo "Could not clone dotfiles"
+        exit 1
+    fi
 fi
 
 if [ -d ~/.zsh ] || [ -h ~/.zsh ]; then
@@ -100,7 +101,7 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 	echo "getting vim-plug"
 	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall || {
    	 echo "curl not installed or and error occured"
-   	 exit
+   	 exit 1
 	}
 fi
 
