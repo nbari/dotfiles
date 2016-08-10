@@ -188,12 +188,15 @@ hi goDeclType      ctermfg=222
 hi goDeclaration   ctermfg=139
 hi goDirective     ctermfg=167
 hi goEscapeC       ctermfg=173
+hi goField         ctermfg=072
 hi goFloats        ctermfg=167
 hi goFormatSpecifier  ctermfg=114
 hi goFunction      ctermfg=231
 hi goMethod        ctermfg=110
 hi goOperator      ctermfg=109
-hi goRawString     ctermfg=253
+hi goPointerOperator ctermfg=202
+hi goRawString     ctermfg=012
+hi goReceiverType  ctermfg=072
 hi goRepeat        ctermfg=111
 hi goSignedInts    ctermfg=167
 hi goStatement     ctermfg=139
@@ -201,6 +204,9 @@ hi goString        ctermfg=143
 hi goStructDef     ctermfg=137
 hi goTodo          ctermfg=222
 hi goType          ctermfg=167
+hi goTypeConstructor ctermfg=222
+hi goTypeDecl      ctermfg=139
+hi goTypeName      ctermfg=072
 hi goUnsignedInts  ctermfg=167
 
 " Rust

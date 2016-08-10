@@ -32,7 +32,7 @@ VIM
 
 Update vim on mac with:
 
-    brew install vim --override-system-vi
+    brew install vim --with-override-system-vi
 
 
 GIT

@@ -1,46 +1,38 @@
 set binary
 set nocompatible
+set autowrite
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/Vundle.vim'
-
+call plug#begin('~/.vim/plugged')
 " vim plugins
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'Raimondi/delimitMate'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'cespare/vim-toml'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'fatih/vim-go'
-Plugin 'groenewege/vim-less'
-Plugin 'hdima/python-syntax'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'kana/vim-submode'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'mitsuhiko/vim-jinja'
-Plugin 'msanders/snipmate.vim'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'rodjek/vim-puppet'
-Plugin 'rust-lang/rust.vim'
-Plugin 'saltstack/salt-vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'stephpy/vim-php-cs-fixer'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-surround'
-call vundle#end()
-
-"re-enable filetype
-filetype plugin indent on
+Plug 'Chiel92/vim-autoformat'
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'
+Plug 'benmills/vimux-golang', { 'for': 'go' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'hdima/python-syntax'
+Plug 'honza/vim-snippets'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'kana/vim-submode'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
+Plug 'mitsuhiko/vim-jinja', { 'for': 'yaml' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'rust-lang/rust.vim'
+Plug 'saltstack/salt-vim', { 'for': 'yaml' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
+Plug 'tpope/vim-surround'
+call plug#end()
 
 colorscheme nbari-colors
 
@@ -196,6 +188,8 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 let g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 hi SyntasticErrorSign ctermfg=red ctermbg=none
 hi SyntasticWarningSign ctermfg=yellow ctermbg=none
 hi SyntasticErrorLine   ctermbg=52
@@ -396,3 +390,33 @@ set diffopt=vertical
 au BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
 hi def  StrikeoutColor   ctermbg=016 ctermfg=black
 hi link StrikeoutMatch StrikeoutColor
+
+" relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+" habit breaking
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" golang
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
+au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
+au FileType go nmap <leader>ds <Plug>(go-def-split)
+au FileType go nmap <leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <leader>dt <Plug>(go-def-tab)
+au FileType go nmap <leader>i <Plug>(go-info)
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']

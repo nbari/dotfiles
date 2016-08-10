@@ -27,7 +27,7 @@ fi
 # ----------------------------------------------------------------------------
 # exports
 # ----------------------------------------------------------------------------
-export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH"
+export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin"
 # remove duplicates in the PATH
 typeset -U PATH
 export CLICOLOR=1
@@ -128,9 +128,13 @@ alias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --i
 alias cpu='top -o cpu'
 # clean dropbox conflicted files
 alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+# flush dns
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
 # clean gdrive
 alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+alias gdrive='cd ~/Google\ Drive'
 alias git_empty='git commit -m "empty commit" --allow-empty'
+alias update='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
@@ -152,6 +156,7 @@ alias pyserv="python -m SimpleHTTPServer"
 alias www="twistd -no web --path=."
 alias rm='rm -i'
 alias svi='sudo vim'
+alias ssh-tunnel='ssh -C2qTnN -D 8080'
 alias tmp='cd ~/tmp'
 # git log
 alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
@@ -160,6 +165,7 @@ alias gd="echo master diff:; git diff --name-status master develop"
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
 alias tl='tmux list-sessions'
+alias tn='tmux -2 new'
 # alias for directories
 alias -g ...='../..'
 alias -g ....='../../..'
@@ -175,6 +181,21 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
+
+# tmux
+ts() {
+    tmux switch -t $1
+}
+
+# tmux open command in new window
+tc() {
+    tmux new-window $1
+}
+
+# get PID/PGID/PPID/SID to certain process or pid:
+pgid() {
+    ps -ejf | egrep "STIME | $1" | grep -v egrep
+}
 
 get_headers_GET() {
     curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
@@ -215,6 +236,10 @@ enc () {
 
 mkdir_ansible_roles() {
     echo "ansible-galaxy init <name_of_role> --force"
+}
+
+gpg_encrypt() {
+    echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
 }
 
 # ----------------------------------------------------------------------------
@@ -312,7 +337,8 @@ TRAPALRM() {
 # ----------------------------------------------------------------------------
 if hash tmux &> /dev/null; then
     if [ -z "$TMUX" ]; then
-        tmux has-session || tmux -2 new
+        # tmux has-session || tmux -2 new
+        tmux -2 new
     elif [ ! -z "$SSH_CONNECTION" ]; then
         tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
         tmux set-option -g status-position bottom > /dev/null
@@ -321,5 +347,6 @@ if hash tmux &> /dev/null; then
 fi
 
 unsetopt prompt_cr
-#
+
+# delete coplete for android
 # compdef -d adb
