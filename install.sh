@@ -53,7 +53,7 @@ fi
 
 if [ ! -d ~/projects/dotfiles ]; then
 echo "getting dotfiles..."
-hash git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles || {
+hash env git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles || {
   echo "not available to clone dotfiles"
   exit
 }
