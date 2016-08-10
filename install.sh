@@ -59,8 +59,9 @@ hash git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles || {
 }
 fi
 
-if [ -h "$ZSH" ] && [ -d "$ZSH" ]; then
-  echo ".zsh exists"; else
+if [ -d ~/.zsh ] || [ -h ~/.zsh ]; then
+    echo "~/.zsh exists";
+  else
 	echo "creating .zsh link"
 	ln -s ~/projects/dotfiles/my-dotfiles/.zsh $ZSH
 fi
@@ -97,11 +98,10 @@ fi
 
 if [ ! -d ~/.vim/autoload/plug.vim ]; then
 	echo "getting vim-plug"
-	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || {
+	hash curl >/dev/null 2>&1 && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall || {
    	 echo "curl not installed or and error occured"
    	 exit
 	}
-	vim +PlugInstall
 fi
 
 echo "Installing node packages..."
