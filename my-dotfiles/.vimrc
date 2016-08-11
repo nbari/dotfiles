@@ -26,10 +26,10 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-jinja', { 'for': 'yaml' }
+Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rust-lang/rust.vim'
-Plug 'saltstack/salt-vim', { 'for': 'yaml' }
+Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'

@@ -4288,10 +4288,10 @@ XPlug 'jelera/vim-javascript-syntax'
 XPlug 'kien/ctrlp.vim'
 XPlug 'majutsushi/tagbar'
 XPlug 'mileszs/ack.vim'
-XPlug 'mitsuhiko/vim-jinja', { 'for': 'yaml' }
+XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim'
-XPlug 'saltstack/salt-vim', { 'for': 'yaml' }
+XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'scrooloose/syntastic'
@@ -6237,7 +6237,7 @@ X# ----------------------------------------------------------------------------
 Xif hash tmux &> /dev/null; then
 X    if [ -z "$TMUX" ]; then
 X        tmux -2 new
-X    elif [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] || [ ! -z "$SSH_CONNECTION" ] ; then
+X    elif [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] || [ ! -z "$SSH_CONNECTION" ] || [ ! -z "$REMOTEHOST" ]; then
 X        tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
 X        tmux set-option -g status-position bottom > /dev/null
 X        tmux set-option -g window-status-current-bg colour071 > /dev/null
