@@ -4285,13 +4285,14 @@ XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
+XPlug 'kana/vim-submode'
 XPlug 'kien/ctrlp.vim'
 XPlug 'majutsushi/tagbar'
 XPlug 'mileszs/ack.vim'
-XPlug 'mitsuhiko/vim-jinja', { 'for': 'yaml' }
+XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim'
-XPlug 'saltstack/salt-vim', { 'for': 'yaml' }
+XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'scrooloose/syntastic'
@@ -4497,6 +4498,22 @@ Xau BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! 
 X
 X" map quick quit
 Xmap <leader>qq :qa!<CR>
+X
+X" easy resize
+Xcall submode#enter_with('h/l', 'n', '', '<C-w>h', '<C-w><')
+Xcall submode#enter_with('h/l', 'n', '', '<C-w>l', '<C-w>>')
+Xcall submode#map('h/l', 'n', '', 'h', '<C-w><')
+Xcall submode#map('h/l', 'n', '', 'l', '<C-w>>')
+Xcall submode#enter_with('j/k', 'n', '', '<C-w>j', '<C-w>-')
+Xcall submode#enter_with('j/k', 'n', '', '<C-w>k', '<C-w>+')
+Xcall submode#map('j/k', 'n', '', 'j', '<C-w>-')
+Xcall submode#map('j/k', 'n', '', 'k', '<C-w>+')
+X
+X" scroll
+Xcall submode#enter_with('sj', 'n', '', '<leader>j', '<C-d>')
+Xcall submode#enter_with('sk', 'n', '', '<leader>k', '<C-u>')
+Xcall submode#map('sj', 'n', '', 'j', '<C-d>')
+Xcall submode#map('sk', 'n', '', 'k', '<C-u>')
 X
 X" tmux compatible splits
 Xnnoremap <C-w>" <C-w>s
@@ -6237,7 +6254,7 @@ X# ----------------------------------------------------------------------------
 Xif hash tmux &> /dev/null; then
 X    if [ -z "$TMUX" ]; then
 X        tmux -2 new
-X    elif [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] || [ ! -z "$SSH_CONNECTION" ] ; then
+X    elif [[ $(who am i) =~ \([-a-zA-Z0-9\.]+\)$ ]] || [ ! -z "$SSH_CONNECTION" ] || [ ! -z "$REMOTEHOST" ]; then
 X        tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
 X        tmux set-option -g status-position bottom > /dev/null
 X        tmux set-option -g window-status-current-bg colour071 > /dev/null
