@@ -1,6 +1,7 @@
 set binary
 set nocompatible
 set autowrite
+set wildmenu
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -11,25 +12,24 @@ endif
 call plug#begin('~/.vim/plugged')
 " vim plugins
 Plug 'Chiel92/vim-autoformat'
-Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'kana/vim-submode'
-Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
@@ -308,7 +308,8 @@ vmap <leader>w !par -w80<CR>
 nnoremap <leader>di :w !diff % -<CR>
 
 " Ack
-nnoremap <leader>a :Ack
+nnoremap <leader>a :tab split<CR>:Ack ""<Left>
+nnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
 
 " underline
 nnoremap <leader>1 yypVr=
@@ -350,10 +351,6 @@ set spelllang=en
 
 " vim-marker
 let g:vim_markdown_folding_disabled=1
-
-" browse oldfiles
-nnoremap <leader>o :browse oldfiles<CR>
-nnoremap <leader>l :CtrlPMRU<CR>
 
 " Compile LessCSS on save
 autocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
@@ -402,10 +399,20 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 " habit breaking
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
+nnoremap <right> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
+
+" moving aroung in command mode
+cnoremap <c-h> <left>
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
+cnoremap <c-l> <right>
 
 " golang
 au FileType go nmap <leader>r <Plug>(go-run)
