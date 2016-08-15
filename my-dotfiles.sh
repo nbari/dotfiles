@@ -4263,6 +4263,7 @@ sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
 Xset nocompatible
 Xset autowrite
+Xset wildmenu
 X
 Xif empty(glob('~/.vim/autoload/plug.vim'))
 X  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -4273,25 +4274,24 @@ X
 Xcall plug#begin('~/.vim/plugged')
 X" vim plugins
 XPlug 'Chiel92/vim-autoformat'
-XPlug 'Raimondi/delimitMate'
 XPlug 'SirVer/ultisnips'
 XPlug 'airblade/vim-gitgutter'
 XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
+XPlug 'ctrlpvim/ctrlp.vim'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
 XPlug 'kana/vim-submode'
-XPlug 'kien/ctrlp.vim'
 XPlug 'majutsushi/tagbar'
 XPlug 'mileszs/ack.vim'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-XPlug 'rust-lang/rust.vim'
+XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
@@ -4570,7 +4570,8 @@ X" Diff current buffer and the original file
 Xnnoremap <leader>di :w !diff % -<CR>
 X
 X" Ack
-Xnnoremap <leader>a :Ack
+Xnnoremap <leader>a :tab split<CR>:Ack ""<Left>
+Xnnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
 X
 X" underline
 Xnnoremap <leader>1 yypVr=
@@ -4612,10 +4613,6 @@ Xset spelllang=en
 X
 X" vim-marker
 Xlet g:vim_markdown_folding_disabled=1
-X
-X" browse oldfiles
-Xnnoremap <leader>o :browse oldfiles<CR>
-Xnnoremap <leader>l :CtrlPMRU<CR>
 X
 X" Compile LessCSS on save
 Xautocmd BufWritePost,FileWritePost *.less :silent !lessc --clean-css % %:p:r.css
@@ -4664,10 +4661,20 @@ Xautocmd InsertEnter * :set number
 Xautocmd InsertLeave * :set relativenumber
 X
 X" habit breaking
-Xnoremap <Up> <NOP>
-Xnoremap <Down> <NOP>
-Xnoremap <Left> <NOP>
-Xnoremap <Right> <NOP>
+Xnnoremap <up>    <nop>
+Xnnoremap <down>  <nop>
+Xnnoremap <left>  <nop>
+Xnnoremap <right> <nop>
+Xinoremap <up>    <nop>
+Xinoremap <down>  <nop>
+Xinoremap <left>  <nop>
+Xinoremap <right> <nop>
+X
+X" moving aroung in command mode
+Xcnoremap <c-h> <left>
+Xcnoremap <c-j> <down>
+Xcnoremap <c-k> <up>
+Xcnoremap <c-l> <right>
 X
 X" golang
 Xau FileType go nmap <leader>r <Plug>(go-run)
@@ -6217,8 +6224,11 @@ Xautoload -U up-line-or-beginning-search
 Xautoload -U down-line-or-beginning-search
 Xzle -N up-line-or-beginning-search
 Xzle -N down-line-or-beginning-search
-Xbindkey "^[[A" up-line-or-beginning-search # Up
-Xbindkey "^[[B" down-line-or-beginning-search # Down"
+X# bindkey "^[[A" up-line-or-beginning-search # Up
+X# bindkey "^[[B" down-line-or-beginning-search # Down
+X# bind k and j for VI mode
+Xbindkey -M vicmd 'k' up-line-or-beginning-search # Up
+Xbindkey -M vicmd 'l' down-line-or-beginning-search # Down
 X
 X# ----------------------------------------------------------------------------
 X# use OS time
