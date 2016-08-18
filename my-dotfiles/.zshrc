@@ -159,7 +159,7 @@ alias svi='sudo vim'
 alias ssh-tunnel='ssh -C2qTnN -D 8080'
 alias tmp='cd ~/tmp'
 # git log
-alias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
+alias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
 alias gd="echo master diff:; git diff --name-status master develop"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
