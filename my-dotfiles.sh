@@ -1226,14 +1226,14 @@ X            \ (s:update.force || has_key(s:update.new, name) || s:is_updated(sp
 X        call s:log4(name, 'Updating submodules. This may take a while.')
 X        let out .= s:bang('git submodule update --init --recursive 2>&1', spec.dir)
 X      endif
-X      let msg = printf('%s %s: %s', v:shell_error ? 'x': '-', name, s:lastline(out))
+X      let msg = s:format_message(v:shell_error ? 'x': '-', name, out)
 X      if v:shell_error
 X        call add(s:update.errors, name)
 X        call s:regress_bar()
 X        silent execute pos 'd _'
 X        call append(4, msg) | 4
 X      elseif !empty(out)
-X        call setline(pos, msg)
+X        call setline(pos, msg[0])
 X      endif
 X      redraw
 X    endfor
@@ -6082,7 +6082,7 @@ Xalias svi='sudo vim'
 Xalias ssh-tunnel='ssh -C2qTnN -D 8080'
 Xalias tmp='cd ~/tmp'
 X# git log
-Xalias gl="git log --graph --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset' --date=short"
+Xalias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
 Xalias gd="echo master diff:; git diff --name-status master develop"
 X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
