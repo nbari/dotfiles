@@ -4346,6 +4346,7 @@ X" endif
 X
 Xset noinsertmode
 Xset number
+Xset relativenumber
 Xset hlsearch
 Xnnoremap <leader><space> :noh<CR>
 Xset listchars=tab:▸\ ,eol:¬,trail:·
@@ -4661,10 +4662,6 @@ X" txt strikeout ~~ (background black) ~~
 Xau BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
 Xhi def  StrikeoutColor   ctermbg=016 ctermfg=black
 Xhi link StrikeoutMatch StrikeoutColor
-X
-X" relativenumber
-Xautocmd InsertEnter * :set number
-Xautocmd InsertLeave * :set relativenumber
 X
 X" habit breaking
 Xnnoremap <up>    <nop>
