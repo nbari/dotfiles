@@ -6058,7 +6058,7 @@ X# clean gdrive
 Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 Xalias gdrive='cd ~/Google\ Drive'
 Xalias git_empty='git commit -m "empty commit" --allow-empty'
-Xalias update='find . -name ".git" -type d -depth 1 -exec sh -c "for branch in `git name-rev --name-only HEAD`; do git pull $branch; done" \;'
+Xalias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
