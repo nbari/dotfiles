@@ -5976,7 +5976,6 @@ X
 X# ----------------------------------------------------------------------------
 X# shell options
 X# ----------------------------------------------------------------------------
-Xsetopt RM_STAR_WAIT
 Xsetopt complete_aliases
 Xsetopt autocd
 Xsetopt autopushd
@@ -6225,11 +6224,8 @@ Xautoload -U up-line-or-beginning-search
 Xautoload -U down-line-or-beginning-search
 Xzle -N up-line-or-beginning-search
 Xzle -N down-line-or-beginning-search
-X# bindkey "^[[A" up-line-or-beginning-search # Up
-X# bindkey "^[[B" down-line-or-beginning-search # Down
-X# bind k and j for VI mode
 Xbindkey -M vicmd 'k' up-line-or-beginning-search # Up
-Xbindkey -M vicmd 'l' down-line-or-beginning-search # Down
+Xbindkey -M vicmd 'j' down-line-or-beginning-search # Down
 X
 X# ----------------------------------------------------------------------------
 X# use OS time
