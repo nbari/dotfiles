@@ -2544,6 +2544,7 @@ X" Vim
 Xhi ColorColumn     term=reverse ctermbg=236
 Xhi CursorColumn    term=reverse ctermbg=236
 Xhi CursorLine      term=bold cterm=bold ctermbg=236
+Xhi CursorLineNr    term=bold ctermfg=012 gui=bold
 Xhi Directory       term=bold ctermfg=109
 Xhi ErrorMsg        term=standout ctermfg=167 ctermbg=235
 Xhi FoldColumn      term=standout ctermfg=14 ctermbg=235
@@ -6057,7 +6058,7 @@ X# clean gdrive
 Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 Xalias gdrive='cd ~/Google\ Drive'
 Xalias git_empty='git commit -m "empty commit" --allow-empty'
-Xalias update='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
+Xalias update='find . -name ".git" -type d -depth 1 -exec sh -c "for branch in `git name-rev --name-only HEAD`; do git pull $branch; done" \;'
 Xalias dev='git checkout develop'
 Xalias dh='dirs -v'
 Xalias h='history'
