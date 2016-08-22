@@ -134,7 +134,7 @@ alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
 alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 alias gdrive='cd ~/Google\ Drive'
 alias git_empty='git commit -m "empty commit" --allow-empty'
-alias update='find . -name ".git" -type d -depth 1 -exec sh -c "for branch in `git name-rev --name-only HEAD`; do git pull $branch; done" \;'
+alias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
