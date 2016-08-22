@@ -118,7 +118,7 @@ Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
 Xset-option -g status-interval 5
 Xset-option -g status-right-length 90
-Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")'
+Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-position top
 X
 Xset -g window-status-format '#I #W'
@@ -155,6 +155,11 @@ Xbind '"' split-window -c "#{pane_current_path}"
 X
 X# reset & clear history
 Xbind r send-keys C-l \; clear-history \;
+X
+X# line & clock color
+Xsetw -g clock-mode-colour colour024
+Xset -g pane-border-style fg=colour235
+Xset -g pane-active-border-style fg=colour124
 X
 X# $ brew update
 X# $ brew install reattach-to-user-namespace
