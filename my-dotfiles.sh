@@ -137,6 +137,10 @@ Xbind -r h resize-pane -L
 Xbind -r j resize-pane -D
 Xbind -r k resize-pane -U
 Xbind -r l resize-pane -R
+Xbind -r H resize-pane -L 10
+Xbind -r J resize-pane -D 10
+Xbind -r K resize-pane -U 10
+Xbind -r L resize-pane -R 10
 X
 X# Smart pane switching with awareness of vim splits
 Xbind -n C-h if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-h" "select-pane -L"
