@@ -2581,7 +2581,7 @@ Xhi SpellCap        term=reverse ctermbg=12
 Xhi SpellLocal      term=underline ctermbg=14
 Xhi SpellRare       term=reverse ctermbg=55
 Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
-Xhi StatusLineNC    term=reverse cterm=reverse ctermfg=240 ctermbg=250
+Xhi StatusLineNC    ctermfg=235 ctermbg=235
 Xhi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
 Xhi TabLineFill     term=reverse cterm=reverse ctermfg=240 ctermbg=250
 Xhi TabLineSel      term=bold cterm=bold
