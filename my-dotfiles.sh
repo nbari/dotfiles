@@ -110,6 +110,14 @@ X
 X# vi bindings
 Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
+X# https://robots.thoughtbot.com/tmux-copy-paste-on-os-x-a-better-future
+X# brew install reattach-to-user-namespace
+X# Setup 'v' to begin selection as in Vim
+Xbind-key -t vi-copy v begin-selection
+Xbind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+X# Update default binding of `Enter` to also use copy-pipe
+Xunbind -t vi-copy Enter
+Xbind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
@@ -164,11 +172,6 @@ X# line & clock color
 Xsetw -g clock-mode-colour colour024
 Xset -g pane-border-style fg=colour235
 Xset -g pane-active-border-style fg=colour124
-X
-X# $ brew update
-X# $ brew install reattach-to-user-namespace
-X# $ brew upgrade reattach-to-user-namespace
-X# set -g default-command "reattach-to-user-namespace -l /bin/zsh"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
