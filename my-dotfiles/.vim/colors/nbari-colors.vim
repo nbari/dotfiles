@@ -54,7 +54,7 @@ hi SpellBad        term=reverse ctermbg=52
 hi SpellCap        term=reverse ctermbg=12
 hi SpellLocal      term=underline ctermbg=14
 hi SpellRare       term=reverse ctermbg=55
-hi StatusLine      term=bold,reverse cterm=reverse ctermfg=214 ctermbg=109
+hi StatusLine      term=bold,reverse cterm=reverse ctermfg=235 ctermbg=214
 hi StatusLineNC    term=reverse cterm=reverse ctermfg=235 ctermbg=250
 hi CtrlPMode2      ctermbg=235 ctermfg=214
 hi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250

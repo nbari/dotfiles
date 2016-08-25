@@ -2580,7 +2580,7 @@ Xhi SpellBad        term=reverse ctermbg=52
 Xhi SpellCap        term=reverse ctermbg=12
 Xhi SpellLocal      term=underline ctermbg=14
 Xhi SpellRare       term=reverse ctermbg=55
-Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=235 ctermbg=109
+Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=235 ctermbg=214
 Xhi StatusLineNC    term=reverse cterm=reverse ctermfg=235 ctermbg=250
 Xhi CtrlPMode2      ctermbg=235 ctermfg=214
 Xhi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
