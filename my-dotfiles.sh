@@ -2580,13 +2580,14 @@ Xhi SpellBad        term=reverse ctermbg=52
 Xhi SpellCap        term=reverse ctermbg=12
 Xhi SpellLocal      term=underline ctermbg=14
 Xhi SpellRare       term=reverse ctermbg=55
-Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
-Xhi StatusLineNC    ctermfg=235 ctermbg=235
+Xhi StatusLine      term=bold,reverse cterm=reverse ctermfg=235 ctermbg=109
+Xhi StatusLineNC    term=reverse cterm=reverse ctermfg=235 ctermbg=250
+Xhi CtrlPMode2      ctermbg=235 ctermfg=214
 Xhi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
 Xhi TabLineFill     term=reverse cterm=reverse ctermfg=240 ctermbg=250
 Xhi TabLineSel      term=bold cterm=bold
 Xhi Title           term=bold ctermfg=243
-Xhi VertSplit       term=reverse ctermfg=240 ctermbg=240
+Xhi VertSplit       cterm=NONE ctermfg=235 ctermbg=NONE
 Xhi Visual          term=reverse ctermbg=239
 Xhi WarningMsg      term=standout ctermfg=167
 Xhi WildMenu        term=standout ctermfg=0 ctermbg=11
@@ -4322,6 +4323,7 @@ Xlet mapleader=","
 X
 X" Encoding
 Xset encoding=utf8 nobomb
+Xset fillchars=vert:│
 X
 X" set up the stuff for color highlighing in an xterm
 X" mac os X t_co=16
@@ -4445,9 +4447,12 @@ X" status line
 X" set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
 X
 Xif has('statusline')
-X  hi User1 ctermfg=012 ctermbg=016
-X  hi User2 ctermfg=172 ctermbg=016
-X  hi User3 ctermfg=015 ctermbg=016
+X  "hi User1 ctermfg=012 ctermbg=016
+X  "hi User2 ctermfg=172 ctermbg=016
+X  "hi User3 ctermfg=015 ctermbg=016
+X  hi User1 ctermfg=012
+X  hi User2 ctermfg=172
+X  hi User3 ctermfg=015
 X
 X  set statusline=\ "                            " start with one space
 X  set statusline+=%1*                           " use color 1

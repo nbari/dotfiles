@@ -47,6 +47,7 @@ let mapleader=","
 
 " Encoding
 set encoding=utf8 nobomb
+set fillchars=vert:│
 
 " set up the stuff for color highlighing in an xterm
 " mac os X t_co=16
@@ -170,9 +171,12 @@ nnoremap <space> za
 " set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
 
 if has('statusline')
-  hi User1 ctermfg=012 ctermbg=016
-  hi User2 ctermfg=172 ctermbg=016
-  hi User3 ctermfg=015 ctermbg=016
+  "hi User1 ctermfg=012 ctermbg=016
+  "hi User2 ctermfg=172 ctermbg=016
+  "hi User3 ctermfg=015 ctermbg=016
+  hi User1 ctermfg=012
+  hi User2 ctermfg=172
+  hi User3 ctermfg=015
 
   set statusline=\ "                            " start with one space
   set statusline+=%1*                           " use color 1

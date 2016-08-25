@@ -54,13 +54,14 @@ hi SpellBad        term=reverse ctermbg=52
 hi SpellCap        term=reverse ctermbg=12
 hi SpellLocal      term=underline ctermbg=14
 hi SpellRare       term=reverse ctermbg=55
-hi StatusLine      term=bold,reverse cterm=reverse ctermfg=16 ctermbg=109
-hi StatusLineNC    ctermfg=235 ctermbg=235
+hi StatusLine      term=bold,reverse cterm=reverse ctermfg=235 ctermbg=109
+hi StatusLineNC    term=reverse cterm=reverse ctermfg=235 ctermbg=250
+hi CtrlPMode2      ctermbg=235 ctermfg=214
 hi TabLine         term=underline cterm=reverse ctermfg=240 ctermbg=250
 hi TabLineFill     term=reverse cterm=reverse ctermfg=240 ctermbg=250
 hi TabLineSel      term=bold cterm=bold
 hi Title           term=bold ctermfg=243
-hi VertSplit       term=reverse ctermfg=240 ctermbg=240
+hi VertSplit       cterm=NONE ctermfg=235 ctermbg=NONE
 hi Visual          term=reverse ctermbg=239
 hi WarningMsg      term=standout ctermfg=167
 hi WildMenu        term=standout ctermfg=0 ctermbg=11
