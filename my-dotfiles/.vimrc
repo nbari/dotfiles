@@ -19,6 +19,7 @@ Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hdima/python-syntax'
