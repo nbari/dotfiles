@@ -4589,6 +4589,7 @@ X" Diff current buffer and the original file
 Xnnoremap <leader>di :w !diff % -<CR>
 X
 X" Ack
+Xlet g:ackprg = 'ag --nogroup --nocolor --column'
 Xnnoremap <leader>a :tab split<CR>:Ack ""<Left>
 Xnnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
 X

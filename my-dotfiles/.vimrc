@@ -313,6 +313,7 @@ vmap <leader>w !par -w80<CR>
 nnoremap <leader>di :w !diff % -<CR>
 
 " Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
 nnoremap <leader>a :tab split<CR>:Ack ""<Left>
 nnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
 
