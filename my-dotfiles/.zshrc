@@ -241,6 +241,10 @@ gpg_encrypt() {
     echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
 }
 
+wttr() {
+    curl "wttr.in/${1:-berlin}"
+}
+
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
 # ----------------------------------------------------------------------------

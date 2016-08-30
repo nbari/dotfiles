@@ -6181,6 +6181,10 @@ Xgpg_encrypt() {
 X    echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
 X}
 X
+Xwttr() {
+X    curl "wttr.in/${1:-berlin}"
+X}
+X
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
 X# ----------------------------------------------------------------------------
