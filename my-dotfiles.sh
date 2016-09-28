@@ -4434,6 +4434,8 @@ Xmap <F11> <C-W>v
 X
 X" NERDTree
 Xnnoremap <leader>n :NERDTreeToggle<CR>
+Xlet g:NERDTreeDirArrowExpandable = '▸'
+Xlet g:NERDTreeDirArrowCollapsible = '▾'
 X
 X" Tagbar
 Xnnoremap <leader>h :TagbarToggle<CR>
