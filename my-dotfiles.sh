@@ -702,14 +702,17 @@ X      break
 X    endif
 X    let extra .= nr2char(c)
 X  endwhile
-X  if v:count
-X    call feedkeys(v:count, 'n')
-X  endif
-X  call feedkeys('"'.v:register, 'n')
+X
+X  let prefix = v:count ? v:count : ''
+X  let prefix .= '"'.v:register.a:prefix
 X  if mode(1) == 'no'
-X    call feedkeys(v:operator)
+X    if v:operator == 'c'
+X      let prefix = "\<esc>" . prefix
+X    endif
+X    let prefix .= v:operator
 X  endif
-X  call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
+X  call feedkeys(prefix, 'n')
+X  call feedkeys(substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 Xendfunction
 X
 Xfunction! plug#(repo, ...)
@@ -1280,7 +1283,7 @@ X  endif
 X
 X  if a:event == 'stdout'
 X    let complete = empty(a:data[-1])
-X    let lines = map(filter(a:data, 'len(v:val) > 0'), 'split(v:val, "[\r\n]")[-1]')
+X    let lines = map(filter(a:data, 'v:val =~ "[^\r\n]"'), 'split(v:val, "[\r\n]")[-1]')
 X    call extend(self.lines, lines)
 X    let self.result = join(self.lines, "\n")
 X    if !complete
@@ -4293,7 +4296,7 @@ XPlug 'airblade/vim-gitgutter'
 XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
-XPlug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
+XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 XPlug 'ctrlpvim/ctrlp.vim'
 XPlug 'easymotion/vim-easymotion'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
