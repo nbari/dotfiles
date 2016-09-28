@@ -155,6 +155,8 @@ map <F11> <C-W>v
 
 " NERDTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 " Tagbar
 nnoremap <leader>h :TagbarToggle<CR>
