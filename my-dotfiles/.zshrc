@@ -181,6 +181,11 @@ alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
 
+# get currect active interface
+iface(){
+    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
+}
+
 # tmux
 ts() {
     tmux switch -t $1
