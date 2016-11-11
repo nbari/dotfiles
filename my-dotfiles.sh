@@ -292,6 +292,7 @@ Xlet s:plug_buf = get(s:, 'plug_buf', -1)
 Xlet s:mac_gui = has('gui_macvim') && has('gui_running')
 Xlet s:is_win = has('win32') || has('win64')
 Xlet s:nvim = has('nvim') && exists('*jobwait') && !s:is_win
+Xlet s:vim8 = has('patch-8.0.0039') && exists('*job_start')
 Xlet s:me = resolve(expand('<sfile>:p'))
 Xlet s:base_spec = { 'branch': 'master', 'frozen': 0 }
 Xlet s:TYPE = {
@@ -920,10 +921,14 @@ X  endfor
 X
 X  call s:job_abort()
 X  if s:switch_in()
-X    normal q
+X    if b:plug_preview == 1
+X      pc
+X    endif
+X    enew
+X  else
+X    call s:new_window()
 X  endif
 X
-X  call s:new_window()
 X  nnoremap <silent> <buffer> q  :if b:plug_preview==1<bar>pc<bar>endif<bar>bd<cr>
 X  if a:0 == 0
 X    call s:finish_bindings()
@@ -1003,7 +1008,15 @@ X      let type = type(spec.do)
 X      if type == s:TYPE.string
 X        if spec.do[0] == ':'
 X          call s:load_plugin(spec)
-X          execute spec.do[1:]
+X          try
+X            execute spec.do[1:]
+X          catch
+X            let error = v:exception
+X          endtry
+X          if !s:plug_window_exists()
+X            cd -
+X            throw 'Warning: vim-plug was terminated by the post-update hook of '.name
+X          endif
 X        else
 X          let error = s:bang(spec.do)
 X        endif
@@ -1130,8 +1143,9 @@ X  if has('nvim') && !exists('*jobwait') && threads > 1
 X    call s:warn('echom', '[vim-plug] Update Neovim for parallel installer')
 X  endif
 X
-X  let python = (has('python') || has('python3')) && (!s:nvim || has('vim_starting'))
-X  let ruby = has('ruby') && !s:nvim && (v:version >= 703 || v:version == 702 && has('patch374')) && !(s:is_win && has('gui_running')) && s:check_ruby()
+X  let use_job = s:nvim || s:vim8
+X  let python = (has('python') || has('python3')) && !use_job
+X  let ruby = has('ruby') && !use_job && (v:version >= 703 || v:version == 702 && has('patch374')) && !(s:is_win && has('gui_running')) && s:check_ruby()
 X
 X  let s:update = {
 X    \ 'start':   reltime(),
@@ -1141,7 +1155,7 @@ X    \ 'errors':  [],
 X    \ 'pull':    a:pull,
 X    \ 'force':   a:force,
 X    \ 'new':     {},
-X    \ 'threads': (python || ruby || s:nvim) ? min([len(todo), threads]) : 1,
+X    \ 'threads': (python || ruby || use_job) ? min([len(todo), threads]) : 1,
 X    \ 'bar':     '',
 X    \ 'fin':     0
 X  \ }
@@ -1155,7 +1169,7 @@ X  let s:clone_opt = get(g:, 'plug_shallow', 1) ?
 X        \ '--depth 1' . (s:git_version_requirement(1, 7, 10) ? ' --no-single-branch' : '') : ''
 X
 X  " Python version requirement (>= 2.7)
-X  if python && !has('python3') && !ruby && !s:nvim && s:update.threads > 1
+X  if python && !has('python3') && !ruby && !use_job && s:update.threads > 1
 X    redir => pyv
 X    silent python import platform; print platform.python_version()
 X    redir END
@@ -1196,6 +1210,12 @@ X      call s:update_finish()
 X    endtry
 X  else
 X    call s:update_vim()
+X    while use_job && has('vim_starting')
+X      sleep 100m
+X      if s:update.fin
+X        break
+X      endif
+X    endwhile
 X  endif
 Xendfunction
 X
@@ -1211,7 +1231,7 @@ X  endif
 X  if s:switch_in()
 X    call append(3, '- Updating ...') | 4
 X    for [name, spec] in items(filter(copy(s:update.all), 'index(s:update.errors, v:key) < 0 && (s:update.force || s:update.pull || has_key(s:update.new, v:key))'))
-X      let pos = s:logpos(name)
+X      let [pos, _] = s:logpos(name)
 X      if !pos
 X        continue
 X      endif
@@ -1253,7 +1273,13 @@ X      endif
 X      redraw
 X    endfor
 X    silent 4 d _
-X    call s:do(s:update.pull, s:update.force, filter(copy(s:update.all), 'index(s:update.errors, v:key) < 0 && has_key(v:val, "do")'))
+X    try
+X      call s:do(s:update.pull, s:update.force, filter(copy(s:update.all), 'index(s:update.errors, v:key) < 0 && has_key(v:val, "do")'))
+X    catch
+X      call s:warn('echom', v:exception)
+X      call s:warn('echo', '')
+X      return
+X    endtry
 X    call s:finish(s:update.pull)
 X    call setline(1, 'Updated. Elapsed time: ' . split(reltimestr(reltime(s:update.start)))[0] . ' sec.')
 X    call s:switch_out('normal! gg')
@@ -1261,12 +1287,16 @@ X  endif
 Xendfunction
 X
 Xfunction! s:job_abort()
-X  if !s:nvim || !exists('s:jobs')
+X  if (!s:nvim && !s:vim8) || !exists('s:jobs')
 X    return
 X  endif
 X
 X  for [name, j] in items(s:jobs)
-X    silent! call jobstop(j.jobid)
+X    if s:nvim
+X      silent! call jobstop(j.jobid)
+X    elseif s:vim8
+X      silent! call job_stop(j.jobid)
+X    endif
 X    if j.new
 X      call s:system('rm -rf ' . s:shellesc(g:plugs[name].dir))
 X    endif
@@ -1274,59 +1304,88 @@ X  endfor
 X  let s:jobs = {}
 Xendfunction
 X
-X" When a:event == 'stdout', data = list of strings
-X" When a:event == 'exit', data = returncode
-Xfunction! s:job_handler(job_id, data, event) abort
-X  if !s:plug_window_exists() " plug window closed
-X    return s:job_abort()
-X  endif
+Xfunction! s:last_non_empty_line(lines)
+X  let len = len(a:lines)
+X  for idx in range(len)
+X    let line = a:lines[len-idx-1]
+X    if !empty(line)
+X      return line
+X    endif
+X  endfor
+X  return ''
+Xendfunction
 X
-X  if a:event == 'stdout'
-X    let complete = empty(a:data[-1])
-X    let lines = map(filter(a:data, 'v:val =~ "[^\r\n]"'), 'split(v:val, "[\r\n]")[-1]')
-X    call extend(self.lines, lines)
-X    let self.result = join(self.lines, "\n")
-X    if !complete
-X      call remove(self.lines, -1)
-X    endif
-X    " To reduce the number of buffer updates
-X    let self.tick = get(self, 'tick', -1) + 1
-X    if self.tick % len(s:jobs) == 0
-X      call s:log(self.new ? '+' : '*', self.name, self.result)
-X    endif
-X  elseif a:event == 'exit'
-X    let self.running = 0
-X    if a:data != 0
-X      let self.error = 1
-X    endif
-X    call s:reap(self.name)
-X    call s:tick()
+Xfunction! s:job_out_cb(self, data) abort
+X  let self = a:self
+X  let data = remove(self.lines, -1) . a:data
+X  let lines = map(split(data, "\n", 1), 'split(v:val, "\r", 1)[-1]')
+X  call extend(self.lines, lines)
+X  " To reduce the number of buffer updates
+X  let self.tick = get(self, 'tick', -1) + 1
+X  if !self.running || self.tick % len(s:jobs) == 0
+X    let bullet = self.running ? (self.new ? '+' : '*') : (self.error ? 'x' : '-')
+X    let result = self.error ? join(self.lines, "\n") : s:last_non_empty_line(self.lines)
+X    call s:log(bullet, self.name, result)
 X  endif
 Xendfunction
 X
+Xfunction! s:job_exit_cb(self, data) abort
+X  let a:self.running = 0
+X  let a:self.error = a:data != 0
+X  call s:reap(a:self.name)
+X  call s:tick()
+Xendfunction
+X
+Xfunction! s:job_cb(fn, job, ch, data)
+X  if !s:plug_window_exists() " plug window closed
+X    return s:job_abort()
+X  endif
+X  call call(a:fn, [a:job, a:data])
+Xendfunction
+X
+Xfunction! s:nvim_cb(job_id, data, event) abort
+X  return a:event == 'stdout' ?
+X    \ s:job_cb('s:job_out_cb',  self, 0, join(a:data, "\n")) :
+X    \ s:job_cb('s:job_exit_cb', self, 0, a:data)
+Xendfunction
+X
 Xfunction! s:spawn(name, cmd, opts)
-X  let job = { 'name': a:name, 'running': 1, 'error': 0, 'lines': [], 'result': '',
-X            \ 'new': get(a:opts, 'new', 0),
-X            \ 'on_stdout': function('s:job_handler'),
-X            \ 'on_exit' : function('s:job_handler'),
-X            \ }
+X  let job = { 'name': a:name, 'running': 1, 'error': 0, 'lines': [''],
+X            \ 'new': get(a:opts, 'new', 0) }
 X  let s:jobs[a:name] = job
+X  let argv = add(s:is_win ? ['cmd', '/c'] : ['sh', '-c'],
+X               \ has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd)
 X
 X  if s:nvim
-X    let argv = [ 'sh', '-c',
-X               \ (has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd) ]
+X    call extend(job, {
+X    \ 'on_stdout': function('s:nvim_cb'),
+X    \ 'on_exit':   function('s:nvim_cb'),
+X    \ })
 X    let jid = jobstart(argv, job)
 X    if jid > 0
 X      let job.jobid = jid
 X    else
 X      let job.running = 0
 X      let job.error   = 1
-X      let job.result  = jid < 0 ? 'sh is not executable' :
-X            \ 'Invalid arguments (or job table is full)'
+X      let job.lines   = [jid < 0 ? argv[0].' is not executable' :
+X            \ 'Invalid arguments (or job table is full)']
+X    endif
+X  elseif s:vim8
+X    let jid = job_start(argv, {
+X    \ 'out_cb':   function('s:job_cb', ['s:job_out_cb',  job]),
+X    \ 'exit_cb':  function('s:job_cb', ['s:job_exit_cb', job]),
+X    \ 'out_mode': 'raw'
+X    \})
+X    if job_status(jid) == 'run'
+X      let job.jobid = jid
+X    else
+X      let job.running = 0
+X      let job.error   = 1
+X      let job.lines   = ['Failed to start job']
 X    endif
 X  else
 X    let params = has_key(a:opts, 'dir') ? [a:cmd, a:opts.dir] : [a:cmd]
-X    let job.result = call('s:system', params)
+X    let job.lines = s:lines(call('s:system', params))
 X    let job.error = v:shell_error != 0
 X    let job.running = 0
 X  endif
@@ -1341,7 +1400,9 @@ X    let s:update.new[a:name] = 1
 X  endif
 X  let s:update.bar .= job.error ? 'x' : '='
 X
-X  call s:log(job.error ? 'x' : '-', a:name, empty(job.result) ? 'OK' : job.result)
+X  let bullet = job.error ? 'x' : '-'
+X  let result = job.error ? join(job.lines, "\n") : s:last_non_empty_line(job.lines)
+X  call s:log(bullet, a:name, empty(result) ? 'OK' : result)
 X  call s:bar()
 X
 X  call remove(s:jobs, a:name)
@@ -1360,23 +1421,31 @@ X
 Xfunction! s:logpos(name)
 X  for i in range(4, line('$'))
 X    if getline(i) =~# '^[-+x*] '.a:name.':'
-X      return i
+X      for j in range(i + 1, line('$'))
+X        if getline(j) !~ '^ '
+X          return [i, j - 1]
+X        endif
+X      endfor
+X      return [i, i]
 X    endif
 X  endfor
+X  return [0, 0]
 Xendfunction
 X
 Xfunction! s:log(bullet, name, lines)
 X  if s:switch_in()
-X    let pos = s:logpos(a:name)
-X    if pos > 0
-X      silent execute pos 'd _'
-X      if pos > winheight('.')
-X        let pos = 4
+X    let [b, e] = s:logpos(a:name)
+X    if b > 0
+X      silent execute printf('%d,%d d _', b, e)
+X      if b > winheight('.')
+X        let b = 4
 X      endif
 X    else
-X      let pos = 4
+X      let b = 4
 X    endif
-X    call append(pos - 1, s:format_message(a:bullet, a:name, a:lines))
+X    " FIXME For some reason, nomodifiable is set after :d in vim8
+X    setlocal modifiable
+X    call append(b - 1, s:format_message(a:bullet, a:name, a:lines))
 X    call s:switch_out()
 X  endif
 Xendfunction
@@ -1390,12 +1459,12 @@ Xendfunction
 X
 Xfunction! s:tick()
 X  let pull = s:update.pull
-X  let prog = s:progress_opt(s:nvim)
+X  let prog = s:progress_opt(s:nvim || s:vim8)
 Xwhile 1 " Without TCO, Vim stack is bound to explode
 X  if empty(s:update.todo)
 X    if empty(s:jobs) && !s:update.fin
-X      let s:update.fin = 1
 X      call s:update_finish()
+X      let s:update.fin = 1
 X    endif
 X    return
 X  endif
@@ -1415,10 +1484,10 @@ X      if pull
 X        let fetch_opt = (has_tag && !empty(globpath(spec.dir, '.git/shallow'))) ? '--depth 99999999' : ''
 X        call s:spawn(name, printf('git fetch %s %s 2>&1', fetch_opt, prog), { 'dir': spec.dir })
 X      else
-X        let s:jobs[name] = { 'running': 0, 'result': 'Already installed', 'error': 0 }
+X        let s:jobs[name] = { 'running': 0, 'lines': ['Already installed'], 'error': 0 }
 X      endif
 X    else
-X      let s:jobs[name] = { 'running': 0, 'result': error, 'error': 1 }
+X      let s:jobs[name] = { 'running': 0, 'lines': s:lines(error), 'error': 1 }
 X    endif
 X  else
 X    call s:spawn(name,
@@ -1704,10 +1773,12 @@ X    result = command.execute(G_RETRIES)
 X    return result[-1]
 X
 X  def update(self):
-X    match = re.compile(r'git::?@')
-X    actual_uri = re.sub(match, '', self.repo_uri())
-X    expect_uri = re.sub(match, '', self.args['uri'])
-X    if actual_uri != expect_uri:
+X    actual_uri = self.repo_uri()
+X    expect_uri = self.args['uri']
+X    regex = re.compile(r'^(?:\w+://)?(?:[^@/]*@)?([^:/]*(?::[0-9]*)?)[:/](.*?)(?:\.git)?/?$')
+X    ma = regex.match(actual_uri)
+X    mb = regex.match(expect_uri)
+X    if ma is None or mb is None or ma.groups() != mb.groups():
 X      msg = ['',
 X             'Invalid URI: {0}'.format(actual_uri),
 X             'Expected     {0}'.format(expect_uri),
@@ -1866,6 +1937,11 @@ X      pids.each { |pid| Process.kill 'TERM', pid.to_i rescue nil }
 X    end
 X  end
 X
+X  def compare_git_uri a, b
+X    regex = %r{^(?:\w+://)?(?:[^@/]*@)?([^:/]*(?::[0-9]*)?)[:/](.*?)(?:\.git)?/?$}
+X    regex.match(a).to_a.drop(1) == regex.match(b).to_a.drop(1)
+X  end
+X
 X  require 'thread'
 X  require 'fileutils'
 X  require 'timeout'
@@ -1967,9 +2043,8 @@ X  }
 X  main = Thread.current
 X  threads = []
 X  watcher = Thread.new {
-X    while VIM::evaluate('getchar(1)')
-X      sleep 0.1
-X    end
+X    require 'io/console' # >= Ruby 1.9
+X    nil until IO.console.getch == 3.chr
 X    mtx.synchronize do
 X      running = false
 X      threads.each { |t| t.raise Interrupt }
@@ -2007,7 +2082,7 @@ X                  [false, data]
 X                else
 X                  [false, [data.chomp, "PlugClean required."].join($/)]
 X                end
-X              elsif current_uri.sub(/git::?@/, '') != uri.sub(/git::?@/, '')
+X              elsif !compare_git_uri(current_uri, uri)
 X                [false, ["Invalid URI: #{current_uri}",
 X                         "Expected:    #{uri}",
 X                         "PlugClean required."].join($/)]
@@ -2053,9 +2128,15 @@ X  call setline(a:line, '[' . s:lpad(a:bar, a:total) . ']')
 Xendfunction
 X
 Xfunction! s:compare_git_uri(a, b)
-X  let a = substitute(a:a, 'git:\{1,2}@', '', '')
-X  let b = substitute(a:b, 'git:\{1,2}@', '', '')
-X  return a ==# b
+X  " See `git help clone'
+X  " https:// [user@] github.com[:port] / junegunn/vim-plug [.git]
+X  "          [git@]  github.com[:port] : junegunn/vim-plug [.git]
+X  " file://                            / junegunn/vim-plug        [/]
+X  "                                    / junegunn/vim-plug        [/]
+X  let pat = '^\%(\w\+://\)\='.'\%([^@/]*@\)\='.'\([^:/]*\%(:[0-9]*\)\=\)'.'[:/]'.'\(.\{-}\)'.'\%(\.git\)\=/\?$'
+X  let ma = matchlist(a:a, pat)
+X  let mb = matchlist(a:b, pat)
+X  return ma[1:2] ==# mb[1:2]
 Xendfunction
 X
 Xfunction! s:format_message(bullet, name, message)
@@ -6125,6 +6206,11 @@ Xalias 7='cd -7'
 Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
+X
+X# get currect active interface
+Xiface(){
+X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
+X}
 X
 X# tmux
 Xts() {
