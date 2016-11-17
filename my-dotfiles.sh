@@ -6178,7 +6178,6 @@ Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
 Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 Xalias pyserv="python -m SimpleHTTPServer"
-Xalias www="twistd -no web --path=."
 Xalias rm='rm -i'
 Xalias svi='sudo vim'
 Xalias ssh-tunnel='ssh -C2qTnN -D 8080'

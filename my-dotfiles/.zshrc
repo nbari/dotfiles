@@ -152,7 +152,6 @@ alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 alias psmem='ps aux | sort -r -nk 4 | head -n 10'
 alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
 alias pyserv="python -m SimpleHTTPServer"
-alias www="twistd -no web --path=."
 alias rm='rm -i'
 alias svi='sudo vim'
 alias ssh-tunnel='ssh -C2qTnN -D 8080'
