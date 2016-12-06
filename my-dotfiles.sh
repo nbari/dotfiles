@@ -106,18 +106,11 @@ X# set-window-option -g utf8 on
 X
 X# zsh
 Xset-option -g default-shell /usr/local/bin/zsh
+Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
 X
 X# vi bindings
 Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
-X# https://robots.thoughtbot.com/tmux-copy-paste-on-os-x-a-better-future
-X# brew install reattach-to-user-namespace
-X# Setup 'v' to begin selection as in Vim
-Xbind-key -t vi-copy v begin-selection
-Xbind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
-X# Update default binding of `Enter` to also use copy-pipe
-Xunbind -t vi-copy Enter
-Xbind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
@@ -6383,6 +6376,7 @@ Xunsetopt prompt_cr
 X
 X# delete coplete for android
 X# compdef -d adb
+Xeval "$(direnv hook zsh)"
 END-of-./.zshrc
 exit
 
