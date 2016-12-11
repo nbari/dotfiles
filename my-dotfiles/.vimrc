@@ -146,6 +146,7 @@ au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 " associate *.jinja with jinja filetype
 au BufRead,BufNewFile *.jinja set ft=jinja
+au BufRead,BufNewFile *.j2 set ft=jinja
 
 " enable cold folding
 au FileType javascript call JavaScriptFold()
@@ -438,3 +439,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+
+" sh as bash
+let g:is_bash=1
