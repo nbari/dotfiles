@@ -4499,6 +4499,7 @@ Xau BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 X
 X" associate *.jinja with jinja filetype
 Xau BufRead,BufNewFile *.jinja set ft=jinja
+Xau BufRead,BufNewFile *.j2 set ft=jinja
 X
 X" enable cold folding
 Xau FileType javascript call JavaScriptFold()
@@ -4791,6 +4792,9 @@ Xlet g:go_highlight_types = 1
 Xlet g:go_highlight_operators = 1
 Xlet g:go_highlight_build_constraints = 1
 Xlet g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+X
+X" sh as bash
+Xlet g:is_bash=1
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -6046,7 +6050,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin"
+Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
