@@ -4807,7 +4807,7 @@ X
 X#
 X# zsh-async
 X#
-X# version: 1.2.0
+X# version: 1.3.1
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
@@ -4830,7 +4830,7 @@ X	# 	"
 X	unset stdout stderr ret
 X	eval "$(
 X		{
-X			stdout=$(eval "$@")
+X			stdout=$(eval '$@')
 X			ret=$?
 X			typeset -p stdout ret
 X		} 2> >(stderr=$(cat); typeset -p stderr)
@@ -4865,6 +4865,13 @@ X	local notify_parent=0
 X	local parent_pid=0
 X	local coproc_pid=0
 X
+X	# Deactivate all zsh hooks inside the worker.
+X	zsh_hooks=(chpwd periodic precmd preexec zshexit zshaddhistory)
+X	unfunction $zsh_hooks &>/dev/null
+X	# And hooks with registered functions.
+X	zsh_hook_functions=( ${^zsh_hooks}_functions )
+X	unset $zsh_hook_functions
+X
 X	child_exit() {
 X		# If coproc (cat) is the only child running, we close it to avoid
 X		# leaving it running indefinitely and cluttering the process tree.
@@ -4895,9 +4902,21 @@ X			u) unique=1;;
 X		esac
 X	done
 X
-X	while read -r cmd; do
-X		# Separate on spaces into an array
-X		cmd=(${=cmd})
+X	local -a buffer
+X	# Command arguments are separated with a null character.
+X	while read -r -d $'\0' line; do
+X		if [[ $line != ___ZSH_ASNYC_EOC___ ]]; then
+X			# Read command arguments until we receive magic end-of-command string.
+X			buffer+=($line)
+X			continue
+X		fi
+X
+X		# Copy command buffer
+X		cmd=("${(@)=buffer}")
+X
+X		# Reset command buffer
+X		buffer=()
+X
 X		local job=$cmd[1]
 X
 X		# Check for non-job commands sent to worker
@@ -4986,7 +5005,7 @@ X		(( ${#items} % 5 )) && continue
 X
 X		# Work through all results
 X		while (( ${#items} > 0 )); do
-X			$callback "${(@)=items[1,5]}"
+X			$callback "${(@)items[1,5]}"
 X			shift 5 items
 X			count+=1
 X		done
@@ -5027,7 +5046,14 @@ Xasync_job() {
 X	setopt localoptions noshwordsplit
 X
 X	local worker=$1; shift
-X	zpty -w $worker $@
+X
+X	local cmd p
+X	for p in "$@"; do
+X		cmd+="$p"$'\0'
+X	done
+X	cmd+=___ZSH_ASNYC_EOC___$'\0'
+X
+X	zpty -w $worker $cmd
 X}
 X
 X# This function traps notification signals and calls all registered callbacks
@@ -5087,7 +5113,7 @@ X	# Check if the worker exists
 X	zpty -t $worker &>/dev/null || return 1
 X
 X	# Send kill command to worker
-X	zpty -w $worker "_killjobs"
+X	async_job $worker "_killjobs"
 X
 X	# Clear all output buffers
 X	while zpty -r $worker line; do true; done
