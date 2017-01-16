@@ -4807,76 +4807,91 @@ X
 X#
 X# zsh-async
 X#
-X# version: 1.3.1
+X# version: 1.5.0
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
 X
+X# Produce debug output from zsh-async when set to 1.
+XASYNC_DEBUG=${ASYNC_DEBUG:-0}
+X
 X# Wrapper for jobs executed by the async worker, gives output in parseable format with execution time
 X_async_job() {
+X	# Disable xtrace as it would mangle the output.
+X	setopt localoptions noxtrace
+X
 X	# Store start time as double precision (+E disables scientific notation)
 X	float -F duration=$EPOCHREALTIME
 X
-X	# Run the command
-X	#
-X	# What is happening here is that we are assigning stdout, stderr and ret to
-X	# variables, and then we are printing out the variable assignment through
-X	# typeset -p. This way when we run eval we get something along the lines of:
-X	# 	eval "
-X	# 		typeset stdout=' M async.test.sh\n M async.zsh'
-X	# 		typeset ret=0
-X	# 		typeset stderr=''
-X	# 	"
-X	unset stdout stderr ret
-X	eval "$(
-X		{
-X			stdout=$(eval '$@')
-X			ret=$?
-X			typeset -p stdout ret
-X		} 2> >(stderr=$(cat); typeset -p stderr)
-X	)"
+X	# Run the command and capture both stdout (`eval`) and stderr (`cat`) in
+X	# separate subshells. When the command is complete, we grab write lock
+X	# (mutex token) and output everything except stderr inside the command
+X	# block, after the command block has completed, the stdin for `cat` is
+X	# closed, causing stderr to be appended with a $'\0' at the end to mark the
+X	# end of output from this job.
+X	local stdout stderr ret tok
+X	{
+X		stdout=$(eval "$@")
+X		ret=$?
+X		duration=$(( EPOCHREALTIME - duration ))  # Calculate duration.
 X
-X	# Calculate duration
-X	duration=$(( EPOCHREALTIME - duration ))
+X		# Grab mutex lock, stalls until token is available.
+X		read -r -k 1 -p tok || exit 1
 X
-X	# stip all null-characters from stdout and stderr
-X	stdout=${stdout//$'\0'/}
-X	stderr=${stderr//$'\0'/}
+X		# Return output (<job_name> <return_code> <stdout> <duration> <stderr>).
+X		print -r -n - ${(q)1} $ret ${(q)stdout} $duration
+X	} 2> >(stderr=$(cat) && print -r -n - " "${(q)stderr}$'\0')
 X
-X	# if ret is missing for some unknown reason, set it to -1 to indicate we
-X	# have run into a bug
-X	ret=${ret:--1}
-X
-X	# Grab mutex lock, stalls until token is available
-X	read -ep >/dev/null
-X
-X	# return output (<job_name> <return_code> <stdout> <duration> <stderr>)
-X	print -r -N -n -- "$1" "$ret" "$stdout" "$duration" "$stderr"$'\0'
-X
-X	# Unlock mutex by inserting a token
-X	print -p "t"
+X	# Unlock mutex by inserting a token.
+X	print -n -p $tok
 X}
 X
 X# The background worker manages all tasks and runs them without interfering with other processes
 X_async_worker() {
+X	# Reset all options to defaults inside async worker.
+X	emulate -R zsh
+X
+X	# Make sure monitor is unset to avoid printing the
+X	# pids of child processes.
+X	unsetopt monitor
+X
+X	# Redirect stderr to `/dev/null` in case unforseen errors produced by the
+X	# worker. For example: `fork failed: resource temporarily unavailable`.
+X	# Some older versions of zsh might also print malloc errors (know to happen
+X	# on at least zsh 5.0.2 and 5.0.8) likely due to kill signals.
+X	exec 2>/dev/null
+X
+X	# When a zpty is deleted (using -d) all the zpty instances created before
+X	# the one being deleted receive a SIGHUP, unless we catch it, the async
+X	# worker would simply exit (stop working) even though visible in the list
+X	# of zpty's (zpty -L).
+X	TRAPHUP() {
+X		return 0  # Return 0, indicating signal was handled.
+X	}
+X
 X	local -A storage
 X	local unique=0
 X	local notify_parent=0
 X	local parent_pid=0
 X	local coproc_pid=0
+X	local processing=0
 X
-X	# Deactivate all zsh hooks inside the worker.
+X	local -a zsh_hooks zsh_hook_functions
 X	zsh_hooks=(chpwd periodic precmd preexec zshexit zshaddhistory)
-X	unfunction $zsh_hooks &>/dev/null
-X	# And hooks with registered functions.
-X	zsh_hook_functions=( ${^zsh_hooks}_functions )
-X	unset $zsh_hook_functions
+X	zsh_hook_functions=(${^zsh_hooks}_functions)
+X	unfunction $zsh_hooks &>/dev/null   # Deactivate all zsh hooks inside the worker.
+X	unset $zsh_hook_functions           # And hooks with registered functions.
+X	unset zsh_hooks zsh_hook_functions  # Cleanup.
 X
 X	child_exit() {
+X		local -a pids
+X		pids=(${${(v)jobstates##*:*:}%\=*})
+X
 X		# If coproc (cat) is the only child running, we close it to avoid
 X		# leaving it running indefinitely and cluttering the process tree.
-X		if [[ ${#jobstates} = 1 ]] && [[ $coproc_pid = ${${(v)jobstates##*:*:}%\=*} ]]; then
+X		if  (( ! processing )) && [[ $#pids = 1 ]] && [[ $coproc_pid = $pids[1] ]]; then
 X			coproc :
+X			coproc_pid=0
 X		fi
 X
 X		# On older version of zsh (pre 5.2) we notify the parent through a
@@ -4902,37 +4917,49 @@ X			u) unique=1;;
 X		esac
 X	done
 X
-X	local -a buffer
-X	# Command arguments are separated with a null character.
-X	while read -r -d $'\0' line; do
-X		if [[ $line != ___ZSH_ASNYC_EOC___ ]]; then
-X			# Read command arguments until we receive magic end-of-command string.
-X			buffer+=($line)
-X			continue
-X		fi
+X	killjobs() {
+X		local tok
+X		local -a pids
+X		pids=(${${(v)jobstates##*:*:}%\=*})
 X
-X		# Copy command buffer
-X		cmd=("${(@)=buffer}")
+X		# No need to send SIGHUP if no jobs are running.
+X		(( $#pids == 0 )) && continue
+X		(( $#pids == 1 )) && [[ $coproc_pid = $pids[1] ]] && continue
 X
-X		# Reset command buffer
-X		buffer=()
+X		# Grab lock to prevent half-written output in case a child
+X		# process is in the middle of writing to stdin during kill.
+X		(( coproc_pid )) && read -r -k 1 -p tok
 X
-X		local job=$cmd[1]
+X		kill -HUP -$$  # Send to entire process group.
+X		coproc :       # Quit coproc.
+X		coproc_pid=0   # Reset pid.
+X	}
+X
+X	local request
+X	local -a cmd
+X	while :; do
+X		# Wait for jobs sent by async_job.
+X		read -r -d $'\0' request || {
+X			# Since we handle SIGHUP above (and thus do not know when `zpty -d`)
+X			# occurs, a failure to read probably indicates that stdin has
+X			# closed. This is why we propagate the signal to all children and
+X			# exit manually.
+X			kill -HUP -$$  # Send SIGHUP to all jobs.
+X			exit 0
+X		}
 X
 X		# Check for non-job commands sent to worker
-X		case $job in
-X			_unset_trap)
-X				notify_parent=0; continue;;
-X			_killjobs)
-X				# Do nothing in the worker when receiving the TERM signal
-X				trap '' TERM
-X				# Send TERM to the entire process group (PID and all children)
-X				kill -TERM -$$ &>/dev/null
-X				# Reset trap
-X				trap - TERM
-X				continue
-X				;;
+X		case $request in
+X			_unset_trap) notify_parent=0; continue;;
+X			_killjobs)   killjobs; continue;;
 X		esac
+X
+X		# Parse the request using shell parsing (z) to allow commands
+X		# to be parsed from single strings and multi-args alike.
+X		cmd=("${(z)request}")
+X
+X		# Name of the job (first argument).
+X		local job=$cmd[1]
 X
 X		# If worker should perform unique jobs
 X		if (( unique )); then
@@ -4944,20 +4971,25 @@ X				fi
 X			done
 X		fi
 X
+X		# Guard against closing coproc from trap before command has started.
+X		processing=1
+X
 X		# Because we close the coproc after the last job has completed, we must
 X		# recreate it when there are no other jobs running.
-X		if (( !${#jobstates} )); then
+X		if (( ! coproc_pid )); then
 X			# Use coproc as a mutex for synchronized output between children.
 X			coproc cat
-X			coproc_pid=$!
+X			coproc_pid="$!"
 X			# Insert token into coproc
-X			print -p "t"
+X			print -n -p "t"
 X		fi
 X
-X		# Run task in background
+X		# Run job in background, completed jobs are printed to stdout.
 X		_async_job $cmd &
 X		# Store pid because zsh job manager is extremely unflexible (show jobname as non-unique '$job')...
-X		storage[$job]=$!
+X		storage[$job]="$!"
+X
+X		processing=0  # Disable guard.
 X	done
 X}
 X
@@ -4978,46 +5010,54 @@ X#
 Xasync_process_results() {
 X	setopt localoptions noshwordsplit
 X
-X	integer count=0
 X	local worker=$1
 X	local callback=$2
 X	local caller=$3
 X	local -a items
-X	local line
+X	local null=$'\0' data
+X	integer -l len pos num_processed
 X
 X	typeset -gA ASYNC_PROCESS_BUFFER
-X	# Read output from zpty and parse it if available
-X	while zpty -rt $worker line 2>/dev/null; do
-X		# Remove unwanted \r from output
-X		ASYNC_PROCESS_BUFFER[$worker]+=${line//$'\r'$'\n'/$'\n'}
-X		# Split buffer on null characters, preserve empty elements
-X		# (an anonymous function is used to avoid leaking modified IFS into the callback)
-X		() {
-X			local IFS=$'\0'
-X			items=("${(@)=ASYNC_PROCESS_BUFFER[$worker]}")
-X		}
-X		# Remove last element since it's an artifact
-X		# of the return string separator structure
-X		items=("${(@)items[1,${#items}-1]}")
 X
-X		# Continue until we receive all information
-X		(( ${#items} % 5 )) && continue
+X	# Read output from zpty and parse it if available.
+X	while zpty -r -t $worker data 2>/dev/null; do
+X		ASYNC_PROCESS_BUFFER[$worker]+=$data
+X		len=${#ASYNC_PROCESS_BUFFER[$worker]}
+X		pos=${ASYNC_PROCESS_BUFFER[$worker][(i)$null]}  # Get index of NULL-character (delimiter).
 X
-X		# Work through all results
-X		while (( ${#items} > 0 )); do
-X			$callback "${(@)items[1,5]}"
-X			shift 5 items
-X			count+=1
+X		# Keep going until we find a NULL-character.
+X		if (( ! len )) || (( pos > len )); then
+X			continue
+X		fi
+X
+X		while (( pos <= len )); do
+X			# Take the content from the beginning, until the NULL-character and
+X			# perform shell parsing (z) and unquoting (Q) as an array (@).
+X			items=("${(@Q)${(z)ASYNC_PROCESS_BUFFER[$worker][1,$pos-1]}}")
+X
+X			# Remove the extracted items from the buffer.
+X			ASYNC_PROCESS_BUFFER[$worker]=${ASYNC_PROCESS_BUFFER[$worker][$pos+1,$len]}
+X
+X			if (( $#items == 5 )); then
+X				$callback "${(@)items}"  # Send all parsed items to the callback.
+X			else
+X				# In case of corrupt data, invoke callback with *async* as job
+X				# name, non-zero exit status and an error message on stderr.
+X				$callback "async" 1 "" 0 "$0:$LINENO: error: bad format, got ${#items} items (${(@q)items})"
+X			fi
+X
+X			(( num_processed++ ))
+X
+X			len=${#ASYNC_PROCESS_BUFFER[$worker]}
+X			if (( len > 1 )); then
+X				pos=${ASYNC_PROCESS_BUFFER[$worker][(i)$null]}  # Get index of NULL-character (delimiter).
+X			fi
 X		done
-X
-X		# Empty the buffer
-X		unset "ASYNC_PROCESS_BUFFER[$worker]"
 X	done
 X
-X	# If we processed any results, return success
-X	(( count )) && return 0
+X	(( num_processed )) && return 0
 X
-X	# Avoid printing exit value from setopt printexitvalue
+X	# Avoid printing exit value when `setopt printexitvalue` is active.`
 X	[[ $caller = trap || $caller = watcher ]] && return 0
 X
 X	# No results were processed
@@ -5047,13 +5087,13 @@ X	setopt localoptions noshwordsplit
 X
 X	local worker=$1; shift
 X
-X	local cmd p
-X	for p in "$@"; do
-X		cmd+="$p"$'\0'
-X	done
-X	cmd+=___ZSH_ASNYC_EOC___$'\0'
+X	local -a cmd
+X	cmd=("$@")
+X	if (( $#cmd > 1 )); then
+X		cmd=(${(q)cmd})  # Quote special characters in multi argument commands.
+X	fi
 X
-X	zpty -w $worker $cmd
+X	zpty -w $worker $cmd$'\0'
 X}
 X
 X# This function traps notification signals and calls all registered callbacks
@@ -5080,7 +5120,9 @@ X	local worker=$1; shift
 X
 X	ASYNC_CALLBACKS[$worker]="$*"
 X
-X	if (( ! ASYNC_USE_ZLE_HANDLER )); then
+X	# Enable trap when the ZLE watcher is unavailable, allows
+X	# workers to notify (via -n) when a job is done.
+X	if [[ ! -o interactive ]] || [[ ! -o zle ]]; then
 X		trap '_async_notify_trap' WINCH
 X	fi
 X}
@@ -5115,10 +5157,17 @@ X
 X	# Send kill command to worker
 X	async_job $worker "_killjobs"
 X
-X	# Clear all output buffers
-X	while zpty -r $worker line; do true; done
+X	# Clear the zpty buffer.
+X	local junk
+X	if zpty -r -t $worker junk '*'; then
+X		(( ASYNC_DEBUG )) && print -n "async_flush_jobs $worker: ${(V)junk}"
+X		while zpty -r -t $worker junk '*'; do
+X			(( ASYNC_DEBUG )) && print -n "${(V)junk}"
+X		done
+X		(( ASYNC_DEBUG )) && print
+X	fi
 X
-X	# Clear any partial buffers
+X	# Finally, clear the process buffer in case of partially parsed responses.
 X	typeset -gA ASYNC_PROCESS_BUFFER
 X	unset "ASYNC_PROCESS_BUFFER[$worker]"
 X}
@@ -5143,16 +5192,47 @@ X	zpty -t $worker &>/dev/null && return
 X
 X	typeset -gA ASYNC_PTYS
 X	typeset -h REPLY
+X	typeset has_xtrace=0
+X
+X	# Make sure async worker is started without xtrace
+X	# (the trace output interferes with the worker).
+X	[[ -o xtrace ]] && {
+X		has_xtrace=1
+X		unsetopt xtrace
+X	}
+X
+X	if (( ! ASYNC_ZPTY_RETURNS_FD )) && [[ -o interactive ]] && [[ -o zle ]]; then
+X		# When zpty doesn't return a file descriptor (on older versions of zsh)
+X		# we try to guess it anyway.
+X		integer -l zptyfd
+X		exec {zptyfd}>&1  # Open a new file descriptor (above 10).
+X		exec {zptyfd}>&-  # Close it so it's free to be used by zpty.
+X	fi
+X
 X	zpty -b $worker _async_worker -p $$ $@ || {
 X		async_stop_worker $worker
 X		return 1
 X	}
 X
-X	if (( ASYNC_USE_ZLE_HANDLER )); then
-X		ASYNC_PTYS[$REPLY]=$worker
-X		zle -F $REPLY _async_zle_watcher
+X	# Re-enable it if it was enabled, for debugging.
+X	(( has_xtrace )) && setopt xtrace
 X
-X		# If worker was called with -n, disable trap in favor of zle handler
+X	if [[ $ZSH_VERSION < 5.0.8 ]]; then
+X		# For ZSH versions older than 5.0.8 we delay a bit to give
+X		# time for the worker to start before issuing commands,
+X		# otherwise it will not be ready to receive them.
+X		sleep 0.001
+X	fi
+X
+X	if [[ -o interactive ]] && [[ -o zle ]]; then
+X		if (( ! ASYNC_ZPTY_RETURNS_FD )); then
+X			REPLY=$zptyfd  # Use the guessed value for the file desciptor.
+X		fi
+X
+X		ASYNC_PTYS[$REPLY]=$worker        # Map the file desciptor to the worker.
+X		zle -F $REPLY _async_zle_watcher  # Register the ZLE handler.
+X
+X		# Disable trap in favor of ZLE handler when notify is enabled (-n).
 X		async_job $worker _unset_trap
 X	fi
 X}
@@ -5177,6 +5257,10 @@ X			fi
 X		done
 X		async_unregister_callback $worker
 X		zpty -d $worker 2>/dev/null || ret=$?
+X
+X		# Clear any partial buffers.
+X		typeset -gA ASYNC_PROCESS_BUFFER
+X		unset "ASYNC_PROCESS_BUFFER[$worker]"
 X	done
 X
 X	return $ret
@@ -5195,12 +5279,13 @@ X
 X	zmodload zsh/zpty
 X	zmodload zsh/datetime
 X
-X	# Check if zsh/zpty returns a file descriptor or not, shell must also be interactive
-X	ASYNC_USE_ZLE_HANDLER=0
-X	[[ -o interactive ]] && {
+X	# Check if zsh/zpty returns a file descriptor or not,
+X	# shell must also be interactive with zle enabled.
+X	ASYNC_ZPTY_RETURNS_FD=0
+X	[[ -o interactive ]] && [[ -o zle ]] && {
 X		typeset -h REPLY
-X		zpty _async_test cat
-X		(( REPLY )) && ASYNC_USE_ZLE_HANDLER=1
+X		zpty _async_test :
+X		(( REPLY )) && ASYNC_ZPTY_RETURNS_FD=1
 X		zpty -d _async_test
 X	}
 X}
