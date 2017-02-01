@@ -180,6 +180,11 @@ alias 8='cd -8'
 alias 9='cd -9'
 alias d='dirs -v | head -10'
 
+# checksum
+checksum() {
+    [[ -a $1 ]] && openssl dgst -sha256 $1
+}
+
 # get currect active interface
 iface(){
     route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
