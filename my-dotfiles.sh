@@ -6314,6 +6314,11 @@ Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 X
+X# checksum
+Xchecksum() {
+X    [[ -a $1 ]] && openssl dgst -sha256 $1
+X}
+X
 X# get currect active interface
 Xiface(){
 X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
