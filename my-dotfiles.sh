@@ -6313,6 +6313,7 @@ Xalias 7='cd -7'
 Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
+Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 X
 X# checksum
 Xchecksum() {
