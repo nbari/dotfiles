@@ -4372,7 +4372,6 @@ XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 XPlug 'ctrlpvim/ctrlp.vim'
-XPlug 'easymotion/vim-easymotion'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hdima/python-syntax'
