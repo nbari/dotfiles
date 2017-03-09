@@ -4406,12 +4406,13 @@ XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
-XPlug 'ctrlpvim/ctrlp.vim'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
+XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'majutsushi/tagbar'
 XPlug 'mileszs/ack.vim'
@@ -4596,9 +4597,6 @@ Xhi SyntasticErrorSign ctermfg=red ctermbg=none
 Xhi SyntasticWarningSign ctermfg=yellow ctermbg=none
 Xhi SyntasticErrorLine   ctermbg=52
 Xhi SyntasticWarningLine ctermbg=58
-X
-X" CtrlP
-Xlet g:ctrlp_working_path_mode = 'c'
 X
 Xset wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 X
@@ -4829,6 +4827,17 @@ Xlet g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 X
 X" sh as bash
 Xlet g:is_bash=1
+X
+X" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+X
+X" cargo install ripgrep
+Xif executable("rg")
+X    set grepprg=rg\ --vimgrep\ --no-heading
+X    set grepformat=%f:%l:%c:%m,%f:%l:%m
+Xendif
+X
+X" ctrl-p using fzf
+Xnnoremap <c-p> :Files<CR>
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -6534,6 +6543,12 @@ X# delete coplete for android
 X# compdef -d adb
 Xeval "$(direnv hook zsh)"
 X
+X# --files: List files that would be searched but do not search
+X# --no-ignore: Do not respect .gitignore, etc...
+X# --hidden: Search hidden files and folders
+X# --follow: Follow symlinks
+X# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+Xexport FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 X[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 END-of-./.zshrc
 exit
