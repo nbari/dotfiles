@@ -365,3 +365,5 @@ unsetopt prompt_cr
 # delete coplete for android
 # compdef -d adb
 eval "$(direnv hook zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
