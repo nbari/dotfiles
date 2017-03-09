@@ -4828,8 +4828,6 @@ X
 X" sh as bash
 Xlet g:is_bash=1
 X
-X" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-X
 X" cargo install ripgrep
 Xif executable("rg")
 X    set grepprg=rg\ --vimgrep\ --no-heading
@@ -4838,6 +4836,19 @@ Xendif
 X
 X" ctrl-p using fzf
 Xnnoremap <c-p> :Files<CR>
+X
+X" --column: Show column number
+X" --line-number: Show line number
+X" --no-heading: Do not show file headings in results
+X" --fixed-strings: Search term as a literal string
+X" --ignore-case: Case insensitive search
+X" --no-ignore: Do not respect .gitignore, etc...
+X" --hidden: Search hidden files and folders
+X" --follow: Follow symlinks
+X" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+X" --color: Search color options
+Xcommand! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+X" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
