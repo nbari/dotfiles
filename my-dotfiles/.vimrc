@@ -18,12 +18,13 @@ Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jelera/vim-javascript-syntax'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
@@ -208,9 +209,6 @@ hi SyntasticErrorSign ctermfg=red ctermbg=none
 hi SyntasticWarningSign ctermfg=yellow ctermbg=none
 hi SyntasticErrorLine   ctermbg=52
 hi SyntasticWarningLine ctermbg=58
-
-" CtrlP
-let g:ctrlp_working_path_mode = 'c'
 
 set wildignore+=*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat,*.pyc
 
@@ -441,3 +439,14 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
 " sh as bash
 let g:is_bash=1
+
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+" cargo install ripgrep
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" ctrl-p using fzf
+nnoremap <c-p> :Files<CR>
