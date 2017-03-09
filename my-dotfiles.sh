@@ -6533,6 +6533,8 @@ X
 X# delete coplete for android
 X# compdef -d adb
 Xeval "$(direnv hook zsh)"
+X
+X[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 END-of-./.zshrc
 exit
 
