@@ -4421,7 +4421,6 @@ XPlug 'jelera/vim-javascript-syntax'
 XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
-XPlug 'majutsushi/tagbar'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -4552,9 +4551,6 @@ X" NERDTree
 Xnnoremap <leader>n :NERDTreeToggle<CR>
 Xlet g:NERDTreeDirArrowExpandable = '▸'
 Xlet g:NERDTreeDirArrowCollapsible = '▾'
-X
-X" Tagbar
-Xnnoremap <leader>h :TagbarToggle<CR>
 X
 X" folding settings za
 Xset foldmethod=indent   "fold based on indent
@@ -4838,8 +4834,10 @@ X    set grepprg=rg\ --vimgrep\ --no-heading
 X    set grepformat=%f:%l:%c:%m,%f:%l:%m
 Xendif
 X
-X" ctrl-p using fzf
+X" ctrl-p, buffers, history using fzf
 Xnnoremap <c-p> :Files<CR>
+Xnnoremap <leader>, :Buffers<CR>
+Xnnoremap <leader>h :History<CR>
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1

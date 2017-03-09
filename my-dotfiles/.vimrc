@@ -26,7 +26,6 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
-Plug 'majutsushi/tagbar'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -157,9 +156,6 @@ map <F11> <C-W>v
 nnoremap <leader>n :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-
-" Tagbar
-nnoremap <leader>h :TagbarToggle<CR>
 
 " folding settings za
 set foldmethod=indent   "fold based on indent
@@ -443,5 +439,7 @@ if executable("rg")
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" ctrl-p using fzf
+" ctrl-p, buffers, history using fzf
 nnoremap <c-p> :Files<CR>
+nnoremap <leader>, :Buffers<CR>
+nnoremap <leader>h :History<CR>
