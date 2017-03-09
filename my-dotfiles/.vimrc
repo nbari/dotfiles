@@ -27,7 +27,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'majutsushi/tagbar'
-Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -313,10 +312,8 @@ vmap <leader>w !par -w80<CR>
 " Diff current buffer and the original file
 nnoremap <leader>di :w !diff % -<CR>
 
-" Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
-nnoremap <leader>a :tab split<CR>:Ack ""<Left>
-nnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
+" Ag
+nnoremap <leader>a :Ag<CR>
 
 " underline
 nnoremap <leader>1 yypVr=
@@ -448,16 +445,3 @@ endif
 
 " ctrl-p using fzf
 nnoremap <c-p> :Files<CR>
-
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)

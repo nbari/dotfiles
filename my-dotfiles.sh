@@ -144,10 +144,17 @@ Xbind -r K resize-pane -U 10
 Xbind -r L resize-pane -R 10
 X
 X# Smart pane switching with awareness of vim splits
-Xbind -n C-h if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-h" "select-pane -L"
-Xbind -n C-j if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-j" "select-pane -D"
-Xbind -n C-k if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-k" "select-pane -U"
-Xbind -n C-l if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-l" "select-pane -R"
+X# bind -n C-h if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-h" "select-pane -L"
+X# bind -n C-j if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-j" "select-pane -D"
+X# bind -n C-k if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-k" "select-pane -U"
+X# bind -n C-l if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-l" "select-pane -R"
+X
+Xnot_tmux='`echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?x?)(diff)?$"` || `echo "#{pane_start_command}" | grep -iqE "fzf"` || `echo "#{pane_current_command}" | grep -iqE "fzf"`'
+Xbind-key -n C-h if-shell "$not_tmux" "send-keys C-h" "select-pane -L"
+Xbind-key -n C-j if-shell "$not_tmux" "send-keys C-j" "select-pane -D"
+Xbind-key -n C-k if-shell "$not_tmux" "send-keys C-k" "select-pane -U"
+Xbind-key -n C-l if-shell "$not_tmux" "send-keys C-l" "select-pane -R"
+Xbind-key -n C-\ if-shell "$not_tmux" "send-keys C-\\" "select-pane -l"
 X
 X# easily toggle synchronization (mnemonic: e is for echo)
 Xbind e setw synchronize-panes on
@@ -4415,7 +4422,6 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'majutsushi/tagbar'
-XPlug 'mileszs/ack.vim'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -4701,10 +4707,8 @@ X
 X" Diff current buffer and the original file
 Xnnoremap <leader>di :w !diff % -<CR>
 X
-X" Ack
-Xlet g:ackprg = 'ag --nogroup --nocolor --column'
-Xnnoremap <leader>a :tab split<CR>:Ack ""<Left>
-Xnnoremap <leader>A :tab split<CR>:Ack <C-r><C-w><CR><Left>
+X" Ag
+Xnnoremap <leader>a :Ag<CR>
 X
 X" underline
 Xnnoremap <leader>1 yypVr=
@@ -4836,19 +4840,6 @@ Xendif
 X
 X" ctrl-p using fzf
 Xnnoremap <c-p> :Files<CR>
-X
-X" --column: Show column number
-X" --line-number: Show line number
-X" --no-heading: Do not show file headings in results
-X" --fixed-strings: Search term as a literal string
-X" --ignore-case: Case insensitive search
-X" --no-ignore: Do not respect .gitignore, etc...
-X" --hidden: Search hidden files and folders
-X" --follow: Follow symlinks
-X" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-X" --color: Search color options
-Xcommand! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-X" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -6560,6 +6551,7 @@ X# --hidden: Search hidden files and folders
 X# --follow: Follow symlinks
 X# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 Xexport FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+Xexport FZF_TMUX=1
 X[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 END-of-./.zshrc
 exit
