@@ -2,6 +2,7 @@ set binary
 set nocompatible
 set autowrite
 set wildmenu
+set clipboard=unnamed
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -411,10 +412,11 @@ cnoremap <c-k> <up>
 cnoremap <c-l> <right>
 
 " golang
-au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
 au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+au FileType go nmap <leader>d <Plug>(go-doc-vertical)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
 au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)

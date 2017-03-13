@@ -4401,6 +4401,7 @@ Xset binary
 Xset nocompatible
 Xset autowrite
 Xset wildmenu
+Xset clipboard=unnamed
 X
 Xif empty(glob('~/.vim/autoload/plug.vim'))
 X  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -4810,10 +4811,11 @@ Xcnoremap <c-k> <up>
 Xcnoremap <c-l> <right>
 X
 X" golang
-Xau FileType go nmap <leader>r <Plug>(go-run)
 Xau FileType go nmap <leader>b <Plug>(go-build)
-Xau FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
 Xau FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+Xau FileType go nmap <leader>d <Plug>(go-doc-vertical)
+Xau FileType go nmap <leader>r <Plug>(go-run)
+Xau FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
 Xau FileType go nmap <leader>cb <Plug>(go-coverage-browser)
 Xau FileType go nmap <leader>ds <Plug>(go-def-split)
 Xau FileType go nmap <leader>dv <Plug>(go-def-vertical)
