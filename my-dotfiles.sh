@@ -1180,6 +1180,10 @@ X
 X  let s:clone_opt = get(g:, 'plug_shallow', 1) ?
 X        \ '--depth 1' . (s:git_version_requirement(1, 7, 10) ? ' --no-single-branch' : '') : ''
 X
+X  if has('win32unix')
+X    let s:clone_opt .= ' -c core.eol=lf -c core.autocrlf=input'
+X  endif
+X
 X  " Python version requirement (>= 2.7)
 X  if python && !has('python3') && !ruby && !use_job && s:update.threads > 1
 X    redir => pyv
