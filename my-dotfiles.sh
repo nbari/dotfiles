@@ -4401,7 +4401,6 @@ Xset binary
 Xset nocompatible
 Xset autowrite
 Xset wildmenu
-Xset clipboard=unnamed
 X
 Xif empty(glob('~/.vim/autoload/plug.vim'))
 X  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs

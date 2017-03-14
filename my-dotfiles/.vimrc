@@ -2,7 +2,6 @@ set binary
 set nocompatible
 set autowrite
 set wildmenu
-set clipboard=unnamed
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
