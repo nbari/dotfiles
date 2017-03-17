@@ -4767,20 +4767,29 @@ X" found no ASCII
 X" Once you're on a particular one, use ga
 X" to determine the ASCII value of the character in question, and
 Xnnoremap <leader>xa :/[^\x00-\x7F]<CR>
-X"
+X
 X" sh
 Xset shell=/bin/sh
 X
 X" go
-Xau FileType go nmap <leader>r <Plug>(go-run)
 Xau FileType go nmap <leader>b <Plug>(go-build)
-Xau FileType go nmap <leader>t <Plug>(go-test)
+Xau FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+Xau FileType go nmap <leader>cb <Plug>(go-coverage-browser)
+Xau FileType go nmap <leader>ds <Plug>(go-def-split)
+Xau FileType go nmap <leader>dt <Plug>(go-def-tab)
+Xau FileType go nmap <leader>dv <Plug>(go-def-vertical)
 Xau FileType go nmap <leader>gd <Plug>(go-doc-browser)
+Xau FileType go nmap <leader>i <Plug>(go-info)
+Xau FileType go nmap <leader>r <Plug>(go-run)
+Xau FileType go nmap <leader>t :GoTestFunc<CR>
+Xlet g:go_list_type = "quickfix"
+Xlet g:go_fmt_command = "goimports"
 Xlet g:go_highlight_functions = 1
 Xlet g:go_highlight_methods = 1
 Xlet g:go_highlight_structs = 1
 Xlet g:go_highlight_operators = 1
 Xlet g:go_highlight_build_constraints = 1
+Xlet g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 X
 X" diff highlights
 Xautocmd FileType * if &diff | setlocal syntax= | endif
@@ -4808,27 +4817,6 @@ Xcnoremap <c-h> <left>
 Xcnoremap <c-j> <down>
 Xcnoremap <c-k> <up>
 Xcnoremap <c-l> <right>
-X
-X" golang
-Xau FileType go nmap <leader>b <Plug>(go-build)
-Xau FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-Xau FileType go nmap <leader>d <Plug>(go-doc-vertical)
-Xau FileType go nmap <leader>r <Plug>(go-run)
-Xau FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
-Xau FileType go nmap <leader>cb <Plug>(go-coverage-browser)
-Xau FileType go nmap <leader>ds <Plug>(go-def-split)
-Xau FileType go nmap <leader>dv <Plug>(go-def-vertical)
-Xau FileType go nmap <leader>dt <Plug>(go-def-tab)
-Xau FileType go nmap <leader>i <Plug>(go-info)
-Xlet g:go_list_type = "quickfix"
-Xlet g:go_fmt_command = "goimports"
-Xlet g:go_highlight_functions = 1
-Xlet g:go_highlight_methods = 1
-Xlet g:go_highlight_fields = 1
-Xlet g:go_highlight_types = 1
-Xlet g:go_highlight_operators = 1
-Xlet g:go_highlight_build_constraints = 1
-Xlet g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 X
 X" sh as bash
 Xlet g:is_bash=1

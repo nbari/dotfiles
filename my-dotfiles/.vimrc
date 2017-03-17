@@ -368,20 +368,29 @@ nnoremap <leader>pj :%!python -m json.tool<CR>
 " Once you're on a particular one, use ga
 " to determine the ASCII value of the character in question, and
 nnoremap <leader>xa :/[^\x00-\x7F]<CR>
-"
+
 " sh
 set shell=/bin/sh
 
 " go
-au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
+au FileType go nmap <leader>ds <Plug>(go-def-split)
+au FileType go nmap <leader>dt <Plug>(go-def-tab)
+au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <leader>gd <Plug>(go-doc-browser)
+au FileType go nmap <leader>i <Plug>(go-info)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>t :GoTestFunc<CR>
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
 " diff highlights
 autocmd FileType * if &diff | setlocal syntax= | endif
@@ -409,27 +418,6 @@ cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 cnoremap <c-l> <right>
-
-" golang
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-au FileType go nmap <leader>d <Plug>(go-doc-vertical)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>t :wa<CR> :GolangTestCurrentPackage<CR>
-au FileType go nmap <leader>cb <Plug>(go-coverage-browser)
-au FileType go nmap <leader>ds <Plug>(go-def-split)
-au FileType go nmap <leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <leader>dt <Plug>(go-def-tab)
-au FileType go nmap <leader>i <Plug>(go-info)
-let g:go_list_type = "quickfix"
-let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
 " sh as bash
 let g:is_bash=1
