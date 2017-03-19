@@ -172,6 +172,9 @@ X# line & clock color
 Xsetw -g clock-mode-colour colour024
 Xset -g pane-border-style fg=colour235
 Xset -g pane-active-border-style fg=colour124
+X
+X# copy to clipboard
+Xbind-key -Tcopy-mode-vi 'Enter' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
