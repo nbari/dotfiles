@@ -25,6 +25,7 @@
 #	./.vim/syntax/php.vim
 #	./.vimrc
 #	./.zsh
+#	./.zsh/bookmarks
 #	./.zsh/functions
 #	./.zsh/functions/async
 #	./.zsh/functions/pure_prompt
@@ -4837,6 +4838,65 @@ Xnnoremap <leader>h :History<CR>
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
+echo x - ./.zsh/bookmarks
+sed 's/^X//' >./.zsh/bookmarks << 'END-of-./.zsh/bookmarks'
+X#!/usr/bin/env bash
+X# vim: set filetype=ruby:
+X# b - browse Chrome bookmarks with fzf
+X
+X[ $(uname) = Darwin ] || exit 1
+Xwhich fzf > /dev/null 2>&1 || brew reinstall --HEAD fzf || exit 1
+X
+X/usr/bin/ruby -x "$0"                                          |
+X  fzf-tmux -d 30% --ansi --multi --no-hscroll --tiebreak=begin |
+X  awk 'BEGIN { FS = "\t" } { print $2 }'                       |
+X  xargs open
+X
+Xexit $?
+X
+X#!ruby
+X# encoding: utf-8
+X
+Xrequire 'json'
+XFILE = '~/Library/Application Support/Google/Chrome/Default/Bookmarks'
+XCJK  = /\p{Han}|\p{Katakana}|\p{Hiragana}|\p{Hangul}/
+X
+Xdef build parent, json
+X  name = [parent, json['name']].compact.join('/')
+X  if json['type'] == 'folder'
+X    json['children'].map { |child| build name, child }
+X  else
+X    { name: name, url: json['url'] }
+X  end
+Xend
+X
+Xdef just str, width
+X  str.ljust(width - str.scan(CJK).length)
+Xend
+X
+Xdef trim str, width
+X  len = 0
+X  str.each_char.each_with_index do |char, idx|
+X    len += char =~ CJK ? 2 : 1
+X    return str[0, idx] if len > width
+X  end
+X  str
+Xend
+X
+Xwidth = `tput cols`.strip.to_i / 2
+Xjson  = JSON.load File.read File.expand_path FILE
+Xitems = json['roots']
+X        .values_at(*%w(bookmark_bar synced other))
+X        .compact
+X        .map { |e| build nil, e }
+X        .flatten
+X
+Xitems.each do |item|
+X  name = trim item[:name], width
+X  puts [just(name, width),
+X        item[:url]].join("\t\x1b[36m") + "\x1b[m"
+Xend
+END-of-./.zsh/bookmarks
 echo c - ./.zsh/functions
 mkdir -p ./.zsh/functions > /dev/null 2>&1
 echo x - ./.zsh/functions/async
@@ -6353,6 +6413,7 @@ Xalias 8='cd -8'
 Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
+Xalias bookmarks='~/.zsh/bookmarks'
 X
 X# checksum
 Xchecksum() {
@@ -6428,6 +6489,7 @@ X
 Xwttr() {
 X    curl "wttr.in/${1:-berlin}"
 X}
+X
 X
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
