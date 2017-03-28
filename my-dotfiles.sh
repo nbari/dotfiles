@@ -123,8 +123,6 @@ Xset-option -g status-right-length 90
 Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-position top
 X
-Xset -g window-status-format '#I #W'
-Xset -g window-status-current-format ' #I #W '
 Xsetw -g window-status-current-bg '#006994'
 Xsetw -g window-status-current-fg '#FFFFFF'
 Xsetw -g window-status-bg '#000000'
