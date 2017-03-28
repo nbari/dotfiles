@@ -7,6 +7,7 @@
 #
 #	.
 #	./.cshrc
+#	./.tmux-remote.conf
 #	./.tmux.conf
 #	./.vim
 #	./.vim/after
@@ -100,11 +101,64 @@ X  endif
 X
 Xendif
 END-of-./.cshrc
+echo x - ./.tmux-remote.conf
+sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
+X# vi bindings
+Xset-option -g status-key vi
+Xset-window-option -g mode-keys vi
+X
+X# Set the maximum number of lines held in window history.
+Xset -g history-limit 1000000
+Xset-option -g status-bg "#000000"
+Xset-option -g status-fg "#FDB813"
+Xset-option -g status-interval 5
+Xset-option -g status-right-length 90
+Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
+Xset-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")'
+Xset-option -g status-position bottom
+X
+Xsetw -g window-status-current-bg colour071
+Xsetw -g window-status-current-fg '#FFFFFF'
+Xsetw -g window-status-bg '#000000'
+Xsetw -g window-status-fg '#d3d3d3'
+X
+X# window title string (uses statusbar variables)
+Xset -g set-titles on
+Xset -g set-titles-string "#T"
+X
+X# keybindings to make resizing easier with HJKL
+Xbind -r h resize-pane -L
+Xbind -r j resize-pane -D
+Xbind -r k resize-pane -U
+Xbind -r l resize-pane -R
+Xbind -r H resize-pane -L 10
+Xbind -r J resize-pane -D 10
+Xbind -r K resize-pane -U 10
+Xbind -r L resize-pane -R 10
+X
+X# Smart pane switching with awareness of vim splits
+Xbind -n C-h if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-h" "select-pane -L"
+Xbind -n C-j if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-j" "select-pane -D"
+Xbind -n C-k if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-k" "select-pane -U"
+Xbind -n C-l if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-l" "select-pane -R"
+X
+X# easily toggle synchronization (mnemonic: e is for echo)
+Xbind e setw synchronize-panes on
+Xbind E setw synchronize-panes off
+X
+X# open in current_path
+Xbind c new-window -c '#{pane_current_path}'
+Xbind % split-window -h -c "#{pane_current_path}"
+Xbind '"' split-window -c "#{pane_current_path}"
+X
+X# reset & clear history
+Xbind r send-keys C-l \; clear-history \;
+X
+X# line color
+Xset -g pane-border-style fg=colour235
+END-of-./.tmux-remote.conf
 echo x - ./.tmux.conf
 sed 's/^X//' >./.tmux.conf << 'END-of-./.tmux.conf'
-X# utf8
-X# set-window-option -g utf8 on
-X
 X# zsh
 Xset-option -g default-shell /usr/local/bin/zsh
 Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
@@ -115,7 +169,6 @@ Xset-window-option -g mode-keys vi
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
-X# set-option -g status-utf8 on
 Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
 Xset-option -g status-interval 5
@@ -6394,7 +6447,6 @@ X# tmux
 Xalias t="tmux -2 attach -d || tmux -2 new"
 Xcompdef t=tmux
 Xalias tl='tmux list-sessions'
-Xalias tn='tmux -2 new'
 X# alias for directories
 Xalias -g ...='../..'
 Xalias -g ....='../../..'
@@ -6423,14 +6475,13 @@ Xiface(){
 X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
 X}
 X
-X# tmux
-Xts() {
-X    tmux switch -t $1
+X# tmux new sessions
+Xtn() {
+X    [[ ! -z $1 ]] && tmux -2 new -s $1
 X}
-X
-X# tmux open command in new window
-Xtc() {
-X    tmux new-window $1
+X# tmux attach
+Xta() {
+X    [[ ! -z $1 ]] && tmux attach -t $1
 X}
 X
 X# get PID/PGID/PPID/SID to certain process or pid:
@@ -6504,13 +6555,20 @@ X# ----------------------------------------------------------------------------
 Xsync-dotfiles() {
 X   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 X}
+X#
+X# ----------------------------------------------------------------------------
+X# sync .tmux.conf
+X# ----------------------------------------------------------------------------
+Xsync-tmux() {
+X   [[ ! -z $1 ]] && scp $HOME/projects/dotfiles/my-dotfiles/.tmux-remote.conf $1:~/.tmux.conf
+X}
 X
 X# ----------------------------------------------------------------------------
 X# ssh+tmux
 X# ----------------------------------------------------------------------------
 Xexport AUTOSSH_POLL=15
 Xs() {
-X  [[ ! -z $1 ]] && autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
+X  [[ ! -z $1 ]] && autossh -M 0 -t $@ "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
 X}
 Xcompdef s=ssh
 X

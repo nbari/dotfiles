@@ -163,7 +163,6 @@ alias gd="echo master diff:; git diff --name-status master develop"
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
 alias tl='tmux list-sessions'
-alias tn='tmux -2 new'
 # alias for directories
 alias -g ...='../..'
 alias -g ....='../../..'
@@ -192,14 +191,13 @@ iface(){
     route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
 }
 
-# tmux
-ts() {
-    tmux switch -t $1
+# tmux new sessions
+tn() {
+    [[ ! -z $1 ]] && tmux -2 new -s $1
 }
-
-# tmux open command in new window
-tc() {
-    tmux new-window $1
+# tmux attach
+ta() {
+    [[ ! -z $1 ]] && tmux attach -t $1
 }
 
 # get PID/PGID/PPID/SID to certain process or pid:
@@ -273,13 +271,20 @@ kill9() {
 sync-dotfiles() {
    [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 }
+#
+# ----------------------------------------------------------------------------
+# sync .tmux.conf
+# ----------------------------------------------------------------------------
+sync-tmux() {
+   [[ ! -z $1 ]] && scp $HOME/projects/dotfiles/my-dotfiles/.tmux-remote.conf $1:~/.tmux.conf
+}
 
 # ----------------------------------------------------------------------------
 # ssh+tmux
 # ----------------------------------------------------------------------------
 export AUTOSSH_POLL=15
 s() {
-  [[ ! -z $1 ]] && autossh -M 0 -t $1 "tmux -2 attach -t $USER$2 -d || tmux -2 new -s $USER$2"
+  [[ ! -z $1 ]] && autossh -M 0 -t $@ "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
 }
 compdef s=ssh
 
