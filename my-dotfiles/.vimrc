@@ -432,3 +432,6 @@ endif
 nnoremap <c-p> :Files<CR>
 nnoremap <leader>, :Buffers<CR>
 nnoremap <leader>h :History<CR>
+
+" rust
+let g:rustfmt_autosave = 1

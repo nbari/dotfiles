@@ -4886,6 +4886,9 @@ X" ctrl-p, buffers, history using fzf
 Xnnoremap <c-p> :Files<CR>
 Xnnoremap <leader>, :Buffers<CR>
 Xnnoremap <leader>h :History<CR>
+X
+X" rust
+Xlet g:rustfmt_autosave = 1
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
