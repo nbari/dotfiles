@@ -435,3 +435,6 @@ nnoremap <leader>h :History<CR>
 
 " rust
 let g:rustfmt_autosave = 1
+
+" yaml 2 spaces
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
