@@ -346,7 +346,7 @@ Xlet s:plug_tab = get(s:, 'plug_tab', -1)
 Xlet s:plug_buf = get(s:, 'plug_buf', -1)
 Xlet s:mac_gui = has('gui_macvim') && has('gui_running')
 Xlet s:is_win = has('win32') || has('win64')
-Xlet s:nvim = has('nvim') && exists('*jobwait') && !s:is_win
+Xlet s:nvim = has('nvim-0.2') || (has('nvim') && exists('*jobwait') && !s:is_win)
 Xlet s:vim8 = has('patch-8.0.0039') && exists('*job_start')
 Xlet s:me = resolve(expand('<sfile>:p'))
 Xlet s:base_spec = { 'branch': 'master', 'frozen': 0 }
@@ -696,11 +696,15 @@ X  if !empty(unknowns)
 X    let s = len(unknowns) > 1 ? 's' : ''
 X    return s:err(printf('Unknown plugin%s: %s', s, join(unknowns, ', ')))
 X  end
-X  for name in a:000
-X    call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
-X  endfor
-X  call s:dobufread(a:000)
-X  return 1
+X  let unloaded = filter(copy(a:000), '!get(s:loaded, v:val, 0)')
+X  if !empty(unloaded)
+X    for name in unloaded
+X      call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+X    endfor
+X    call s:dobufread(unloaded)
+X    return 1
+X  end
+X  return 0
 Xendfunction
 X
 Xfunction! s:remove_triggers(name)
@@ -1312,7 +1316,7 @@ X        let out = s:checkout(spec)
 X      elseif has_key(spec, 'tag')
 X        let tag = spec.tag
 X        if tag =~ '\*'
-X          let tags = s:lines(s:system('git tag --list '.string(tag).' --sort -version:refname 2>&1', spec.dir))
+X          let tags = s:lines(s:system('git tag --list '.s:shellesc(tag).' --sort -version:refname 2>&1', spec.dir))
 X          if !v:shell_error && !empty(tags)
 X            let tag = tags[0]
 X            call s:log4(name, printf('Latest tag for %s -> %s', spec.tag, tag))
@@ -2271,7 +2275,7 @@ X      let branch = result[0]
 X      " Check tag
 X      if has_key(a:spec, 'tag')
 X        let tag = s:system_chomp('git describe --exact-match --tags HEAD 2>&1', a:spec.dir)
-X        if a:spec.tag !=# tag
+X        if a:spec.tag !=# tag && a:spec.tag !~ '\*'
 X          let err = printf('Invalid tag: %s (expected: %s). Try PlugUpdate.',
 X                \ (empty(tag) ? 'N/A' : tag), a:spec.tag)
 X        endif
