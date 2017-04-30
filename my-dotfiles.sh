@@ -6273,6 +6273,7 @@ X
 Xexport ANSIBLE_HOSTS=~/ansible/hosts
 Xexport ANSIBLE_CONFIG=~/ansible/ansible.cfg
 Xexport ANSIBLE_RETRY_FILES_ENABLE=0
+Xexport JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
 X
 X# The next line updates PATH for the Google Cloud SDK.
 Xif [[  -a ~/google-cloud-sdk/path.zsh.inc ]]; then

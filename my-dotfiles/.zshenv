@@ -5,6 +5,7 @@
 export ANSIBLE_HOSTS=~/ansible/hosts
 export ANSIBLE_CONFIG=~/ansible/ansible.cfg
 export ANSIBLE_RETRY_FILES_ENABLE=0
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
 
 # The next line updates PATH for the Google Cloud SDK.
 if [[  -a ~/google-cloud-sdk/path.zsh.inc ]]; then
