@@ -6671,6 +6671,11 @@ X# --glob: Additional conditions for search (in this case ignore everything in t
 Xexport FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 Xexport FZF_TMUX=1
 X[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+X
+X# command history
+Xfh() {
+X  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+X}
 END-of-./.zshrc
 exit
 
