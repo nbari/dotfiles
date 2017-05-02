@@ -828,7 +828,7 @@ X    if repo =~ ':'
 X      let uri = repo
 X    else
 X      if repo !~ '/'
-X        let repo = 'vim-scripts/'. repo
+X        throw printf('Invalid argument: %s (implicit `vim-scripts'' expansion is deprecated)', repo)
 X      endif
 X      let fmt = get(g:, 'plug_url_format', 'https://git::@github.com/%s.git')
 X      let uri = printf(fmt, repo)
