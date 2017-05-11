@@ -27,7 +27,7 @@ fi
 # ----------------------------------------------------------------------------
 # exports
 # ----------------------------------------------------------------------------
-export PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
 # remove duplicates in the PATH
 typeset -U PATH
 export CLICOLOR=1

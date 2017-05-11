@@ -207,6 +207,11 @@ Xbind-key -n C-j if-shell "$not_tmux" "send-keys C-j" "select-pane -D"
 Xbind-key -n C-k if-shell "$not_tmux" "send-keys C-k" "select-pane -U"
 Xbind-key -n C-l if-shell "$not_tmux" "send-keys C-l" "select-pane -R"
 Xbind-key -n C-\ if-shell "$not_tmux" "send-keys C-\\" "select-pane -l"
+Xbind-key -T copy-mode-vi C-h select-pane -L
+Xbind-key -T copy-mode-vi C-j select-pane -D
+Xbind-key -T copy-mode-vi C-k select-pane -U
+Xbind-key -T copy-mode-vi C-l select-pane -R
+Xbind-key -T copy-mode-vi C-\ select-pane -l
 X
 X# easily toggle synchronization (mnemonic: e is for echo)
 Xbind e setw synchronize-panes on
@@ -6322,7 +6327,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
+Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
