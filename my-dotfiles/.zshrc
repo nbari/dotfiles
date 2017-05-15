@@ -31,6 +31,8 @@ export PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/nod
 # remove duplicates in the PATH
 typeset -U PATH
 export CLICOLOR=1
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Do we need Linux or BSD Style?
 if ls --color -d . &>/dev/null 2>&1

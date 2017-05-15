@@ -6331,6 +6331,8 @@ Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/no
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
+Xexport LC_ALL=en_US.UTF-8
+Xexport LANG=en_US.UTF-8
 X
 X# Do we need Linux or BSD Style?
 Xif ls --color -d . &>/dev/null 2>&1
