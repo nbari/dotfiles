@@ -696,12 +696,13 @@ X  endif
 X  if !exists('g:plugs')
 X    return s:err('plug#begin was not called')
 X  endif
-X  let unknowns = filter(copy(a:000), '!has_key(g:plugs, v:val)')
+X  let names = a:0 == 1 && type(a:1) == s:TYPE.list ? a:1 : a:000
+X  let unknowns = filter(copy(names), '!has_key(g:plugs, v:val)')
 X  if !empty(unknowns)
 X    let s = len(unknowns) > 1 ? 's' : ''
 X    return s:err(printf('Unknown plugin%s: %s', s, join(unknowns, ', ')))
 X  end
-X  let unloaded = filter(copy(a:000), '!get(s:loaded, v:val, 0)')
+X  let unloaded = filter(copy(names), '!get(s:loaded, v:val, 0)')
 X  if !empty(unloaded)
 X    for name in unloaded
 X      call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
@@ -6327,7 +6328,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/usr/X11R6/bin:/usr/local/mysql/bin:/usr/share/bin:$HOME/projects/go/bin:$HOME/.cargo/bin:$PATH"
+Xexport PATH="$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
