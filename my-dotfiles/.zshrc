@@ -257,6 +257,9 @@ wttr() {
     curl "wttr.in/${1:-berlin}"
 }
 
+curl_time() {
+    curl -o /dev/null -s -w "%{time_connect} + %{time_starttransfer} = %{time_total}sec\nsize_download: %{size_download} bytes\n" "$1"
+}
 
 # ----------------------------------------------------------------------------
 # Kill all process that match $1
@@ -273,7 +276,7 @@ kill9() {
 sync-dotfiles() {
    [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 }
-#
+
 # ----------------------------------------------------------------------------
 # sync .tmux.conf
 # ----------------------------------------------------------------------------
