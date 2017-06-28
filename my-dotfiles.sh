@@ -4497,7 +4497,6 @@ XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'scrooloose/syntastic'
-XPlug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
