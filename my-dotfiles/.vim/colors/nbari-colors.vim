@@ -47,7 +47,8 @@ hi PmenuSbar       ctermbg=248
 hi PmenuSel        cterm=reverse ctermfg=250 ctermbg=239
 hi PmenuThumb      cterm=reverse
 hi Question        term=standout ctermfg=143
-hi Search          term=reverse ctermfg=235 ctermbg=222
+hi Search          ctermfg=196 ctermbg=235
+" hi Search          term=reverse ctermfg=235 ctermbg=222
 hi SignColumn      term=standout ctermfg=14 ctermbg=235
 hi SpecialKey      term=bold ctermfg=239
 hi SpellBad        term=reverse ctermbg=52

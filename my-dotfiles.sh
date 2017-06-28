@@ -375,6 +375,9 @@ X    let home = s:path(split(&rtp, ',')[0]) . '/plugged'
 X  else
 X    return s:err('Unable to determine plug home. Try calling plug#begin() with a path argument.')
 X  endif
+X  if fnamemodify(home, ':t') ==# 'plugin' && fnamemodify(home, ':h') ==# s:first_rtp
+X    return s:err('Invalid plug home. '.home.' is a standard Vim runtime path and is not allowed.')
+X  endif
 X
 X  let g:plug_home = home
 X  let g:plugs = {}
@@ -2761,7 +2764,8 @@ Xhi PmenuSbar       ctermbg=248
 Xhi PmenuSel        cterm=reverse ctermfg=250 ctermbg=239
 Xhi PmenuThumb      cterm=reverse
 Xhi Question        term=standout ctermfg=143
-Xhi Search          term=reverse ctermfg=235 ctermbg=222
+Xhi Search          ctermfg=196 ctermbg=235
+X" hi Search          term=reverse ctermfg=235 ctermbg=222
 Xhi SignColumn      term=standout ctermfg=14 ctermbg=235
 Xhi SpecialKey      term=bold ctermfg=239
 Xhi SpellBad        term=reverse ctermbg=52
