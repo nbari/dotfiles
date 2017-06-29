@@ -258,7 +258,15 @@ wttr() {
 }
 
 curl_time() {
-    curl -o /dev/null -s -w "%{time_connect} + %{time_starttransfer} = %{time_total}sec\nsize_download: %{size_download} bytes\n" "$1"
+    curl -o /dev/null -Ls -w " \
+   time_namelookup:  %{time_namelookup}\n \
+      time_connect:  %{time_connect}\n \
+   time_appconnect:  %{time_appconnect}\n \
+  time_pretransfer:  %{time_pretransfer}\n \
+     time_redirect:  %{time_redirect}\n \
+time_starttransfer:  %{time_starttransfer}\n \
+                   ----------\n \
+        time_total:  %{time_total}\n" "$1"
 }
 
 # ----------------------------------------------------------------------------

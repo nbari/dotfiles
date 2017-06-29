@@ -4904,7 +4904,7 @@ X" rust
 Xlet g:rustfmt_autosave = 1
 X
 X" yaml 2 spaces
-Xautocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+Xautocmd FileType *.yaml setlocal ts=2 sts=2 sw=2 expandtab
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
@@ -6561,6 +6561,17 @@ Xwttr() {
 X    curl "wttr.in/${1:-berlin}"
 X}
 X
+Xcurl_time() {
+X    curl -o /dev/null -Ls -w " \
+X   time_namelookup:  %{time_namelookup}\n \
+X      time_connect:  %{time_connect}\n \
+X   time_appconnect:  %{time_appconnect}\n \
+X  time_pretransfer:  %{time_pretransfer}\n \
+X     time_redirect:  %{time_redirect}\n \
+Xtime_starttransfer:  %{time_starttransfer}\n \
+X                   ----------\n \
+X        time_total:  %{time_total}\n" "$1"
+X}
 X
 X# ----------------------------------------------------------------------------
 X# Kill all process that match $1
@@ -6577,7 +6588,7 @@ X# ----------------------------------------------------------------------------
 Xsync-dotfiles() {
 X   [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 X}
-X#
+X
 X# ----------------------------------------------------------------------------
 X# sync .tmux.conf
 X# ----------------------------------------------------------------------------
