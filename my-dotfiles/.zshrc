@@ -182,6 +182,7 @@ alias 9='cd -9'
 alias d='dirs -v | head -10'
 alias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 alias bookmarks='~/.zsh/bookmarks'
+alias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 
 # checksum
 checksum() {

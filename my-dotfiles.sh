@@ -19,11 +19,14 @@
 #	./.vim/colors
 #	./.vim/colors/nbari-colors.vim
 #	./.vim/filetype.vim
+#	./.vim/ftdetect
+#	./.vim/ftdetect/proto.vim
 #	./.vim/syntax
 #	./.vim/syntax/haproxy.vim
 #	./.vim/syntax/jquery.vim
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
+#	./.vim/syntax/proto.vim
 #	./.vimrc
 #	./.zsh
 #	./.zsh/bookmarks
@@ -2991,6 +2994,14 @@ X
 X" adjust the path to your ansible playbooks
 Xau BufRead,BufNewFile ~/ansible/*.yml,~/ansible/*/*.yml if &ft == '' | setfiletype ansible | endif
 END-of-./.vim/filetype.vim
+echo c - ./.vim/ftdetect
+mkdir -p ./.vim/ftdetect > /dev/null 2>&1
+echo x - ./.vim/ftdetect/proto.vim
+sed 's/^X//' >./.vim/ftdetect/proto.vim << 'END-of-./.vim/ftdetect/proto.vim'
+Xaugroup filetype
+X    au! BufRead,BufNewFile *.proto setfiletype proto
+Xaugroup end
+END-of-./.vim/ftdetect/proto.vim
 echo c - ./.vim/syntax
 mkdir -p ./.vim/syntax > /dev/null 2>&1
 echo x - ./.vim/syntax/haproxy.vim
@@ -4464,6 +4475,114 @@ Xendif
 X
 X" vim: ts=8 sts=2 sw=2 expandtab
 END-of-./.vim/syntax/php.vim
+echo x - ./.vim/syntax/proto.vim
+sed 's/^X//' >./.vim/syntax/proto.vim << 'END-of-./.vim/syntax/proto.vim'
+X" Protocol Buffers - Google's data interchange format
+X" Copyright 2008 Google Inc.  All rights reserved.
+X" https://developers.google.com/protocol-buffers/
+X"
+X" Redistribution and use in source and binary forms, with or without
+X" modification, are permitted provided that the following conditions are
+X" met:
+X"
+X"     * Redistributions of source code must retain the above copyright
+X" notice, this list of conditions and the following disclaimer.
+X"     * Redistributions in binary form must reproduce the above
+X" copyright notice, this list of conditions and the following disclaimer
+X" in the documentation and/or other materials provided with the
+X" distribution.
+X"     * Neither the name of Google Inc. nor the names of its
+X" contributors may be used to endorse or promote products derived from
+X" this software without specific prior written permission.
+X"
+X" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+X" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+X" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+X" A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+X" OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+X" SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+X" LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+X" DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+X" THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+X" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+X" OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+X
+X" This is the Vim syntax file for Google Protocol Buffers.
+X"
+X" Usage:
+X"
+X" 1. cp proto.vim ~/.vim/syntax/
+X" 2. Add the following to ~/.vimrc:
+X"
+X" augroup filetype
+X"   au! BufRead,BufNewFile *.proto setfiletype proto
+X" augroup end
+X"
+X" Or just create a new file called ~/.vim/ftdetect/proto.vim with the
+X" previous lines on it.
+X
+Xif version < 600
+X  syntax clear
+Xelseif exists("b:current_syntax")
+X  finish
+Xendif
+X
+Xsyn case match
+X
+Xsyn keyword pbTodo       contained TODO FIXME XXX
+Xsyn cluster pbCommentGrp contains=pbTodo
+X
+Xsyn keyword pbSyntax     syntax import option
+Xsyn keyword pbStructure  package message group oneof
+Xsyn keyword pbRepeat     optional required repeated
+Xsyn keyword pbDefault    default
+Xsyn keyword pbExtend     extend extensions to max reserved
+Xsyn keyword pbRPC        service rpc returns
+X
+Xsyn keyword pbType      int32 int64 uint32 uint64 sint32 sint64
+Xsyn keyword pbType      fixed32 fixed64 sfixed32 sfixed64
+Xsyn keyword pbType      float double bool string bytes
+Xsyn keyword pbTypedef   enum
+Xsyn keyword pbBool      true false
+X
+Xsyn match   pbInt     /-\?\<\d\+\>/
+Xsyn match   pbInt     /\<0[xX]\x+\>/
+Xsyn match   pbFloat   /\<-\?\d*\(\.\d*\)\?/
+Xsyn region  pbComment start="\/\*" end="\*\/" contains=@pbCommentGrp
+Xsyn region  pbComment start="//" skip="\\$" end="$" keepend contains=@pbCommentGrp
+Xsyn region  pbString  start=/"/ skip=/\\./ end=/"/
+Xsyn region  pbString  start=/'/ skip=/\\./ end=/'/
+X
+Xif version >= 508 || !exists("did_proto_syn_inits")
+X  if version < 508
+X    let did_proto_syn_inits = 1
+X    command -nargs=+ HiLink hi link <args>
+X  else
+X    command -nargs=+ HiLink hi def link <args>
+X  endif
+X
+X  HiLink pbTodo         Todo
+X
+X  HiLink pbSyntax       Include
+X  HiLink pbStructure    Structure
+X  HiLink pbRepeat       Repeat
+X  HiLink pbDefault      Keyword
+X  HiLink pbExtend       Keyword
+X  HiLink pbRPC          Keyword
+X  HiLink pbType         Type
+X  HiLink pbTypedef      Typedef
+X  HiLink pbBool         Boolean
+X
+X  HiLink pbInt          Number
+X  HiLink pbFloat        Float
+X  HiLink pbComment      Comment
+X  HiLink pbString       String
+X
+X  delcommand HiLink
+Xendif
+X
+Xlet b:current_syntax = "proto"
+END-of-./.vim/syntax/proto.vim
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
@@ -6486,6 +6605,7 @@ Xalias 9='cd -9'
 Xalias d='dirs -v | head -10'
 Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 Xalias bookmarks='~/.zsh/bookmarks'
+Xalias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 X
 X# checksum
 Xchecksum() {
