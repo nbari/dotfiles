@@ -5023,7 +5023,7 @@ X" rust
 Xlet g:rustfmt_autosave = 1
 X
 X" yaml 2 spaces
-Xautocmd FileType *.yaml setlocal ts=2 sts=2 sw=2 expandtab
+Xautocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
