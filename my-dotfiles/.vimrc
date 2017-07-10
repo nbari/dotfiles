@@ -213,13 +213,15 @@ nnoremap <leader>ff :Autoformat<CR>
 let g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
 
 " vim-php-cs-fixer
-let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
-let g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
-nnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
-
+" let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
+" let g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
+" nnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
 " Autocomplete PHP
-au FileType php set omnifunc=phpcomplete#CompletePHP
+" au FileType php set omnifunc=phpcomplete#CompletePHP
+
+" Autocomplete Python
 au FileType python set omnifunc=pythoncomplete#Complete
+
 imap <leader><tab> <c-x><c-o>
 
 " Python ident

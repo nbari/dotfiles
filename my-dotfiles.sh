@@ -4800,13 +4800,15 @@ X" echo "print 'coração niño'" | autopep8 -
 Xlet g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
 X
 X" vim-php-cs-fixer
-Xlet g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
-Xlet g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
-Xnnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
-X
+X" let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
+X" let g:php_cs_fixer_fixers_list = "indentation,linefeed,trailing_spaces,eof_ending,extra_empty_lines,controls_spaces,unused_use,phpdoc_params,visibility,return,braces,include,short_tag,php_closing_tag,psr0,elseif"
+X" nnoremap <silent><leader>pc :call PhpCsFixerFixFile()<CR>
 X" Autocomplete PHP
-Xau FileType php set omnifunc=phpcomplete#CompletePHP
+X" au FileType php set omnifunc=phpcomplete#CompletePHP
+X
+X" Autocomplete Python
 Xau FileType python set omnifunc=pythoncomplete#Complete
+X
 Ximap <leader><tab> <c-x><c-o>
 X
 X" Python ident
