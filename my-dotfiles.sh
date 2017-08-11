@@ -5027,6 +5027,9 @@ Xlet g:rustfmt_autosave = 1
 X
 X" yaml 2 spaces
 Xautocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+X
+X" terraform
+Xlet g:terraform_fmt_on_save = 1
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
