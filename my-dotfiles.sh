@@ -5622,7 +5622,7 @@ X# turns seconds into human readable time
 X# 165392 => 1d 21h 56m 32s
 X# https://github.com/sindresorhus/pretty-time-zsh
 Xprompt_pure_human_time_to_var() {
-X	local human=" " total_seconds=$1 var=$2
+X	local human total_seconds=$1 var=$2
 X	local days=$(( total_seconds / 60 / 60 / 24 ))
 X	local hours=$(( total_seconds / 60 / 60 % 24 ))
 X	local minutes=$(( total_seconds / 60 % 60 ))
@@ -5720,6 +5720,8 @@ X   print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 X}
 X
 Xprompt_pure_preprompt_render() {
+X	setopt localoptions noshwordsplit
+X
 X	# check that no command is currently running, the preprompt will otherwise be rendered in the wrong place
 X	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
 X
@@ -5860,6 +5862,7 @@ X    echo $GIT_STATE
 X}
 X
 Xprompt_pure_async_git_fetch() {
+X	setopt localoptions noshwordsplit
 X	# use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
 X	builtin cd -q "$*"
 X
@@ -5932,14 +5935,14 @@ X	esac
 X}
 X
 Xprompt_pure_setup() {
-X	# prevent percentage showing up
-X	# if output doesn't end with a newline
+X	# prevent percentage showing up if output doesn't end with a newline
 X	export PROMPT_EOL_MARK=''
 X
 X	prompt_opts=(subst percent)
 X
 X	zmodload zsh/datetime
 X	zmodload zsh/zle
+X    zmodload zsh/parameter
 X	autoload -Uz add-zsh-hook
 X	autoload -Uz vcs_info
 X	autoload -Uz async && async
