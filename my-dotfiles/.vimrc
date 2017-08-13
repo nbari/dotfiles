@@ -20,7 +20,7 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'hashivim/vim-terraform'
+" Plug 'hashivim/vim-terraform'
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jelera/vim-javascript-syntax'

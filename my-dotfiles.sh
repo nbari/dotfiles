@@ -2927,6 +2927,8 @@ Xhi goString        ctermfg=143
 Xhi goStructDef     ctermfg=137
 Xhi goTodo          ctermfg=222
 Xhi goType          ctermfg=167
+Xhi goPackage       ctermfg=167
+Xhi goImport        ctermfg=167
 Xhi goTypeConstructor ctermfg=222
 Xhi goTypeDecl      ctermfg=139
 Xhi goTypeName      ctermfg=072
@@ -4607,7 +4609,7 @@ XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
-XPlug 'hashivim/vim-terraform'
+X" Plug 'hashivim/vim-terraform'
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
