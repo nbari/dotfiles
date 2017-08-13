@@ -12,3 +12,4 @@ shar `find . -not -path "./.vim/bundle*" -not -path "./.vim/plugged*" -print` > 
 
 git add -A
 git commit -m "update `date`"
+git push
