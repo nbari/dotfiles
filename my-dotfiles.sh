@@ -2915,8 +2915,10 @@ Xhi goField         ctermfg=072
 Xhi goFloats        ctermfg=167
 Xhi goFormatSpecifier  ctermfg=114
 Xhi goFunction      ctermfg=231
+Xhi goImport        ctermfg=167
 Xhi goMethod        ctermfg=110
 Xhi goOperator      ctermfg=109
+Xhi goPackage       ctermfg=167
 Xhi goPointerOperator ctermfg=202
 Xhi goRawString     ctermfg=012
 Xhi goReceiverType  ctermfg=072
@@ -2927,12 +2929,12 @@ Xhi goString        ctermfg=143
 Xhi goStructDef     ctermfg=137
 Xhi goTodo          ctermfg=222
 Xhi goType          ctermfg=167
-Xhi goPackage       ctermfg=167
-Xhi goImport        ctermfg=167
 Xhi goTypeConstructor ctermfg=222
 Xhi goTypeDecl      ctermfg=139
 Xhi goTypeName      ctermfg=072
 Xhi goUnsignedInts  ctermfg=167
+Xhi goVar           ctermfg=139
+Xhi goSingleDecl    ctermfg=167
 X
 X" Rust
 Xhi rustAssert      ctermfg=72
@@ -4609,7 +4611,7 @@ XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
-X" Plug 'hashivim/vim-terraform'
+XPlug 'hashivim/vim-terraform'
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'

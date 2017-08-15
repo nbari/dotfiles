@@ -195,8 +195,10 @@ hi goField         ctermfg=072
 hi goFloats        ctermfg=167
 hi goFormatSpecifier  ctermfg=114
 hi goFunction      ctermfg=231
+hi goImport        ctermfg=167
 hi goMethod        ctermfg=110
 hi goOperator      ctermfg=109
+hi goPackage       ctermfg=167
 hi goPointerOperator ctermfg=202
 hi goRawString     ctermfg=012
 hi goReceiverType  ctermfg=072
@@ -207,12 +209,12 @@ hi goString        ctermfg=143
 hi goStructDef     ctermfg=137
 hi goTodo          ctermfg=222
 hi goType          ctermfg=167
-hi goPackage       ctermfg=167
-hi goImport        ctermfg=167
 hi goTypeConstructor ctermfg=222
 hi goTypeDecl      ctermfg=139
 hi goTypeName      ctermfg=072
 hi goUnsignedInts  ctermfg=167
+hi goVar           ctermfg=139
+hi goSingleDecl    ctermfg=167
 
 " Rust
 hi rustAssert      ctermfg=72
