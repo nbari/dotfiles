@@ -186,6 +186,7 @@ hi goBuiltins      ctermfg=139
 hi goComment       ctermfg=243
 hi goComplexes     ctermfg=167
 hi goConditional   ctermfg=139
+hi goConst         ctermfg=139
 hi goConstants     ctermfg=173
 hi goDeclType      ctermfg=222
 hi goDeclaration   ctermfg=139
@@ -204,6 +205,7 @@ hi goRawString     ctermfg=012
 hi goReceiverType  ctermfg=072
 hi goRepeat        ctermfg=111
 hi goSignedInts    ctermfg=167
+hi goSingleDecl    ctermfg=167
 hi goStatement     ctermfg=139
 hi goString        ctermfg=143
 hi goStructDef     ctermfg=137
@@ -214,7 +216,6 @@ hi goTypeDecl      ctermfg=139
 hi goTypeName      ctermfg=072
 hi goUnsignedInts  ctermfg=167
 hi goVar           ctermfg=139
-hi goSingleDecl    ctermfg=167
 
 " Rust
 hi rustAssert      ctermfg=72

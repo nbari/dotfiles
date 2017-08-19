@@ -2906,6 +2906,7 @@ Xhi goBuiltins      ctermfg=139
 Xhi goComment       ctermfg=243
 Xhi goComplexes     ctermfg=167
 Xhi goConditional   ctermfg=139
+Xhi goConst         ctermfg=139
 Xhi goConstants     ctermfg=173
 Xhi goDeclType      ctermfg=222
 Xhi goDeclaration   ctermfg=139
@@ -2924,6 +2925,7 @@ Xhi goRawString     ctermfg=012
 Xhi goReceiverType  ctermfg=072
 Xhi goRepeat        ctermfg=111
 Xhi goSignedInts    ctermfg=167
+Xhi goSingleDecl    ctermfg=167
 Xhi goStatement     ctermfg=139
 Xhi goString        ctermfg=143
 Xhi goStructDef     ctermfg=137
@@ -2934,7 +2936,6 @@ Xhi goTypeDecl      ctermfg=139
 Xhi goTypeName      ctermfg=072
 Xhi goUnsignedInts  ctermfg=167
 Xhi goVar           ctermfg=139
-Xhi goSingleDecl    ctermfg=167
 X
 X" Rust
 Xhi rustAssert      ctermfg=72
