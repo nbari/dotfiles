@@ -398,6 +398,8 @@ fh() {
     print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
 
+# add current time to the right
+RPROMPT='%F{8}%*%f'
 preexec () {
     str='%F{8}%*%f'
     pos=$(( COLUMNS - 7 ))

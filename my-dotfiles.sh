@@ -6827,6 +6827,8 @@ Xfh() {
 X    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 X}
 X
+X# add current time to the right
+XRPROMPT='%F{8}%*%f'
 Xpreexec () {
 X    str='%F{8}%*%f'
 X    pos=$(( COLUMNS - 7 ))
