@@ -200,7 +200,7 @@ prompt_pure_preprompt_render() {
 		zle && zle .reset-prompt
 	fi
 
-    prompt_pure_apply_rprompt
+#    prompt_pure_apply_rprompt
 
 	# store previous preprompt for comparison
 	prompt_pure_last_preprompt=$preprompt

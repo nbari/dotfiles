@@ -174,7 +174,7 @@ X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
 Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
-Xset-option -g status-interval 5
+Xset-option -g status-interval 1
 Xset-option -g status-right-length 90
 Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-position top
@@ -5799,7 +5799,7 @@ X		# redraw prompt (also resets cursor position)
 X		zle && zle .reset-prompt
 X	fi
 X
-X    prompt_pure_apply_rprompt
+X#    prompt_pure_apply_rprompt
 X
 X	# store previous preprompt for comparison
 X	prompt_pure_last_preprompt=$preprompt
@@ -6800,10 +6800,10 @@ X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
 Xautoload -U pure_prompt && pure_prompt
-XTMOUT=1
-XTRAPALRM() {
-X    prompt_pure_apply_rprompt
-X}
+X#TMOUT=1
+X#TRAPALRM() {
+X#    prompt_pure_apply_rprompt
+X#}
 X
 X# ----------------------------------------------------------------------------
 X# tmux
