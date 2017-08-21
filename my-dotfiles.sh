@@ -6831,7 +6831,7 @@ X# add current time to the right
 XRPROMPT='%F{8}%*%f'
 Xpreexec () {
 X    str='%F{8}%*%f'
-X    pos=$(( COLUMNS - 7 ))
+X    pos=$(( COLUMNS - 8 ))
 X    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 X}
 END-of-./.zshrc

@@ -402,6 +402,6 @@ fh() {
 RPROMPT='%F{8}%*%f'
 preexec () {
     str='%F{8}%*%f'
-    pos=$(( COLUMNS - 7 ))
+    pos=$(( COLUMNS - 8 ))
     print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 }
