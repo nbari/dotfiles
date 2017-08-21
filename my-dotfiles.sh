@@ -5972,7 +5972,7 @@ X    # show username@host if root, with username in red
 X    [[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PURE_PROMPT_SYMBOL='%F{3}#'
 X
 X    # prompt turns red if the previous command didn't exit with 0
-X    PROMPT="%(?.%F{5}.%F{1})${PURE_PROMPT_SYMBOL:-$}%f "
+X    PROMPT="%(?.%F{5}.%F{196})${PURE_PROMPT_SYMBOL:-$}%f "
 X}
 X
 Xprompt_pure_setup "$@"
