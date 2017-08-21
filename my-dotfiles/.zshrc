@@ -363,10 +363,6 @@ bindkey -M vicmd v edit-command-line
 # prompt
 # ----------------------------------------------------------------------------
 autoload -U pure_prompt && pure_prompt
-#TMOUT=1
-#TRAPALRM() {
-#    prompt_pure_apply_rprompt
-#}
 
 # ----------------------------------------------------------------------------
 # tmux

@@ -174,7 +174,7 @@ X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
 Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
-Xset-option -g status-interval 1
+Xset-option -g status-interval 5
 Xset-option -g status-right-length 90
 Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-position top
@@ -5627,117 +5627,111 @@ X# turns seconds into human readable time
 X# 165392 => 1d 21h 56m 32s
 X# https://github.com/sindresorhus/pretty-time-zsh
 Xprompt_pure_human_time_to_var() {
-X	local human total_seconds=$1 var=$2
-X	local days=$(( total_seconds / 60 / 60 / 24 ))
-X	local hours=$(( total_seconds / 60 / 60 % 24 ))
-X	local minutes=$(( total_seconds / 60 % 60 ))
-X	local seconds=$(( total_seconds % 60 ))
-X	(( days > 0 )) && human+="${days}d "
-X	(( hours > 0 )) && human+="${hours}h "
-X	(( minutes > 0 )) && human+="${minutes}m "
-X	human+="${seconds}s"
+X    local human total_seconds=$1 var=$2
+X    local days=$(( total_seconds / 60 / 60 / 24 ))
+X    local hours=$(( total_seconds / 60 / 60 % 24 ))
+X    local minutes=$(( total_seconds / 60 % 60 ))
+X    local seconds=$(( total_seconds % 60 ))
+X    (( days > 0 )) && human+="${days}d "
+X    (( hours > 0 )) && human+="${hours}h "
+X    (( minutes > 0 )) && human+="${minutes}m "
+X    human+="${seconds}s"
 X
-X	# store human readable time in variable as specified by caller
-X	typeset -g "${var}"="${human}"
+X    # store human readable time in variable as specified by caller
+X    typeset -g "${var}"="${human}"
 X}
 X
 X# stores (into prompt_pure_cmd_exec_time) the exec time of the last command if set threshold was exceeded
 Xprompt_pure_check_cmd_exec_time() {
-X	integer elapsed
-X	(( elapsed = EPOCHSECONDS - ${prompt_pure_cmd_timestamp:-$EPOCHSECONDS} ))
-X	prompt_pure_cmd_exec_time=
-X	(( elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5} )) && {
-X		prompt_pure_human_time_to_var $elapsed "prompt_pure_cmd_exec_time"
-X	}
+X    integer elapsed
+X    (( elapsed = EPOCHSECONDS - ${prompt_pure_cmd_timestamp:-$EPOCHSECONDS} ))
+X    prompt_pure_cmd_exec_time=
+X    (( elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5} )) && {
+X        prompt_pure_human_time_to_var $elapsed "prompt_pure_cmd_exec_time"
+X}
 X}
 X
 Xprompt_pure_clear_screen() {
-X	# enable output to terminal
-X	zle -I
-X	# clear screen and move cursor to (0, 0)
-X	print -n '\e[2J\e[0;0H'
-X	# print preprompt
-X	prompt_pure_preprompt_render precmd
+X    # enable output to terminal
+X    zle -I
+X    # clear screen and move cursor to (0, 0)
+X    print -n '\e[2J\e[0;0H'
+X    # print preprompt
+X    prompt_pure_preprompt_render precmd
 X}
 X
 Xprompt_pure_check_git_arrows() {
-X	# reset git arrows
-X	prompt_pure_git_arrows=
+X    # reset git arrows
+X    prompt_pure_git_arrows=
 X
-X	# check if there is an upstream configured for this branch
-X	command git rev-parse --abbrev-ref @'{u}' &>/dev/null || return
+X    # check if there is an upstream configured for this branch
+X    command git rev-parse --abbrev-ref @'{u}' &>/dev/null || return
 X
-X	local arrow_status
-X	# check git left and right arrow_status
-X	arrow_status="$(command git rev-list --left-right --count HEAD...@'{u}' 2>/dev/null)"
-X	# exit if the command failed
-X	(( !$? )) || return
+X    local arrow_status
+X    # check git left and right arrow_status
+X    arrow_status="$(command git rev-list --left-right --count HEAD...@'{u}' 2>/dev/null)"
+X    # exit if the command failed
+X    (( !$? )) || return
 X
-X	# left and right are tab-separated, split on tab and store as array
-X	arrow_status=(${(ps:\t:)arrow_status})
-X	local arrows left=${arrow_status[1]} right=${arrow_status[2]}
+X    # left and right are tab-separated, split on tab and store as array
+X    arrow_status=(${(ps:\t:)arrow_status})
+X    local arrows left=${arrow_status[1]} right=${arrow_status[2]}
 X
-X	(( ${right:-0} > 0 )) && arrows+="${PURE_GIT_DOWN_ARROW:-⇣}"
-X	(( ${left:-0} > 0 )) && arrows+="${PURE_GIT_UP_ARROW:-⇡}"
+X    (( ${right:-0} > 0 )) && arrows+="${PURE_GIT_DOWN_ARROW:-⇣}"
+X    (( ${left:-0} > 0 )) && arrows+="${PURE_GIT_UP_ARROW:-⇡}"
 X
-X	[[ -n $arrows ]] && prompt_pure_git_arrows=" ${arrows}"
+X    [[ -n $arrows ]] && prompt_pure_git_arrows=" ${arrows}"
 X}
 X
 Xprompt_pure_set_title() {
-X	# tell the terminal we are setting the title
-X	print -n '\e]0;'
-X	# show hostname if connected through ssh
-X	[[ -n $SSH_CONNECTION ]] && print -Pn '(%m) '
-X	case $1 in
-X		expand-prompt)
-X			print -Pn $2;;
-X		ignore-escape)
-X			print -rn $2;;
-X	esac
-X	# end set title
-X	print -n '\a'
+X    # tell the terminal we are setting the title
+X    print -n '\e]0;'
+X    # show hostname if connected through ssh
+X    [[ -n $SSH_CONNECTION ]] && print -Pn '(%m) '
+X    case $1 in
+X        expand-prompt)
+X            print -Pn $2;;
+X        ignore-escape)
+X            print -rn $2;;
+X    esac
+X    # end set title
+X    print -n '\a'
 X}
 X
 Xprompt_pure_preexec() {
-X	# attempt to detect and prevent prompt_pure_async_git_fetch from interfering with user initiated git or hub fetch
-X	[[ $2 =~ (git|hub)\ .*(pull|fetch) ]] && async_flush_jobs 'prompt_pure'
+X    # attempt to detect and prevent prompt_pure_async_git_fetch from interfering with user initiated git or hub fetch
+X    [[ $2 =~ (git|hub)\ .*(pull|fetch) ]] && async_flush_jobs 'prompt_pure'
 X
-X	prompt_pure_cmd_timestamp=$EPOCHSECONDS
+X    prompt_pure_cmd_timestamp=$EPOCHSECONDS
 X
-X	# shows the current dir and executed command in the title while a process is active
-X	prompt_pure_set_title 'ignore-escape' "$PWD:t: $2"
+X    # shows the current dir and executed command in the title while a process is active
+X    prompt_pure_set_title 'ignore-escape' "$PWD:t: $2"
 X}
 X
 X# string length ignoring ansi escapes
 Xprompt_pure_string_length_to_var() {
-X	local str=$1 var=$2 length
-X	# perform expansion on str and check length
-X	length=$(( ${#${(S%%)str//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+X    local str=$1 var=$2 length
+X    # perform expansion on str and check length
+X    length=$(( ${#${(S%%)str//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
 X
-X	# store string length in variable as specified by caller
-X	typeset -g "${var}"="${length}"
-X}
-X
-Xprompt_pure_apply_rprompt() {
-X   str='%F{8}%*%f'
-X   pos=$(( COLUMNS - 7 ))
-X   print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
+X    # store string length in variable as specified by caller
+X    typeset -g "${var}"="${length}"
 X}
 X
 Xprompt_pure_preprompt_render() {
-X	setopt localoptions noshwordsplit
+X    setopt localoptions noshwordsplit
 X
-X	# check that no command is currently running, the preprompt will otherwise be rendered in the wrong place
-X	[[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
+X    # check that no command is currently running, the preprompt will otherwise be rendered in the wrong place
+X    [[ -n ${prompt_pure_cmd_timestamp+x} && "$1" != "precmd" ]] && return
 X
-X	# set color for git branch/dirty status, change color if dirty checking has been delayed
-X	local git_color=yellow
-X	[[ -n ${prompt_pure_git_last_dirty_check_timestamp+x} ]] && git_color=196
+X    # set color for git branch/dirty status, change color if dirty checking has been delayed
+X    local git_color=yellow
+X    [[ -n ${prompt_pure_git_last_dirty_check_timestamp+x} ]] && git_color=196
 X
-X	# construct preprompt, beginning with path
-X	local preprompt="${prompt_pure_username} %F{074}%~%f"
+X    # construct preprompt, beginning with path
+X    local preprompt="${prompt_pure_username} %F{074}%~%f"
 X
-X	# git info
+X    # git info
 X    local git_branch=$vcs_info_msg_0_
 X
 X    # if branch = master | merge <--- color in red for master & merge
@@ -5745,101 +5739,99 @@ X    [[ ${git_branch//[[:space:]]} == (*"|merge"|"master") ]] && git_branch=" %F
 X
 X    preprompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
 X
-X	# git pull/push arrows
-X	preprompt+="%F{cyan}${prompt_pure_git_arrows}%f"
-X	# execution time
-X	preprompt+="%F{red}${prompt_pure_cmd_exec_time}%f"
+X    # git pull/push arrows
+X    preprompt+="%F{cyan}${prompt_pure_git_arrows}%f"
+X    # execution time
+X    preprompt+="%F{red}${prompt_pure_cmd_exec_time}%f"
 X
-X	# if executing through precmd, do not perform fancy terminal editing
-X	if [[ "$1" == "precmd" ]]; then
-X		print -P "${preprompt}"
-X	else
-X		# only redraw if preprompt has changed
-X		[[ "${prompt_pure_last_preprompt}" != "${preprompt}" ]] || return
+X    # if executing through precmd, do not perform fancy terminal editing
+X    if [[ "$1" == "precmd" ]]; then
+X        print -P "${preprompt}"
+X    else
+X        # only redraw if preprompt has changed
+X        [[ "${prompt_pure_last_preprompt}" != "${preprompt}" ]] || return
 X
-X		# calculate length of preprompt and store it locally in preprompt_length
-X		integer preprompt_length lines
-X		prompt_pure_string_length_to_var "${preprompt}" "preprompt_length"
+X        # calculate length of preprompt and store it locally in preprompt_length
+X        integer preprompt_length lines
+X        prompt_pure_string_length_to_var "${preprompt}" "preprompt_length"
 X
-X		# calculate number of preprompt lines for redraw purposes
-X		(( lines = ( preprompt_length - 1 ) / COLUMNS + 1 ))
+X        # calculate number of preprompt lines for redraw purposes
+X        (( lines = ( preprompt_length - 1 ) / COLUMNS + 1 ))
 X
-X		# calculate previous preprompt lines to figure out how the new preprompt should behave
-X		integer last_preprompt_length last_lines
-X		prompt_pure_string_length_to_var "${prompt_pure_last_preprompt}" "last_preprompt_length"
-X		(( last_lines = ( last_preprompt_length - 1 ) / COLUMNS + 1 ))
+X        # calculate previous preprompt lines to figure out how the new preprompt should behave
+X        integer last_preprompt_length last_lines
+X        prompt_pure_string_length_to_var "${prompt_pure_last_preprompt}" "last_preprompt_length"
+X        (( last_lines = ( last_preprompt_length - 1 ) / COLUMNS + 1 ))
 X
-X		# clr_prev_preprompt erases visual artifacts from previous preprompt
-X		local clr_prev_preprompt
-X		if (( last_lines > lines )); then
-X			# move cursor up by last_lines, clear the line and move it down by one line
-X			clr_prev_preprompt="\e[${last_lines}A\e[2K\e[1B"
-X			while (( last_lines - lines > 1 )); do
-X				# clear the line and move cursor down by one
-X				clr_prev_preprompt+='\e[2K\e[1B'
-X				(( last_lines-- ))
-X			done
+X        # clr_prev_preprompt erases visual artifacts from previous preprompt
+X        local clr_prev_preprompt
+X        if (( last_lines > lines )); then
+X            # move cursor up by last_lines, clear the line and move it down by one line
+X            clr_prev_preprompt="\e[${last_lines}A\e[2K\e[1B"
+X            while (( last_lines - lines > 1 )); do
+X                # clear the line and move cursor down by one
+X                clr_prev_preprompt+='\e[2K\e[1B'
+X                (( last_lines-- ))
+X            done
 X
-X			# move cursor into correct position for preprompt update
-X			clr_prev_preprompt+="\e[${lines}B"
-X		# create more space for preprompt if new preprompt has more lines than last
-X		elif (( last_lines < lines )); then
-X			# move cursor using newlines because ansi cursor movement can't push the cursor beyond the last line
-X			printf $'\n'%.0s {1..$(( lines - last_lines ))}
-X		fi
+X            # move cursor into correct position for preprompt update
+X            clr_prev_preprompt+="\e[${lines}B"
+X            # create more space for preprompt if new preprompt has more lines than last
+X        elif (( last_lines < lines )); then
+X            # move cursor using newlines because ansi cursor movement can't push the cursor beyond the last line
+X            printf $'\n'%.0s {1..$(( lines - last_lines ))}
+X        fi
 X
-X		# disable clearing of line if last char of preprompt is last column of terminal
-X		local clr='\e[K'
-X		(( COLUMNS * lines == preprompt_length )) && clr=
+X        # disable clearing of line if last char of preprompt is last column of terminal
+X        local clr='\e[K'
+X        (( COLUMNS * lines == preprompt_length )) && clr=
 X
-X		# modify previous preprompt
-X		print -Pn "\e7${clr_prev_preprompt}\e[${lines}A\e[1G${preprompt}${clr}\e8"
+X        # modify previous preprompt
+X        print -Pn "\e7${clr_prev_preprompt}\e[${lines}A\e[1G${preprompt}${clr}\e8"
 X
-X		# redraw prompt (also resets cursor position)
-X		zle && zle .reset-prompt
-X	fi
+X        # redraw prompt (also resets cursor position)
+X        zle && zle .reset-prompt
+X    fi
 X
-X#    prompt_pure_apply_rprompt
-X
-X	# store previous preprompt for comparison
-X	prompt_pure_last_preprompt=$preprompt
+X    # store previous preprompt for comparison
+X    prompt_pure_last_preprompt=$preprompt
 X}
 X
 Xprompt_pure_precmd() {
-X	# check exec time and store it in a variable
-X	prompt_pure_check_cmd_exec_time
+X    # check exec time and store it in a variable
+X    prompt_pure_check_cmd_exec_time
 X
-X	# by making sure that prompt_pure_cmd_timestamp is defined here the async functions are prevented from interfering
-X	# with the initial preprompt rendering
-X	prompt_pure_cmd_timestamp=
+X    # by making sure that prompt_pure_cmd_timestamp is defined here the async functions are prevented from interfering
+X    # with the initial preprompt rendering
+X    prompt_pure_cmd_timestamp=
 X
-X	# check for git arrows
-X	prompt_pure_check_git_arrows
+X    # check for git arrows
+X    prompt_pure_check_git_arrows
 X
-X	# shows the full path in the title
-X	prompt_pure_set_title 'expand-prompt' '%~'
+X    # shows the full path in the title
+X    prompt_pure_set_title 'expand-prompt' '%~'
 X
-X	# get vcs info
-X	vcs_info
+X    # get vcs info
+X    vcs_info
 X
-X	# preform async git dirty check and fetch
-X	prompt_pure_async_tasks
+X    # preform async git dirty check and fetch
+X    prompt_pure_async_tasks
 X
-X	# print the preprompt
-X	prompt_pure_preprompt_render "precmd"
+X    # print the preprompt
+X    prompt_pure_preprompt_render "precmd"
 X
-X	# remove the prompt_pure_cmd_timestamp, indicating that precmd has completed
-X	unset prompt_pure_cmd_timestamp
+X    # remove the prompt_pure_cmd_timestamp, indicating that precmd has completed
+X    unset prompt_pure_cmd_timestamp
 X}
 X
 X# fastest possible way to check if repo is dirty
 Xprompt_pure_async_git_dirty() {
-X	local untracked_dirty=$1; shift
+X    local untracked_dirty=$1; shift
 X
-X	# use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
-X	builtin cd -q "$*"
+X    # use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
+X    builtin cd -q "$*"
 X
-X	[[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
+X    [[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]] || return
 X
 X    local GIT_STATE=""
 X
@@ -5867,120 +5859,120 @@ X    echo $GIT_STATE
 X}
 X
 Xprompt_pure_async_git_fetch() {
-X	setopt localoptions noshwordsplit
-X	# use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
-X	builtin cd -q "$*"
+X    setopt localoptions noshwordsplit
+X    # use cd -q to avoid side effects of changing directory, e.g. chpwd hooks
+X    builtin cd -q "$*"
 X
-X	# set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
-X	GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch
+X    # set GIT_TERMINAL_PROMPT=0 to disable auth prompting for git fetch (git 2.3+)
+X    GIT_TERMINAL_PROMPT=0 command git -c gc.auto=0 fetch
 X}
 X
 Xprompt_pure_async_tasks() {
-X	# initialize async worker
-X	((!${prompt_pure_async_init:-0})) && {
-X		async_start_worker "prompt_pure" -u -n
-X		async_register_callback "prompt_pure" prompt_pure_async_callback
-X		prompt_pure_async_init=1
-X	}
+X    # initialize async worker
+X    ((!${prompt_pure_async_init:-0})) && {
+X        async_start_worker "prompt_pure" -u -n
+X    async_register_callback "prompt_pure" prompt_pure_async_callback
+X    prompt_pure_async_init=1
+X}
 X
-X	# store working_tree without the "x" prefix
-X	local working_tree="${vcs_info_msg_1_#x}"
+X# store working_tree without the "x" prefix
+Xlocal working_tree="${vcs_info_msg_1_#x}"
 X
-X	# check if the working tree changed (prompt_pure_current_working_tree is prefixed by "x")
-X	if [[ ${prompt_pure_current_working_tree#x} != $working_tree ]]; then
-X		# stop any running async jobs
-X		async_flush_jobs "prompt_pure"
+X# check if the working tree changed (prompt_pure_current_working_tree is prefixed by "x")
+Xif [[ ${prompt_pure_current_working_tree#x} != $working_tree ]]; then
+X    # stop any running async jobs
+X    async_flush_jobs "prompt_pure"
 X
-X		# reset git preprompt variables, switching working tree
-X		unset prompt_pure_git_dirty
-X		unset prompt_pure_git_last_dirty_check_timestamp
+X    # reset git preprompt variables, switching working tree
+X    unset prompt_pure_git_dirty
+X    unset prompt_pure_git_last_dirty_check_timestamp
 X
-X		# set the new working tree and prefix with "x" to prevent the creation of a named path by AUTO_NAME_DIRS
-X		prompt_pure_current_working_tree="x${working_tree}"
-X	fi
+X    # set the new working tree and prefix with "x" to prevent the creation of a named path by AUTO_NAME_DIRS
+X    prompt_pure_current_working_tree="x${working_tree}"
+Xfi
 X
-X	# only perform tasks inside git working tree
-X	[[ -n $working_tree ]] || return
+X# only perform tasks inside git working tree
+X[[ -n $working_tree ]] || return
 X
-X	# do not preform git fetch if it is disabled or working_tree == HOME
-X	if (( ${PURE_GIT_PULL:-1} )) && [[ $working_tree != $HOME ]]; then
-X		# tell worker to do a git fetch
-X		async_job "prompt_pure" prompt_pure_async_git_fetch "${working_tree}"
-X	fi
+X# do not preform git fetch if it is disabled or working_tree == HOME
+Xif (( ${PURE_GIT_PULL:-1} )) && [[ $working_tree != $HOME ]]; then
+X    # tell worker to do a git fetch
+X    async_job "prompt_pure" prompt_pure_async_git_fetch "${working_tree}"
+Xfi
 X
-X	# if dirty checking is sufficiently fast, tell worker to check it again, or wait for timeout
-X	integer time_since_last_dirty_check=$(( EPOCHSECONDS - ${prompt_pure_git_last_dirty_check_timestamp:-0} ))
-X	if (( time_since_last_dirty_check > ${PURE_GIT_DELAY_DIRTY_CHECK:-1800} )); then
-X		unset prompt_pure_git_last_dirty_check_timestamp
-X		# check check if there is anything to pull
-X		async_job "prompt_pure" prompt_pure_async_git_dirty "${PURE_GIT_UNTRACKED_DIRTY:-1}" "${working_tree}"
-X	fi
+X# if dirty checking is sufficiently fast, tell worker to check it again, or wait for timeout
+Xinteger time_since_last_dirty_check=$(( EPOCHSECONDS - ${prompt_pure_git_last_dirty_check_timestamp:-0} ))
+Xif (( time_since_last_dirty_check > ${PURE_GIT_DELAY_DIRTY_CHECK:-1800} )); then
+X    unset prompt_pure_git_last_dirty_check_timestamp
+X    # check check if there is anything to pull
+X    async_job "prompt_pure" prompt_pure_async_git_dirty "${PURE_GIT_UNTRACKED_DIRTY:-1}" "${working_tree}"
+Xfi
 X}
 X
 Xprompt_pure_async_callback() {
-X	local job=$1
-X	local output=$3
-X	local exec_time=$4
+X    local job=$1
+X    local output=$3
+X    local exec_time=$4
 X
-X	case "${job}" in
-X		prompt_pure_async_git_dirty)
-X			prompt_pure_git_dirty=$output
-X			prompt_pure_preprompt_render
+X    case "${job}" in
+X        prompt_pure_async_git_dirty)
+X            prompt_pure_git_dirty=$output
+X            prompt_pure_preprompt_render
 X
-X			# When prompt_pure_git_last_dirty_check_timestamp is set, the git info is displayed in a different color.
-X			# To distinguish between a "fresh" and a "cached" result, the preprompt is rendered before setting this
-X			# variable. Thus, only upon next rendering of the preprompt will the result appear in a different color.
-X			(( $exec_time > 2 )) && prompt_pure_git_last_dirty_check_timestamp=$EPOCHSECONDS
-X			;;
-X		prompt_pure_async_git_fetch)
-X			prompt_pure_check_git_arrows
-X			prompt_pure_preprompt_render
-X			;;
-X	esac
+X            # When prompt_pure_git_last_dirty_check_timestamp is set, the git info is displayed in a different color.
+X            # To distinguish between a "fresh" and a "cached" result, the preprompt is rendered before setting this
+X            # variable. Thus, only upon next rendering of the preprompt will the result appear in a different color.
+X            (( $exec_time > 2 )) && prompt_pure_git_last_dirty_check_timestamp=$EPOCHSECONDS
+X            ;;
+X        prompt_pure_async_git_fetch)
+X            prompt_pure_check_git_arrows
+X            prompt_pure_preprompt_render
+X            ;;
+X    esac
 X}
 X
 Xprompt_pure_setup() {
-X	# prevent percentage showing up if output doesn't end with a newline
-X	export PROMPT_EOL_MARK=''
+X    # prevent percentage showing up if output doesn't end with a newline
+X    export PROMPT_EOL_MARK=''
 X
-X	prompt_opts=(subst percent)
+X    prompt_opts=(subst percent)
 X
-X	zmodload zsh/datetime
-X	zmodload zsh/zle
+X    zmodload zsh/datetime
+X    zmodload zsh/zle
 X    zmodload zsh/parameter
-X	autoload -Uz add-zsh-hook
-X	autoload -Uz vcs_info
-X	autoload -Uz async && async
+X    autoload -Uz add-zsh-hook
+X    autoload -Uz vcs_info
+X    autoload -Uz async && async
 X
-X	add-zsh-hook precmd prompt_pure_precmd
-X	add-zsh-hook preexec prompt_pure_preexec
+X    add-zsh-hook precmd prompt_pure_precmd
+X    add-zsh-hook preexec prompt_pure_preexec
 X
-X	zstyle ':vcs_info:*' enable git
-X	zstyle ':vcs_info:*' use-simple true
-X	# only export two msg variables from vcs_info
-X	zstyle ':vcs_info:*' max-exports 2
-X	# vcs_info_msg_0_ = ' %b' (for branch)
-X	# vcs_info_msg_1_ = 'x%R' git top level (%R), x-prefix prevents creation of a named path (AUTO_NAME_DIRS)
-X	zstyle ':vcs_info:git*' formats ' %b' 'x%R'
-X	zstyle ':vcs_info:git*' actionformats ' %b|%a' 'x%R'
+X    zstyle ':vcs_info:*' enable git
+X    zstyle ':vcs_info:*' use-simple true
+X    # only export two msg variables from vcs_info
+X    zstyle ':vcs_info:*' max-exports 2
+X    # vcs_info_msg_0_ = ' %b' (for branch)
+X    # vcs_info_msg_1_ = 'x%R' git top level (%R), x-prefix prevents creation of a named path (AUTO_NAME_DIRS)
+X    zstyle ':vcs_info:git*' formats ' %b' 'x%R'
+X    zstyle ':vcs_info:git*' actionformats ' %b|%a' 'x%R'
 X
-X	# if the user has not registered a custom zle widget for clear-screen,
-X	# override the builtin one so that the preprompt is displayed correctly when
-X	# ^L is issued.
-X	if [[ $widgets[clear-screen] == 'builtin' ]]; then
-X		zle -N clear-screen prompt_pure_clear_screen
-X	fi
+X    # if the user has not registered a custom zle widget for clear-screen,
+X    # override the builtin one so that the preprompt is displayed correctly when
+X    # ^L is issued.
+X    if [[ $widgets[clear-screen] == 'builtin' ]]; then
+X        zle -N clear-screen prompt_pure_clear_screen
+X    fi
 X
-X	prompt_pure_username='%F{2}%n'
+X    prompt_pure_username='%F{2}%n'
 X
-X	# show username@host if logged in through SSH
-X	[[ "$SSH_CONNECTION" != '' ]] && prompt_pure_username=' %F{2}%n%F{8}@%M%f'
+X    # show username@host if logged in through SSH
+X    [[ "$SSH_CONNECTION" != '' ]] && prompt_pure_username=' %F{2}%n%F{8}@%M%f'
 X
-X	# show username@host if root, with username in red
-X	[[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PURE_PROMPT_SYMBOL='%F{3}#'
+X    # show username@host if root, with username in red
+X    [[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PURE_PROMPT_SYMBOL='%F{3}#'
 X
-X	# prompt turns red if the previous command didn't exit with 0
-X	PROMPT="%(?.%F{5}.%F{1})${PURE_PROMPT_SYMBOL:-$}%f "
+X    # prompt turns red if the previous command didn't exit with 0
+X    PROMPT="%(?.%F{5}.%F{1})${PURE_PROMPT_SYMBOL:-$}%f "
 X}
 X
 Xprompt_pure_setup "$@"
@@ -6800,10 +6792,6 @@ X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
 Xautoload -U pure_prompt && pure_prompt
-X#TMOUT=1
-X#TRAPALRM() {
-X#    prompt_pure_apply_rprompt
-X#}
 X
 X# ----------------------------------------------------------------------------
 X# tmux
