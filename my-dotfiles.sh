@@ -6829,12 +6829,12 @@ X    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed
 X}
 X
 X# add current time to the right
-XRPROMPT='%F{8}%*%f'
-Xpreexec () {
-X    str='%F{8}%*%f'
-X    pos=$(( COLUMNS - 8 ))
-X    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
-X}
+X# RPROMPT='%F{8}%*%f'
+X# preexec () {
+X#    str='%F{8}%*%f'
+X#    pos=$(( COLUMNS - 8 ))
+X#    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
+X# }
 END-of-./.zshrc
 exit
 
