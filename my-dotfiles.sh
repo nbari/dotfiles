@@ -5741,8 +5741,9 @@ X    preprompt+="%F{$git_color}${git_branch}%F{1}${prompt_pure_git_dirty}%f"
 X
 X    # git pull/push arrows
 X    preprompt+="%F{cyan}${prompt_pure_git_arrows}%f"
+X
 X    # execution time
-X    preprompt+="%F{red}${prompt_pure_cmd_exec_time}%f"
+X    preprompt+=" %F{red}${prompt_pure_cmd_exec_time}%f"
 X
 X    # if executing through precmd, do not perform fancy terminal editing
 X    if [[ "$1" == "precmd" ]]; then
