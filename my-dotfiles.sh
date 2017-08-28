@@ -4610,6 +4610,7 @@ XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
+XPlug 'dcharbon/vim-flatbuffers'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hashivim/vim-terraform'
