@@ -6451,271 +6451,269 @@ X
 X# ----------------------------------------------------------------------------
 X# load plugins
 X# ----------------------------------------------------------------------------
-Xif [ -d "$HOME/.zsh/plugins" ]; then
-X    for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
-X    fi
+X[ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
 X
-X    # ----------------------------------------------------------------------------
-X    # exports
-X    # ----------------------------------------------------------------------------
-X    export PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
-X    # remove duplicates in the PATH
-X    typeset -U PATH
-X    export CLICOLOR=1
-X    export LC_ALL=en_US.UTF-8
-X    export LANG=en_US.UTF-8
+X# ----------------------------------------------------------------------------
+X# exports
+X# ----------------------------------------------------------------------------
+Xexport PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
+X# remove duplicates in the PATH
+Xtypeset -U PATH
+Xexport CLICOLOR=1
+Xexport LC_ALL=en_US.UTF-8
+Xexport LANG=en_US.UTF-8
 X
-X    # Do we need Linux or BSD Style?
-X    if ls --color -d . &>/dev/null 2>&1
-X    then
-X        # Linux Style
-X        alias ls='ls --color=tty'
+X# Do we need Linux or BSD Style?
+Xif ls --color -d . &>/dev/null 2>&1
+Xthen
+X    # Linux Style
+X    alias ls='ls --color=tty'
+Xelse
+X    # BSD Style
+X    export LSCOLORS="Exfxcxdxbxegedabagacad"
+Xfi
+X
+Xexport EDITOR=vim
+Xexport LESSCHARSET=utf-8
+Xexport PAGER='less -R'
+Xexport GOPATH=~/projects/go
+Xexport TERM=xterm-256color
+X[ -n "$TMUX" ] && export TERM=screen-256color
+X
+X# ----------------------------------------------------------------------------
+X# shell options
+X# ----------------------------------------------------------------------------
+Xsetopt complete_aliases
+Xsetopt autocd
+Xsetopt autopushd
+Xsetopt pushdminus
+Xsetopt pushdsilent
+Xsetopt pushdtohome
+Xsetopt pushd_ignore_dups
+X
+X# ----------------------------------------------------------------------------
+X# Command history configuration
+X# ----------------------------------------------------------------------------
+Xif [ -z "$HISTFILE" ]; then
+X    HISTFILE=$HOME/.zsh_history
+Xfi
+X
+XHISTSIZE=1000
+XSAVEHIST=1000
+X
+X# Show history
+Xcase $HIST_STAMPS in
+X    "mm/dd/yyyy") alias history='fc -fl 1' ;;
+X    "dd.mm.yyyy") alias history='fc -El 1' ;;
+X    "yyyy-mm-dd") alias history='fc -il 1' ;;
+X    *) alias history='fc -l 1' ;;
+Xesac
+X
+Xsetopt append_history
+Xsetopt extended_history
+Xsetopt hist_expire_dups_first
+Xsetopt hist_ignore_dups # ignore duplication command history list
+Xsetopt hist_ignore_space
+Xsetopt hist_verify
+Xsetopt inc_append_history
+Xsetopt share_history # share command history data
+X
+X# ----------------------------------------------------------------------------
+X# zstyle
+X# ----------------------------------------------------------------------------
+Xzstyle ':completion::complete:*' use-cache 1
+Xzstyle ':completion::complete:*' cache-path "$HOME/.zcache"
+Xzstyle ':completion:*' use-ip true
+Xzstyle ':completion:*:matches' group 'yes'
+Xzstyle ':completion:*:options' description 'yes'
+Xzstyle ':completion:*:options' auto-description '%d'
+Xzstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+Xzstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+Xzstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+Xzstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
+Xzstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+Xzstyle ':completion:*' group-name ''
+Xzstyle ':completion:*' verbose yes
+Xzstyle ':completion:*' file-sort modification
+X# Don't prompt for a huge list, page it!
+Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
+X# kill
+Xzstyle ':completion:*:kill:*' force-list always
+Xzstyle ':completion:*:kill:*' menu yes select
+Xzstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;38=01;31=01;30'
+X# Rehash when completing commands
+Xzstyle ":completion:*:commands" rehash 1
+X# ls colors
+Xzstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+X
+X# ----------------------------------------------------------------------------
+X# alias
+X# ----------------------------------------------------------------------------
+Xalias active='grep -Ev "^($|#)"'
+X    alias c='clear'
+Xalias cp='cp -i'
+X# copy with rsync
+Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
+Xalias cpu='top -o cpu'
+X# clean dropbox conflicted files
+Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
+X# flush dns
+Xalias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
+X# clean gdrive
+Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
+Xalias gdrive='cd ~/Google\ Drive'
+Xalias git_empty='git commit -m "empty commit" --allow-empty'
+Xalias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
+Xalias dev='git checkout develop'
+Xalias dh='dirs -v'
+Xalias h='history'
+Xalias j='jobs -l'
+Xalias l='pwd -P; ls -lhaGF'
+Xalias less='less -FSRX'
+Xalias ll='ls -AlF'
+Xalias master='git checkout master'
+Xalias mem='top -o vsize'
+Xalias mv='mv -i'
+Xalias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
+Xalias path='echo -e ${PATH//:/\\n}'
+Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
+Xalias pro='cd ~/projects'
+Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
+Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
+Xalias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
+X# alias pyclean='find . -iname "*.py[co]" -delete'
+Xalias pyserv="python -m SimpleHTTPServer"
+Xalias rm='rm -i'
+Xalias svi='sudo vim'
+Xalias ssh-tunnel='ssh -C2qTnN -D 8080'
+Xalias tmp='cd ~/tmp'
+X# git log
+Xalias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
+Xalias gd="echo master diff:; git diff --name-status master develop"
+X# tmux
+Xalias t="tmux -2 attach -d || tmux -2 new"
+Xcompdef t=tmux
+Xalias tl='tmux list-sessions'
+X# alias for directories
+Xalias -g ...='../..'
+Xalias -g ....='../../..'
+Xalias -g .....='../../../..'
+Xalias -g ......='../../../../..'
+Xalias 1='cd -'
+Xalias 2='cd -2'
+Xalias 3='cd -3'
+Xalias 4='cd -4'
+Xalias 5='cd -5'
+Xalias 6='cd -6'
+Xalias 7='cd -7'
+Xalias 8='cd -8'
+Xalias 9='cd -9'
+Xalias d='dirs -v | head -10'
+Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
+Xalias bookmarks='~/.zsh/bookmarks'
+Xalias listen='lsof -iTCP -sTCP:LISTEN -n -P'
+X
+X# checksum
+Xchecksum() {
+X    [[ -a $1 ]] && openssl dgst -sha256 $1
+X}
+X
+X# get currect active interface
+Xiface(){
+X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
+X}
+X
+X# tmux new sessions
+Xtn() {
+X    [[ ! -z $1 ]] && tmux -2 new -s $1
+X}
+X# tmux attach
+Xta() {
+X    [[ ! -z $1 ]] && tmux attach -t $1
+X}
+X
+X# get PID/PGID/PPID/SID to certain process or pid:
+Xpgid() {
+X    ps -ejf | egrep "STIME | $1" | grep -v egrep
+X}
+X
+Xget_headers_GET() {
+X    # curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
+X    curl -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
+X}
+X
+Xget_headers() {
+X    curl -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
+X}
+X
+Xget_options() {
+X    curl -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
+X}
+X
+Xget_akamai() {
+X    curl -I -L -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id, akamai-x-request-trace, akamai-x--meta-trace, akama-xi-get-extracted-values" $1
+X}
+X
+Xchrome() {
+X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
+X}
+X
+Xpman () {
+X    man -t "${1}" | open -f -a /Applications/Preview.app
+X}
+X
+Xset_env() {
+X    if [ -r $PWD/.zsh_config ]; then
+X        source $PWD/.zsh_config
+X        print -P -- %F{2}Ok%f
 X    else
-X        # BSD Style
-X        export LSCOLORS="Exfxcxdxbxegedabagacad"
+X        print -P -- %F{9}No .zsh_config found%f
 X    fi
+X}
 X
-X    export EDITOR=vim
-X    export LESSCHARSET=utf-8
-X    export PAGER='less -R'
-X    export GOPATH=~/projects/go
-X    export TERM=xterm-256color
-X    [ -n "$TMUX" ] && export TERM=screen-256color
+Xenc () {
+X    [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
+X}
 X
-X    # ----------------------------------------------------------------------------
-X    # shell options
-X    # ----------------------------------------------------------------------------
-X    setopt complete_aliases
-X    setopt autocd
-X    setopt autopushd
-X    setopt pushdminus
-X    setopt pushdsilent
-X    setopt pushdtohome
-X    setopt pushd_ignore_dups
+Xmkdir_ansible_roles() {
+X    echo "ansible-galaxy init <name_of_role> --force"
+X}
 X
-X    # ----------------------------------------------------------------------------
-X    # Command history configuration
-X    # ----------------------------------------------------------------------------
-X    if [ -z "$HISTFILE" ]; then
-X        HISTFILE=$HOME/.zsh_history
-X    fi
+Xgpg_encrypt() {
+X    echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
+X}
 X
-X    HISTSIZE=1000
-X    SAVEHIST=1000
+Xwttr() {
+X    curl "wttr.in/${1:-berlin}"
+X}
 X
-X    # Show history
-X    case $HIST_STAMPS in
-X        "mm/dd/yyyy") alias history='fc -fl 1' ;;
-X        "dd.mm.yyyy") alias history='fc -El 1' ;;
-X        "yyyy-mm-dd") alias history='fc -il 1' ;;
-X        *) alias history='fc -l 1' ;;
-X    esac
+Xcurl_time() {
+X    curl -o /dev/null -Ls -w " \
+X        time_namelookup:  %{time_namelookup}\n \
+X        time_connect:  %{time_connect}\n \
+X        time_appconnect:  %{time_appconnect}\n \
+X        time_pretransfer:  %{time_pretransfer}\n \
+X        time_redirect:  %{time_redirect}\n \
+X        time_starttransfer:  %{time_starttransfer}\n \
+X        ----------\n \
+X        time_total:  %{time_total}\n" "$1"
+X}
 X
-X    setopt append_history
-X    setopt extended_history
-X    setopt hist_expire_dups_first
-X    setopt hist_ignore_dups # ignore duplication command history list
-X    setopt hist_ignore_space
-X    setopt hist_verify
-X    setopt inc_append_history
-X    setopt share_history # share command history data
+X# ----------------------------------------------------------------------------
+X# Kill all process that match $1
+X# ----------------------------------------------------------------------------
+Xkill9() {
+X    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`; do
+X        kill -9 $pid && echo "Killed ${pid}"
+X    done
+X}
 X
-X    # ----------------------------------------------------------------------------
-X    # zstyle
-X    # ----------------------------------------------------------------------------
-X    zstyle ':completion::complete:*' use-cache 1
-X    zstyle ':completion::complete:*' cache-path "$HOME/.zcache"
-X    zstyle ':completion:*' use-ip true
-X    zstyle ':completion:*:matches' group 'yes'
-X    zstyle ':completion:*:options' description 'yes'
-X    zstyle ':completion:*:options' auto-description '%d'
-X    zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-X    zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-X    zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-X    zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-X    zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-X    zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-X    zstyle ':completion:*' group-name ''
-X    zstyle ':completion:*' verbose yes
-X    zstyle ':completion:*' file-sort modification
-X    # Don't prompt for a huge list, page it!
-X    zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-X    # kill
-X    zstyle ':completion:*:kill:*' force-list always
-X    zstyle ':completion:*:kill:*' menu yes select
-X    zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;38=01;31=01;30'
-X    # Rehash when completing commands
-X    zstyle ":completion:*:commands" rehash 1
-X    # ls colors
-X    zstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-X
-X    # ----------------------------------------------------------------------------
-X    # alias
-X    # ----------------------------------------------------------------------------
-X    alias active='grep -Ev "^($|#)"'
-X        alias c='clear'
-X    alias cp='cp -i'
-X    # copy with rsync
-X    alias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
-X    alias cpu='top -o cpu'
-X    # clean dropbox conflicted files
-X    alias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
-X    # flush dns
-X    alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
-X    # clean gdrive
-X    alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
-X    alias gdrive='cd ~/Google\ Drive'
-X    alias git_empty='git commit -m "empty commit" --allow-empty'
-X    alias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
-X    alias dev='git checkout develop'
-X    alias dh='dirs -v'
-X    alias h='history'
-X    alias j='jobs -l'
-X    alias l='pwd -P; ls -lhaGF'
-X    alias less='less -FSRX'
-X    alias ll='ls -AlF'
-X    alias master='git checkout master'
-X    alias mem='top -o vsize'
-X    alias mv='mv -i'
-X    alias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
-X    alias path='echo -e ${PATH//:/\\n}'
-X    alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
-X    alias pro='cd ~/projects'
-X    alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
-X    alias psmem='ps aux | sort -r -nk 4 | head -n 10'
-X    alias pyclean='find . -iname "*.py[co]" -exec rm -f {} +;'
-X    # alias pyclean='find . -iname "*.py[co]" -delete'
-X    alias pyserv="python -m SimpleHTTPServer"
-X    alias rm='rm -i'
-X    alias svi='sudo vim'
-X    alias ssh-tunnel='ssh -C2qTnN -D 8080'
-X    alias tmp='cd ~/tmp'
-X    # git log
-X    alias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
-X    alias gd="echo master diff:; git diff --name-status master develop"
-X    # tmux
-X    alias t="tmux -2 attach -d || tmux -2 new"
-X    compdef t=tmux
-X    alias tl='tmux list-sessions'
-X    # alias for directories
-X    alias -g ...='../..'
-X    alias -g ....='../../..'
-X    alias -g .....='../../../..'
-X    alias -g ......='../../../../..'
-X    alias 1='cd -'
-X    alias 2='cd -2'
-X    alias 3='cd -3'
-X    alias 4='cd -4'
-X    alias 5='cd -5'
-X    alias 6='cd -6'
-X    alias 7='cd -7'
-X    alias 8='cd -8'
-X    alias 9='cd -9'
-X    alias d='dirs -v | head -10'
-X    alias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
-X    alias bookmarks='~/.zsh/bookmarks'
-X    alias listen='lsof -iTCP -sTCP:LISTEN -n -P'
-X
-X    # checksum
-X    checksum() {
-X        [[ -a $1 ]] && openssl dgst -sha256 $1
-X    }
-X
-X    # get currect active interface
-X    iface(){
-X        route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
-X    }
-X
-X    # tmux new sessions
-X    tn() {
-X        [[ ! -z $1 ]] && tmux -2 new -s $1
-X    }
-X    # tmux attach
-X    ta() {
-X        [[ ! -z $1 ]] && tmux attach -t $1
-X    }
-X
-X    # get PID/PGID/PPID/SID to certain process or pid:
-X    pgid() {
-X        ps -ejf | egrep "STIME | $1" | grep -v egrep
-X    }
-X
-X    get_headers_GET() {
-X        # curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
-X        curl -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
-X    }
-X
-X    get_headers() {
-X        curl -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
-X    }
-X
-X    get_options() {
-X        curl -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
-X    }
-X
-X    get_akamai() {
-X        curl -I -L -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id, akamai-x-request-trace, akamai-x--meta-trace, akama-xi-get-extracted-values" $1
-X    }
-X
-X    chrome() {
-X        open -a "Google Chrome" "http://www.google.com/search?q=$1";
-X    }
-X
-X    pman () {
-X        man -t "${1}" | open -f -a /Applications/Preview.app
-X    }
-X
-X    set_env() {
-X        if [ -r $PWD/.zsh_config ]; then
-X            source $PWD/.zsh_config
-X            print -P -- %F{2}Ok%f
-X        else
-X            print -P -- %F{9}No .zsh_config found%f
-X        fi
-X    }
-X
-X    enc () {
-X        [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
-X    }
-X
-X    mkdir_ansible_roles() {
-X        echo "ansible-galaxy init <name_of_role> --force"
-X    }
-X
-X    gpg_encrypt() {
-X        echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
-X    }
-X
-X    wttr() {
-X        curl "wttr.in/${1:-berlin}"
-X    }
-X
-X    curl_time() {
-X        curl -o /dev/null -Ls -w " \
-X            time_namelookup:  %{time_namelookup}\n \
-X            time_connect:  %{time_connect}\n \
-X            time_appconnect:  %{time_appconnect}\n \
-X            time_pretransfer:  %{time_pretransfer}\n \
-X            time_redirect:  %{time_redirect}\n \
-X            time_starttransfer:  %{time_starttransfer}\n \
-X            ----------\n \
-X            time_total:  %{time_total}\n" "$1"
-X    }
-X
-X    # ----------------------------------------------------------------------------
-X    # Kill all process that match $1
-X    # ----------------------------------------------------------------------------
-X    kill9() {
-X        for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`; do
-X            kill -9 $pid && echo "Killed ${pid}"
-X        done
-X    }
-X
-X    # ----------------------------------------------------------------------------
-X    # sync .dotfiles
-X    # ----------------------------------------------------------------------------
-X    sync-dotfiles() {
-X    [[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
+X# ----------------------------------------------------------------------------
+X# sync .dotfiles
+X# ----------------------------------------------------------------------------
+Xsync-dotfiles() {
+X[[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $1 "tar mxf - -C ~/"
 X}
 X
 X# ----------------------------------------------------------------------------
