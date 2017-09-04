@@ -6551,7 +6551,7 @@ X# ----------------------------------------------------------------------------
 X# alias
 X# ----------------------------------------------------------------------------
 Xalias active='grep -Ev "^($|#)"'
-X    alias c='clear'
+Xalias c='clear'
 Xalias cp='cp -i'
 X# copy with rsync
 Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"

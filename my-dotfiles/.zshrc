@@ -120,7 +120,7 @@ zstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43
 # alias
 # ----------------------------------------------------------------------------
 alias active='grep -Ev "^($|#)"'
-    alias c='clear'
+alias c='clear'
 alias cp='cp -i'
 # copy with rsync
 alias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
