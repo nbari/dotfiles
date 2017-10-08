@@ -227,7 +227,7 @@ Xbind % split-window -h -c "#{pane_current_path}"
 Xbind '"' split-window -c "#{pane_current_path}"
 X
 X# reset & clear history
-Xbind r send-keys C-l \; run-shell "sleep .3s tmux clear-history"
+Xbind r send-keys -R \; send-keys C-l \; clear-history
 X
 X# line & clock color
 Xsetw -g clock-mode-colour colour024
