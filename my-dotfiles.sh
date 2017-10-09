@@ -167,6 +167,12 @@ X# zsh
 Xset-option -g default-shell /usr/local/bin/zsh
 Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
 X
+Xunbind C-b
+Xset -g prefix `
+Xbind ` send-prefix
+X# Allows to use C-b inside another tmux
+Xbind-key b send-prefix
+X
 X# vi bindings
 Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
@@ -235,7 +241,7 @@ Xset -g pane-border-style fg=colour235
 Xset -g pane-active-border-style fg=colour124
 X
 X# copy to clipboard
-Xbind-key -Tcopy-mode-vi 'Enter' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+Xbind-key -T copy-mode-vi 'Enter' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
