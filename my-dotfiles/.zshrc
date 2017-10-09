@@ -202,6 +202,11 @@ tn() {
 ta() {
     [[ ! -z $1 ]] && tmux attach -t $1
 }
+# tmux send-keys right
+ts() {
+    tmux send-keys -t right "$@" C-m
+}
+
 
 # get PID/PGID/PPID/SID to certain process or pid:
 pgid() {

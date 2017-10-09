@@ -9146,6 +9146,11 @@ X# tmux attach
 Xta() {
 X    [[ ! -z $1 ]] && tmux attach -t $1
 X}
+X# tmux send-keys right
+Xts() {
+X    tmux send-keys -t right "$@" C-m
+X}
+X
 X
 X# get PID/PGID/PPID/SID to certain process or pid:
 Xpgid() {
