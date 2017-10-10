@@ -198,6 +198,7 @@ hi goFormatSpecifier  ctermfg=114
 hi goFunction      ctermfg=231
 hi goImport        ctermfg=167
 hi goMethod        ctermfg=110
+hi goMethodCall    ctermfg=110
 hi goOperator      ctermfg=109
 hi goPackage       ctermfg=167
 hi goPointerOperator ctermfg=202

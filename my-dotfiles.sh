@@ -5431,6 +5431,7 @@ Xhi goFormatSpecifier  ctermfg=114
 Xhi goFunction      ctermfg=231
 Xhi goImport        ctermfg=167
 Xhi goMethod        ctermfg=110
+Xhi goMethodCall    ctermfg=110
 Xhi goOperator      ctermfg=109
 Xhi goPackage       ctermfg=167
 Xhi goPointerOperator ctermfg=202
@@ -7491,13 +7492,15 @@ Xau FileType go nmap <leader>gd <Plug>(go-doc-browser)
 Xau FileType go nmap <leader>i <Plug>(go-info)
 Xau FileType go nmap <leader>r <Plug>(go-run)
 Xau FileType go nmap <leader>t :GoTestFunc<CR>
-Xlet g:go_list_type = "quickfix"
 Xlet g:go_fmt_command = "goimports"
+Xlet g:go_list_type = "quickfix"
 Xlet g:go_highlight_functions = 1
 Xlet g:go_highlight_methods = 1
 Xlet g:go_highlight_structs = 1
 Xlet g:go_highlight_operators = 1
 Xlet g:go_highlight_build_constraints = 1
+X" let g:go_highlight_variable_assignments = 1
+X" let g:go_highlight_variable_declarations = 1
 Xlet g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 X
 X" diff highlights
