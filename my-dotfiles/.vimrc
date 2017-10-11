@@ -458,7 +458,11 @@ function TestGo()
 
     let line = getline(test)
     let name = split(split(line, " ")[1], "(")[0]
-    let command = "tmux send-keys -t right \"go test -run " . name . " -v\" C-m"
+    let panels=system("tmux list-panes | wc -l | xargs echo -n")
+    if panels == 1
+        call system("tmux split-window -h")
+    end
+    let command = "tmux send-keys -t 1 \"go test -run " . name . " -v\" C-m"
     " :echo join(command)
     call system(command)
 endfunction

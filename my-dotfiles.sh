@@ -7564,7 +7564,11 @@ X    end
 X
 X    let line = getline(test)
 X    let name = split(split(line, " ")[1], "(")[0]
-X    let command = "tmux send-keys -t right \"go test -run " . name . " -v\" C-m"
+X    let panels=system("tmux list-panes | wc -l | xargs echo -n")
+X    if panels == 1
+X        call system("tmux split-window -h")
+X    end
+X    let command = "tmux send-keys -t 1 \"go test -run " . name . " -v\" C-m"
 X    " :echo join(command)
 X    call system(command)
 Xendfunction
