@@ -447,6 +447,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " terraform
 let g:terraform_fmt_on_save = 1
 
+" TestGo - run tests in right tmux pannel
 function TestGo()
     let test = search('func \(Test\|Example\)', "bcnW")
 
@@ -458,7 +459,7 @@ function TestGo()
     let line = getline(test)
     let name = split(split(line, " ")[1], "(")[0]
     let command = "tmux send-keys -t right \"go test -run " . name . " -v\" C-m"
+    " :echo join(command)
     call system(command)
-    ":echo command
 endfunction
 nnoremap <leader>t :call TestGo()<CR>

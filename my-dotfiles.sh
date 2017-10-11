@@ -7553,6 +7553,7 @@ X
 X" terraform
 Xlet g:terraform_fmt_on_save = 1
 X
+X" TestGo - run tests in right tmux pannel
 Xfunction TestGo()
 X    let test = search('func \(Test\|Example\)', "bcnW")
 X
@@ -7564,8 +7565,8 @@ X
 X    let line = getline(test)
 X    let name = split(split(line, " ")[1], "(")[0]
 X    let command = "tmux send-keys -t right \"go test -run " . name . " -v\" C-m"
+X    " :echo join(command)
 X    call system(command)
-X    ":echo command
 Xendfunction
 Xnnoremap <leader>t :call TestGo()<CR>
 END-of-./.vimrc
