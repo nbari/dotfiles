@@ -4,9 +4,9 @@ set autowrite
 set wildmenu
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -171,27 +171,27 @@ nnoremap <space> za
 " set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
 
 if has('statusline')
-  "hi User1 ctermfg=012 ctermbg=016
-  "hi User2 ctermfg=172 ctermbg=016
-  "hi User3 ctermfg=015 ctermbg=016
-  hi User1 ctermfg=012
-  hi User2 ctermfg=172
-  hi User3 ctermfg=015
+    "hi User1 ctermfg=012 ctermbg=016
+    "hi User2 ctermfg=172 ctermbg=016
+    "hi User3 ctermfg=015 ctermbg=016
+    hi User1 ctermfg=012
+    hi User2 ctermfg=172
+    hi User3 ctermfg=015
 
-  set statusline=\ "                            " start with one space
-  set statusline+=%1*                           " use color 1
-  set statusline+=\%f                           " file name
-  set statusline+=%2*                            " switch back to statusline highlight
-  set statusline+=\ %m%r%w%h\                   " flags
-  set statusline+=%*                            " switch back to statusline highlight
-  set statusline+=%=                            " ident to the right
-  set statusline+=%{&fileformat}\               " file format
-  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
-  set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
-  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
-  set statusline+=%3*                           " use color 2
-  set statusline+=[%l,%v][%p%%]\                " cursor position/offset
-  set statusline+=%*                            " switch back to statusline highlight
+    set statusline=\ "                            " start with one space
+    set statusline+=%1*                           " use color 1
+    set statusline+=\%f                           " file name
+    set statusline+=%2*                            " switch back to statusline highlight
+    set statusline+=\ %m%r%w%h\                   " flags
+    set statusline+=%*                            " switch back to statusline highlight
+    set statusline+=%=                            " ident to the right
+    set statusline+=%{&fileformat}\               " file format
+    set statusline+=%{(&fenc==\"\"?&enc:&fenc)}\  " encoding
+    set statusline+=%{strlen(&ft)?&ft:'none'}\    " filetype
+    set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
+    set statusline+=%3*                           " use color 2
+    set statusline+=[%l,%v][%p%%]\                " cursor position/offset
+    set statusline+=%*                            " switch back to statusline highlight
 endif
 
 " syntastic
@@ -265,43 +265,43 @@ nnoremap <C-w>! <C-w>T
 " Maps <C-h/j/k/l> to switch vim splits in the given direction. If there are
 " no more windows in that direction, forwards the operation to tmux.
 if exists('$TMUX')
-  let s:tmux_is_last_pane = 0
-  au WinEnter * let s:tmux_is_last_pane = 0
+    let s:tmux_is_last_pane = 0
+    au WinEnter * let s:tmux_is_last_pane = 0
 
-  " Like `wincmd` but also change tmux panes instead of vim windows when needed.
-  function s:TmuxWinCmd(direction, tmuxdir)
-    let nr = winnr()
-    " try to switch windows within vim
-    exec 'wincmd ' . a:direction
-    " Forward the switch panes command to tmux if:
-    " we tried switching windows in vim but it didn't have effect.
-    if nr == winnr()
-      let cmd = 'tmux select-pane -' . a:tmuxdir
-      call system(cmd)
-      let s:tmux_is_last_pane = 1
-      echo cmd
-    else
-      let s:tmux_is_last_pane = 0
-    endif
-  endfunction
+    " Like `wincmd` but also change tmux panes instead of vim windows when needed.
+    function s:TmuxWinCmd(direction, tmuxdir)
+        let nr = winnr()
+        " try to switch windows within vim
+        exec 'wincmd ' . a:direction
+        " Forward the switch panes command to tmux if:
+        " we tried switching windows in vim but it didn't have effect.
+        if nr == winnr()
+            let cmd = 'tmux select-pane -' . a:tmuxdir
+            call system(cmd)
+            let s:tmux_is_last_pane = 1
+            echo cmd
+        else
+            let s:tmux_is_last_pane = 0
+        endif
+    endfunction
 
-  " navigate between split windows/tmux panes
-  map <c-h> :call <SID>TmuxWinCmd('h', 'L')<cr>
-  map <c-j> :call <SID>TmuxWinCmd('j', 'D')<cr>
-  map <c-k> :call <SID>TmuxWinCmd('k', 'U')<cr>
-  map <c-l> :call <SID>TmuxWinCmd('l', 'R')<cr>
+    " navigate between split windows/tmux panes
+    map <c-h> :call <SID>TmuxWinCmd('h', 'L')<cr>
+    map <c-j> :call <SID>TmuxWinCmd('j', 'D')<cr>
+    map <c-k> :call <SID>TmuxWinCmd('k', 'U')<cr>
+    map <c-l> :call <SID>TmuxWinCmd('l', 'R')<cr>
 else
-  nnoremap <C-h> <C-w>h
-  nnoremap <C-j> <C-w>j
-  nnoremap <C-k> <C-w>k
-  nnoremap <C-l> <C-w>l
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
 endif
 
 " switches delimitMate on and off
 nnoremap <leader>d :DelimitMateSwitch<CR>
 
 if executable("par")
-  set formatprg=par\ -w80
+    set formatprg=par\ -w80
 endif
 
 " wrap text
@@ -323,15 +323,15 @@ nnoremap <leader>0 :put = \"# --------------------------------------------------
 " toogle hex
 let $in_hex=0
 function HexMe()
-  set binary
-  set noeol
-  if $in_hex > 0
-    :%!xxd -r
-    let $in_hex=0
-  else
-    :%!xxd
-    let $in_hex=1
-  endif
+    set binary
+    set noeol
+    if $in_hex > 0
+        :%!xxd -r
+        let $in_hex=0
+    else
+        :%!xxd
+        let $in_hex=1
+    endif
 endfunction
 nnoremap <leader>hex :call HexMe()<CR>
 
@@ -385,7 +385,7 @@ au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <leader>gd <Plug>(go-doc-browser)
 au FileType go nmap <leader>i <Plug>(go-info)
 au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>t :GoTestFunc<CR>
+" au FileType go nmap <leader>t :GoTestFunc<CR>
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
@@ -446,3 +446,19 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " terraform
 let g:terraform_fmt_on_save = 1
+
+function TestGo()
+    let test = search('func \(Test\|Example\)', "bcnW")
+
+    if test == 0
+        echo "vim-go: [test] no test found immediate to cursor"
+        return
+    end
+
+    let line = getline(test)
+    let name = split(split(line, " ")[1], "(")[0]
+    let command = "tmux send-keys -t right \"go test -run " . name . " -v\" C-m"
+    call system(command)
+    ":echo command
+endfunction
+nnoremap <leader>t :call TestGo()<CR>
