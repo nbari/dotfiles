@@ -167,11 +167,11 @@ X# zsh
 Xset-option -g default-shell /usr/local/bin/zsh
 Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
 X
-Xunbind C-b
-Xset -g prefix `
-Xbind ` send-prefix
+X#unbind C-b
+X#set -g prefix `
+X#bind ` send-prefix
 X# Allows to use C-b inside another tmux
-Xbind-key b send-prefix
+X#bind-key b send-prefix
 X
 X# vi bindings
 Xset-option -g status-key vi
