@@ -7489,6 +7489,7 @@ Xau FileType go nmap <leader>ds <Plug>(go-def-split)
 Xau FileType go nmap <leader>dt <Plug>(go-def-tab)
 Xau FileType go nmap <leader>dv <Plug>(go-def-vertical)
 Xau FileType go nmap <leader>gd <Plug>(go-doc-browser)
+Xau FileType go nmap <leader>d <Plug>(go-doc)
 Xau FileType go nmap <leader>i <Plug>(go-info)
 Xau FileType go nmap <leader>r <Plug>(go-run)
 X" au FileType go nmap <leader>t :GoTestFunc<CR>
