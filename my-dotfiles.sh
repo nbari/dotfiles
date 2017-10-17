@@ -208,7 +208,7 @@ X# bind -n C-j if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send
 X# bind -n C-k if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-k" "select-pane -U"
 X# bind -n C-l if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-l" "select-pane -R"
 X
-Xnot_tmux='`echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?x?)(diff)?$"` || `echo "#{pane_start_command}" | grep -iqE "fzf"` || `echo "#{pane_current_command}" | grep -iqE "fzf"`'
+Xnot_tmux='`echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(autossh|view|n?vim?x?)(diff)?$"` || `echo "#{pane_start_command}" | grep -iqE "fzf"` || `echo "#{pane_current_command}" | grep -iqE "fzf"`'
 Xbind-key -n C-h if-shell "$not_tmux" "send-keys C-h" "select-pane -L"
 Xbind-key -n C-j if-shell "$not_tmux" "send-keys C-j" "select-pane -D"
 Xbind-key -n C-k if-shell "$not_tmux" "send-keys C-k" "select-pane -U"
