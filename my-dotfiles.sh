@@ -168,7 +168,7 @@ Xset-option -g default-shell /usr/local/bin/zsh
 Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
 X
 X# Allows to use C-g instead C-b inside another tmux
-X# bind-key -n C-g send-prefix
+Xbind-key -n C-g send-prefix
 X
 X# vi bindings
 Xset-option -g status-key vi
