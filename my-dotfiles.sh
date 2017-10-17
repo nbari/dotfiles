@@ -176,12 +176,13 @@ Xset-window-option -g mode-keys vi
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
+Xset-option -g mouse on
 Xset-option -g status-bg "#000000"
 Xset-option -g status-fg "#FDB813"
 Xset-option -g status-interval 5
-Xset-option -g status-right-length 90
-Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-position top
+Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
+Xset-option -g status-right-length 90
 X
 Xsetw -g window-status-current-bg '#006994'
 Xsetw -g window-status-current-fg '#FFFFFF'
