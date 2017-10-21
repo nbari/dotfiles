@@ -183,6 +183,7 @@ Xset-option -g status-interval 5
 Xset-option -g status-position top
 Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-right-length 90
+Xset-option -g repeat-time 1000
 X
 Xsetw -g window-status-current-bg '#006994'
 Xsetw -g window-status-current-fg '#FFFFFF'
@@ -241,6 +242,9 @@ X
 X# copy to clipboard
 Xbind-key -T copy-mode-vi 'Enter' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 Xbind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+X
+X# T layout
+Xbind-key -r t select-layout tiled
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
