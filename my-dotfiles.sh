@@ -4662,7 +4662,6 @@ XPlug 'airblade/vim-gitgutter'
 XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
-XPlug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 XPlug 'dcharbon/vim-flatbuffers'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
@@ -4674,6 +4673,7 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
+XPlug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }

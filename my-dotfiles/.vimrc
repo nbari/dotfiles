@@ -17,7 +17,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'chase/vim-ansible-yaml', { 'for': 'ansible' }
 Plug 'dcharbon/vim-flatbuffers'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -29,6 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
+Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
