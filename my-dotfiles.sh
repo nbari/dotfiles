@@ -4675,6 +4675,7 @@ XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 XPlug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+XPlug 'rodjek/vim-puppet'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'

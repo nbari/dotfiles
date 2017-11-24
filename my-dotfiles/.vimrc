@@ -30,6 +30,7 @@ Plug 'kana/vim-submode'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'rodjek/vim-puppet'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
