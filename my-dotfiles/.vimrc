@@ -202,6 +202,7 @@ let g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 let g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:syntastic_python_flake8_args='--ignore=E501'
 hi SyntasticErrorSign ctermfg=red ctermbg=none
 hi SyntasticWarningSign ctermfg=yellow ctermbg=none
 hi SyntasticErrorLine   ctermbg=52

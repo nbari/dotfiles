@@ -4847,6 +4847,7 @@ Xlet g:syntastic_javascript_checkers = ['closurecompiler', 'jsl']
 Xlet g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-compiler/compiler.jar"
 Xlet g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 Xlet g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+Xlet g:syntastic_python_flake8_args='--ignore=E501'
 Xhi SyntasticErrorSign ctermfg=red ctermbg=none
 Xhi SyntasticWarningSign ctermfg=yellow ctermbg=none
 Xhi SyntasticErrorLine   ctermbg=52
