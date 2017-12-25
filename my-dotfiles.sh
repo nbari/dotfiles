@@ -6665,7 +6665,7 @@ Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
 Xalias svi='sudo vim'
 Xalias ssh-tunnel='echo "ssh -C2qTnN -D 8080 (proxy) or -L 3307:db.tld:3307 host.tld"'
-Xalias gp='git commit -a -m "sync `date`" && git push'
+Xalias up='git add . && git commit -a -m "sync `date`" && git push'
 Xalias tmp='cd ~/tmp'
 X# git log
 Xalias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
