@@ -45,9 +45,9 @@ fi
 
 # change default shell
 if finger $USER | grep -q "/usr/local/bin/zsh"
-then 
+then
     echo "using zsh"
-else 
+else
     chsh -s /usr/local/bin/zsh
 fi
 
@@ -140,6 +140,6 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
 echo "Installing fonts"
 sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
 
-open ~/projects/dotfiles/OSX-zsh.terminal
+vim +PlugInstall +qall
 
 echo "Fin"
