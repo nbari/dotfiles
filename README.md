@@ -22,7 +22,7 @@ Setup
 
 Open a terminal and type this:
 
-    $ curl -L https://raw.githubusercontent.com/nbari/dotfiles/master/install.sh | sh
+    $ curl -L -H 'Cache-Control: no-cache' -s https://raw.githubusercontent.com/nbari/dotfiles/master/install.sh | sh
 
 Everything is installed within your ``$HOME`` directory.
 
