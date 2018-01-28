@@ -28,6 +28,7 @@ brew install autossh && \
 brew install direnv && \
 brew install git --without-completions && \
 brew install go && \
+brew install ncdu && \
 brew install npm && \
 brew install python && \
 brew install reattach-to-user-namespace && \
