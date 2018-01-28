@@ -23,4 +23,9 @@ else
 fi
 
 # change default shell
-chsh -s /usr/local/bin/zsh
+if finger $USER | grep -Fxq "/usr/local/bin/zsh"
+then 
+    echo "using zsh"
+else 
+    chsh -s /usr/local/bin/zsh
+fi
