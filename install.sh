@@ -83,7 +83,7 @@ fi
 
 if [ ! -d ~/projects/dotfiles ]; then
     echo "getting dotfiles..."
-    git clone https://github.com/nbari/dotfiles.git ~/projects/dotfiles
+    git clone git@github.com:nbari/dotfiles.git ~/projects/dotfiles
     if [ $? -ne 0 ]; then
         echo "Could not clone dotfiles"
         exit 1
