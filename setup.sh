@@ -15,6 +15,7 @@ brew install zsh
 
 if grep -Fxq "/usr/local/bin/zsh" /etc/shells
 then
+  echo "zsh found"
 else
   echo "/usr/local/bin/zsh" >> /etc/shells
 fi
