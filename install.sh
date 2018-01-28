@@ -137,4 +137,9 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
     echo "pip not installed (python -m ensurepip --upgrade)"
 }
 
+echo "Installing fonts"
+sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Libary/Fonts/ \;
+
+open ~/projects/OSX-zsh.terminal
+
 echo "Fin"
