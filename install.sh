@@ -29,7 +29,7 @@ brew install direnv && \
 brew install git --without-completions && \
 brew install npm && \
 brew install python && \
-brew install reattach-to-user-namespace \
+brew install reattach-to-user-namespace && \
 brew install ripgrep && \
 brew install ssh-vault && \
 brew install tmux && \
