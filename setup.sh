@@ -23,7 +23,7 @@ else
 fi
 
 # change default shell
-if finger $USER | grep -Fxq "/usr/local/bin/zsh"
+if finger $USER | grep -q "/usr/local/bin/zsh"
 then 
     echo "using zsh"
 else 
