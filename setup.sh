@@ -19,7 +19,8 @@ if grep -Fxq "/usr/local/bin/zsh" /etc/shells
 then
     echo "zsh found"
 else
-    sudo echo "/usr/local/bin/zsh" >> /etc/shells
+    echo 'do this: sudo echo "/usr/local/bin/zsh" >> /etc/shells'
+    exit
 fi
 
 # change default shell
