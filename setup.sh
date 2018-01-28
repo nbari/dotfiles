@@ -1,5 +1,7 @@
 set -e
 
+brew update
+
 brew install ag && \
 brew install autossh && \
 brew install direnv && \
@@ -15,9 +17,9 @@ brew install zsh
 
 if grep -Fxq "/usr/local/bin/zsh" /etc/shells
 then
-  echo "zsh found"
+    echo "zsh found"
 else
-  echo "/usr/local/bin/zsh" >> /etc/shells
+    echo "/usr/local/bin/zsh" >> /etc/shells
 fi
 
 # change default shell
