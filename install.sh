@@ -138,8 +138,8 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
 }
 
 echo "Installing fonts"
-sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Libary/Fonts/ \;
+sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
 
-open ~/projects/OSX-zsh.terminal
+open ~/projects/dotfiles/OSX-zsh.terminal
 
 echo "Fin"
