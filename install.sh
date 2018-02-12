@@ -144,6 +144,7 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
 echo "Installing fonts"
 sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
 
-vim +PlugInstall +qall
+echo "after loading the shell (zsh, go path, etc) do this: vim +PlugInstall +qall"
+echo ""
 
 echo "Fin"
