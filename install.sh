@@ -85,6 +85,11 @@ if [ ! -d ~/projects ]; then
 	mkdir ~/projects
 fi
 
+if [ ! -d ~/projects/go ]; then
+	echo "making projects/go directory"
+	mkdir ~/projects/go
+fi
+
 if [ ! -d ~/projects/dotfiles ]; then
     echo "getting dotfiles..."
     git clone git@github.com:nbari/dotfiles.git ~/projects/dotfiles
@@ -144,7 +149,11 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
 echo "Installing fonts"
 sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
 
-echo "after loading the shell (zsh, go path, etc) do this: vim +PlugInstall +qall"
-echo ""
+if [ ! -f ~/Pictures/polignano.jpg ]; then
+	cp ~/projects/dotfiles/background/polignano.jpg ~/Pictures/
+fi
 
+echo ""
+echo "After loading the shell (zsh, go path, etc) do this: vim +PlugInstall +qall"
+echo ""
 echo "Fin"
