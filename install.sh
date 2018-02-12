@@ -88,6 +88,9 @@ fi
 if [ ! -d ~/projects/go ]; then
 	echo "making projects/go directory"
 	mkdir ~/projects/go
+	mkdir ~/projects/go/bin
+	mkdir ~/projects/go/src
+	mkdir ~/projects/go/pkg
 fi
 
 if [ ! -d ~/projects/dotfiles ]; then
