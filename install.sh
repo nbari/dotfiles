@@ -31,6 +31,7 @@ brew install go && \
 brew install ipcalc && \
 brew install ncdu && \
 brew install npm && \
+brew install par && \
 brew install python && \
 brew install reattach-to-user-namespace && \
 brew install ripgrep && \
