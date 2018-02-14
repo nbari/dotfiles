@@ -69,3 +69,6 @@ brew
 Install extra packages:
 
     brew install tree colordiff ack
+
+Add to `~/Library/LaunchAgents` the file `ssh.plist` to force using keychain and
+not asking for ssh passwords.
