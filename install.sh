@@ -25,6 +25,7 @@ brew update
 
 brew install ag && \
 brew install autossh && \
+brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
 brew install go && \
