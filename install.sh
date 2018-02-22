@@ -29,8 +29,8 @@ brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
 brew install go && \
-brew install jq && \
 brew install ipcalc && \
+brew install jq && \
 brew install ncdu && \
 brew install npm && \
 brew install par && \
@@ -38,6 +38,7 @@ brew install pdsh && \
 brew install python && \
 brew install reattach-to-user-namespace && \
 brew install ripgrep && \
+brew install speedtest-cli && \
 brew install ssh-vault && \
 brew install tmux && \
 brew install tree && \
