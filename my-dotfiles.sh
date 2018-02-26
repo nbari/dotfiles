@@ -56,7 +56,7 @@ X" adjust the path to your nginx
 Xau BufRead,BufNewFile /etc/nginx/*,/usr/local/etc/nginx/* if &ft == '' | setfiletype nginx | endif
 X
 X" adjust the path to your ansible playbooks
-Xau BufRead,BufNewFile ~/ansible/*.yml,~/ansible/*/*.yml if &ft == '' | setfiletype ansible | endif
+Xau BufRead,BufNewFile ~/projects/ansible/*.yml,~/ansible/*/*.yml if &ft == '' | setfiletype ansible | endif
 END-of-./.vim/filetype.vim
 echo c - ./.vim/colors
 mkdir -p ./.vim/colors > /dev/null 2>&1
