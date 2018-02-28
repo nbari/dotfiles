@@ -38,6 +38,7 @@ brew install pdsh && \
 brew install python && \
 brew install reattach-to-user-namespace && \
 brew install ripgrep && \
+brew install rsync && \
 brew install speedtest-cli && \
 brew install ssh-vault && \
 brew install tmux && \
