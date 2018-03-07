@@ -25,7 +25,7 @@ autoload -U compinit && compinit
 # ----------------------------------------------------------------------------
 # exports
 # ----------------------------------------------------------------------------
-export PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.6/bin:$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
+export PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
 # remove duplicates in the PATH
 typeset -U PATH
 export CLICOLOR=1
