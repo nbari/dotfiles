@@ -4550,7 +4550,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="/usr/local/opt/python@2:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
+Xexport PATH="/usr/local/opt/python@2/bin:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.6/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
 X# remove duplicates in the PATH
 Xtypeset -U PATH
 Xexport CLICOLOR=1
