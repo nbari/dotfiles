@@ -21,6 +21,11 @@ set -e
 #         the length of STRING is zero
 # ----------------------------------------------------------------------------
 
+if ! command -v brew >/dev/null; then
+  echo "Installing Homebrew ..."
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"    
+fi
+
 brew update
 
 brew install ag && \
@@ -61,7 +66,7 @@ else
     chsh -s /usr/local/bin/zsh
 fi
 
-cd $home
+cd $HOME
 
 # now=$(date -u +%Y%m%dT%H%M%S)
 
