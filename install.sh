@@ -23,7 +23,7 @@ set -e
 
 if ! command -v brew >/dev/null; then
   echo "Installing Homebrew ..."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"    
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 brew update
@@ -125,6 +125,9 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
 	echo "creating .zshrc link"
 	ln -s ~/projects/dotfiles/my-dotfiles/.zshrc ~/.zshrc
 fi
+
+echo "Source ~/.zshrc"
+source ~/.zshrc
 
 if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
   echo "~/.cshrc exists"; else
