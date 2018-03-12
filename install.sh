@@ -126,9 +126,6 @@ if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
 	ln -s ~/projects/dotfiles/my-dotfiles/.zshrc ~/.zshrc
 fi
 
-echo "Source ~/.zshrc"
-source ~/.zshrc
-
 if [ -f ~/.cshrc ] || [ -h ~/.cshrc ]; then
   echo "~/.cshrc exists"; else
 	echo "creating .cshrc link"
@@ -157,6 +154,9 @@ echo "Installing node packages..."
 hash npm >/dev/null 2>&1 && env npm install js-beautify js-yaml jsonlint less jslint node-sass || {
     echo "npm not installed"
 }
+
+echo "Add new python to PATH"
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
 echo "Installing pip packages..."
 hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv autopep8 pyflakes pylint cryptography || {
