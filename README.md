@@ -11,7 +11,7 @@ also create an ``$HOME/.zsh`` directory, please backup if needed.
 Setup
 -----
 
-Open a terminal and type this:
+Before starting, check that you have your keys in `~/.ssh`, then run:
 
     $ curl -Ls https://raw.githubusercontent.com/nbari/dotfiles/master/install.sh | sh
 
