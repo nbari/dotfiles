@@ -170,6 +170,9 @@ if [ ! -f ~/Pictures/polignano.jpg ]; then
 	cp ~/projects/dotfiles/background/polignano.jpg ~/Pictures/
 fi
 
+echo "fixing .ssh perms to id_keys"
+find ~/.ssh/* -type f -name "id*" -not -iname "*.pub" -exec chmod 0400 {} \+
+
 echo ""
 echo "After loading the shell (zsh, go path, etc) do this: vim +PlugInstall +qall"
 echo ""
