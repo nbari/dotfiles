@@ -184,6 +184,8 @@ alias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 alias bookmarks='~/.zsh/bookmarks'
 alias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 alias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1'
+# ap2
+alias ap="$HOME/Library/Python/2.7/bin/ansible-playbook"
 
 # checksum
 checksum() {
