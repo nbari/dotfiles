@@ -4677,7 +4677,7 @@ Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 Xalias pro='cd ~/projects'
 Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
-Xalias pyclean='find . -iname "*.py[co]" -o -name "__pycache__" -exec rm -rf {} +;'
+Xalias pyclean='find . \( -iname "*.py[co]" -o -name "__pycache__" \) -exec rm -rf {} +;'
 X# alias pyclean='find . -iname "*.py[co]" -delete'
 Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'

@@ -152,7 +152,7 @@ alias pg='ps auxwww | grep -v "grep" | grep --color=auto'
 alias pro='cd ~/projects'
 alias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
 alias psmem='ps aux | sort -r -nk 4 | head -n 10'
-alias pyclean='find . -iname "*.py[co]" -o -name "__pycache__" -exec rm -rf {} +;'
+alias pyclean='find . \( -iname "*.py[co]" -o -name "__pycache__" \) -exec rm -rf {} +;'
 # alias pyclean='find . -iname "*.py[co]" -delete'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
