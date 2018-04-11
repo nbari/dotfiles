@@ -83,7 +83,7 @@ set number
 set relativenumber
 set hlsearch
 nnoremap <leader><space> :noh<CR>
-set listchars=tab:▸\ ,eol:¬,trail:·
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:#,nbsp:.
 
 " Ignore case on search
 set ignorecase

@@ -374,7 +374,11 @@ prompt_pure_setup() {
     [[ $UID -eq 0 ]] && prompt_pure_username='%F{1}%n%F{242}@%M' && PURE_PROMPT_SYMBOL='%F{3}#'
 
     # prompt turns red if the previous command didn't exit with 0
-    PROMPT="%(?.%F{5}.%F{196})${PURE_PROMPT_SYMBOL:-$}%f "
+    # Note use a non-breaking space at the end of the prompt because we can use it as
+    # a find pattern to jump back in tmux.
+    # <c-k> <space><space>
+    local NBSP=' '
+    PROMPT="%(?.%F{5}.%F{196})${PURE_PROMPT_SYMBOL:-$}%f${NBSP}"
 }
 
 prompt_pure_setup "$@"
