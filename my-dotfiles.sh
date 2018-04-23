@@ -7576,8 +7576,7 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
-XPlug 'stephpy/vim-yaml'
-XPlug 'pearofducks/ansible-vim'
+XPlug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; python generate.py' }
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rodjek/vim-puppet'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -8022,6 +8021,7 @@ Xnnoremap <leader>t :call TestGo()<CR>
 X
 X" ansible
 Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
+Xlet g:ansible_name_highlight = 'd'
 END-of-./.vimrc
 echo x - ./.tmux-remote.conf
 sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
