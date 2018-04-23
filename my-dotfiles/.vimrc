@@ -28,6 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
+Plug 'stephpy/vim-yaml'
 Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; python generate.py' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rodjek/vim-puppet'
@@ -474,3 +475,4 @@ nnoremap <leader>t :call TestGo()<CR>
 " ansible
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 let g:ansible_name_highlight = 'd'
+let g:ansible_yamlKeyName = 'yamlKey'
