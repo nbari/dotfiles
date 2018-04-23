@@ -28,7 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
-Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rodjek/vim-puppet'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }

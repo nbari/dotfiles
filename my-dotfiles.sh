@@ -7576,7 +7576,7 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
-XPlug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rodjek/vim-puppet'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
