@@ -27,7 +27,8 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
-Plug 'mitsuhiko/vim-jinja', { 'for': ['yaml', 'sls'] }
+Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
+Plug 'stephpy/vim-yaml'
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rodjek/vim-puppet'
@@ -145,8 +146,8 @@ au BufRead,BufNewFile *.json set ft=json syntax=javascript
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 " associate *.jinja with jinja filetype
-au BufRead,BufNewFile *.jinja set ft=jinja
-au BufRead,BufNewFile *.j2 set ft=jinja
+au BufRead,BufNewFile *.jinja set ft=jinja2
+au BufRead,BufNewFile *.j2 set ft=jinja2
 
 " enable cold folding
 au FileType javascript call JavaScriptFold()
