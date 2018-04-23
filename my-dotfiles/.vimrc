@@ -470,3 +470,6 @@ function TestGo()
     call system(command)
 endfunction
 nnoremap <leader>t :call TestGo()<CR>
+
+" ansible
+au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible

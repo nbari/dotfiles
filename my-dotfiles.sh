@@ -8018,6 +8018,9 @@ X    " :echo join(command)
 X    call system(command)
 Xendfunction
 Xnnoremap <leader>t :call TestGo()<CR>
+X
+X" ansible
+Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 END-of-./.vimrc
 echo x - ./.tmux-remote.conf
 sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
