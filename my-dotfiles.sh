@@ -7187,7 +7187,7 @@ XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 XPlug 'stephpy/vim-yaml'
-XPlug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; python generate.py' }
+XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rodjek/vim-puppet'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -7634,6 +7634,9 @@ X" ansible
 Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 Xlet g:ansible_name_highlight = 'd'
 Xlet g:ansible_yamlKeyName = 'yamlKey'
+X
+X" use jl as Esc
+Ximap jk <Esc>
 END-of-./.vimrc
 echo c - ./.zsh
 mkdir -p ./.zsh > /dev/null 2>&1
