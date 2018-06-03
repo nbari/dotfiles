@@ -1068,7 +1068,7 @@ X    "        but it won't work on Windows.
 X    let cmd = a:0 ? s:with_cd(a:cmd, a:1) : a:cmd
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    let g:_plug_bang = (s:is_win && has('gui_running') ? 'silent ' : '').'!'.escape(cmd, '#!%')
@@ -1465,7 +1465,7 @@ X            \ 'new': get(a:opts, 'new', 0) }
 X  let s:jobs[a:name] = job
 X  let cmd = has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd
 X  if !empty(job.batchfile)
-X    call writefile(['@echo off', cmd], job.batchfile)
+X    call writefile(["@echo off\r", cmd . "\r"], job.batchfile)
 X    let cmd = job.batchfile
 X  endif
 X  let argv = add(s:is_win ? ['cmd', '/c'] : ['sh', '-c'], cmd)
@@ -2292,7 +2292,7 @@ X    let [sh, shellcmdflag, shrd] = s:chsh(1)
 X    let cmd = a:0 > 0 ? s:with_cd(a:cmd, a:1) : a:cmd
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    return system(s:is_win ? '('.cmd.')' : cmd)
@@ -2626,7 +2626,7 @@ X    let [sh, shellcmdflag, shrd] = s:chsh(1)
 X    let cmd = 'cd '.s:shellesc(g:plugs[name].dir).' && git show --no-color --pretty=medium '.sha
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    execute 'silent %!' cmd
@@ -3684,7 +3684,7 @@ X  if !empty(s:update.errors)
 X    call add(msgs, "Press 'R' to retry.")
 X  endif
 X  if a:pull && len(s:update.new) < len(filter(getline(5, '$'),
-X                \ "v:val =~ '^- ' && stridx(v:val, 'Already up-to-date') < 0"))
+X                \ "v:val =~ '^- ' && v:val !~# 'Already up.to.date'"))
 X    call add(msgs, "Press 'D' to see the updated changes.")
 X  endif
 X  echo join(msgs, ' ')
