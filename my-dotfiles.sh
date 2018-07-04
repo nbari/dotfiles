@@ -365,7 +365,7 @@ Xlet s:plug_src = 'https://github.com/junegunn/vim-plug.git'
 Xlet s:plug_tab = get(s:, 'plug_tab', -1)
 Xlet s:plug_buf = get(s:, 'plug_buf', -1)
 Xlet s:mac_gui = has('gui_macvim') && has('gui_running')
-Xlet s:is_win = has('win32') || has('win64')
+Xlet s:is_win = has('win32')
 Xlet s:nvim = has('nvim-0.2') || (has('nvim') && exists('*jobwait') && !s:is_win)
 Xlet s:vim8 = has('patch-8.0.0039') && exists('*job_start')
 Xlet s:me = resolve(expand('<sfile>:p'))
@@ -2695,8 +2695,13 @@ X  call setline(1, printf('%d plugin(s) updated.', cnts[0])
 X        \ . (cnts[1] ? printf(' %d plugin(s) have pending updates.', cnts[1]) : ''))
 X
 X  if cnts[0] || cnts[1]
-X    nnoremap <silent> <buffer> <cr> :silent! call <SID>preview_commit()<cr>
-X    nnoremap <silent> <buffer> o    :silent! call <SID>preview_commit()<cr>
+X    nnoremap <silent> <buffer> <plug>(plug-preview) :silent! call <SID>preview_commit()<cr>
+X    if empty(maparg("\<cr>", 'n'))
+X      nmap <buffer> <cr> <plug>(plug-preview)
+X    endif
+X    if empty(maparg('o', 'n'))
+X      nmap <buffer> o <plug>(plug-preview)
+X    endif
 X  endif
 X  if cnts[0]
 X    nnoremap <silent> <buffer> X :call <SID>revert()<cr>
@@ -3575,7 +3580,7 @@ X    "        but it won't work on Windows.
 X    let cmd = a:0 ? s:with_cd(a:cmd, a:1) : a:cmd
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    let g:_plug_bang = (s:is_win && has('gui_running') ? 'silent ' : '').'!'.escape(cmd, '#!%')
@@ -3972,7 +3977,7 @@ X            \ 'new': get(a:opts, 'new', 0) }
 X  let s:jobs[a:name] = job
 X  let cmd = has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd
 X  if !empty(job.batchfile)
-X    call writefile(['@echo off', cmd], job.batchfile)
+X    call writefile(["@echo off\r", cmd . "\r"], job.batchfile)
 X    let cmd = job.batchfile
 X  endif
 X  let argv = add(s:is_win ? ['cmd', '/c'] : ['sh', '-c'], cmd)
@@ -4799,7 +4804,7 @@ X    let [sh, shellcmdflag, shrd] = s:chsh(1)
 X    let cmd = a:0 > 0 ? s:with_cd(a:cmd, a:1) : a:cmd
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    return system(s:is_win ? '('.cmd.')' : cmd)
@@ -5133,7 +5138,7 @@ X    let [sh, shellcmdflag, shrd] = s:chsh(1)
 X    let cmd = 'cd '.s:shellesc(g:plugs[name].dir).' && git show --no-color --pretty=medium '.sha
 X    if s:is_win
 X      let batchfile = tempname().'.bat'
-X      call writefile(['@echo off', cmd], batchfile)
+X      call writefile(["@echo off\r", cmd . "\r"], batchfile)
 X      let cmd = batchfile
 X    endif
 X    execute 'silent %!' cmd
