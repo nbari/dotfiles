@@ -7166,6 +7166,11 @@ Xset nocompatible
 Xset autowrite
 Xset wildmenu
 X
+X" https://github.com/vim/vim/issues/3117
+Xif has('python3')
+X    silent! python3 1
+Xendif
+X
 Xif empty(glob('~/.vim/autoload/plug.vim'))
 X    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 X                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

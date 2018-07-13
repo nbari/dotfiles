@@ -3,6 +3,11 @@ set nocompatible
 set autowrite
 set wildmenu
 
+" https://github.com/vim/vim/issues/3117
+if has('python3')
+    silent! python3 1
+endif
+
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
