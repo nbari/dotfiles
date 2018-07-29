@@ -30,7 +30,7 @@ brew update
 
 brew install ag && \
 brew install autossh && \
-brew install curl && \
+brew install curl --with-nghttp2 && \
 brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
