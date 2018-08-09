@@ -30,7 +30,6 @@ brew update
 
 brew install ag && \
 brew install autossh && \
-brew install curl --with-nghttp2 && \
 brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
@@ -51,8 +50,6 @@ brew install tmux && \
 brew install tree && \
 brew install vim --with-override-system-vi && \
 brew install zsh
-
-brew link curl --force
 
 if grep -Fxq "/usr/local/bin/zsh" /etc/shells
 then
