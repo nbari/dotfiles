@@ -34,6 +34,7 @@ brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
 brew install go && \
+brew install gnu-tar && \
 brew install ipcalc && \
 brew install sipcalc && \
 brew install jq && \
