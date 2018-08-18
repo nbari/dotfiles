@@ -376,8 +376,11 @@ bindkey -M vicmd v edit-command-line
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
-autoload -U pure_prompt && pure_prompt
-
+# autoload -U pure_prompt && pure_prompt
+autoload -U promptinit; promptinit
+PURE_PROMPT_SYMBOL="$"
+PURE_PROMPT_VICMD_SYMBOL=">"
+prompt pure
 # ----------------------------------------------------------------------------
 # tmux
 # ----------------------------------------------------------------------------
