@@ -144,7 +144,7 @@ prompt_pure_preprompt_render() {
     preprompt+="%F{cyan}${prompt_pure_git_arrows}%f"
 
     # execution time
-    preprompt+=" %F{red}${prompt_pure_cmd_exec_time}%f"
+    preprompt+=" %F{yellow}${prompt_pure_cmd_exec_time}%f"
 
     # if executing through precmd, do not perform fancy terminal editing
     if [[ "$1" == "precmd" ]]; then
