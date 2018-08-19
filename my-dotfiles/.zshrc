@@ -46,7 +46,7 @@ then
     alias ls='ls --color=tty'
 else
     # BSD Style
-    export LSCOLORS="Exfxcxdxbxegedabagacad"
+    export LSCOLORS=Exfxcxdxbxegedabagacad
 fi
 
 export EDITOR=vim
