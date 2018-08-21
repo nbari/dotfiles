@@ -141,6 +141,7 @@ alias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
 alias gdrive='cd ~/Google\ Drive'
 alias git_empty='git commit -m "empty commit" --allow-empty'
 alias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
+alias yk='gpg --card-status > /dev/null'
 alias dev='git checkout develop'
 alias dh='dirs -v'
 alias h='history'
@@ -191,6 +192,8 @@ alias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 alias bookmarks='~/.zsh/bookmarks'
 alias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 alias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1'
+# wake up yubikey
+alias yk='gpg --card-status > /dev/null'
 # ap2
 alias ap="$HOME/Library/Python/2.7/bin/ansible-playbook"
 
