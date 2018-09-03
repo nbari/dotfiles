@@ -9688,7 +9688,6 @@ X# ----------------------------------------------------------------------------
 X# ssh+tmux
 X# ----------------------------------------------------------------------------
 Xexport AUTOSSH_GATETIME=0
-Xexport AUTOSSH_POLL=5
 Xexport AUTOSSH_PORT=0
 Xs() {
 X    [[ ! -z $1 ]] && autossh -M 0 -t $@ "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
