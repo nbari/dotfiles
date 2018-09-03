@@ -162,6 +162,7 @@ alias pyclean='find . \( -iname "*.py[co]" -o -name "__pycache__" \) -exec rm -r
 # alias pyclean='find . -iname "*.py[co]" -delete'
 alias pyserv="python -m SimpleHTTPServer"
 alias rm='rm -i'
+alias ss='autossh -M 0'
 alias svi='sudo vim'
 alias ssh-tunnel='echo "ssh -C2qTnN -D 8080 (proxy) or -L 3307:db.tld:3307 host.tld"'
 alias up='git add . && git commit -a -m "sync `date`" && git push'
