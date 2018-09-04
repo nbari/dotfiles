@@ -316,6 +316,7 @@ sync-tmux() {
 # ssh+tmux
 # ----------------------------------------------------------------------------
 export AUTOSSH_GATETIME=0
+export AUTOSSH_POLL=10
 export AUTOSSH_PORT=0
 s() {
     [[ ! -z $1 ]] && autossh -M 0 -t $@ "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
