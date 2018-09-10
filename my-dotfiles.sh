@@ -7798,6 +7798,8 @@ Xnnoremap <leader>ff :Autoformat<CR>
 X" Test this to check if autopep8 working
 X" echo "print 'coração niño'" | autopep8 -
 Xlet g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
+Xlet g:formatdef_jq = '"jq ."'
+Xlet g:formatters_json = ['jq']
 X
 X" vim-php-cs-fixer
 X" let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
@@ -7948,9 +7950,6 @@ Xnnoremap <leader>sc :!node-sass --output-style compressed % "%:p:r.css"<CR>
 X
 X" Compile script.src.js -> script.min.js
 Xnnoremap <leader>jc :execute "!java -jar " . g:syntastic_javascript_closurecompiler_path . ' --js='. expand('%') . ' --js_output_file=' . expand('%:r:r') . '.min.js'<CR>
-X
-X" prety json
-Xnnoremap <leader>pj :%!python -m json.tool<CR>
 X
 X" found no ASCII
 X" Once you're on a particular one, use ga
