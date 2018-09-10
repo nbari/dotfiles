@@ -173,6 +173,7 @@ X
 X# vi bindings
 Xset-option -g status-key vi
 Xset-window-option -g mode-keys vi
+Xset -sg escape-time 0 # fix delay switching modes
 X
 X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
