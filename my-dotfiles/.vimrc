@@ -23,6 +23,7 @@ Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'dcharbon/vim-flatbuffers'
+Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hashivim/vim-terraform'
@@ -33,7 +34,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
-Plug 'stephpy/vim-yaml'
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rodjek/vim-puppet'
@@ -42,6 +42,7 @@ Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
+Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
@@ -143,9 +144,6 @@ au BufWritePre,FileWritePre * %s/\s\+$//e | %s/\r$//e | %s#\($\n\)\+\%$##e
 
 " associate *.tpl with php filetype
 au BufRead,BufNewFile *.tpl set ft=php
-
-" associate *.json with json filetype
-au BufRead,BufNewFile *.json set ft=json syntax=javascript
 
 " associate jquery.*.js
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery

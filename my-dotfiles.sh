@@ -1106,6 +1106,9 @@ X  for k in ['<cr>', 'L', 'o', 'X', 'd', 'dd']
 X    execute 'silent! unmap <buffer>' k
 X  endfor
 X  setlocal buftype=nofile bufhidden=wipe nobuflisted nolist noswapfile nowrap cursorline modifiable nospell
+X  if exists('+colorcolumn')
+X    setlocal colorcolumn=
+X  endif
 X  setf vim-plug
 X  if exists('g:syntax_on')
 X    call s:syntax()
@@ -3866,6 +3869,8 @@ X  if has('win32unix')
 X    let s:clone_opt .= ' -c core.eol=lf -c core.autocrlf=input'
 X  endif
 X
+X  let s:submodule_opt = s:git_version_requirement(2, 8) ? ' --jobs='.threads : ''
+X
 X  " Python version requirement (>= 2.7)
 X  if python && !has('python3') && !ruby && !use_job && s:update.threads > 1
 X    redir => pyv
@@ -3957,7 +3962,7 @@ X      endif
 X      if !v:shell_error && filereadable(spec.dir.'/.gitmodules') &&
 X            \ (s:update.force || has_key(s:update.new, name) || s:is_updated(spec.dir))
 X        call s:log4(name, 'Updating submodules. This may take a while.')
-X        let out .= s:bang('git submodule update --init --recursive 2>&1', spec.dir)
+X        let out .= s:bang('git submodule update --init --recursive'.s:submodule_opt.' 2>&1', spec.dir)
 X      endif
 X      let msg = s:format_message(v:shell_error ? 'x': '-', name, out)
 X      if v:shell_error
@@ -7597,6 +7602,7 @@ XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'dcharbon/vim-flatbuffers'
+XPlug 'elzr/vim-json'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hashivim/vim-terraform'
@@ -7607,7 +7613,6 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
-XPlug 'stephpy/vim-yaml'
 XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rodjek/vim-puppet'
@@ -7616,6 +7621,7 @@ XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'scrooloose/syntastic'
+XPlug 'stephpy/vim-yaml'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
@@ -7717,9 +7723,6 @@ Xau BufWritePre,FileWritePre * %s/\s\+$//e | %s/\r$//e | %s#\($\n\)\+\%$##e
 X
 X" associate *.tpl with php filetype
 Xau BufRead,BufNewFile *.tpl set ft=php
-X
-X" associate *.json with json filetype
-Xau BufRead,BufNewFile *.json set ft=json syntax=javascript
 X
 X" associate jquery.*.js
 Xau BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
