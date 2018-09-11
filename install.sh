@@ -36,6 +36,7 @@ brew install git --without-completions && \
 brew install gnu-tar && \
 brew install go && \
 brew install hopenpgp-tools && \
+brew install immortal && \
 brew install ipcalc && \
 brew install jq && \
 brew install ncdu && \
