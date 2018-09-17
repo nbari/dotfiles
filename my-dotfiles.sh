@@ -1354,6 +1354,8 @@ X  if has('win32unix')
 X    let s:clone_opt .= ' -c core.eol=lf -c core.autocrlf=input'
 X  endif
 X
+X  let s:submodule_opt = s:git_version_requirement(2, 8) ? ' --jobs='.threads : ''
+X
 X  " Python version requirement (>= 2.7)
 X  if python && !has('python3') && !ruby && !use_job && s:update.threads > 1
 X    redir => pyv
@@ -1445,7 +1447,7 @@ X      endif
 X      if !v:shell_error && filereadable(spec.dir.'/.gitmodules') &&
 X            \ (s:update.force || has_key(s:update.new, name) || s:is_updated(spec.dir))
 X        call s:log4(name, 'Updating submodules. This may take a while.')
-X        let out .= s:bang('git submodule update --init --recursive 2>&1', spec.dir)
+X        let out .= s:bang('git submodule update --init --recursive'.s:submodule_opt.' 2>&1', spec.dir)
 X      endif
 X      let msg = s:format_message(v:shell_error ? 'x': '-', name, out)
 X      if v:shell_error
@@ -3051,6 +3053,14 @@ X    return 0
 X  endtry
 Xendfunction
 X
+Xfunction! s:lazy(plug, opt)
+X  return has_key(a:plug, a:opt) &&
+X        \ (empty(s:to_a(a:plug[a:opt]))         ||
+X        \  !isdirectory(a:plug.dir)             ||
+X        \  len(s:glob(s:rtp(a:plug), 'plugin')) ||
+X        \  len(s:glob(s:rtp(a:plug), 'after/plugin')))
+Xendfunction
+X
 Xfunction! plug#end()
 X  if !exists('g:plugs')
 X    return s:err('Call plug#begin() first')
@@ -3072,7 +3082,7 @@ X    if !has_key(g:plugs, name)
 X      continue
 X    endif
 X    let plug = g:plugs[name]
-X    if get(s:loaded, name, 0) || !has_key(plug, 'on') && !has_key(plug, 'for')
+X    if get(s:loaded, name, 0) || !s:lazy(plug, 'on') && !s:lazy(plug, 'for')
 X      let s:loaded[name] = 1
 X      continue
 X    endif
@@ -4181,7 +4191,7 @@ X  endif
 X
 X  let name = keys(s:update.todo)[0]
 X  let spec = remove(s:update.todo, name)
-X  let new  = !isdirectory(spec.dir)
+X  let new  = empty(globpath(spec.dir, '.git', 1))
 X
 X  call s:log(new ? '+' : '*', name, pull ? 'Updating ...' : 'Installing ...')
 X  redraw
