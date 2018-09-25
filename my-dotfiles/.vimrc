@@ -220,8 +220,12 @@ nnoremap <leader>ff :Autoformat<CR>
 " Test this to check if autopep8 working
 " echo "print 'coração niño'" | autopep8 -
 let g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
+" json
 let g:formatdef_jq = '"jq ."'
 let g:formatters_json = ['jq']
+" tick
+let g:formatdef_tick = '"tickfmt"'
+let g:formatters_tick = ['tick']
 
 " vim-php-cs-fixer
 " let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"

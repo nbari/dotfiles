@@ -7810,8 +7810,12 @@ Xnnoremap <leader>ff :Autoformat<CR>
 X" Test this to check if autopep8 working
 X" echo "print 'coração niño'" | autopep8 -
 Xlet g:formatdef_autopep8 = '"autopep8 - --aggressive --indent-size 4"'
+X" json
 Xlet g:formatdef_jq = '"jq ."'
 Xlet g:formatters_json = ['jq']
+X" tick
+Xlet g:formatdef_tick = '"tickfmt"'
+Xlet g:formatters_tick = ['tick']
 X
 X" vim-php-cs-fixer
 X" let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer"
