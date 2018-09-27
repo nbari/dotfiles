@@ -7636,7 +7636,6 @@ XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
 XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'scrooloose/syntastic'
-XPlug 'stephpy/vim-yaml'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
@@ -7801,6 +7800,7 @@ Xlet g:syntastic_javascript_closurecompiler_path = "/usr/local/share/closure-com
 Xlet g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 Xlet g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 Xlet g:syntastic_python_flake8_args='--ignore=E501'
+Xlet g:syntastic_yaml_checkers = ['yamllint']
 Xhi SyntasticErrorSign ctermfg=red ctermbg=none
 Xhi SyntasticWarningSign ctermfg=yellow ctermbg=none
 Xhi SyntasticErrorLine   ctermbg=52

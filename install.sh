@@ -56,6 +56,7 @@ brew install tree && \
 brew install vim --with-override-system-vi && \
 brew install watch && \
 brew install yamllint && \
+brew install yq && \
 brew install zsh
 
 if grep -Fxq "/usr/local/bin/zsh" /etc/shells
