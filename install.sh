@@ -30,6 +30,7 @@ brew update
 
 brew install ag && \
 brew install autossh && \
+brew install cmake && \
 brew install dep && \
 brew install direnv && \
 brew install git --without-completions && \
