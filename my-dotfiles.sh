@@ -28,6 +28,7 @@
 #	./.vim/syntax/nginx.vim
 #	./.vim/syntax/php.vim
 #	./.vim/syntax/proto.vim
+#	./.vim/view
 #	./.vimrc
 #	./.zsh
 #	./.zsh/bookmarks
@@ -7183,6 +7184,8 @@ Xendif
 X
 Xlet b:current_syntax = "proto"
 END-of-./.vim/syntax/proto.vim
+echo c - ./.vim/view
+mkdir -p ./.vim/view > /dev/null 2>&1
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'END-of-./.vimrc'
 Xset binary
@@ -9775,10 +9778,26 @@ X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
 X# autoload -U pure_prompt && pure_prompt
-Xautoload -U promptinit; promptinit
-XPURE_PROMPT_SYMBOL="$"
-XPURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-Xprompt pure
+X#autoload -U promptinit; promptinit
+X#PURE_PROMPT_SYMBOL="$"
+X#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
+X#prompt pure
+X
+X
+Xfunction zle-line-init zle-keymap-select {
+X  PROMPT=`$HOME/projects/rust/purs/target/release/purs prompt -k "$KEYMAP" -r "$?"`
+X  zle reset-prompt
+X}
+Xzle -N zle-line-init
+Xzle -N zle-keymap-select
+X
+Xautoload -Uz add-zsh-hook
+X
+Xfunction _prompt_purs_precmd() {
+X  $HOME/projects/rust/purs/target/release/purs precmd
+X}
+Xadd-zsh-hook precmd _prompt_purs_precmd
+X
 X# ----------------------------------------------------------------------------
 X# tmux
 X# ----------------------------------------------------------------------------

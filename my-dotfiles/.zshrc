@@ -383,10 +383,26 @@ bindkey -M vicmd v edit-command-line
 # prompt
 # ----------------------------------------------------------------------------
 # autoload -U pure_prompt && pure_prompt
-autoload -U promptinit; promptinit
-PURE_PROMPT_SYMBOL="$"
-PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-prompt pure
+#autoload -U promptinit; promptinit
+#PURE_PROMPT_SYMBOL="$"
+#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
+#prompt pure
+
+
+function zle-line-init zle-keymap-select {
+  PROMPT=`$HOME/projects/rust/purs/target/release/purs prompt -k "$KEYMAP" -r "$?"`
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+autoload -Uz add-zsh-hook
+
+function _prompt_purs_precmd() {
+  $HOME/projects/rust/purs/target/release/purs precmd
+}
+add-zsh-hook precmd _prompt_purs_precmd
+
 # ----------------------------------------------------------------------------
 # tmux
 # ----------------------------------------------------------------------------
