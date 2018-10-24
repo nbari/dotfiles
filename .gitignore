@@ -1,3 +1,4 @@
 .DS_Store
 my-dotfiles/.vim/plugged/*
 my-dotfiles/.vim/.netrwhist
+my-dotfiles/.vim/view/*
