@@ -134,12 +134,12 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 8 - ((7 * winheight(0) + 21) / 42)
+let s:l = 21 - ((5 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 032|
+21
+normal! 0
 lcd ~/projects/rust/slick/src
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost

@@ -383,25 +383,31 @@ bindkey -M vicmd v edit-command-line
 # prompt
 # ----------------------------------------------------------------------------
 # autoload -U pure_prompt && pure_prompt
-#autoload -U promptinit; promptinit
-#PURE_PROMPT_SYMBOL="$"
-#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-#prompt pure
+# autoload -U promptinit; promptinit
+# PURE_PROMPT_SYMBOL="$"
+# PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
+# prompt pure
 
- # https://dougblack.io/words/zsh-vi-mode.html
 function zle-line-init zle-keymap-select {
     PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?")
     zle reset-prompt
 }
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 
 autoload -Uz add-zsh-hook
 
-function _prompt_purs_precmd() {
+zmodload zsh/zpty
+zmodload zsh/datetime
+
+function prompt_slick_precmd() {
     $HOME/projects/rust/slick/target/debug/slick precmd
+    #PROMPT=$($HOME/projects/rust/slick/target/debug/slick precmd)
+   # zle && zle reset-prompt
 }
-add-zsh-hook precmd _prompt_purs_precmd
+
+add-zsh-hook precmd prompt_slick_precmd
 
 # ----------------------------------------------------------------------------
 # tmux

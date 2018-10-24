@@ -195,13 +195,13 @@ prompt_pure_precmd() {
 	prompt_pure_reset_vim_prompt
 
 	# print the preprompt
-	prompt_pure_preprompt_render "precmd"
+  	prompt_pure_preprompt_render "precmd"
 
-	if [[ -n $ZSH_THEME ]]; then
-		print "WARNING: Oh My Zsh themes are enabled (ZSH_THEME='${ZSH_THEME}'). Pure might not be working correctly."
-		print "For more information, see: https://github.com/sindresorhus/pure#oh-my-zsh"
-		unset ZSH_THEME  # Only show this warning once.
-	fi
+	#if [[ -n $ZSH_THEME ]]; then
+		#print "WARNING: Oh My Zsh themes are enabled (ZSH_THEME='${ZSH_THEME}'). Pure might not be working correctly."
+		#print "For more information, see: https://github.com/sindresorhus/pure#oh-my-zsh"
+		#unset ZSH_THEME  # Only show this warning once.
+	#fi
 }
 
 prompt_pure_async_git_aliases() {
@@ -242,7 +242,9 @@ prompt_pure_async_vcs_info() {
 	local -A info
 	info[pwd]=$PWD
 	info[top]=$vcs_info_msg_1_
-	info[branch]=$vcs_info_msg_0_
+    info[branch]=$vcs_info_msg_0_
+
+    sleep 5
 
 	print -r - ${(@kvq)info}
 }
@@ -388,6 +390,8 @@ prompt_pure_async_callback() {
 	setopt localoptions noshwordsplit
 	local job=$1 code=$2 output=$3 exec_time=$4 next_pending=$6
 	local do_render=0
+
+ #   print $@
 
     # [[ -n $5 ]] && print "\nERROR($1): $5\n"
 
@@ -596,56 +600,56 @@ prompt_pure_setup() {
 	autoload -Uz +X add-zle-hook-widget 2>/dev/null
 
 	add-zsh-hook precmd prompt_pure_precmd
-	add-zsh-hook preexec prompt_pure_preexec
+ #	add-zsh-hook preexec prompt_pure_preexec
 
 	prompt_pure_state_setup
 
-	zle -N prompt_pure_update_vim_prompt
-	zle -N prompt_pure_reset_vim_prompt
-	if (( $+functions[add-zle-hook-widget] )); then
-		add-zle-hook-widget zle-line-finish prompt_pure_reset_vim_prompt
-		add-zle-hook-widget zle-keymap-select prompt_pure_update_vim_prompt
-	fi
+    zle -N prompt_pure_update_vim_prompt
+    zle -N prompt_pure_reset_vim_prompt
+    if (( $+functions[add-zle-hook-widget] )); then
+        add-zle-hook-widget zle-line-finish prompt_pure_reset_vim_prompt
+        add-zle-hook-widget zle-keymap-select prompt_pure_update_vim_prompt
+    fi
 
-	# if a virtualenv is activated, display it in grey
+	## if a virtualenv is activated, display it in grey
 	PROMPT='%(12V.%F{242}%12v%f .)'
 
-	# prompt turns red if the previous command didn't exit with 0
+	## prompt turns red if the previous command didn't exit with 0
 	PROMPT+='%(?.%F{5}.%F{196})${prompt_pure_state[prompt]}%f'
 
-    # Note use a non-breaking space at the end of the prompt because we can use it as
-    # a find pattern to jump back in tmux.
-    # <c-k> <space><space>
+    ## Note use a non-breaking space at the end of the prompt because we can use it as
+    ## a find pattern to jump back in tmux.
+    ## <c-k> <space><space>
     PROMPT+=' '
 
-	# Store prompt expansion symbols for in-place expansion via (%). For
-	# some reason it does not work without storing them in a variable first.
-	typeset -ga prompt_pure_debug_depth
-	prompt_pure_debug_depth=('%e' '%N' '%x')
+	## Store prompt expansion symbols for in-place expansion via (%). For
+	## some reason it does not work without storing them in a variable first.
+	#typeset -ga prompt_pure_debug_depth
+	#prompt_pure_debug_depth=('%e' '%N' '%x')
 
-	# Compare is used to check if %N equals %x. When they differ, the main
-	# prompt is used to allow displaying both file name and function. When
-	# they match, we use the secondary prompt to avoid displaying duplicate
-	# information.
-	local -A ps4_parts
-	ps4_parts=(
-		depth 	  '%F{yellow}${(l:${(%)prompt_pure_debug_depth[1]}::+:)}%f'
-		compare   '${${(%)prompt_pure_debug_depth[2]}:#${(%)prompt_pure_debug_depth[3]}}'
-		main      '%F{blue}${${(%)prompt_pure_debug_depth[3]}:t}%f%F{242}:%I%f %F{242}@%f%F{blue}%N%f%F{242}:%i%f'
-		secondary '%F{blue}%N%f%F{242}:%i'
-		prompt 	  '%F{242}>%f '
-	)
-	# Combine the parts with conditional logic. First the `:+` operator is
-	# used to replace `compare` either with `main` or an ampty string. Then
-	# the `:-` operator is used so that if `compare` becomes an empty
-	# string, it is replaced with `secondary`.
-	local ps4_symbols='${${'${ps4_parts[compare]}':+"'${ps4_parts[main]}'"}:-"'${ps4_parts[secondary]}'"}'
+	## Compare is used to check if %N equals %x. When they differ, the main
+	## prompt is used to allow displaying both file name and function. When
+	## they match, we use the secondary prompt to avoid displaying duplicate
+	## information.
+	#local -A ps4_parts
+	#ps4_parts=(
+		#depth 	  '%F{yellow}${(l:${(%)prompt_pure_debug_depth[1]}::+:)}%f'
+		#compare   '${${(%)prompt_pure_debug_depth[2]}:#${(%)prompt_pure_debug_depth[3]}}'
+		#main      '%F{blue}${${(%)prompt_pure_debug_depth[3]}:t}%f%F{242}:%I%f %F{242}@%f%F{blue}%N%f%F{242}:%i%f'
+		#secondary '%F{blue}%N%f%F{242}:%i'
+		#prompt 	  '%F{242}>%f '
+	#)
+	## Combine the parts with conditional logic. First the `:+` operator is
+	## used to replace `compare` either with `main` or an ampty string. Then
+	## the `:-` operator is used so that if `compare` becomes an empty
+	## string, it is replaced with `secondary`.
+	#local ps4_symbols='${${'${ps4_parts[compare]}':+"'${ps4_parts[main]}'"}:-"'${ps4_parts[secondary]}'"}'
 
-	# Improve the debug prompt (PS4), show depth by repeating the +-sign and
-	# add colors to highlight essential parts like file and function name.
-	PROMPT4="${ps4_parts[depth]} ${ps4_symbols}${ps4_parts[prompt]}"
+	## Improve the debug prompt (PS4), show depth by repeating the +-sign and
+	## add colors to highlight essential parts like file and function name.
+	#PROMPT4="${ps4_parts[depth]} ${ps4_symbols}${ps4_parts[prompt]}"
 
-	unset ZSH_THEME  # Guard against Oh My Zsh themes overriding Pure.
+	#unset ZSH_THEME  # Guard against Oh My Zsh themes overriding Pure.
 }
 
 prompt_pure_setup "$@"
