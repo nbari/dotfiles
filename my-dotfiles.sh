@@ -940,12 +940,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 7 - ((6 * winheight(0) + 24) / 48)
+Xlet s:l = 7 - ((6 * winheight(0) + 21) / 42)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
 X7
-Xnormal! 017|
+Xnormal! 030|
+Xlcd ~/projects/rust/slick/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -1237,12 +1238,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 26 - ((25 * winheight(0) + 24) / 48)
+Xlet s:l = 8 - ((7 * winheight(0) + 21) / 42)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X26
-Xnormal! 023|
+X8
+Xnormal! 032|
+Xlcd ~/projects/rust/slick/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -8367,8 +8369,7 @@ X#prompt pure
 X
 X # https://dougblack.io/words/zsh-vi-mode.html
 Xfunction zle-line-init zle-keymap-select {
-X    # PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?")
-X    PROMPT=$($HOME/projects/rust/purs/target/release/purs prompt -k "$KEYMAP" -r "$?")
+X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?")
 X    zle reset-prompt
 X}
 Xzle -N zle-line-init
@@ -8377,8 +8378,7 @@ X
 Xautoload -Uz add-zsh-hook
 X
 Xfunction _prompt_purs_precmd() {
-X    # $HOME/projects/rust/slick/target/debug/slick precmd
-X    $HOME/projects/rust/purs/target/release/purs precmd
+X    $HOME/projects/rust/slick/target/debug/slick precmd
 X}
 Xadd-zsh-hook precmd _prompt_purs_precmd
 X
