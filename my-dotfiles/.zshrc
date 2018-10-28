@@ -382,32 +382,41 @@ bindkey -M vicmd v edit-command-line
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
-# autoload -U pure_prompt && pure_prompt
-# autoload -U promptinit; promptinit
-# PURE_PROMPT_SYMBOL="$"
-# PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-# prompt pure
+autoload -U promptinit; promptinit
+PURE_PROMPT_SYMBOL="$"
+PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
+prompt pure
 
-function zle-line-init zle-keymap-select {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?")
-    zle reset-prompt
-}
+#autoload -Uz async && async
+#async_init
+#typeset -Ag prompt_data
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+#function zle-line-init zle-keymap-select prompt_refresh {
+    #PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data[prompt_git]")
+    #zle reset-prompt
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
-autoload -Uz add-zsh-hook
+#function prompt_git(){
+    #$HOME/projects/rust/slick/target/debug/slick precmd
+#}
 
-zmodload zsh/zpty
-zmodload zsh/datetime
+#function prompt_callback() {
+    #local job=$1 code=$2 output=$3 exec_time=$4
+    #prompt_data[$job]=$output
+    #prompt_refresh
+#}
 
-function prompt_slick_precmd() {
-    $HOME/projects/rust/slick/target/debug/slick precmd
-    #PROMPT=$($HOME/projects/rust/slick/target/debug/slick precmd)
-   # zle && zle reset-prompt
-}
+#async_start_worker 'prompt' -n
+#async_register_callback 'prompt' prompt_callback
 
-add-zsh-hook precmd prompt_slick_precmd
+#function prompt_precmd() {
+    #async_job 'prompt' prompt_git
+#}
+
+#autoload -Uz add-zsh-hook
+#add-zsh-hook precmd prompt_precmd
 
 # ----------------------------------------------------------------------------
 # tmux
