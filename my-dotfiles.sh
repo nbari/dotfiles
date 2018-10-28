@@ -8987,10 +8987,6 @@ X	setopt localoptions noshwordsplit
 X	local job=$1 code=$2 output=$3 exec_time=$4 next_pending=$6
 X	local do_render=0
 X
-X #   print $@
-X
-X    # [[ -n $5 ]] && print "\nERROR($1): $5\n"
-X
 X	case $job in
 X		prompt_pure_async_vcs_info)
 X			local -A info
