@@ -47,6 +47,7 @@ brew install npm && \
 brew install par && \
 brew install pdsh && \
 brew install protobuf && \
+brew install prototool && \
 brew install pv && \
 brew install python && \
 brew install reattach-to-user-namespace && \
