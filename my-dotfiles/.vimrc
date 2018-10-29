@@ -46,6 +46,8 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
+Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 call plug#end()
 
 colorscheme nbari-colors
@@ -486,3 +488,9 @@ let g:ansible_yamlKeyName = 'yamlKey'
 
 " use jl as Esc
 imap jk <Esc>
+
+" ale
+let g:ale_linters = {
+\   'go': ['golint'],
+\   'proto': ['prototool'],
+\}

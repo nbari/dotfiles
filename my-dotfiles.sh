@@ -7667,6 +7667,8 @@ XPlug 'scrooloose/syntastic'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
+XPlug 'w0rp/ale'
+XPlug 'uber/prototool', { 'rtp':'vim/prototool' }
 Xcall plug#end()
 X
 Xcolorscheme nbari-colors
@@ -8107,6 +8109,12 @@ Xlet g:ansible_yamlKeyName = 'yamlKey'
 X
 X" use jl as Esc
 Ximap jk <Esc>
+X
+X" ale
+Xlet g:ale_linters = {
+X\   'go': ['golint'],
+X\   'proto': ['prototool'],
+X\}
 END-of-./.vimrc
 echo x - ./.tmux-remote.conf
 sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
