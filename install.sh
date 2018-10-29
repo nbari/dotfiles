@@ -33,6 +33,7 @@ brew install autossh && \
 brew install cmake && \
 brew install dep && \
 brew install direnv && \
+brew install flatbuffers && \
 brew install git --without-completions && \
 brew install gnu-tar && \
 brew install go && \
@@ -45,6 +46,7 @@ brew install ncdu && \
 brew install npm && \
 brew install par && \
 brew install pdsh && \
+brew install protobuf && \
 brew install pv && \
 brew install python && \
 brew install reattach-to-user-namespace && \
