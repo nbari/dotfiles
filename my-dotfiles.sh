@@ -7667,6 +7667,7 @@ XPlug 'scrooloose/syntastic'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
+XPlug 'uarun/vim-protobuf'
 Xcall plug#end()
 X
 Xcolorscheme nbari-colors
