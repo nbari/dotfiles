@@ -46,7 +46,7 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 call plug#end()
 
 colorscheme nbari-colors
