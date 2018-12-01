@@ -34,6 +34,7 @@ brew install cmake && \
 brew install dep && \
 brew install direnv && \
 brew install flatbuffers && \
+brew install ffmpeg --with-fdk-aac && \
 brew install git --without-completions && \
 brew install gnu-tar && \
 brew install gnupg && \
