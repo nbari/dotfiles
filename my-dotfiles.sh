@@ -10017,12 +10017,12 @@ Xexport AUTOSSH_GATETIME=0
 Xexport AUTOSSH_POLL=10
 Xexport AUTOSSH_PORT=0
 Xs() {
-X    [[ ! -z $1 ]] && autossh -M 0 -t $@ "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
+X    [[ ! -z $1 ]] && autossh -M 0 -t $@ tmux -2 new -ADs $USER
 X}
 Xcompdef s=ssh
 X
 Xm() {
-X    [[ ! -z $1 ]] && mosh $@ -- sh -c "tmux -2 attach -t $USER -d || tmux -2 new -s $USER"
+X    [[ ! -z $1 ]] && mosh $@ -- tmux -2 new -ADs $USER
 X}
 X
 X# ----------------------------------------------------------------------------
