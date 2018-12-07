@@ -44,6 +44,7 @@ brew install imagemagick && \
 brew install immortal && \
 brew install ipcalc && \
 brew install jq && \
+brew install --HEAD mosh && \
 brew install ncdu && \
 brew install npm && \
 brew install par && \
