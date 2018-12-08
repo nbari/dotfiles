@@ -171,7 +171,7 @@ Xset-option -g default-shell /usr/local/bin/zsh
 Xset-option -g default-command "reattach-to-user-namespace -l /usr/local/bin/zsh"
 X
 X# Allows to use C-g instead C-b inside another tmux
-Xbind-key -n C-g send-prefix
+X#bind-key -n C-g send-prefix
 X
 X# vi bindings
 Xset-option -g status-key vi
@@ -182,12 +182,17 @@ X# Set the maximum number of lines held in window history.
 Xset -g history-limit 1000000
 Xset-option -g mouse on
 Xset-option -g status-bg "#000000"
-Xset-option -g status-fg "#FDB813"
+Xset-option -g status-fg "#fDB813"
 Xset-option -g status-interval 5
 Xset-option -g status-position top
-Xset-option -g status-right '[ #H ]#[fg=colour012]#(uptime | grep -o "...user.*")#[fg=colour007]  %H:%M:%S'
 Xset-option -g status-right-length 90
 Xset-option -g repeat-time 1000
+X# ----------------------------------------------------------------------------
+X# status bar
+X# ----------------------------------------------------------------------------
+Xwg_is_keys_off="#[fg=#fDB813,bg=#000000]#([ $(tmux show-option -qv key-table) = 'off' ] && echo 'OFF')#[default]"
+Xwg_uptime="#[fg=colour012]#(uptime | grep -o '..user.*')"
+Xset-option -g status-right "$wg_is_keys_off [ #H ] $wg_uptime#[fg=colour007] %H:%M:%S"
 X
 Xsetw -g window-status-current-bg '#006994'
 Xsetw -g window-status-current-fg '#FFFFFF'
@@ -209,11 +214,6 @@ Xbind -r K resize-pane -U 10
 Xbind -r L resize-pane -R 10
 X
 X# Smart pane switching with awareness of vim splits
-X# bind -n C-h if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-h" "select-pane -L"
-X# bind -n C-j if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-j" "select-pane -D"
-X# bind -n C-k if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-k" "select-pane -U"
-X# bind -n C-l if "[ $(tmux display -p '#{pane_current_command}') = vim ]" "send-keys C-l" "select-pane -R"
-X
 Xnot_tmux='`echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(autossh|view|n?vim?x?)(diff)?$"` || `echo "#{pane_start_command}" | grep -iqE "fzf"` || `echo "#{pane_current_command}" | grep -iqE "fzf"`'
 Xbind-key -n C-h if-shell "$not_tmux" "send-keys C-h" "select-pane -L"
 Xbind-key -n C-j if-shell "$not_tmux" "send-keys C-j" "select-pane -D"
@@ -251,6 +251,22 @@ X# Search back to last prompt (mnemonic: "[b]ack"); searches for non-breaking
 X# space in prompt.
 X# use <c-k> <space><space> to create the non-breaking space
 Xbind-key b copy-mode\; send-keys -X start-of-line\; send-keys -X search-backward " "
+X
+X# ----------------------------------------------------------------------------
+X# nested remote sessions
+X# ----------------------------------------------------------------------------
+Xbind -T root C-g \
+X    set prefix None \;\
+X    set key-table off \;\
+X    set status off \;\
+X    if -F '#{pane_in_mode}' 'send-keys -X cancel' \;\
+X    refresh-client -S \;\
+X
+Xbind -T off C-g \
+X  set -u prefix \;\
+X  set -u key-table \;\
+X  set -u status on \;\
+X  refresh-client -S
 END-of-./.tmux.conf
 echo c - ./.vim
 mkdir -p ./.vim > /dev/null 2>&1
