@@ -9878,7 +9878,7 @@ Xalias pyserv="python -m SimpleHTTPServer"
 Xalias rm='rm -i'
 Xalias ss='autossh -M 0'
 Xalias svi='sudo vim'
-Xalias ssh-tunnel='echo "ssh -C2qTnN -D 8080 (proxy) or -L 3307:db.tld:3307 host.tld"'
+Xalias ssh-tunnel='echo "ssh -C2qTnN -D 8080 (proxy) or -T -N -f -L 3307:db.tld:3307 host.tld"'
 Xalias up='git add . && git commit -a -m "sync `date`" && git push'
 Xalias tmp='cd ~/tmp'
 X# git log
