@@ -269,5 +269,10 @@ hi zshConditional  ctermfg=111
 hi zshCommands     ctermfg=167
 hi zshVariableDef  ctermfg=137
 
-
 set background=dark
+
+" vim-gitgutter
+hi GitGutterAdd     ctermfg=green
+hi GitGutterChange  ctermfg=yellow
+hi GitGutterDelete  ctermfg=red
+hi GitGutterChangeDelete ctermfg=yellow

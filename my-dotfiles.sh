@@ -337,8 +337,13 @@ Xhi zshConditional  ctermfg=111
 Xhi zshCommands     ctermfg=167
 Xhi zshVariableDef  ctermfg=137
 X
-X
 Xset background=dark
+X
+X" vim-gitgutter
+Xhi GitGutterAdd     ctermfg=green
+Xhi GitGutterChange  ctermfg=yellow
+Xhi GitGutterDelete  ctermfg=red
+Xhi GitGutterChangeDelete ctermfg=yellow
 END-of-./.vim/colors/nbari-colors.vim
 echo c - ./.vim/view
 mkdir -p ./.vim/view > /dev/null 2>&1
