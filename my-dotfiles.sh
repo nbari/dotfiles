@@ -8084,12 +8084,12 @@ X
 X#
 X# zsh-async
 X#
-X# version: 1.7.0
+X# version: 1.7.1
 X# author: Mathias Fredriksson
 X# url: https://github.com/mafredri/zsh-async
 X#
 X
-Xtypeset -g ASYNC_VERSION=1.7.0
+Xtypeset -g ASYNC_VERSION=1.7.1
 X# Produce debug output from zsh-async when set to 1.
 Xtypeset -g ASYNC_DEBUG=${ASYNC_DEBUG:-0}
 X
@@ -8173,7 +8173,7 @@ X	unfunction $zsh_hooks &>/dev/null   # Deactivate all zsh hooks inside the work
 X	unset $zsh_hook_functions           # And hooks with registered functions.
 X	unset zsh_hooks zsh_hook_functions  # Cleanup.
 X
-X	child_exit() {
+X	close_idle_coproc() {
 X		local -a pids
 X		pids=(${${(v)jobstates##*:*:}%\=*})
 X
@@ -8183,6 +8183,10 @@ X		if  (( ! processing )) && [[ $#pids = 1 ]] && [[ $coproc_pid = $pids[1] ]]; t
 X			coproc :
 X			coproc_pid=0
 X		fi
+X	}
+X
+X	child_exit() {
+X		close_idle_coproc
 X
 X		# On older version of zsh (pre 5.2) we notify the parent through a
 X		# SIGWINCH signal because `zpty` did not return a file descriptor (fd)
@@ -8278,7 +8282,6 @@ X
 X		if (( do_eval )); then
 X			shift cmd  # Strip _async_eval from cmd.
 X			_async_eval $cmd
-X			do_eval=0
 X		else
 X			# Run job in background, completed jobs are printed to stdout.
 X			_async_job $cmd &
@@ -8287,6 +8290,14 @@ X			storage[$job]="$!"
 X		fi
 X
 X		processing=0  # Disable guard.
+X
+X		if (( do_eval )); then
+X			do_eval=0
+X
+X			# When there are no active jobs we can't rely on the CHLD trap to
+X			# manage the coproc lifetime.
+X			close_idle_coproc
+X		fi
 X	done
 X}
 X
@@ -8375,6 +8386,22 @@ X	setopt localoptions noshwordsplit
 X	typeset -gA ASYNC_PTYS ASYNC_CALLBACKS
 X	local worker=$ASYNC_PTYS[$1]
 X	local callback=$ASYNC_CALLBACKS[$worker]
+X
+X	if [[ -n $2 ]]; then
+X		# from man zshzle(1):
+X		# `hup' for a disconnect, `nval' for a closed or otherwise
+X		# invalid descriptor, or `err' for any other condition.
+X		# Systems that support only the `select' system call always use
+X		# `err'.
+X
+X		# this has the side effect to unregister the broken file descriptor
+X		async_stop_worker $worker
+X
+X		if [[ -n $callback ]]; then
+X			$callback '[async]' 2 "" 0 "$worker:zle -F $1 returned error $2" 0
+X		fi
+X		return
+X	fi;
 X
 X	if [[ -n $callback ]]; then
 X		async_process_results $worker $callback watcher
