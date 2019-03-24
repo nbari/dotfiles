@@ -12,6 +12,7 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 prompt_git(){
+    sleep 3
     if [ -n "$(cd $1 && git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
         git rev-parse --abbrev-ref HEAD
     fi
