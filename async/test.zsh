@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------
 
 my_status(){
+    sleep 3
     if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
         git rev-parse --abbrev-ref HEAD
     fi
