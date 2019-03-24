@@ -5,6 +5,11 @@ typeset -Ag prompt_data
 
 function zle-line-init zle-keymap-select prompt_refresh {
     PROMPT="$prompt_data[out] >> "
+    #case ${KEYMAP} in
+        #(vicmd)      PROMPT="$prompt_data[out] N " ;;
+        #(main|viins) PROMPT="$prompt_data[out] I " ;;
+        #(*)          PROMPT="$prompt_data[out] I " ;;
+    #esac
     zle reset-prompt
 }
 
