@@ -18,19 +18,14 @@ prompt_git(){
     fi
 }
 
-traps() {
-    unsetopt monitor
-    exec 2>/dev/null
-
-}
-
 prompt_precmd() {
     callback() {
+        echo 11111
         prompt_refresh
     }
     trap callback EXIT
     prompt_data[out]=""
-    prompt_git $(pwd)
+    prompt_git $(pwd) &!
 }
 
 autoload -Uz add-zsh-hook
