@@ -53,6 +53,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install npm && \
         brew install par && \
         brew install pdsh && \
+        brew install pigz && \
         brew install pinentry-mac && \
         brew install protobuf && \
         brew install prototool && \
