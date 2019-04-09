@@ -2,12 +2,12 @@ typeset -Ag prompt_data
 
 function zle-line-init zle-keymap-select prompt_refresh {
     PROMPT="$prompt_data[out] >> "
-    zle && zle reset-prompt
+    #zle && zle reset-prompt
+    zle reset-prompt
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
-
 
 prompt_git(){
     sleep 3
@@ -19,7 +19,8 @@ prompt_git(){
 
 prompt_precmd() {
     prompt_data[out]=""
-    prompt_git $(pwd) &!
+    #prompt_git $(pwd) &!
+    prompt_git $(pwd) &
 }
 
 autoload -Uz add-zsh-hook
