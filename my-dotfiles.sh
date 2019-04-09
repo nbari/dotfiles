@@ -8097,16 +8097,6 @@ Xau BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
 Xhi def  StrikeoutColor   ctermbg=016 ctermfg=black
 Xhi link StrikeoutMatch StrikeoutColor
 X
-X" habit breaking
-Xnnoremap <up>    <nop>
-Xnnoremap <down>  <nop>
-Xnnoremap <left>  <nop>
-Xnnoremap <right> <nop>
-Xinoremap <up>    <nop>
-Xinoremap <down>  <nop>
-Xinoremap <left>  <nop>
-Xinoremap <right> <nop>
-X
 X" moving aroung in command mode
 Xcnoremap <c-h> <left>
 Xcnoremap <c-j> <down>

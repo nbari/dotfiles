@@ -419,16 +419,6 @@ au BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\~\~.*\~\~/
 hi def  StrikeoutColor   ctermbg=016 ctermfg=black
 hi link StrikeoutMatch StrikeoutColor
 
-" habit breaking
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
-
 " moving aroung in command mode
 cnoremap <c-h> <left>
 cnoremap <c-j> <down>
