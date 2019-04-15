@@ -3676,7 +3676,11 @@ X    endif
 X    call s:append_ul(2, origin ? 'Pending updates:' : 'Last update:')
 X    for [k, v] in plugs
 X      let range = origin ? '..origin/'.v.branch : 'HEAD@{1}..'
-X      let diff = s:system_chomp('git log --graph --color=never '.join(map(['--pretty=format:%x01%h%x01%d%x01%s%x01%cr', range], 's:shellesc(v:val)')), v.dir)
+X      let cmd = 'git log --graph --color=never '.join(map(['--pretty=format:%x01%h%x01%d%x01%s%x01%cr', range], 's:shellesc(v:val)'))
+X      if has_key(v, 'rtp')
+X        let cmd .= ' -- '.s:shellesc(v.rtp)
+X      endif
+X      let diff = s:system_chomp(cmd, v.dir)
 X      if !empty(diff)
 X        let ref = has_key(v, 'tag') ? (' (tag: '.v.tag.')') : has_key(v, 'commit') ? (' '.v.commit) : ''
 X        call append(5, extend(['', '- '.k.':'.ref], map(s:lines(diff), 's:format_git_log(v:val)')))
@@ -6005,7 +6009,7 @@ X  let tmp = tempname()
 X  let new = tmp . '/plug.vim'
 X
 X  try
-X    let out = s:system(printf('git clone --depth 1 %s %s', s:plug_src, tmp))
+X    let out = s:system(printf('git clone --depth 1 %s %s', s:shellesc(s:plug_src), s:shellesc(tmp)))
 X    if v:shell_error
 X      return s:err('Error upgrading vim-plug: '. out)
 X    endif
