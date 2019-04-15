@@ -37,8 +37,8 @@ if [ ${OS} == "Darwin" ]; then
         brew install dep && \
         brew install direnv && \
         brew install flatbuffers && \
-        brew install ffmpeg --with-fdk-aac && \
-        brew install git --without-completions && \
+       # brew install ffmpeg --with-fdk-aac && \
+        brew install git && \
         brew install gnu-tar && \
         brew install gnupg && \
         brew install go && \
@@ -67,7 +67,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install ssh-vault && \
         brew install tmux && \
         brew install tree && \
-        brew install vim --with-override-system-vi && \
+        brew install vim && \
         brew install watch && \
         brew install yamllint && \
         brew install yq && \
