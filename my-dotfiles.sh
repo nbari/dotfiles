@@ -8044,8 +8044,6 @@ Xexport PATH="/usr/local/opt/openssl/bin:/usr/local/opt/python/libexec/bin:$HOME
 X# export PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.6/bin:$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
 X# export PATH="/usr/local/opt/python@2/bin"
 X
-Xexport GREP_OPTIONS='--color=always'
-X
 X# ssh + gpg
 Xexport "GPG_TTY=$(tty)"
 Xexport "SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh"
