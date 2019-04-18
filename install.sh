@@ -43,6 +43,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install gnupg && \
         brew install go && \
         brew install hopenpgp-tools && \
+        brew install hugo && \
         brew install imagemagick && \
         brew install immortal && \
         brew install ipcalc && \
