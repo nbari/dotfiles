@@ -72,7 +72,8 @@ if [ ${OS} == "Darwin" ]; then
         brew install watch && \
         brew install yamllint && \
         brew install yq && \
-        brew install zsh
+        brew install zsh && \
+        brew cask install wireshark
 fi
 
 hash zsh >/dev/null 2>&1 ||  {
