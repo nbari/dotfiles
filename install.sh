@@ -73,6 +73,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install yamllint && \
         brew install yq && \
         brew install zsh && \
+        brew cask install transmission && \
         brew cask install wireshark
 fi
 
