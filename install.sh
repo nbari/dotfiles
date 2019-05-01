@@ -198,8 +198,8 @@ hash pip >/dev/null 2>&1 && env pip install --user --upgrade ansible pipenv auto
     echo "pip not installed (python -m ensurepip --upgrade)"
 }
 
-echo "Installing fonts"
-sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
+#echo "Installing fonts"
+#sudo find ~/projects/dotfiles -name "*.ttf" -exec cp {} /Library/Fonts/ \;
 
 if [ ! -f ~/Pictures/polignano.jpg ]; then
     cp ~/projects/dotfiles/background/polignano.jpg ~/Pictures/
