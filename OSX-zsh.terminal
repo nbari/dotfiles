@@ -171,12 +171,14 @@
 	</data>
 	<key>FontAntialias</key>
 	<true/>
+	<key>FontHeightSpacing</key>
+	<real>1.044</real>
 	<key>FontWidthSpacing</key>
 	<real>0.99596774193548387</real>
 	<key>Linewrap</key>
 	<true/>
 	<key>ProfileCurrentVersion</key>
-	<real>2.04</real>
+	<real>2.0600000000000001</real>
 	<key>ScrollbackLines</key>
 	<real>0.0</real>
 	<key>SelectionColor</key>
