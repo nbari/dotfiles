@@ -73,6 +73,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install yamllint && \
         brew install yq && \
         brew install zsh && \
+        brew cask install alacritty && \
         brew cask install font-m-plus && \
         brew cask install transmission && \
         brew cask install vlc && \
