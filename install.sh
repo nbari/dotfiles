@@ -52,6 +52,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install mycli && \
         brew install ncdu && \
         brew install npm && \
+        brew install p7zip && \
         brew install par && \
         brew install pdsh && \
         brew install pigz && \
