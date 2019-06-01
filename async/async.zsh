@@ -11,7 +11,7 @@ prompt_foo_precmd() {
   PROMPT="waiting..."
 
   exec {FD}< <(
-    sleep 1
+    sleep 3
     echo -n "foo > "
   )
 
