@@ -4,6 +4,7 @@ foo-response() {
   PROMPT="$(<&$1)"
   zle reset-prompt
 
+  # Remove the handler and close the fd
   zle -F $1
   exec {1}<&-
 }
