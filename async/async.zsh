@@ -1,13 +1,13 @@
 # https://www.reddit.com/r/zsh/comments/a6deyd/simple_async_prompt/
 # In a file `prompt_foo_setup` available on `fpath`:
 
-typeset -g prompt
+typeset -g prompt_data
 
 function prompt_refresh {
-    if ! read -r prompt <&$1; then
+    if ! read -r prompt_data <&$1; then
         line="[Read on fd $1 failed]"
     fi
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt")
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
 
     zle reset-prompt
 
@@ -17,7 +17,7 @@ function prompt_refresh {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt")
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
     zle && zle .reset-prompt
 }
 
