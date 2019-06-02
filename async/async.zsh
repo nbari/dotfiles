@@ -1,29 +1,34 @@
 # https://www.reddit.com/r/zsh/comments/a6deyd/simple_async_prompt/
 # In a file `prompt_foo_setup` available on `fpath`:
-foo-response() {
-  PROMPT="$(<&$1)"
-  zle reset-prompt
 
-  # Remove the handler and close the fd
-  zle -F $1
-  exec {1}<&-
+typeset -g prompt
+
+function prompt_refresh {
+    if ! read -r prompt <&$1; then
+        line="[Read on fd $1 failed]"
+    fi
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt")
+
+    zle reset-prompt
+
+    # Remove the handler and close the fd
+    zle -F $1
+    exec {1}<&-
 }
 
-prompt_foo_precmd() {
-  PROMPT="waiting..."
-
-  exec {FD}< <(
-    sleep 10
-    echo -n "foo > "
-  )
-
-  zle -F $FD foo-response
+function zle-line-init zle-keymap-select {
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt")
+    zle && zle .reset-prompt
 }
 
-prompt_foo_setup() {
-  add-zsh-hook precmd prompt_foo_precmd
+function prompt_precmd() {
+    exec {FD}< <(
+    $HOME/projects/rust/slick/target/debug/slick precmd
+    )
+    zle -F $FD prompt_refresh
 }
 
-prompt_foo_setup "$@"
-
-# autoload -Uz promptinit; promptinit; prompt foo
+zle -N zle-line-init
+zle -N zle-keymap-select
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd prompt_precmd
