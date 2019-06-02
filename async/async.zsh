@@ -23,7 +23,7 @@ function zle-line-init zle-keymap-select {
 
 function prompt_precmd() {
     exec {FD}< <(
-    $HOME/projects/rust/slick/target/debug/slick precmd
+        $HOME/projects/rust/slick/target/debug/slick precmd
     )
     zle -F $FD prompt_refresh
 }
