@@ -29,7 +29,7 @@ function prompt_precmd() {
 }
 
 function prompt_preexec() {
-    echo "starting";
+    typeset -g prompt_slick_cmd_timestamp=$EPOCHSECONDS
 }
 
 zle -N zle-line-init
