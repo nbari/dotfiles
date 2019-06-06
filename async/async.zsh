@@ -28,7 +28,12 @@ function prompt_precmd() {
     zle -F $FD prompt_refresh
 }
 
+function prompt_preexec() {
+    echo "starting";
+}
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd prompt_precmd
+add-zsh-hook preexec prompt_preexec

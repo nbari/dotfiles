@@ -594,7 +594,7 @@ prompt_pure_setup() {
 	autoload -Uz +X add-zle-hook-widget 2>/dev/null
 
 	add-zsh-hook precmd prompt_pure_precmd
- #	add-zsh-hook preexec prompt_pure_preexec
+	add-zsh-hook preexec prompt_pure_preexec
 
 	prompt_pure_state_setup
 
