@@ -1,28 +1,39 @@
-typeset -Ag prompt_data
+# https://www.reddit.com/r/zsh/comments/a6deyd/simple_async_prompt/
+# In a file `prompt_foo_setup` available on `fpath`:
 
-function zle-line-init zle-keymap-select prompt_refresh {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data[prompt_git]")
-    zle && zle reset-prompt
-    # zle reset-prompt
+typeset -g prompt_data
+
+function prompt_refresh {
+    if ! read -r prompt_data <&$1; then
+        line="[Read on fd $1 failed]"
+    fi
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
+
+    zle reset-prompt
+
+    # Remove the handler and close the fd
+    zle -F $1
+    exec {1}<&-
+}
+
+function zle-line-init zle-keymap-select {
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
+    zle && zle .reset-prompt
+}
+
+function prompt_precmd() {
+    exec {FD}< <(
+        $HOME/projects/rust/slick/target/debug/slick precmd
+    )
+    zle -F $FD prompt_refresh
+}
+
+function prompt_preexec() {
+    typeset -g prompt_slick_cmd_timestamp=$EPOCHSECONDS
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-function prompt_git(){
-    #sleep 3
-    #if [ -n "$(cd $1 && git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
-      #prompt_data[out]=$(git rev-parse --abbrev-ref HEAD)
-    #fi
-    $HOME/projects/rust/slick/target/debug/slick precmd
-    prompt_refresh
-}
-
-prompt_precmd() {
-    prompt_data[out]=""
-    #prompt_git $(pwd) &!
-    prompt_git $(pwd)
-}
-
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd prompt_precmd
+add-zsh-hook preexec prompt_preexec
