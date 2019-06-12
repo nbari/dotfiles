@@ -5,7 +5,7 @@ typeset -g prompt_data
 
 function prompt_refresh {
     if ! read -r prompt_data <&$1; then
-        prompt_data=""
+        line="[Read on fd $1 failed]"
     fi
     PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
 
