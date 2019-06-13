@@ -394,7 +394,12 @@ bindkey -M vicmd v edit-command-line
 #PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
 #prompt pure
 
+zle -N zle-keymap-select
+zle -N zle-line-init
 zmodload zsh/datetime
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd slick_prompt_precmd
+add-zsh-hook preexec slick_prompt_preexec
 
 typeset -g slick_prompt_data=" "
 typeset -g slick_prompt_timestamp=$EPOCHSECONDS
@@ -403,7 +408,7 @@ function slick_prompt_refresh {
     if ! read -r slick_prompt_data <&$1; then
         slick_prompt_data=" "
     fi
-    PROMPT=$(slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
 
     zle reset-prompt
 
@@ -413,24 +418,18 @@ function slick_prompt_refresh {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT=$(slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
     zle && zle reset-prompt
 }
 
 function slick_prompt_precmd() {
-    exec {FD}< <(slick precmd)
+    exec {FD}< <($HOME/projects/rust/slick/target/debug/slick precmd)
     zle -F $FD slick_prompt_refresh
 }
 
 function slick_prompt_preexec() {
     typeset -g slick_prompt_timestamp=$EPOCHSECONDS
 }
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd slick_prompt_precmd
-add-zsh-hook preexec slick_prompt_preexec
 
 # ----------------------------------------------------------------------------
 # tmux
