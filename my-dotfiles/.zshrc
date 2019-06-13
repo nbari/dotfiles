@@ -389,41 +389,48 @@ bindkey -M vicmd v edit-command-line
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
-autoload -U promptinit; promptinit
-PURE_PROMPT_SYMBOL="$"
-PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-prompt pure
+#autoload -U promptinit; promptinit
+#PURE_PROMPT_SYMBOL="$"
+#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
+#prompt pure
 
-#autoload -Uz async && async
-#async_init
-#typeset -Ag prompt_data
+zmodload zsh/datetime
 
-#function zle-line-init zle-keymap-select prompt_refresh {
-    #PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data[prompt_git]")
-    #zle reset-prompt
-#}
-#zle -N zle-line-init
-#zle -N zle-keymap-select
+typeset -g slick_prompt_data=" "
+typeset -g slick_prompt_timestamp=$EPOCHSECONDS
 
-#function prompt_git(){
-    #$HOME/projects/rust/slick/target/debug/slick precmd
-#}
+function slick_prompt_refresh {
+    if ! read -r slick_prompt_data <&$1; then
+        slick_prompt_data=" "
+    fi
+    PROMPT=$(slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
 
-#function prompt_callback() {
-    #local job=$1 code=$2 output=$3 exec_time=$4
-    #prompt_data[$job]=$output
-    #prompt_refresh
-#}
+    zle reset-prompt
 
-#async_start_worker 'prompt' -n
-#async_register_callback 'prompt' prompt_callback
+    # Remove the handler and close the fd
+    zle -F $1
+    exec {1}<&-
+}
 
-#function prompt_precmd() {
-    #async_job 'prompt' prompt_git
-#}
+function zle-line-init zle-keymap-select {
+    PROMPT=$(slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
+    zle && zle reset-prompt
+}
 
-#autoload -Uz add-zsh-hook
-#add-zsh-hook precmd prompt_precmd
+function slick_prompt_precmd() {
+    exec {FD}< <(slick precmd)
+    zle -F $FD slick_prompt_refresh
+}
+
+function slick_prompt_preexec() {
+    typeset -g slick_prompt_timestamp=$EPOCHSECONDS
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd slick_prompt_precmd
+add-zsh-hook preexec slick_prompt_preexec
 
 # ----------------------------------------------------------------------------
 # tmux
