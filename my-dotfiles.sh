@@ -11629,14 +11629,14 @@ Xautoload -Uz add-zsh-hook
 Xadd-zsh-hook precmd slick_prompt_precmd
 Xadd-zsh-hook preexec slick_prompt_preexec
 X
-Xtypeset -g slick_prompt_data=" "
-Xtypeset -g slick_prompt_timestamp=$EPOCHSECONDS
+Xtypeset -g slick_prompt_data
+Xtypeset -g slick_prompt_timestamp
 X
 Xfunction slick_prompt_refresh {
 X    if ! read -r slick_prompt_data <&$1; then
 X        slick_prompt_data=" "
 X    fi
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
+X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d ${slick_prompt_data:-" "} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
 X
 X    zle reset-prompt
 X
@@ -11646,7 +11646,7 @@ X    exec {1}<&-
 X}
 X
 Xfunction zle-line-init zle-keymap-select {
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $slick_prompt_timestamp)
+X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d ${slick_prompt_data:-" "})
 X    zle && zle reset-prompt
 X}
 X
