@@ -18,7 +18,7 @@ function prompt_refresh {
 
 function zle-line-init zle-keymap-select {
     PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d "$prompt_data")
-    zle && zle .reset-prompt
+    zle && zle reset-prompt
 }
 
 function prompt_precmd() {
