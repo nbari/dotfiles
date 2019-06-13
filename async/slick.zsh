@@ -1,13 +1,13 @@
 # https://www.reddit.com/r/zsh/comments/a6deyd/simple_async_prompt/
 # In a file `prompt_foo_setup` available on `fpath`:
 
-typeset -g prompt_data
+typeset -g slick_prompt_data
 
-function prompt_refresh {
-    if ! read -r prompt_data <&$1; then
+function slick_prompt_refresh {
+    if ! read -r slick_prompt_data <&$1; then
         prompt_data=""
     fi
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $prompt_data)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $slick_prompt_data)
 
     zle reset-prompt
 
@@ -17,23 +17,23 @@ function prompt_refresh {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $prompt_data)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $slick_prompt_data)
     zle && zle reset-prompt
 }
 
-function prompt_precmd() {
+function slick_prompt_precmd() {
     exec {FD}< <(
         $HOME/projects/rust/slick/target/debug/slick precmd
     )
-    zle -F $FD prompt_refresh
+    zle -F $FD slick_prompt_refresh
 }
 
-function prompt_preexec() {
+function slick_prompt_preexec() {
     typeset -g prompt_slick_cmd_timestamp=$EPOCHSECONDS
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
 autoload -Uz add-zsh-hook
-add-zsh-hook precmd prompt_precmd
-add-zsh-hook preexec prompt_preexec
+add-zsh-hook precmd slick_prompt_precmd
+add-zsh-hook preexec slick_prompt_preexec
