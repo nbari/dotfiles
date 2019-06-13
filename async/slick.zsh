@@ -2,12 +2,13 @@
 # In a file `prompt_foo_setup` available on `fpath`:
 
 typeset -g slick_prompt_data
+typeset -g prompt_slick_cmd_timestamp
 
 function slick_prompt_refresh {
     if ! read -r slick_prompt_data <&$1; then
         slick_prompt_data=" "
     fi
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $slick_prompt_data)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data -t $prompt_slick_cmd_timestamp)
 
     zle reset-prompt
 
@@ -17,7 +18,7 @@ function slick_prompt_refresh {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $slick_prompt_data)
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d $slick_prompt_data)
     zle && zle reset-prompt
 }
 
@@ -29,7 +30,7 @@ function slick_prompt_precmd() {
 }
 
 function slick_prompt_preexec() {
-    typeset -g prompt_slick_cmd_timestamp=$EPOCHSECONDS
+    prompt_slick_cmd_timestamp=$EPOCHSECONDS
 }
 
 zle -N zle-line-init
