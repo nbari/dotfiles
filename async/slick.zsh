@@ -5,7 +5,7 @@ typeset -g slick_prompt_data
 
 function slick_prompt_refresh {
     if ! read -r slick_prompt_data <&$1; then
-        slick_prompt_data=""
+        slick_prompt_data=" "
     fi
     PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r "$?" -d $slick_prompt_data)
 
