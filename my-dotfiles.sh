@@ -3238,12 +3238,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 35 - ((34 * winheight(0) + 20) / 40)
+Xlet s:l = 81 - ((5 * winheight(0) + 9) / 19)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X35
-Xnormal! 09|
+X81
+Xnormal! 013|
+Xlcd ~/projects/rust/slick
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -3540,12 +3541,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 119 - ((31 * winheight(0) + 20) / 40)
+Xlet s:l = 63 - ((8 * winheight(0) + 9) / 19)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X119
-Xnormal! 016|
+X63
+Xnormal! 05|
+Xlcd ~/projects/rust/slick
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -11633,10 +11635,11 @@ Xtypeset -g slick_prompt_data
 Xtypeset -g slick_prompt_timestamp
 X
 Xfunction slick_prompt_refresh {
+X    local exit_status=$?
 X    if ! read -r slick_prompt_data <&$1; then
 X        slick_prompt_data=" "
 X    fi
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d ${slick_prompt_data:-" "} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
+X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-" "} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
 X
 X    zle reset-prompt
 X
@@ -11646,7 +11649,7 @@ X    exec {1}<&-
 X}
 X
 Xfunction zle-line-init zle-keymap-select {
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $? -d ${slick_prompt_data:-" "})
+X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -d ${slick_prompt_data:-" "})
 X    zle && zle reset-prompt
 X}
 X
@@ -11656,7 +11659,7 @@ X    zle -F $FD slick_prompt_refresh
 X}
 X
 Xfunction slick_prompt_preexec() {
-X    typeset -g slick_prompt_timestamp=$EPOCHSECONDS
+X    slick_prompt_timestamp=$EPOCHSECONDS
 X}
 X
 X# ----------------------------------------------------------------------------
