@@ -406,10 +406,8 @@ typeset -g slick_prompt_timestamp
 
 function slick_prompt_refresh {
     local exit_status=$?
-    if ! read -r slick_prompt_data <&$1; then
-        slick_prompt_data=" "
-    fi
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $exit_status -d $slick_prompt_data -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
+    read -r -u $1 slick_prompt_data
+    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
 
     zle reset-prompt
 
