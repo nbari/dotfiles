@@ -664,12 +664,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 5 - ((4 * winheight(0) + 20) / 40)
+Xlet s:l = 42 - ((37 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X5
-Xnormal! 09|
+X42
+Xnormal! 03|
+Xlcd ~/projects/rust/slick
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -2018,13 +2019,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 5 - ((4 * winheight(0) + 20) / 40)
+Xlet s:l = 18 - ((17 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X5
-Xnormal! 09|
-Xlcd ~/projects/rust/slick
+X18
+Xnormal! 060|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -3575,14 +3575,14 @@ Xset cpo&vim
 Xnmap <buffer> ,hp <Plug>GitGutterPreviewHunk
 Xnmap <buffer> ,hu <Plug>GitGutterUndoHunk
 Xnmap <buffer> ,hs <Plug>GitGutterStageHunk
+Xnmap <buffer> [c <Plug>GitGutterPrevHunk
 Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
 Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
 Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
-Xnmap <buffer> [c <Plug>GitGutterPrevHunk
+Xnmap <buffer> ]c <Plug>GitGutterNextHunk
 Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
 Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
 Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
-Xnmap <buffer> ]c <Plug>GitGutterNextHunk
 Xxmap <buffer> ac <Plug>GitGutterTextObjectOuterVisual
 Xomap <buffer> ac <Plug>GitGutterTextObjectOuterPending
 Xxmap <buffer> ic <Plug>GitGutterTextObjectInnerVisual
@@ -3708,13 +3708,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 42 - ((27 * winheight(0) + 20) / 40)
+Xlet s:l = 42 - ((11 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
 X42
-Xnormal! 047|
-Xlcd ~/projects/rust/slick
+Xnormal! 043|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -4011,12 +4010,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 109 - ((23 * winheight(0) + 20) / 40)
+Xlet s:l = 1 - ((0 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X109
-Xnormal! 05|
+X1
+Xnormal! 0
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -12104,11 +12103,13 @@ X
 Xtypeset -g slick_prompt_data
 Xtypeset -g slick_prompt_timestamp
 X
+XSLICK_PATH=$HOME/projects/rust/slick/target/debug/slick
+X
 Xfunction slick_prompt_refresh {
 X    local exit_status=$?
 X    read -r -u $1 slick_prompt_data
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
-X
+X    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
+X    unset slick_prompt_timestamp
 X    zle reset-prompt
 X
 X    # Remove the handler and close the fd
@@ -12117,13 +12118,13 @@ X    exec {1}<&-
 X}
 X
 Xfunction zle-line-init zle-keymap-select {
-X    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -d ${slick_prompt_data:-""})
+X    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -d ${slick_prompt_data:-""})
 X    zle && zle reset-prompt
 X}
 X
 Xfunction slick_prompt_precmd() {
 X    slick_prompt_data=""
-X    exec {FD}< <($HOME/projects/rust/slick/target/debug/slick precmd)
+X    exec {FD}< <($SLICK_PATH precmd)
 X    zle -F $FD slick_prompt_refresh
 X}
 X

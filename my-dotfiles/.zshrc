@@ -404,11 +404,13 @@ add-zsh-hook preexec slick_prompt_preexec
 typeset -g slick_prompt_data
 typeset -g slick_prompt_timestamp
 
+SLICK_PATH=$HOME/projects/rust/slick/target/debug/slick
+
 function slick_prompt_refresh {
     local exit_status=$?
     read -r -u $1 slick_prompt_data
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
-
+    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
+    unset slick_prompt_timestamp
     zle reset-prompt
 
     # Remove the handler and close the fd
@@ -417,13 +419,13 @@ function slick_prompt_refresh {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT=$($HOME/projects/rust/slick/target/debug/slick prompt -k "$KEYMAP" -d ${slick_prompt_data:-""})
+    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -d ${slick_prompt_data:-""})
     zle && zle reset-prompt
 }
 
 function slick_prompt_precmd() {
     slick_prompt_data=""
-    exec {FD}< <($HOME/projects/rust/slick/target/debug/slick precmd)
+    exec {FD}< <($SLICK_PATH precmd)
     zle -F $FD slick_prompt_refresh
 }
 
