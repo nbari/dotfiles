@@ -198,8 +198,9 @@ alias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 alias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1'
 # wake up yubikey
 alias yk='gpg --card-status > /dev/null'
-# ap2
-alias ap="$HOME/Library/Python/2.7/bin/ansible-playbook"
+# HDMI / DP
+alias hdmi='ddcctl -d 1 -i 17'
+alias dp='ddcctl -d 1 -i 15'
 
 # checksum
 checksum() {
