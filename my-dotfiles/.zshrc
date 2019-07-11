@@ -405,7 +405,7 @@ add-zsh-hook preexec slick_prompt_preexec
 typeset -g slick_prompt_data
 typeset -g slick_prompt_timestamp
 
-SLICK_PATH=$HOME/projects/rust/slick/target/debug/slick
+SLICK_PATH=$HOME/projects/rust/slick/target/release/slick
 
 function slick_prompt_refresh {
     local exit_status=$?
