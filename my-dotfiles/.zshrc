@@ -449,8 +449,6 @@ if hash tmux &> /dev/null; then
     fi
 fi
 
-unsetopt prompt_cr
-
 # delete coplete for android
 # compdef -d adb
 eval "$(direnv hook zsh)"
