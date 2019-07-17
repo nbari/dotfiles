@@ -11066,10 +11066,7 @@ X
 X# ----------------------------------------------------------------------------
 X# prompt
 X# ----------------------------------------------------------------------------
-X#autoload -U promptinit; promptinit
-X#PURE_PROMPT_SYMBOL="$"
-X#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-X#prompt pure
+Xexport PROMPT_EOL_MARK=''
 X
 Xzle -N zle-keymap-select
 Xzle -N zle-line-init

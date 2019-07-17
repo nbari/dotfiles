@@ -390,10 +390,7 @@ bindkey -M vicmd v edit-command-line
 # ----------------------------------------------------------------------------
 # prompt
 # ----------------------------------------------------------------------------
-#autoload -U promptinit; promptinit
-#PURE_PROMPT_SYMBOL="$"
-#PURE_PROMPT_VICMD_SYMBOL="%F{yellow}>%f"
-#prompt pure
+export PROMPT_EOL_MARK=''
 
 zle -N zle-keymap-select
 zle -N zle-line-init
