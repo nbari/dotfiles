@@ -23,7 +23,7 @@ autoload -U compinit && compinit
 # ----------------------------------------------------------------------------
 # load plugins
 # ----------------------------------------------------------------------------
-[ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
+# [ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
 
 # ----------------------------------------------------------------------------
 # exports
@@ -56,7 +56,6 @@ export EDITOR=vim
 export LESSCHARSET=utf-8
 export PAGER='less -R'
 export GOPATH=~/projects/go
-export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
 
 # ----------------------------------------------------------------------------

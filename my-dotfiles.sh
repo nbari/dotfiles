@@ -10698,7 +10698,7 @@ X
 X# ----------------------------------------------------------------------------
 X# load plugins
 X# ----------------------------------------------------------------------------
-X[ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
+X# [ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
 X
 X# ----------------------------------------------------------------------------
 X# exports
@@ -10731,7 +10731,6 @@ Xexport EDITOR=vim
 Xexport LESSCHARSET=utf-8
 Xexport PAGER='less -R'
 Xexport GOPATH=~/projects/go
-Xexport TERM=xterm-256color
 X[ -n "$TMUX" ] && export TERM=screen-256color
 X
 X# ----------------------------------------------------------------------------
