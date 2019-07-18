@@ -2336,13 +2336,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 74 - ((22 * winheight(0) + 20) / 41)
+Xlet s:l = 38 - ((35 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X74
-Xnormal! 036|
-Xlcd ~/projects/rust/slick
+X38
+Xnormal! 020|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
