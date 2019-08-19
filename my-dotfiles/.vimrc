@@ -78,8 +78,8 @@ set history=1000
 set undolevels=1000
 
 " Permanent undo
-set undodir=~/.vimundo
-set undofile
+" set undodir=~/.vimundo
+" set undofile
 
 " Auto reload file on external change
 set autoread

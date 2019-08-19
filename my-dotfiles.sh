@@ -989,6 +989,7 @@ Xset cpo&vim
 Xnmap <buffer> ,hp <Plug>GitGutterPreviewHunk
 Xnmap <buffer> ,hu <Plug>GitGutterUndoHunk
 Xnmap <buffer> ,hs <Plug>GitGutterStageHunk
+Xxmap <buffer> ,hs <Plug>GitGutterStageHunk
 Xnmap <buffer> [c <Plug>GitGutterPrevHunk
 Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
 Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
@@ -1015,11 +1016,11 @@ Xsetlocal bufhidden=
 Xsetlocal buflisted
 Xsetlocal buftype=
 Xsetlocal cindent
-Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0]
-Xsetlocal cinoptions=L0,(0,Ws,J1,j1,m1
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
 Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
 Xsetlocal colorcolumn=
-Xsetlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
 Xsetlocal commentstring=//%s
 Xsetlocal complete=.,w,b,u,t,i
 Xsetlocal concealcursor=
@@ -1060,7 +1061,7 @@ Xsetlocal imsearch=-1
 Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
 Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
 Xsetlocal indentexpr=GetRustIndent(v:lnum)
-Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0]
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
 Xsetlocal noinfercase
 Xsetlocal iskeyword=@,48-57,_,192-255
 Xsetlocal keywordprg=
@@ -1122,12 +1123,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 218 - ((19 * winheight(0) + 16) / 33)
+Xlet s:l = 113 - ((13 * winheight(0) + 9) / 19)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X218
-Xnormal! 05|
+X113
+Xnormal! 017|
 Xlcd ~/projects/rust/slick
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
@@ -9772,8 +9773,8 @@ Xset history=1000
 Xset undolevels=1000
 X
 X" Permanent undo
-Xset undodir=~/.vimundo
-Xset undofile
+X" set undodir=~/.vimundo
+X" set undofile
 X
 X" Auto reload file on external change
 Xset autoread
