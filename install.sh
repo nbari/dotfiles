@@ -75,9 +75,8 @@ if [ ${OS} == "Darwin" ]; then
         brew install yq && \
         brew install zsh && \
         brew cask install alacritty && \
-        brew cask install font-m-plus && \
-        brew cask install font-fira-code && \
         brew cask install transmission && \
+        brew cask install tunnelblick && \
         brew cask install vlc && \
         brew cask install wireshark
 fi
