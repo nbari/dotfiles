@@ -75,9 +75,14 @@ if [ ${OS} == "Darwin" ]; then
         brew install yq && \
         brew install zsh && \
         brew cask install alacritty && \
+        brew cask install clipy && \
+        brew cask install karabiner-elements && \
+        brew cask install menumeters && \
         brew cask install transmission && \
         brew cask install tunnelblick && \
         brew cask install vlc && \
+        brew cask install vmware-fusion && \
+        brew cask install virtualbox && \
         brew cask install wireshark
 fi
 
