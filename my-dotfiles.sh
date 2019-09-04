@@ -7696,7 +7696,7 @@ X" vim plugins
 XPlug 'Chiel92/vim-autoformat'
 XPlug 'SirVer/ultisnips'
 XPlug 'airblade/vim-gitgutter'
-XPlug 'airblade/vim-rooter'
+X" Plug 'airblade/vim-rooter'
 XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }
 XPlug 'cespare/vim-toml', { 'for': 'toml' }

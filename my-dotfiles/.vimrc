@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
