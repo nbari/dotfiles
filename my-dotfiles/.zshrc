@@ -436,7 +436,7 @@ function slick_prompt_preexec() {
 # ----------------------------------------------------------------------------
 if hash tmux &> /dev/null; then
     if [ -z "$TMUX" ]; then
-        tmux -2 new
+        tmux -2 -vv new
     elif [[ $(who am i) =~ '\([-a-zA-Z0-9\.]+\)$' ]] || [ ! -z "$SSH_CONNECTION" ] || [ ! -z "$REMOTEHOST" ]; then
         tmux set-option -g status-right '#[fg=colour003][ #H - #[fg=colour111]#(uname) #[fg=colour003]]#[fg=colour231]#(uptime | grep -o "...user.*")' > /dev/null
         tmux set-option -g status-position bottom > /dev/null
