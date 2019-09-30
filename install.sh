@@ -75,6 +75,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install yq && \
         brew install zsh && \
         brew cask install alacritty && \
+        brew cask install barrier && \
         brew cask install clipy && \
         brew cask install karabiner-elements && \
         brew cask install menumeters && \
