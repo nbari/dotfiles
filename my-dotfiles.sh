@@ -90,7 +90,7 @@ X" Vim
 Xhi ColorColumn     term=reverse ctermbg=236
 Xhi CursorColumn    term=reverse ctermbg=236
 Xhi CursorLine      term=bold cterm=bold ctermbg=236
-Xhi CursorLineNr    term=bold ctermfg=012 gui=bold
+Xhi CursorLineNr    term=bold cterm=none ctermfg=012 gui=bold
 Xhi Directory       term=bold ctermfg=109
 Xhi ErrorMsg        term=standout ctermfg=167 ctermbg=235
 Xhi FoldColumn      term=standout ctermfg=14 ctermbg=235

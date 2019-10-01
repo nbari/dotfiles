@@ -30,7 +30,7 @@ hi Underlined      term=underline cterm=underline ctermfg=81
 hi ColorColumn     term=reverse ctermbg=236
 hi CursorColumn    term=reverse ctermbg=236
 hi CursorLine      term=bold cterm=bold ctermbg=236
-hi CursorLineNr    term=bold ctermfg=012 gui=bold
+hi CursorLineNr    term=bold cterm=none ctermfg=012 gui=bold
 hi Directory       term=bold ctermfg=109
 hi ErrorMsg        term=standout ctermfg=167 ctermbg=235
 hi FoldColumn      term=standout ctermfg=14 ctermbg=235
