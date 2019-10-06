@@ -77,6 +77,7 @@ if [ ${OS} == "Darwin" ]; then
         brew cask install alacritty && \
         brew cask install barrier && \
         brew cask install clipy && \
+        brew cask install docker && \
         brew cask install karabiner-elements && \
         brew cask install menumeters && \
         brew cask install transmission && \
