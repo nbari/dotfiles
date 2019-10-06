@@ -48,6 +48,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install immortal && \
         brew install ipcalc && \
         brew install jq && \
+        brew install lz4 && \
         brew install --HEAD mosh && \
         brew install mycli && \
         brew install ncdu && \
