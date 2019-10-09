@@ -1158,14 +1158,14 @@ Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
 Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
 Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
 Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
 Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
 Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
 Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
-Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
 Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
 Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
 Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
-Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
 Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
 Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
 Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
@@ -1292,13 +1292,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 9 - ((8 * winheight(0) + 20) / 40)
+Xlet s:l = 24 - ((23 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X9
-Xnormal! 036|
-Xlcd ~/projects/rust/s3mon
+X24
+Xnormal! 015|
+Xlcd ~/projects/rust/s3mon/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -1599,13 +1599,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 84 - ((17 * winheight(0) + 20) / 40)
+Xlet s:l = 37 - ((31 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X84
-Xnormal! 036|
-Xlcd ~/projects/rust/s3mon
+X37
+Xnormal! 022|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -1907,12 +1906,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 20 - ((19 * winheight(0) + 20) / 40)
+Xlet s:l = 7 - ((6 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X20
-Xnormal! 036|
+X7
+Xnormal! 020|
 Xlcd ~/projects/rust/s3mon/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
@@ -2288,10 +2287,10 @@ Xsetlocal filetype=rust
 Xendif
 Xsetlocal fixendofline
 Xsetlocal foldcolumn=0
-Xsetlocal nofoldenable
+Xsetlocal foldenable
 Xsetlocal foldexpr=0
 Xsetlocal foldignore=#
-Xsetlocal foldlevel=1
+Xsetlocal foldlevel=8
 Xsetlocal foldmarker={{{,}}}
 Xsetlocal foldmethod=indent
 Xsetlocal foldminlines=1
@@ -2369,13 +2368,21 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 50 - ((5 * winheight(0) + 20) / 40)
+X11
+Xnormal! zo
+X43
+Xnormal! zo
+X45
+Xnormal! zo
+X54
+Xnormal! zo
+Xlet s:l = 54 - ((17 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X50
-Xnormal! 040|
-Xlcd ~/projects/rust/s3mon
+X54
+Xnormal! 017|
+Xlcd ~/projects/rust/s3mon/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -11295,7 +11302,7 @@ XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 XPlug 'nathanielc/vim-tickscript', { 'for': 'tick' }
-XPlug 'neoclide/coc.nvim', {'branch': 'release'}
+X" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
