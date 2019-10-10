@@ -83,6 +83,7 @@ if [ ${OS} == "Darwin" ]; then
         brew cask install menumeters && \
         brew cask install transmission && \
         brew cask install tunnelblick && \
+        brew cask install transmit && \
         brew cask install vlc && \
         brew cask install vmware-fusion && \
         brew cask install virtualbox && \
