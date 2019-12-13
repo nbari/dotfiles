@@ -49,6 +49,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install ipcalc && \
         brew install jq && \
         brew install lz4 && \
+        brew install libsodium && \
         brew install --HEAD mosh && \
         brew install mycli && \
         brew install ncdu && \
@@ -75,6 +76,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install yamllint && \
         brew install yq && \
         brew install zsh && \
+        brew install zstd && \
         brew cask install alacritty && \
         brew cask install barrier && \
         brew cask install clipy && \
