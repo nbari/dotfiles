@@ -332,7 +332,7 @@ m() {
 
 # multiple tmux windows
 ms() {
-    [[ ! -z $1 ]] && tmux new-window; while read line; do (tmux split-window -h "autossh -M0 $line $2"; tmux select-layout tiled); done< <(awk '{print $NF}' <(host $1))
+    [[ ! -z $1 ]] && tmux new-window; while read line; do (tmux split-window -h "autossh -M0 $line $2"; tmux select-layout tiled); done< <(awk '{print $NF}' <(host $1); tmux kill-pane -t0)
 }
 
 # ----------------------------------------------------------------------------
