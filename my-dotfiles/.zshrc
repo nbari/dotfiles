@@ -330,6 +330,11 @@ m() {
     [[ ! -z $1 ]] && mosh $@ -- tmux -2 new -ADs $USER
 }
 
+# multiple tmux windows
+ms() {
+    [[ ! -z $1 ]] && tmux new-window; while read line; do (tmux split-window -h "autossh -M0 $line $2"; tmux select-layout tiled); done< <(awk '{print $NF}' <(host $1))
+}
+
 # ----------------------------------------------------------------------------
 # set ssh-agent
 # ----------------------------------------------------------------------------
@@ -346,15 +351,6 @@ if [[ ! -z "${SSH_AGENT_PID// }" ]]; then
     done
 fi
 pkill ssh-agent; eval `ssh-agent`; ssh-add ~/.ssh/id_rsa
-}
-
-# ----------------------------------------------------------------------------
-# whois
-# ----------------------------------------------------------------------------
-iwhois() {
-    resolver="whois.geek.nz"
-    tld=`echo ${@: -1} | awk -F "." '{print $NF}'`
-    whois -h ${tld}.${resolver} "$@" ;
 }
 
 # ----------------------------------------------------------------------------
