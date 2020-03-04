@@ -34,6 +34,7 @@ if [ ${OS} == "Darwin" ]; then
     brew install ag && \
         brew install autossh && \
         brew install cmake && \
+        brew install curl && \
         brew install dep && \
         brew install direnv && \
         brew install flatbuffers && \
