@@ -37,6 +37,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-submode'
 Plug 'leafgarland/typescript-vim'
+Plug 'mattn/emmet-vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 Plug 'nathanielc/vim-tickscript', { 'for': 'tick' }
 Plug 'pearofducks/ansible-vim'

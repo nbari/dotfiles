@@ -18696,6 +18696,7 @@ XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
 XPlug 'kana/vim-submode'
 XPlug 'leafgarland/typescript-vim'
+XPlug 'mattn/emmet-vim'
 XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 XPlug 'nathanielc/vim-tickscript', { 'for': 'tick' }
 XPlug 'pearofducks/ansible-vim'
