@@ -19145,6 +19145,9 @@ Xlet g:ansible_yamlKeyName = 'yamlKey'
 X
 X" use jl as Esc
 Ximap jk <Esc>
+X
+X" emmet
+Xlet g:user_emmet_leader_key=','
 END-of-./.vimrc
 echo x - ./.tmux-remote.conf
 sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
