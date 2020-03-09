@@ -41,6 +41,7 @@ Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 Plug 'nathanielc/vim-tickscript', { 'for': 'tick' }
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'

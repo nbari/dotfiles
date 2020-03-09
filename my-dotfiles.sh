@@ -18700,6 +18700,7 @@ XPlug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 XPlug 'nathanielc/vim-tickscript', { 'for': 'tick' }
 XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+XPlug 'posva/vim-vue'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
