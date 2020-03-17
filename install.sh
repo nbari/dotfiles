@@ -85,12 +85,13 @@ if [ ${OS} == "Darwin" ]; then
         brew cask install docker && \
         brew cask install karabiner-elements && \
         brew cask install menumeters && \
+        brew cask install mysqlworkbench && \
         brew cask install transmission && \
-        brew cask install tunnelblick && \
         brew cask install transmit && \
+        brew cask install tunnelblick && \
+        brew cask install virtualbox && \
         brew cask install vlc && \
         brew cask install vmware-fusion && \
-        brew cask install virtualbox && \
         brew cask install wireshark
 fi
 
