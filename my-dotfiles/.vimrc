@@ -28,7 +28,6 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'dcharbon/vim-flatbuffers'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'google/vim-jsonnet'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hashivim/vim-terraform'
 Plug 'hdima/python-syntax'

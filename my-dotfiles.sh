@@ -10757,7 +10757,6 @@ XPlug 'dart-lang/dart-vim-plugin'
 XPlug 'dcharbon/vim-flatbuffers'
 XPlug 'elzr/vim-json'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-XPlug 'google/vim-jsonnet'
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hashivim/vim-terraform'
 XPlug 'hdima/python-syntax'
