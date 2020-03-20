@@ -86,7 +86,7 @@ if [ ${OS} == "Darwin" ]; then
         brew cask install karabiner-elements && \
         brew cask install menumeters && \
         brew cask install mysqlworkbench && \
-        brew cask install ssh-tunnel-manager && \
+        brew cask install secure-pipes && \
         brew cask install transmission && \
         brew cask install transmit && \
         brew cask install tunnelblick && \
