@@ -77,6 +77,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install watch && \
         brew install yamllint && \
         brew install yq && \
+        brew install wireguard-tools && \
         brew install zsh && \
         brew install zstd && \
         brew cask install alacritty && \
