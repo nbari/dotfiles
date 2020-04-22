@@ -13,7 +13,10 @@
 #	./.vim/colors
 #	./.vim/colors/nbari-colors.vim
 #	./.vim/view
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+password.rs=
+#	./.vim/view/=+private=+tmp=+bench=+src=+main.rs=
 #	./.vim/view/~=+projects=+rust=+compound_duration=+src=+lib.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+queries.rs=
 #	./.vim/view/~=+projects=+rust=+backup=+src=+encrypt.rs=
 #	./.vim/view/~=+projects=+rust=+policyd-rate-limit=+src=+queries.rs=
 #	./.vim/view/=+private=+tmp=+a.rs=
@@ -26,6 +29,7 @@
 #	./.vim/view/~=+projects=+rust=+cron-parser=+tests=+tests.rs=
 #	./.vim/view/~=+projects=+rust=+cron-parser=+src=+fields.rs=
 #	./.vim/view/=+private=+tmp=+sql=+src=+main.rs=
+#	./.vim/view/~=+projects=+rust=+httpwsrep=+src=+options.rs=
 #	./.vim/view/~=+projects=+rust=+rusoto-s3-test=+src=+main.rs=
 #	./.vim/view/~=+projects=+rust=+xxxx=+src=+main.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+bin=+immortal.rs=
@@ -37,12 +41,15 @@
 #	./.vim/view/~=+projects=+rust=+dbpulse=+src=+lib.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+nbari=+myip=+yew-app=+src=+main.rs=
 #	./.vim/view/~=+projects=+rust=+backup=+src=+checksum.rs=
+#	./.vim/view/~=+projects=+rust=+httpwsrep=+src=+bin=+httpwsrep.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+lib.rs=
 #	./.vim/view/~=+projects=+rust=+s3mon=+src=+credentials.rs=
 #	./.vim/view/~=+projects=+rust=+s3mon=+src=+config.rs=
 #	./.vim/view/~=+projects=+rust=+backup=+src=+aes.rs=
 #	./.vim/view/~=+projects=+rust=+dsn=+tests=+tests.rs=
 #	./.vim/view/~=+projects=+rust=+policyd-rate-limit=+src=+bin=+policyd-rate-limit.rs=
 #	./.vim/view/~=+projects=+rust=+dbpulse=+src=+slack.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+structs.rs=
 #	./.vim/view/~=+projects=+devops=+ansible=+roles=+haproxy=+sleep.rs=
 #	./.vim/view/~=+projects=+rust=+myip=+myip=+src=+main.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+sandbox=+rust=+fork=+src=+main.rs=
@@ -54,6 +61,7 @@
 #	./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+tests.rs=
 #	./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+test.rs=
 #	./.vim/view/~=+projects=+rust=+s3mon=+src=+auth.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+bin=+backend.rs=
 #	./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+integration_test.rs=
 #	./.vim/view/~=+projects=+rust=+backup=+src=+compress.rs=
 #	./.vim/view/=+private=+tmp=+hello-world=+src=+main.rs=
@@ -73,6 +81,7 @@
 #	./.vim/view/~=+projects=+rust=+s3mon=+src=+bin=+s3mon.rs=
 #	./.vim/view/~=+projects=+rust=+cron-parser=+benches=+parse_benchmark.rs=
 #	./.vim/view/~=+projects=+rust=+dbquota=+src=+lib.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+options.rs=
 #	./.vim/view/~=+projects=+rust=+dbpulse=+src=+queries.rs=
 #	./.vim/view/=+private=+tmp=+ok.rs=
 #	./.vim/view/~=+projects=+rust=+dbpulse=+src=+bin=+dbpulse.rs=
@@ -81,10 +90,13 @@
 #	./.vim/view/~=+projects=+rust=+fork=+src=+lib.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+sandbox=+rust=+libc=+fork=+src=+main.rs=
 #	./.vim/view/~=+projects=+rust=+dbquota=+src=+queries.rs=
+#	./.vim/view/~=+projects=+rust=+httpwsrep=+src=+queries.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+fork.rs=
 #	./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+scan.rs=
 #	./.vim/view/~=+projects=+rust=+dsn=+src=+lib.rs=
 #	./.vim/view/~=+projects=+rust=+dbpulse=+src=+envs.rs=
+#	./.vim/view/~=+projects=+rust=+httpwsrep=+src=+lib.rs=
+#	./.vim/view/~=+projects=+sign.io=+backend=+src=+rejections.rs=
 #	./.vim/view/~=+projects=+rust=+httpwsrep=+src=+main.rs=
 #	./.vim/autoload
 #	./.vim/autoload/plug.vim.old
@@ -123,10 +135,7 @@ END-of-./.vim/ftdetect/proto.vim
 echo x - ./.vim/filetype.vim
 sed 's/^X//' >./.vim/filetype.vim << 'END-of-./.vim/filetype.vim'
 X" adjust the path to your nginx
-Xau BufRead,BufNewFile /etc/nginx/*,/usr/local/etc/nginx/* if &ft == '' | setfiletype nginx | endif
-X
-X" adjust the path to your ansible playbooks
-Xau BufRead,BufNewFile ~/projects/ansible/*/*.yml,~/ansible/*/*.yml if &ft == '' | setfiletype ansible | endif
+Xau BufRead,BufNewFile */nginx/* if &ft == '' | setfiletype nginx | endif
 END-of-./.vim/filetype.vim
 echo c - ./.vim/colors
 mkdir -p ./.vim/colors > /dev/null 2>&1
@@ -413,6 +422,316 @@ Xhi GitGutterChangeDelete ctermfg=yellow
 END-of-./.vim/colors/nbari-colors.vim
 echo c - ./.vim/view
 mkdir -p ./.vim/view > /dev/null 2>&1
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+password.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+password.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+password.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 6 - ((5 * winheight(0) + 9) / 19)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X6
+Xnormal! 054|
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+password.rs=
+echo x - ./.vim/view/=+private=+tmp=+bench=+src=+main.rs=
+sed 's/^X//' >./.vim/view/=+private=+tmp=+bench=+src=+main.rs= << 'END-of-./.vim/view/=+private=+tmp=+bench=+src=+main.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 51 - ((35 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X51
+Xnormal! 0112|
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/=+private=+tmp=+bench=+src=+main.rs=
 echo x - ./.vim/view/~=+projects=+rust=+compound_duration=+src=+lib.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+compound_duration=+src=+lib.rs= << 'END-of-./.vim/view/~=+projects=+rust=+compound_duration=+src=+lib.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -568,6 +887,162 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+compound_duration=+src=+lib.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+queries.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+queries.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+queries.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 13 - ((12 * winheight(0) + 19) / 39)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X13
+Xnormal! 041|
+Xlcd ~/projects/sign.io/backend/src
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+queries.rs=
 echo x - ./.vim/view/~=+projects=+rust=+backup=+src=+encrypt.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+backup=+src=+encrypt.rs= << 'END-of-./.vim/view/~=+projects=+rust=+backup=+src=+encrypt.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -2441,6 +2916,161 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/=+private=+tmp=+sql=+src=+main.rs=
+echo x - ./.vim/view/~=+projects=+rust=+httpwsrep=+src=+options.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+rust=+httpwsrep=+src=+options.rs= << 'END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+options.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 8 - ((7 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X8
+Xnormal! 0
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+options.rs=
 echo x - ./.vim/view/~=+projects=+rust=+rusoto-s3-test=+src=+main.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+rusoto-s3-test=+src=+main.rs= << 'END-of-./.vim/view/~=+projects=+rust=+rusoto-s3-test=+src=+main.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -4144,6 +4774,316 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+backup=+src=+checksum.rs=
+echo x - ./.vim/view/~=+projects=+rust=+httpwsrep=+src=+bin=+httpwsrep.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+rust=+httpwsrep=+src=+bin=+httpwsrep.rs= << 'END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+bin=+httpwsrep.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 29 - ((28 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X29
+Xnormal! 0
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+bin=+httpwsrep.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+lib.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+lib.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+lib.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 4 - ((3 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X4
+Xnormal! 0
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+lib.rs=
 echo x - ./.vim/view/~=+projects=+rust=+s3mon=+src=+credentials.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+s3mon=+src=+credentials.rs= << 'END-of-./.vim/view/~=+projects=+rust=+s3mon=+src=+credentials.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -4908,12 +5848,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 196 - ((20 * winheight(0) + 20) / 40)
+Xlet s:l = 107 - ((28 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X196
-Xnormal! 021|
+X107
+Xnormal! 028|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -5070,6 +6010,162 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+dbpulse=+src=+slack.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+structs.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+structs.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+structs.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 1 - ((0 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X1
+Xnormal! 0
+Xlcd ~/projects/sign.io/backend/src
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+structs.rs=
 echo x - ./.vim/view/~=+projects=+devops=+ansible=+roles=+haproxy=+sleep.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+devops=+ansible=+roles=+haproxy=+sleep.rs= << 'END-of-./.vim/view/~=+projects=+devops=+ansible=+roles=+haproxy=+sleep.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -6298,12 +7394,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 94 - ((16 * winheight(0) + 20) / 40)
+Xlet s:l = 18 - ((17 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X94
-Xnormal! 011|
+X18
+Xnormal! 030|
+Xlcd ~/projects/sign.io/backend/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -6772,6 +7869,162 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+s3mon=+src=+auth.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+bin=+backend.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+bin=+backend.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+bin=+backend.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 105 - ((20 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X105
+Xnormal! 021|
+Xlcd ~/projects/sign.io/backend/src/bin
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+bin=+backend.rs=
 echo x - ./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+integration_test.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+integration_test.rs= << 'END-of-./.vim/view/~=+projects=+rust=+dsn=+src=+tests=+integration_test.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -9711,6 +10964,161 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+dbquota=+src=+lib.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+options.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+options.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+options.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 5 - ((4 * winheight(0) + 9) / 19)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X5
+Xnormal! 019|
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+options.rs=
 echo x - ./.vim/view/~=+projects=+rust=+dbpulse=+src=+queries.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+dbpulse=+src=+queries.rs= << 'END-of-./.vim/view/~=+projects=+rust=+dbpulse=+src=+queries.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -10943,6 +12351,162 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+dbquota=+src=+queries.rs=
+echo x - ./.vim/view/~=+projects=+rust=+httpwsrep=+src=+queries.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+rust=+httpwsrep=+src=+queries.rs= << 'END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+queries.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 1 - ((0 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X1
+Xnormal! 0
+Xlcd ~/projects/rust/httpwsrep/src/bin
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+queries.rs=
 echo x - ./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+fork.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+fork.rs= << 'END-of-./.vim/view/~=+projects=+go=+src=+github.com=+immortal=+immortal=+src=+fork.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -11561,6 +13125,316 @@ Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
 END-of-./.vim/view/~=+projects=+rust=+dbpulse=+src=+envs.rs=
+echo x - ./.vim/view/~=+projects=+rust=+httpwsrep=+src=+lib.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+rust=+httpwsrep=+src=+lib.rs= << 'END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+lib.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 1 - ((0 * winheight(0) + 20) / 40)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X1
+Xnormal! 0
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+lib.rs=
+echo x - ./.vim/view/~=+projects=+sign.io=+backend=+src=+rejections.rs=
+sed 's/^X//' >./.vim/view/~=+projects=+sign.io=+backend=+src=+rejections.rs= << 'END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+rejections.rs='
+Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+Xargglobal
+Xlet s:cpo_save=&cpo
+Xset cpo&vim
+Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
+Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
+Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
+Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
+Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
+Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
+Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
+Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
+Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
+Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
+Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
+Xomap <buffer> ic <Plug>(GitGutterTextObjectInnerPending)
+Xlet &cpo=s:cpo_save
+Xunlet s:cpo_save
+Xsetlocal keymap=
+Xsetlocal noarabic
+Xsetlocal autoindent
+Xsetlocal backupcopy=
+Xsetlocal balloonexpr=
+Xsetlocal binary
+Xsetlocal nobreakindent
+Xsetlocal breakindentopt=
+Xsetlocal bufhidden=
+Xsetlocal buflisted
+Xsetlocal buftype=
+Xsetlocal cindent
+Xsetlocal cinkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal cinoptions=L0,(s,Ws,J1,j1,m1
+Xsetlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern,macro
+Xsetlocal colorcolumn=
+Xsetlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+Xsetlocal commentstring=//%s
+Xsetlocal complete=.,w,b,u,t,i
+Xsetlocal concealcursor=
+Xsetlocal conceallevel=0
+Xsetlocal completefunc=
+Xsetlocal nocopyindent
+Xsetlocal cryptmethod=
+Xsetlocal nocursorbind
+Xsetlocal nocursorcolumn
+Xsetlocal nocursorline
+Xsetlocal cursorlineopt=both
+Xsetlocal define=
+Xsetlocal dictionary=
+Xsetlocal nodiff
+Xsetlocal equalprg=
+Xsetlocal errorformat=%-G,%-Gerror:\ aborting\ %.%#,%-Gerror:\ Could\ not\ compile\ %.%#,%Eerror:\ %m,%Eerror[E%n]:\ %m,%Wwarning:\ %m,%Inote:\ %m,%C\ %#-->\ %f:%l:%c,%E\ \ left:%m,%C\ right:%m\ %f:%l:%c,%Z,%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:%c:\ %*\\d:%*\\d\ %t%*[^:]:\ %m,%-G%f:%l\ %s,%-G%*[\ ]^,%-G%*[\ ]^%*[~],%-G%*[\ ]...,%-G%\\s%#Downloading%.%#,%-G%\\s%#Compiling%.%#,%-G%\\s%#Finished%.%#,%-G%\\s%#error:\ Could\ not\ compile\ %.%#,%-G%\\s%#To\ learn\ more\\,%.%#,%-Gnote:\ Run\ with\ `RUST_BACKTRACE=%.%#,%.%#panicked\ at\ \\'%m\\'\\,\ %f:%l:%c
+Xsetlocal expandtab
+Xif &filetype != 'rust'
+Xsetlocal filetype=rust
+Xendif
+Xsetlocal fixendofline
+Xsetlocal foldcolumn=0
+Xsetlocal nofoldenable
+Xsetlocal foldexpr=0
+Xsetlocal foldignore=#
+Xsetlocal foldlevel=1
+Xsetlocal foldmarker={{{,}}}
+Xsetlocal foldmethod=indent
+Xsetlocal foldminlines=1
+Xsetlocal foldnestmax=10
+Xsetlocal foldtext=foldtext()
+Xsetlocal formatexpr=
+Xsetlocal formatoptions=croqnlj
+Xsetlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+Xsetlocal formatprg=
+Xsetlocal grepprg=
+Xsetlocal iminsert=0
+Xsetlocal imsearch=-1
+Xsetlocal include=\\v^\\s*(pub\\s+)?use\\s+\\zs(\\f|:)+
+Xsetlocal includeexpr=rust#IncludeExpr(v:fname)
+Xsetlocal indentexpr=GetRustIndent(v:lnum)
+Xsetlocal indentkeys=0{,0},!^F,o,O,0[,0],0(,0)
+Xsetlocal noinfercase
+Xsetlocal iskeyword=@,48-57,_,192-255
+Xsetlocal keywordprg=
+Xsetlocal nolinebreak
+Xsetlocal nolisp
+Xsetlocal lispwords=
+Xsetlocal nolist
+Xsetlocal makeencoding=
+Xsetlocal makeprg=cargo\ $*
+Xsetlocal matchpairs=(:),{:},[:],<:>
+Xsetlocal modeline
+Xsetlocal modifiable
+Xsetlocal nrformats=bin,octal,hex
+Xsetlocal number
+Xsetlocal numberwidth=4
+Xsetlocal omnifunc=
+Xsetlocal path=
+Xsetlocal nopreserveindent
+Xsetlocal nopreviewwindow
+Xsetlocal quoteescape=\\
+Xsetlocal noreadonly
+Xsetlocal relativenumber
+Xsetlocal norightleft
+Xsetlocal rightleftcmd=search
+Xsetlocal noscrollbind
+Xsetlocal scrolloff=-1
+Xsetlocal shiftwidth=4
+Xsetlocal noshortname
+Xsetlocal showbreak=
+Xsetlocal sidescrolloff=-1
+Xsetlocal signcolumn=auto
+Xsetlocal smartindent
+Xsetlocal softtabstop=4
+Xsetlocal nospell
+Xsetlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+Xsetlocal spellfile=
+Xsetlocal spelllang=en
+Xsetlocal statusline=
+Xsetlocal suffixesadd=.rs
+Xsetlocal noswapfile
+Xsetlocal synmaxcol=3000
+Xif &syntax != 'rust'
+Xsetlocal syntax=rust
+Xendif
+Xsetlocal tabstop=8
+Xsetlocal tagcase=
+Xsetlocal tagfunc=
+Xsetlocal tags=
+Xsetlocal termwinkey=
+Xsetlocal termwinscroll=10000
+Xsetlocal termwinsize=
+Xsetlocal textwidth=99
+Xsetlocal thesaurus=
+Xsetlocal noundofile
+Xsetlocal undolevels=-123456
+Xsetlocal varsofttabstop=
+Xsetlocal vartabstop=
+Xsetlocal wincolor=
+Xsetlocal nowinfixheight
+Xsetlocal nowinfixwidth
+Xsetlocal wrap
+Xsetlocal wrapmargin=0
+Xlet s:l = 30 - ((5 * winheight(0) + 9) / 19)
+Xif s:l < 1 | let s:l = 1 | endif
+Xexe s:l
+Xnormal! zt
+X30
+Xnormal! 030|
+Xlet &so = s:so_save | let &siso = s:siso_save
+Xdoautoall SessionLoadPost
+X" vim: set ft=vim :
+END-of-./.vim/view/~=+projects=+sign.io=+backend=+src=+rejections.rs=
 echo x - ./.vim/view/~=+projects=+rust=+httpwsrep=+src=+main.rs=
 sed 's/^X//' >./.vim/view/~=+projects=+rust=+httpwsrep=+src=+main.rs= << 'END-of-./.vim/view/~=+projects=+rust=+httpwsrep=+src=+main.rs='
 Xlet s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -11672,6 +13546,7 @@ Xsetlocal noscrollbind
 Xsetlocal scrolloff=-1
 Xsetlocal shiftwidth=4
 Xsetlocal noshortname
+Xsetlocal showbreak=
 Xsetlocal sidescrolloff=-1
 Xsetlocal signcolumn=auto
 Xsetlocal smartindent
@@ -11705,12 +13580,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 24 - ((11 * winheight(0) + 9) / 19)
+Xlet s:l = 2 - ((1 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X24
-Xnormal! 0
+X2
+Xnormal! 017|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -19609,6 +21484,7 @@ Xnnoremap <leader>t :call TestGo()<CR>
 X
 X" ansible
 Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
+Xau BufRead,BufNewFile */ansible/production,*/ansible/staging set filetype=ansible_hosts
 Xlet g:ansible_name_highlight = 'd'
 Xlet g:ansible_yamlKeyName = 'yamlKey'
 X
