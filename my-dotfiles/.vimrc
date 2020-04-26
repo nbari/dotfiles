@@ -481,7 +481,7 @@ nnoremap <leader>t :call TestGo()<CR>
 
 " ansible
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */ansible/production,*/ansible/staging set filetype=ansible_hosts
+au BufRead,BufNewFile */ansible/production,*/ansible/staging,*/ansible/home set filetype=ansible_hosts
 let g:ansible_name_highlight = 'd'
 let g:ansible_yamlKeyName = 'yamlKey'
 

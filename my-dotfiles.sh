@@ -3061,12 +3061,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 8 - ((7 * winheight(0) + 20) / 40)
+Xlet s:l = 62 - ((33 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X8
-Xnormal! 0
+X62
+Xnormal! 05|
+Xlcd ~/projects/rust/httpwsrep/src
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -4919,12 +4920,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 29 - ((28 * winheight(0) + 20) / 40)
+Xlet s:l = 47 - ((22 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X29
-Xnormal! 0
+X47
+Xnormal! 09|
+Xlcd ~/projects/rust/httpwsrep/src/bin
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -12496,13 +12498,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 1 - ((0 * winheight(0) + 20) / 40)
+Xlet s:l = 5 - ((4 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X1
-Xnormal! 0
-Xlcd ~/projects/rust/httpwsrep/src/bin
+X5
+Xnormal! 051|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -12962,12 +12963,12 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 136 - ((19 * winheight(0) + 20) / 40)
+Xlet s:l = 403 - ((32 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X136
-Xnormal! 017|
+X403
+Xnormal! 020|
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -21484,7 +21485,7 @@ Xnnoremap <leader>t :call TestGo()<CR>
 X
 X" ansible
 Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
-Xau BufRead,BufNewFile */ansible/production,*/ansible/staging set filetype=ansible_hosts
+Xau BufRead,BufNewFile */ansible/production,*/ansible/staging,*/ansible/home set filetype=ansible_hosts
 Xlet g:ansible_name_highlight = 'd'
 Xlet g:ansible_yamlKeyName = 'yamlKey'
 X
