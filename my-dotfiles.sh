@@ -897,14 +897,14 @@ Xnmap <buffer> ,hp <Plug>(GitGutterPreviewHunk)
 Xnmap <buffer> ,hu <Plug>(GitGutterUndoHunk)
 Xnmap <buffer> ,hs <Plug>(GitGutterStageHunk)
 Xxmap <buffer> ,hs <Plug>(GitGutterStageHunk)
+Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
 Xonoremap <buffer> <silent> [[ :call rust#Jump('o', 'Back')
 Xxnoremap <buffer> <silent> [[ :call rust#Jump('v', 'Back')
 Xnnoremap <buffer> <silent> [[ :call rust#Jump('n', 'Back')
-Xnmap <buffer> [c <Plug>(GitGutterPrevHunk)
+Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
 Xonoremap <buffer> <silent> ]] :call rust#Jump('o', 'Forward')
 Xxnoremap <buffer> <silent> ]] :call rust#Jump('v', 'Forward')
 Xnnoremap <buffer> <silent> ]] :call rust#Jump('n', 'Forward')
-Xnmap <buffer> ]c <Plug>(GitGutterNextHunk)
 Xxmap <buffer> ac <Plug>(GitGutterTextObjectOuterVisual)
 Xomap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)
 Xxmap <buffer> ic <Plug>(GitGutterTextObjectInnerVisual)
@@ -1032,13 +1032,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 13 - ((12 * winheight(0) + 19) / 39)
+Xlet s:l = 4 - ((3 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X13
-Xnormal! 041|
-Xlcd ~/projects/sign.io/backend/src
+X4
+Xnormal! 06|
+Xlcd ~/projects/sign.io/backend
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
@@ -7934,10 +7934,10 @@ Xsetlocal filetype=rust
 Xendif
 Xsetlocal fixendofline
 Xsetlocal foldcolumn=0
-Xsetlocal nofoldenable
+Xsetlocal foldenable
 Xsetlocal foldexpr=0
 Xsetlocal foldignore=#
-Xsetlocal foldlevel=1
+Xsetlocal foldlevel=6
 Xsetlocal foldmarker={{{,}}}
 Xsetlocal foldmethod=indent
 Xsetlocal foldminlines=1
@@ -8016,12 +8016,14 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 105 - ((20 * winheight(0) + 20) / 40)
+X87
+Xnormal! zo
+Xlet s:l = 102 - ((21 * winheight(0) + 20) / 40)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X105
-Xnormal! 021|
+X102
+Xnormal! 0
 Xlcd ~/projects/sign.io/backend/src/bin
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
@@ -13426,12 +13428,13 @@ Xsetlocal nowinfixheight
 Xsetlocal nowinfixwidth
 Xsetlocal wrap
 Xsetlocal wrapmargin=0
-Xlet s:l = 30 - ((5 * winheight(0) + 9) / 19)
+Xlet s:l = 41 - ((11 * winheight(0) + 9) / 19)
 Xif s:l < 1 | let s:l = 1 | endif
 Xexe s:l
 Xnormal! zt
-X30
-Xnormal! 030|
+X41
+Xnormal! 041|
+Xlcd ~/projects/sign.io/backend/src/bin
 Xlet &so = s:so_save | let &siso = s:siso_save
 Xdoautoall SessionLoadPost
 X" vim: set ft=vim :
