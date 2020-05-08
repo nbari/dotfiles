@@ -350,7 +350,7 @@ if [[ ! -z "${SSH_AGENT_PID// }" ]]; then
         fi
     done
 fi
-pkill ssh-agent; eval `ssh-agent`; ssh-add ~/.ssh/id_rsa
+pkill ssh-agent; eval `ssh-agent`; ssh-add
 }
 
 # ----------------------------------------------------------------------------
