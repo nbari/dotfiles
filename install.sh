@@ -32,6 +32,7 @@ if [ ${OS} == "Darwin" ]; then
     brew update
 
     brew install ag && \
+        brew install aria2 && \
         brew install autossh && \
         brew install cmake && \
         brew install curl && \
