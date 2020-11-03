@@ -10784,7 +10784,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="/usr/local/opt/curl/bin:/usr/local/opt/openssl/bin:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.8/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin"
+Xexport PATH="/usr/local/opt/curl/bin:/usr/local/opt/openssl/bin:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin"
 X# export PATH="/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.6/bin:$HOME/Library/Python/2.7/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin"
 X# export PATH="/usr/local/opt/python@2/bin"
 X
