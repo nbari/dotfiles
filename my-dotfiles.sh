@@ -37154,6 +37154,7 @@ Xalias l='pwd -P; ls -lhaGF'
 Xalias less='less -FSRX'
 Xalias ll='ls -AlF'
 Xalias master='git checkout master'
+Xalias main='git checkout main'
 Xalias mem='top -o vsize'
 Xalias mv='mv -i'
 Xalias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"

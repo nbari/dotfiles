@@ -150,6 +150,7 @@ alias l='pwd -P; ls -lhaGF'
 alias less='less -FSRX'
 alias ll='ls -AlF'
 alias master='git checkout master'
+alias main='git checkout main'
 alias mem='top -o vsize'
 alias mv='mv -i'
 alias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
