@@ -37823,7 +37823,7 @@ X" Python ident
 Xau FileType python set ts=8 sts=4 et sw=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 X
 X" abbreviations
-Xinoreabbr datee  <c-r>=strftime("%F")<CR>
+Xinoreabbr idate <c-r>=substitute(system('date -u +"%Y-%m-%dT%H:%M:%SZ"'),'[\r\n]*$','','')<cr><esc>
 X
 X" cursorline
 X:nnoremap <Leader>x :set cursorline! cursorcolumn!<CR>
