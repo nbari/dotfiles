@@ -37032,7 +37032,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="/usr/local/opt/curl/bin:/usr/local/opt/openssl/bin:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin"
+Xexport PATH="/usr/local/opt/curl/bin:/usr/local/opt/openssl/bin:/usr/local/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/share/bin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/usr/local/opt/libpq/bin"
 X
 X# ssh + gpg
 Xexport "GPG_TTY=$(tty)"
@@ -37823,7 +37823,7 @@ X" Python ident
 Xau FileType python set ts=8 sts=4 et sw=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 X
 X" abbreviations
-Xinoreabbr idate <c-r>=substitute(system('date -u +"%Y-%m-%dT%H:%M:%SZ"'),'[\r\n]*$','','')<cr><esc>
+Xinoreabbr idate <c-r>=substitute(system('date -u +"%FT%TZ"'),'[\r\n]*$','','')<cr><esc>
 X
 X" cursorline
 X:nnoremap <Leader>x :set cursorline! cursorcolumn!<CR>
