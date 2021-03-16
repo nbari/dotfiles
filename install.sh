@@ -64,6 +64,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install pinentry-mac && \
         brew install protobuf && \
         brew install prototool && \
+        brew install pssh && \
         brew install pv && \
         brew install python && \
         brew install reattach-to-user-namespace && \
