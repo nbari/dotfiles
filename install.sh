@@ -67,6 +67,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install pssh && \
         brew install pv && \
         brew install python && \
+        brew install pyenv && \
         brew install reattach-to-user-namespace && \
         brew install ripgrep && \
         brew install rsync && \
