@@ -218,6 +218,7 @@
 #	./.zshenv
 #	./.cshrc
 #	./.vimrc
+#	./.psqlrc
 #	./.tmux-remote.conf
 #	./.zsh
 #	./.zsh/bookmarks
@@ -38061,6 +38062,18 @@ X
 X" emmet
 Xlet g:user_emmet_leader_key=','
 END-of-./.vimrc
+echo x - ./.psqlrc
+sed 's/^X//' >./.psqlrc << 'END-of-./.psqlrc'
+X\set QUIET 1
+X\set COMP_KEYWORD_CASE upper
+X\set HISTFILE ~/.psql_history- :DBNAME
+X\set HISTCONTROL ignoredups
+X\set PROMPT2 '... > '
+X\pset pager off
+X\pset null '(null)'
+X\timing
+X\x auto
+END-of-./.psqlrc
 echo x - ./.tmux-remote.conf
 sed 's/^X//' >./.tmux-remote.conf << 'END-of-./.tmux-remote.conf'
 X# vi bindings
