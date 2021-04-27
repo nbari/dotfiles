@@ -38,6 +38,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install curl && \
         brew install dep && \
         brew install direnv && \
+        brew install dnsmask && \
         brew install flatbuffers && \
        # brew install ffmpeg --with-fdk-aac && \
         brew install git && \
