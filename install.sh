@@ -77,6 +77,7 @@ if [ ${OS} == "Darwin" ]; then
         brew install ssh-vault && \
         brew install tmux && \
         brew install tree && \
+        brew install tty-share && \
         brew install vim && \
         brew install watch && \
         brew install yamllint && \
