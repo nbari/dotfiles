@@ -37058,7 +37058,7 @@ X
 Xexport EDITOR=vim
 Xexport LESSCHARSET=utf-8
 Xexport PAGER='less -R'
-Xexport GOPATH=~/projects/go
+X# export GOPATH=~/projects/go
 X[ -n "$TMUX" ] && export TERM=screen-256color
 X
 X# ----------------------------------------------------------------------------

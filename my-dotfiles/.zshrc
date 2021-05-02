@@ -53,7 +53,7 @@ fi
 export EDITOR=vim
 export LESSCHARSET=utf-8
 export PAGER='less -R'
-export GOPATH=~/projects/go
+# export GOPATH=~/projects/go
 [ -n "$TMUX" ] && export TERM=screen-256color
 
 # ----------------------------------------------------------------------------
