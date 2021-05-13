@@ -40,7 +40,6 @@ if [ ${OS} == "Darwin" ]; then
         brew install direnv && \
         brew install dnsmask && \
         brew install flatbuffers && \
-       # brew install ffmpeg --with-fdk-aac && \
         brew install git && \
         brew install gnu-tar && \
         brew install gnupg && \
@@ -85,7 +84,6 @@ if [ ${OS} == "Darwin" ]; then
         brew install wireguard-tools && \
         brew install zsh && \
         brew install zstd && \
-        brew cask install alacritty && \
         brew cask install barrier && \
         brew cask install clipy && \
         brew cask install docker && \
@@ -124,8 +122,6 @@ fi
 
 cd $HOME
 
-# now=$(date -u +%Y%m%dT%H%M%S)
-
 if [ ! -n "$ZSH" ]; then
     zsh=~/.zsh
 fi
@@ -133,13 +129,6 @@ fi
 if [ ! -d ~/.ssh ]; then
     echo "Creating .ssh dir"
     mkdir ~/.ssh
-fi
-
-if [ ! -f  ~/.ssh/authorized_keys ]; then
-    echo "adding ssh key"
-    cat >> ~/.ssh/authorized_keys << 'ssh/authorized_keys'
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCu3MS7nQxGaOZJiU3Nq65JXRuggfRSPuhwqOD0r5Dcs2E9swP1enZVvHsadED0v+rOBmXPB5a9IJuTg71wB/rCmDLZ+UxOyA8DPfM/1wexM4qv7AI38lz1qb/pNePL/AcsHz5hxKJcYGdPY/Dpta0r2tcu9zp1540vfjfjFUftxoJ49fJ4UM5pQUBerhf1Vorl6uXt3wdJ3kZ45WU1lDRp5Nhi2BwngGa51kAylnO/IJkfYMj+nU7VgiMpNUj2KGbZRmhtKyPzKo8D2m4a9fS/vwjoZpG3Z5uB/HauzXz1vvWEG1EKSviYmd1u5kjHYPbjTjCtETfm6gWy8uRSQJP9ndYgp10z8qwlhTp3To0oOlkMKjzYNfMhit4/xNrusiD7yBJPtYf90ErPVnGmQhbeleSeAaoW26+5r+xJZPVzcESM1pt7dhqWMo6bCuwc7blPO0QiEwii2UBVWqFB7oHJEnQTsJ9exvfxDsFirVARFXjzocK1c6txF0zJ+hLbPuzTkJ/9iS9YlUBmQNWEDIAUHEpFievem/28bcRIkrdFQEku1L3PDq7EEUK3jkLl7Qo3/ONkZ+hBjriZ5HrmtOzeel6n8Qcq4b2wepWX+FgfpjP18c9peS9Dk2nvJ1tDmZifNrHreH6O+mvQDOxRp51B835Mn8L+/4NSww4tQbP0Q== devops
-ssh/authorized_keys
 fi
 
 hash git >/dev/null 2>&1 ||  {
@@ -152,13 +141,6 @@ if [ ! -d ~/projects ]; then
     mkdir ~/projects
 fi
 
-if [ ! -d ~/projects/go ]; then
-    echo "making projects/go directory"
-    mkdir ~/projects/go
-    mkdir ~/projects/go/bin
-    mkdir ~/projects/go/src
-    mkdir ~/projects/go/pkg
-fi
 
 if [ ! -d ~/projects/dotfiles ]; then
     echo "getting dotfiles..."
