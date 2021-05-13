@@ -37,6 +37,7 @@ brew install ag && \
     brew install direnv && \
     brew install flatbuffers && \
     brew install git && \
+    brew install git-lfs && \
     brew install gnu-tar && \
     brew install gnupg && \
     brew install go && \
