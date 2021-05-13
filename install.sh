@@ -21,84 +21,80 @@ set -e
 #         the length of STRING is zero
 # ----------------------------------------------------------------------------
 
-OS=$(uname -s)
-
-if [ ${OS} == "Darwin" ]; then
-    if ! command -v brew >/dev/null; then
-        echo "Installing Homebrew ..."
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-
-    brew update
-
-    brew install ag && \
-        brew install aria2 && \
-        brew install autossh && \
-        brew install cmake && \
-        brew install curl && \
-        brew install dep && \
-        brew install direnv && \
-        brew install dnsmask && \
-        brew install flatbuffers && \
-        brew install git && \
-        brew install gnu-tar && \
-        brew install gnupg && \
-        brew install go && \
-        brew install hopenpgp-tools && \
-        brew install httpie && \
-        brew install hugo && \
-        brew install imagemagick && \
-        brew install immortal && \
-        brew install ipcalc && \
-        brew install jq && \
-        brew install lz4 && \
-        brew install libsodium && \
-        brew install --HEAD mosh && \
-        brew install mycli && \
-        brew install ncdu && \
-        brew install npm && \
-        brew install p7zip && \
-        brew install par && \
-        brew install pdsh && \
-        brew install pigz && \
-        brew install pinentry-mac && \
-        brew install protobuf && \
-        brew install prototool && \
-        brew install pssh && \
-        brew install pv && \
-        brew install python && \
-        brew install pyenv && \
-        brew install reattach-to-user-namespace && \
-        brew install ripgrep && \
-        brew install rsync && \
-        brew install sipcalc && \
-        brew install speedtest-cli && \
-        brew install ssh-vault && \
-        brew install tmux && \
-        brew install tree && \
-        brew install tty-share && \
-        brew install vim && \
-        brew install watch && \
-        brew install yamllint && \
-        brew install yq && \
-        brew install wireguard-tools && \
-        brew install zsh && \
-        brew install zstd && \
-        brew cask install barrier && \
-        brew cask install clipy && \
-        brew cask install docker && \
-        brew cask install karabiner-elements && \
-        brew cask install menumeters && \
-        brew cask install mysqlworkbench && \
-        brew cask install postman && \
-        brew cask install transmission && \
-        brew cask install transmit && \
-        brew cask install tunnelblick && \
-        brew cask install virtualbox && \
-        brew cask install vlc && \
-        brew cask install vmware-fusion && \
-        brew cask install wireshark
+if ! command -v brew >/dev/null; then
+    echo "Install Homebrew"
+    exit 1
 fi
+
+brew update
+
+brew install ag && \
+    brew install aria2 && \
+    brew install --HEAD mosh && \
+    brew install autossh && \
+    brew install cmake && \
+    brew install curl && \
+    brew install dep && \
+    brew install direnv && \
+    brew install dnsmask && \
+    brew install flatbuffers && \
+    brew install git && \
+    brew install gnu-tar && \
+    brew install gnupg && \
+    brew install go && \
+    brew install httpie && \
+    brew install hugo && \
+    brew install imagemagick && \
+    brew install immortal && \
+    brew install ipcalc && \
+    brew install jq && \
+    brew install libsodium && \
+    brew install lz4 && \
+    brew install mycli && \
+    brew install ncdu && \
+    brew install npm && \
+    brew install p7zip && \
+    brew install par && \
+    brew install pdsh && \
+    brew install pigz && \
+    brew install pinentry-mac && \
+    brew install protobuf && \
+    brew install prototool && \
+    brew install pssh && \
+    brew install pv && \
+    brew install pyenv && \
+    brew install python && \
+    brew install reattach-to-user-namespace && \
+    brew install ripgrep && \
+    brew install rsync && \
+    brew install sipcalc && \
+    brew install speedtest-cli && \
+    brew install ssh-vault && \
+    brew install tmux && \
+    brew install tree && \
+    brew install tty-share && \
+    brew install vim && \
+    brew install watch && \
+    brew install wireguard-tools && \
+    brew install yamllint && \
+    brew install yq && \
+    brew install zsh && \
+    brew install zstd && \
+    brew cask install barrier && \
+    brew cask install clipy && \
+    brew cask install docker && \
+    brew cask install karabiner-elements && \
+    brew cask install menumeters && \
+    brew cask install mysqlworkbench && \
+    brew cask install postman && \
+    brew cask install transmission && \
+    brew cask install transmit && \
+    brew cask install tunnelblick && \
+    brew cask install virtualbox && \
+    brew cask install vlc && \
+    brew cask install vmware-fusion && \
+    brew cask install wireshark
+
 
 hash zsh >/dev/null 2>&1 ||  {
     echo "zsh not installed"
@@ -141,15 +137,6 @@ if [ ! -d ~/projects ]; then
     mkdir ~/projects
 fi
 
-
-if [ ! -d ~/projects/dotfiles ]; then
-    echo "getting dotfiles..."
-    git clone git@github.com:nbari/dotfiles.git ~/projects/dotfiles
-    if [ $? -ne 0 ]; then
-        echo "Could not clone dotfiles"
-        exit 1
-    fi
-fi
 
 if [ -d ~/.zsh ] || [ -h ~/.zsh ]; then
     echo "~/.zsh exists";

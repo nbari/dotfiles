@@ -11,15 +11,8 @@ also create an ``$HOME/.zsh`` directory, please backup if needed.
 Setup
 -----
 
-Before starting, check that you have your keys in `~/.ssh`, then run:
+install first `brew`:
 
-    $ curl -Ls https://raw.githubusercontent.com/nbari/dotfiles/master/install.sh | sh
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-Everything is installed within your ``$HOME`` directory.
-
-
-SSH
----
-
-Add to `~/Library/LaunchAgents` the file `ssh.plist` to force using keychain and
-not asking for ssh passwords.
+clone the repo en run `install.sh`
