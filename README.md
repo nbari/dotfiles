@@ -11,7 +11,7 @@ also create an ``$HOME/.zsh`` directory, please backup if needed.
 Setup
 -----
 
-install first `brew`:
+Install first `brew`:
 
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
