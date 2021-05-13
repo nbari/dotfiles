@@ -34,9 +34,7 @@ brew install ag && \
     brew install autossh && \
     brew install cmake && \
     brew install curl && \
-    brew install dep && \
     brew install direnv && \
-    brew install dnsmask && \
     brew install flatbuffers && \
     brew install git && \
     brew install gnu-tar && \
@@ -49,6 +47,7 @@ brew install ag && \
     brew install ipcalc && \
     brew install jq && \
     brew install libsodium && \
+    brew install libpq && \
     brew install lz4 && \
     brew install mycli && \
     brew install ncdu && \
@@ -69,7 +68,7 @@ brew install ag && \
     brew install rsync && \
     brew install sipcalc && \
     brew install speedtest-cli && \
-    brew install ssh-vault && \
+#:    brew install ssh-vault && \
     brew install tmux && \
     brew install tree && \
     brew install tty-share && \
@@ -80,20 +79,20 @@ brew install ag && \
     brew install yq && \
     brew install zsh && \
     brew install zstd && \
-    brew cask install barrier && \
-    brew cask install clipy && \
-    brew cask install docker && \
-    brew cask install karabiner-elements && \
-    brew cask install menumeters && \
-    brew cask install mysqlworkbench && \
-    brew cask install postman && \
-    brew cask install transmission && \
-    brew cask install transmit && \
-    brew cask install tunnelblick && \
-    brew cask install virtualbox && \
-    brew cask install vlc && \
-    brew cask install vmware-fusion && \
-    brew cask install wireshark
+    brew install --cask barrier && \
+    brew install --cask clipy && \
+    brew install --cask docker && \
+    brew install --cask karabiner-elements && \
+    brew install --cask menumeters && \
+    brew install --cask mysqlworkbench && \
+    brew install --cask postman && \
+    brew install --cask transmission && \
+    brew install --cask transmit && \
+    brew install --cask tunnelblick && \
+    brew install --cask virtualbox && \
+    brew install --cask vlc && \
+    brew install --cask vmware-fusion && \
+    brew install --cask wireshark
 
 
 hash zsh >/dev/null 2>&1 ||  {

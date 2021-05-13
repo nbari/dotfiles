@@ -16,3 +16,10 @@ install first `brew`:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 clone the repo en run `install.sh`
+
+To fix:
+    zsh compinit: insecure directories, run compaudit for list.
+
+run:
+
+    compaudit | xargs chmod g-w
