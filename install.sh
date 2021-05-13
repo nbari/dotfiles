@@ -34,6 +34,7 @@ brew install ag && \
     brew install autossh && \
     brew install cmake && \
     brew install curl && \
+    brew install fd && \
     brew install direnv && \
     brew install flatbuffers && \
     brew install git && \
