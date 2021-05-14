@@ -88,6 +88,7 @@ brew install ag && \
     brew install --cask menumeters && \
     brew install --cask mysqlworkbench && \
     brew install --cask postman && \
+    brew install --cask resilio-sync && \
     brew install --cask transmission && \
     brew install --cask transmit && \
     brew install --cask tunnelblick && \
@@ -95,7 +96,6 @@ brew install ag && \
     brew install --cask vlc && \
     brew install --cask vmware-fusion && \
     brew install --cask wireshark
-
 
 hash zsh >/dev/null 2>&1 ||  {
     echo "zsh not installed"
