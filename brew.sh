@@ -35,6 +35,7 @@ brew install ag && \
     brew install prototool && \
     brew install pssh && \
     brew install pv && \
+    brew install pwgen && \
     brew install pyenv && \
     brew install python && \
     brew install reattach-to-user-namespace && \
