@@ -43,7 +43,7 @@ brew install ag && \
     brew install rsync && \
     brew install sipcalc && \
     brew install speedtest-cli && \
-#:    brew install ssh-vault && \
+    brew install ssh-vault && \
     brew install tmux && \
     brew install tree && \
     brew install tty-share && \
@@ -68,4 +68,5 @@ brew install ag && \
     brew install --cask virtualbox && \
     brew install --cask vlc && \
     brew install --cask vmware-fusion && \
+    brew install --cask vnc-viewer && \
     brew install --cask wireshark
