@@ -8320,6 +8320,7 @@ XPlug 'elzr/vim-json'
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hashivim/vim-terraform'
+XPlug 'jvirtanen/vim-hcl'
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
@@ -8771,7 +8772,7 @@ Xnnoremap <leader>t :call TestGo()<CR>
 X
 X" ansible
 Xau BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
-Xau BufRead,BufNewFile */ansible/production,*/ansible/staging,*/ansible/home set filetype=ansible_hosts
+Xau BufRead,BufNewFile */ansible/production,*/ansible/staging,*/ansible/home,*/ansible/*-hosts set filetype=ansible_hosts
 Xlet g:ansible_name_highlight = 'd'
 Xlet g:ansible_yamlKeyName = 'yamlKey'
 X
