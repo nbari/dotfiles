@@ -7752,7 +7752,7 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="/opt/hombrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin"
+Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin"
 X
 X# ssh + gpg
 Xexport "GPG_TTY=$(tty)"
@@ -8309,7 +8309,7 @@ X" vim plugins
 X" Plug 'airblade/vim-rooter'
 X" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 XPlug 'Chiel92/vim-autoformat'
-XPlug 'SirVer/ultisnips'
+X"Plug 'SirVer/ultisnips'
 XPlug 'airblade/vim-gitgutter'
 XPlug 'benmills/vimux'
 XPlug 'benmills/vimux-golang', { 'for': 'go' }

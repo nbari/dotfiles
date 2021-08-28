@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'airblade/vim-rooter'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Chiel92/vim-autoformat'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
