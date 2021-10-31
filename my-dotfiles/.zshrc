@@ -39,16 +39,16 @@ typeset -U PATH
 export CLICOLOR=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
+export LSCOLORS=Exfxcxdxbxegedabagacad
 # Do we need Linux or BSD Style?
-if ls --color -d . &>/dev/null 2>&1
-then
-    # Linux Style
-    alias ls='ls --color=tty'
-else
-    # BSD Style
-    export LSCOLORS=Exfxcxdxbxegedabagacad
-fi
+#if ls --color -d . &>/dev/null 2>&1
+#then
+    ## Linux Style
+    #alias ls='ls --color=tty'
+#else
+    ## BSD Style
+    #export LSCOLORS=Exfxcxdxbxegedabagacad
+#fi
 
 export EDITOR=vim
 export LESSCHARSET=utf-8
