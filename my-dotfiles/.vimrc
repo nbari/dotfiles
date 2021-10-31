@@ -27,15 +27,16 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'dcharbon/vim-flatbuffers'
 Plug 'elzr/vim-json'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hashivim/vim-terraform'
-Plug 'jvirtanen/vim-hcl'
 Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'jvirtanen/vim-hcl'
 Plug 'kana/vim-submode'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
