@@ -7763,16 +7763,16 @@ Xtypeset -U PATH
 Xexport CLICOLOR=1
 Xexport LC_ALL=en_US.UTF-8
 Xexport LANG=en_US.UTF-8
-X
+Xexport LSCOLORS=Exfxcxdxbxegedabagacad
 X# Do we need Linux or BSD Style?
-Xif ls --color -d . &>/dev/null 2>&1
-Xthen
-X    # Linux Style
-X    alias ls='ls --color=tty'
-Xelse
-X    # BSD Style
-X    export LSCOLORS=Exfxcxdxbxegedabagacad
-Xfi
+X#if ls --color -d . &>/dev/null 2>&1
+X#then
+X    ## Linux Style
+X    #alias ls='ls --color=tty'
+X#else
+X    ## BSD Style
+X    #export LSCOLORS=Exfxcxdxbxegedabagacad
+X#fi
 X
 Xexport EDITOR=vim
 Xexport LESSCHARSET=utf-8
@@ -8317,15 +8317,16 @@ XPlug 'cespare/vim-toml', { 'for': 'toml' }
 XPlug 'dart-lang/dart-vim-plugin'
 XPlug 'dcharbon/vim-flatbuffers'
 XPlug 'elzr/vim-json'
+XPlug 'evanleck/vim-svelte', {'branch': 'main'}
 XPlug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 XPlug 'groenewege/vim-less', { 'for': 'less' }
 XPlug 'hashivim/vim-terraform'
-XPlug 'jvirtanen/vim-hcl'
 XPlug 'hdima/python-syntax'
 XPlug 'honza/vim-snippets'
 XPlug 'jelera/vim-javascript-syntax'
 XPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 XPlug 'junegunn/fzf.vim'
+XPlug 'jvirtanen/vim-hcl'
 XPlug 'kana/vim-submode'
 XPlug 'leafgarland/typescript-vim'
 XPlug 'mattn/emmet-vim'
