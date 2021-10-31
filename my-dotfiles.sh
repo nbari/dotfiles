@@ -539,6 +539,10 @@ X\ }
 Xlet s:loaded = get(s:, 'loaded', {})
 Xlet s:triggers = get(s:, 'triggers', {})
 X
+Xfunction! s:is_powershell(shell)
+X  return a:shell =~# 'powershell\(\.exe\)\?$' || a:shell =~# 'pwsh\(\.exe\)\?$'
+Xendfunction
+X
 Xfunction! s:isabsolute(dir) abort
 X  return a:dir =~# '^/' || (has('win32') && a:dir =~? '^\%(\\\|[A-Z]:\)')
 Xendfunction
@@ -686,7 +690,7 @@ X    return s:err('`git` executable not found. Most commands will not be availab
 X  endif
 X  if has('win32')
 X  \ && &shellslash
-X  \ && (&shell =~# 'cmd\(\.exe\)\?$' || &shell =~# 'powershell\(\.exe\)\?$')
+X  \ && (&shell =~# 'cmd\(\.exe\)\?$' || s:is_powershell(&shell))
 X    return s:err('vim-plug does not support shell, ' . &shell . ', when shellslash is set.')
 X  endif
 X  if !has('nvim')
@@ -926,7 +930,7 @@ X  function! s:batchfile(cmd)
 X    let batchfile = s:plug_tempname().'.bat'
 X    call writefile(s:wrap_cmds(a:cmd), batchfile)
 X    let cmd = plug#shellescape(batchfile, {'shell': &shell, 'script': 0})
-X    if &shell =~# 'powershell\(\.exe\)\?$'
+X    if s:is_powershell(&shell)
 X      let cmd = '& ' . cmd
 X    endif
 X    return [batchfile, cmd]
@@ -1407,7 +1411,7 @@ X  if !s:is_win
 X    set shell=sh
 X  endif
 X  if a:swap
-X    if &shell =~# 'powershell\(\.exe\)\?$' || &shell =~# 'pwsh$'
+X    if s:is_powershell(&shell)
 X      let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s'
 X    elseif &shell =~# 'sh' || &shell =~# 'cmd\(\.exe\)\?$'
 X      set shellredir=>%s\ 2>&1
@@ -2648,7 +2652,7 @@ X  let shell = get(opts, 'shell', s:is_win ? 'cmd.exe' : 'sh')
 X  let script = get(opts, 'script', 1)
 X  if shell =~# 'cmd\(\.exe\)\?$'
 X    return s:shellesc_cmd(a:arg, script)
-X  elseif shell =~# 'powershell\(\.exe\)\?$' || shell =~# 'pwsh$'
+X  elseif s:is_powershell(shell)
 X    return s:shellesc_ps1(a:arg)
 X  endif
 X  return s:shellesc_sh(a:arg)
@@ -2700,7 +2704,7 @@ X      if has('nvim') && a:0 == 0
 X        return system(a:cmd)
 X      endif
 X      let cmd = join(map(copy(a:cmd), 'plug#shellescape(v:val, {"shell": &shell, "script": 0})'))
-X      if &shell =~# 'powershell\(\.exe\)\?$'
+X      if s:is_powershell(&shell)
 X        let cmd = '& ' . cmd
 X      endif
 X    else
@@ -4431,7 +4435,8 @@ X  call append(0, ['', ''])
 X  normal! 2G
 X  silent! redraw
 X
-X  let s:clone_opt = []
+X  " Set remote name, overriding a possible user git config's clone.defaultRemoteName
+X  let s:clone_opt = ['--origin', 'origin']
 X  if get(g:, 'plug_shallow', 1)
 X    call extend(s:clone_opt, ['--depth', '1'])
 X    if s:git_version_requirement(1, 7, 10)
