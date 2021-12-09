@@ -7923,8 +7923,6 @@ Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
 Xalias bookmarks='~/.zsh/bookmarks'
 Xalias listen='lsof -iTCP -sTCP:LISTEN -n -P'
 Xalias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1'
-X# wake up yubikey
-Xalias yk='gpg --card-status > /dev/null'
 X# HDMI / DP
 Xalias hdmi='ddcctl -d 1 -i 17'
 Xalias dp='ddcctl -d 1 -i 15'
