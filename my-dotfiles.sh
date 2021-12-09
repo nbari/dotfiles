@@ -7760,8 +7760,8 @@ X# ----------------------------------------------------------------------------
 Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin"
 X
 X# ssh + gpg
-Xexport "GPG_TTY=$(tty)"
-Xexport "SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh"
+Xexport GPG_TTY=$(tty)
+Xexport SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 X
 X# remove duplicates in the PATH
 Xtypeset -U PATH

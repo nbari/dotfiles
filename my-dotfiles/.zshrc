@@ -31,8 +31,8 @@ autoload -U compinit && compinit
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.9/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin"
 
 # ssh + gpg
-export "GPG_TTY=$(tty)"
-export "SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh"
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # remove duplicates in the PATH
 typeset -U PATH
