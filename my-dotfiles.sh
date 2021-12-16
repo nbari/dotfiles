@@ -8088,8 +8088,8 @@ Xzle -N up-line-or-beginning-search
 Xzle -N down-line-or-beginning-search
 Xbindkey "^[[A" up-line-or-beginning-search # Up
 Xbindkey "^[[B" down-line-or-beginning-search # Down
-X# bindkey -M vicmd 'k' up-line-or-beginning-search # Up
-X# bindkey -M vicmd 'j' down-line-or-beginning-search # Down
+Xbindkey -M vicmd 'k' up-line-or-beginning-search # Up
+Xbindkey -M vicmd 'j' down-line-or-beginning-search # Down
 X
 X# ----------------------------------------------------------------------------
 X# use OS time
