@@ -170,7 +170,7 @@ alias up='git add . && git commit -a -m "sync `date`" && git push'
 alias tmp='cd ~/tmp'
 # git log
 alias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
-alias gd="echo master diff:; git diff --name-status master develop"
+alias gd="echo main diff:; git diff --name-status main develop"
 # tmux
 alias t="tmux -2 attach -d || tmux -2 new"
 compdef t=tmux
