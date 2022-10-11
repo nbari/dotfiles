@@ -16,16 +16,14 @@ endif
 
 call plug#begin('~/.vim/plugged')
 " vim plugins
-" Plug 'airblade/vim-rooter'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Chiel92/vim-autoformat'
-"Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang', { 'for': 'go' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'dcharbon/vim-flatbuffers'
+Plug 'dense-analysis/ale'
 Plug 'elzr/vim-json'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -42,6 +40,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['jinja', 'jinja2'] }
 Plug 'nathanielc/vim-tickscript', { 'for': 'tick' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'posva/vim-vue'
@@ -53,7 +52,6 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
-" Plug 'w0rp/ale'
 call plug#end()
 
 colorscheme nbari-colors
@@ -492,3 +490,6 @@ imap jk <Esc>
 
 " emmet
 let g:user_emmet_leader_key=','
+
+" ale
+let b:ale_linters = {'rust': ['analyzer']}
