@@ -7939,6 +7939,7 @@ Xalias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head
 X# HDMI / DP
 Xalias hdmi='ddcctl -d 1 -i 17'
 Xalias dp='ddcctl -d 1 -i 15'
+Xalias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 X
 X# checksum
 Xchecksum() {
@@ -8355,8 +8356,8 @@ XPlug 'posva/vim-vue'
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
-XPlug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
-XPlug 'scrooloose/syntastic'
+XPlug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
+X" Plug 'scrooloose/syntastic'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
@@ -8800,7 +8801,12 @@ X" emmet
 Xlet g:user_emmet_leader_key=','
 X
 X" ale
-Xlet b:ale_linters = {'rust': ['analyzer']}
+Xlet g:ale_sign_error = '✗'
+Xlet g:ale_sign_warning = '⚠'
+Xlet g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+Xhi ALEErrorSign ctermfg=red ctermbg=none
+Xhi ALEWarningSign ctermfg=yellow ctermbg=none
+X" hi ALEWarning ctermbg=DarkMagenta
 e8d6b7c2f02ce11ad981f91a4905d21f
 echo x - ./.psqlrc
 sed 's/^X//' >./.psqlrc << '55acf32155984e27360025e89d733ff7'

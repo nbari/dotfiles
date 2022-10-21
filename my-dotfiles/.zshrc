@@ -197,6 +197,7 @@ alias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head 
 # HDMI / DP
 alias hdmi='ddcctl -d 1 -i 17'
 alias dp='ddcctl -d 1 -i 15'
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 # checksum
 checksum() {

@@ -47,8 +47,8 @@ Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree',  { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
+Plug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
+" Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'
@@ -492,4 +492,9 @@ imap jk <Esc>
 let g:user_emmet_leader_key=','
 
 " ale
-let b:ale_linters = {'rust': ['analyzer']}
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+hi ALEErrorSign ctermfg=red ctermbg=none
+hi ALEWarningSign ctermfg=yellow ctermbg=none
+" hi ALEWarning ctermbg=DarkMagenta
