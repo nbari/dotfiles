@@ -16,6 +16,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 " vim plugins
+" Plug 'scrooloose/syntastic'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
@@ -44,11 +45,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'posva/vim-vue'
+Plug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
-" Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 Plug 'tpope/vim-surround'

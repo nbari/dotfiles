@@ -8325,6 +8325,7 @@ Xendif
 X
 Xcall plug#begin('~/.vim/plugged')
 X" vim plugins
+X" Plug 'scrooloose/syntastic'
 XPlug 'Chiel92/vim-autoformat'
 XPlug 'airblade/vim-gitgutter'
 XPlug 'benmills/vimux'
@@ -8353,11 +8354,11 @@ XPlug 'neoclide/coc.nvim', {'branch': 'release'}
 XPlug 'pearofducks/ansible-vim'
 XPlug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 XPlug 'posva/vim-vue'
+XPlug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
 XPlug 'rust-lang/rust.vim', { 'for': 'rust' }
 XPlug 'saltstack/salt-vim', { 'for': 'sls' }
 XPlug 'scrooloose/nerdcommenter'
-XPlug 'preservim/nerdtree',  { 'on':  'NERDTreeToggle' }
-X" Plug 'scrooloose/syntastic'
+XPlug 'sheerun/vim-polyglot'
 XPlug 'tpope/vim-fugitive'
 XPlug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
 XPlug 'tpope/vim-surround'
