@@ -1,4 +1,4 @@
-set binary
+# set binary
 set nocompatible
 set autowrite
 set wildmenu
