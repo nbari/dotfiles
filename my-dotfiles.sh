@@ -8307,7 +8307,7 @@ Xendif
 c75faa6f3c066675eca88c31617d0f18
 echo x - ./.vimrc
 sed 's/^X//' >./.vimrc << 'e8d6b7c2f02ce11ad981f91a4905d21f'
-X# set binary
+X" set binary
 Xset nocompatible
 Xset autowrite
 Xset wildmenu
