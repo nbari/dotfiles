@@ -7774,7 +7774,8 @@ Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/o
 X
 X# ssh + gpg
 Xexport GPG_TTY=$(tty)
-Xexport SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+X# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+Xexport SSH_AUTH_SOCK=~/.1password/agent.sock
 X
 X# remove duplicates in the PATH
 Xtypeset -U PATH
