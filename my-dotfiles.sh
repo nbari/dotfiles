@@ -8209,12 +8209,6 @@ X#    str='%F{8}%*%f'
 X#    pos=$(( COLUMNS - 8 ))
 X#    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 X# }
-X
-X# The next line updates PATH for the Google Cloud SDK.
-Xif [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-X
-X# The next line enables shell command completion for gcloud.
-Xif [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 b51a181e538374b4c5ec995c3fc267cf
 echo x - ./.zshenv
 sed 's/^X//' >./.zshenv << 'f7866ff649bfc3be0a1f466f1e1f7a8c'
