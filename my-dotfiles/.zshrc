@@ -467,9 +467,3 @@ fh() {
 #    pos=$(( COLUMNS - 8 ))
 #    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 # }
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
