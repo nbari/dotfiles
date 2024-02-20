@@ -7,7 +7,7 @@ let g:colors_name = "nbari-colors"
 
 " Standard
 hi Comment         term=bold ctermfg=243
-hi Conditional     ctermfg=250
+hi Conditional     ctermfg=150
 hi Constant        term=underline ctermfg=173
 hi Define          ctermfg=139
 hi Error           term=reverse ctermfg=16 ctermbg=9

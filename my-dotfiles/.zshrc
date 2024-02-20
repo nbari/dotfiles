@@ -28,10 +28,10 @@ autoload -U compinit && compinit
 # ----------------------------------------------------------------------------
 # exports
 # ----------------------------------------------------------------------------
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.10/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.11/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
 
 # ssh + gpg
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
 # export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 
@@ -51,7 +51,7 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
     #export LSCOLORS=Exfxcxdxbxegedabagacad
 #fi
 
-export EDITOR=vim
+export EDITOR=nvim
 export LESSCHARSET=utf-8
 export PAGER='less -R'
 # export GOPATH=~/projects/go
@@ -127,6 +127,7 @@ zstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43
 # ----------------------------------------------------------------------------
 # alias
 # ----------------------------------------------------------------------------
+alias vim='nvim'
 alias active='grep -Ev "^($|#)"'
 alias c='clear'
 alias cp='cp -i'
@@ -205,7 +206,7 @@ checksum() {
     [[ -a $1 ]] && openssl dgst -sha256 $1
 }
 
-# get currect active interface
+# get current active interface
 iface(){
     route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
 }
@@ -442,7 +443,7 @@ if hash tmux &> /dev/null; then
     fi
 fi
 
-# delete coplete for android
+# delete complete for android
 # compdef -d adb
 eval "$(direnv hook zsh)"
 
@@ -467,3 +468,11 @@ fh() {
 #    pos=$(( COLUMNS - 8 ))
 #    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 # }
+
+# pnpm
+export PNPM_HOME="/Users/nbari/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -148,7 +148,7 @@ Xlet g:colors_name = "nbari-colors"
 X
 X" Standard
 Xhi Comment         term=bold ctermfg=243
-Xhi Conditional     ctermfg=250
+Xhi Conditional     ctermfg=150
 Xhi Constant        term=underline ctermfg=173
 Xhi Define          ctermfg=139
 Xhi Error           term=reverse ctermfg=16 ctermbg=9
@@ -416,7 +416,8 @@ X" vim-gitgutter
 Xhi GitGutterAdd     ctermfg=green
 Xhi GitGutterChange  ctermfg=yellow
 Xhi GitGutterDelete  ctermfg=red
-Xhi GitGutterChangeDelete ctermfg=yellowfd0161d9ba3705c234581fa07b52c760
+Xhi GitGutterChangeDelete ctermfg=yellow
+fd0161d9ba3705c234581fa07b52c760
 echo c - ./.vim/autoload
 mkdir -p ./.vim/autoload > /dev/null 2>&1
 echo x - ./.vim/autoload/plug.vim.old
@@ -7770,10 +7771,10 @@ X
 X# ----------------------------------------------------------------------------
 X# exports
 X# ----------------------------------------------------------------------------
-Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.10/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
+Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.11/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
 X
 X# ssh + gpg
-Xexport GPG_TTY=$(tty)
+X# export GPG_TTY=$(tty)
 X# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 Xexport SSH_AUTH_SOCK=~/.1password/agent.sock
 X
@@ -7793,7 +7794,7 @@ X    ## BSD Style
 X    #export LSCOLORS=Exfxcxdxbxegedabagacad
 X#fi
 X
-Xexport EDITOR=vim
+Xexport EDITOR=nvim
 Xexport LESSCHARSET=utf-8
 Xexport PAGER='less -R'
 X# export GOPATH=~/projects/go
@@ -7869,6 +7870,7 @@ X
 X# ----------------------------------------------------------------------------
 X# alias
 X# ----------------------------------------------------------------------------
+Xalias vim='nvim'
 Xalias active='grep -Ev "^($|#)"'
 Xalias c='clear'
 Xalias cp='cp -i'
@@ -7947,7 +7949,7 @@ Xchecksum() {
 X    [[ -a $1 ]] && openssl dgst -sha256 $1
 X}
 X
-X# get currect active interface
+X# get current active interface
 Xiface(){
 X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
 X}
@@ -8184,7 +8186,7 @@ X        tmux has-session || tmux -2 new
 X    fi
 Xfi
 X
-X# delete coplete for android
+X# delete complete for android
 X# compdef -d adb
 Xeval "$(direnv hook zsh)"
 X
@@ -8209,6 +8211,14 @@ X#    str='%F{8}%*%f'
 X#    pos=$(( COLUMNS - 8 ))
 X#    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
 X# }
+X
+X# pnpm
+Xexport PNPM_HOME="/Users/nbari/Library/pnpm"
+Xcase ":$PATH:" in
+X  *":$PNPM_HOME:"*) ;;
+X  *) export PATH="$PNPM_HOME:$PATH" ;;
+Xesac
+X# pnpm end
 b51a181e538374b4c5ec995c3fc267cf
 echo x - ./.zshenv
 sed 's/^X//' >./.zshenv << 'f7866ff649bfc3be0a1f466f1e1f7a8c'
