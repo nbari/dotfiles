@@ -7659,16 +7659,18 @@ Xset-option -g status-interval 5
 Xset-option -g status-position top
 Xset-option -g status-right-length 90
 Xset-option -g repeat-time 1000
+Xset-option -g focus-events on
+Xset-option -sa terminal-features ',alacritty:RGB'
 X# ----------------------------------------------------------------------------
 X# status bar
 X# ----------------------------------------------------------------------------
 Xwg_is_keys_off="#[fg=#fDB813,bg=#000000]#([ $(tmux show-option -qv key-table) = 'off' ] && echo 'OFF')#[default]"
-Xwg_uptime="#[fg=colour012]#(uptime | grep -o '..user.*')"
+Xwg_uptime="#[fg=colour012]#(uptime | sed -E 's/.* ([0-9]+ users?),.*: (.*)$/\\1 - \\2/')"
 Xset-option -g status-right "$wg_is_keys_off [ #H ] $wg_uptime#[fg=colour007] %H:%M:%S"
 X
-Xsetw -g window-status-current-style fg='#FFFFFF'
-Xsetw -g window-status-style bg='#000000'
-Xsetw -g window-status-style fg='#d3d3d3'
+X# setw -g window-status-current-style fg='#FFFFFF'
+X# setw -g window-status-style bg='#000000'
+X# setw -g window-status-style fg='#d3d3d3'
 X
 X# window title string (uses statusbar variables)
 Xset -g set-titles on
@@ -7742,440 +7744,65 @@ X  refresh-client -S
 echo x - ./.zshrc
 sed 's/^X//' >./.zshrc << 'b51a181e538374b4c5ec995c3fc267cf'
 X# ----------------------------------------------------------------------------
-X# Put custom alias per host on .zshenv
+X# PATH
 X# ----------------------------------------------------------------------------
+Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.11/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
+X
+X# ----------------------------------------------------------------------------
+X# PYENV - curl https://pyenv.run | bash
+X# ----------------------------------------------------------------------------
+X#export PYENV_ROOT="$HOME/.pyenv"
+X#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+X#eval "$(pyenv init -)"
+X
+X# ----------------------------------------------------------------------------
+X# direnv
+X# ----------------------------------------------------------------------------
+Xeval "$(direnv hook zsh)"
 X
 X# ----------------------------------------------------------------------------
 X# zsh functions path
 X# ----------------------------------------------------------------------------
-Xfpath=( "$HOME/.zsh/functions" ${fpath[@]} )
-X
-Xunsetopt nomatch
+Xfpath+=${ZDOTDIR:-~}/.zsh_functions
 X
 X# ----------------------------------------------------------------------------
-X# vim mode
+X# pnpm
 X# ----------------------------------------------------------------------------
-Xbindkey -v
-Xbindkey "^?" backward-delete-char
-X
-X# ----------------------------------------------------------------------------
-X# Advanced Tab-completion
-X# ----------------------------------------------------------------------------
-Xautoload -U compinit && compinit
-X
-X# ----------------------------------------------------------------------------
-X# load plugins
-X# ----------------------------------------------------------------------------
-X# [ -d "$HOME/.zsh/plugins" ] && for plugin ($HOME/.zsh/plugins/*.zsh) source $plugin
-X
-X# ----------------------------------------------------------------------------
-X# exports
-X# ----------------------------------------------------------------------------
-Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.11/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
-X
-X# ssh + gpg
-X# export GPG_TTY=$(tty)
-X# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-Xexport SSH_AUTH_SOCK=~/.1password/agent.sock
-X
-X# remove duplicates in the PATH
-Xtypeset -U PATH
-Xexport CLICOLOR=1
-Xexport LC_ALL=en_US.UTF-8
-Xexport LANG=en_US.UTF-8
-Xexport LSCOLORS=Exfxcxdxbxegedabagacad
-X# Do we need Linux or BSD Style?
-X#if ls --color -d . &>/dev/null 2>&1
-X#then
-X    ## Linux Style
-X    #alias ls='ls --color=tty'
-X#else
-X    ## BSD Style
-X    #export LSCOLORS=Exfxcxdxbxegedabagacad
-X#fi
-X
-Xexport EDITOR=nvim
-Xexport LESSCHARSET=utf-8
-Xexport PAGER='less -R'
-X# export GOPATH=~/projects/go
-X[ -n "$TMUX" ] && export TERM=screen-256color
-X
-X# ----------------------------------------------------------------------------
-X# shell options
-X# ----------------------------------------------------------------------------
-Xsetopt complete_aliases
-Xsetopt autocd
-Xsetopt autopushd
-Xsetopt pushdminus
-Xsetopt pushdsilent
-Xsetopt pushdtohome
-Xsetopt pushd_ignore_dups
-X
-X# ----------------------------------------------------------------------------
-X# Command history configuration
-X# ----------------------------------------------------------------------------
-Xif [ -z "$HISTFILE" ]; then
-X    HISTFILE=$HOME/.zsh_history
-Xfi
-X
-XHISTSIZE=10000
-XSAVEHIST=10000
-X
-X# Show history
-Xcase $HIST_STAMPS in
-X    "mm/dd/yyyy") alias history='fc -fl 1' ;;
-X    "dd.mm.yyyy") alias history='fc -El 1' ;;
-X    "yyyy-mm-dd") alias history='fc -il 1' ;;
-X    *) alias history='fc -l 1' ;;
+Xexport PNPM_HOME="$HOME/.local/share/pnpm"
+Xcase ":$PATH:" in
+X  *":$PNPM_HOME:"*) ;;
+X  *) export PATH="$PNPM_HOME:$PATH" ;;
 Xesac
 X
-Xsetopt append_history
-Xsetopt extended_history
-Xsetopt hist_expire_dups_first
-Xsetopt hist_ignore_dups # ignore duplication command history list
-Xsetopt hist_ignore_space
-Xsetopt hist_verify
-Xsetopt inc_append_history
-Xsetopt share_history # share command history data
+Xeval "$(fzf --zsh)"
 X
 X# ----------------------------------------------------------------------------
-X# zstyle
+X# zinit
 X# ----------------------------------------------------------------------------
-Xzstyle ':completion::complete:*' use-cache 1
-Xzstyle ':completion::complete:*' cache-path "$HOME/.zcache"
-Xzstyle ':completion:*' use-ip true
-Xzstyle ':completion:*:matches' group 'yes'
-Xzstyle ':completion:*:options' description 'yes'
-Xzstyle ':completion:*:options' auto-description '%d'
-Xzstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-Xzstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-Xzstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-Xzstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
-Xzstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-Xzstyle ':completion:*' group-name ''
-Xzstyle ':completion:*' verbose yes
-Xzstyle ':completion:*' file-sort modification
-X# Don't prompt for a huge list, page it!
-Xzstyle ':completion:*:default' list-prompt '%S%M matches%s'
-X# kill
-Xzstyle ':completion:*:kill:*' force-list always
-Xzstyle ':completion:*:kill:*' menu yes select
-Xzstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;38=01;31=01;30'
-X# Rehash when completing commands
-Xzstyle ":completion:*:commands" rehash 1
-X# ls colors
-Xzstyle ':completion:*' list-colors 'di=94:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+Xsource /opt/homebrew/opt/zinit/zinit.zsh
+Xautoload -Uz compinit && compinit
+Xautoload -Uz _zinit
+X(( ${+_comps} )) && _comps[zinit]=_zinit
 X
-X# ----------------------------------------------------------------------------
-X# alias
-X# ----------------------------------------------------------------------------
-Xalias vim='nvim'
-Xalias active='grep -Ev "^($|#)"'
-Xalias c='clear'
-Xalias cp='cp -i'
-X# copy with rsync
-Xalias cpr="rsync --delete --archive --numeric-ids --human-readable --verbose --info=progress2"
-Xalias cpu='top -o cpu'
-X# clean dropbox conflicted files
-Xalias dropboxclean="find . -name \*\'s\ conflicted\ copy\ \* -exec rm -f {} \;"
-X# flush dns
-Xalias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder;"
-X# clean gdrive
-Xalias gdriveclean="find . -iname '*\[Conflict\]' -exec rm -f {} \;"
-Xalias gdrive='cd ~/Google\ Drive'
-Xalias git_empty='git commit -m "empty commit" --allow-empty'
-Xalias gu='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
-Xalias yk='gpg --card-status > /dev/null'
-Xalias dev='git checkout develop'
-Xalias dh='dirs -v'
-Xalias h='history'
-Xalias j='jobs -l'
-Xalias l='pwd -P; ls -lhaGF'
-Xalias less='less -FSRX'
-Xalias ll='ls -AlF'
-Xalias master='git checkout master'
-Xalias main='git checkout main'
-Xalias mem='top -o vsize'
-Xalias mv='mv -i'
-Xalias myip="dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short"
-Xalias path='echo -e ${PATH//:/\\n}'
-Xalias pg='ps auxwww | grep -v "grep" | grep --color=auto'
-Xalias pro='cd ~/projects'
-Xalias pscpu='ps aux | sort -r -nk 3,3 | head -n 10'
-Xalias psmem='ps aux | sort -r -nk 4 | head -n 10'
-Xalias pyclean='find . \( -iname "*.py[co]" -o -name "__pycache__" \) -exec rm -rf {} +;'
-X# alias pyclean='find . -iname "*.py[co]" -delete'
-Xalias pyserv="python -m SimpleHTTPServer"
-Xalias rm='rm -i'
-Xalias ss='autossh -M 0'
-Xalias svi='sudo vim'
-Xalias ssh-tunnel='echo "ssh -C2qTnN -D 8080 (proxy) or -T -N -f -L 3307:db.tld:3307 host.tld"'
-Xalias up='git add . && git commit -a -m "sync `date`" && git push'
-Xalias tmp='cd ~/tmp'
-X# git log
-Xalias gl="git log --decorate --graph --oneline --all --date=short --pretty=format:'%C(bold blue)%ad%Creset %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(dim magenta)<%an>%Creset %C(dim green)(%ar)%Creset'"
-Xalias gd="echo main diff:; git diff --name-status main develop"
-X# tmux
-Xalias t="tmux -2 attach -d || tmux -2 new"
-Xcompdef t=tmux
-Xalias tl='tmux list-sessions'
-X# alias for directories
-Xalias -g ...='../..'
-Xalias -g ....='../../..'
-Xalias -g .....='../../../..'
-Xalias -g ......='../../../../..'
-Xalias 1='cd -'
-Xalias 2='cd -2'
-Xalias 3='cd -3'
-Xalias 4='cd -4'
-Xalias 5='cd -5'
-Xalias 6='cd -6'
-Xalias 7='cd -7'
-Xalias 8='cd -8'
-Xalias 9='cd -9'
-Xalias d='dirs -v | head -10'
-Xalias connected='lsof -i | grep -E "(LISTEN|ESTABLISHED)"'
-Xalias bookmarks='~/.zsh/bookmarks'
-Xalias listen='lsof -iTCP -sTCP:LISTEN -n -P'
-Xalias rand='LC_ALL=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1'
-X# HDMI / DP
-Xalias hdmi='ddcctl -d 1 -i 17'
-Xalias dp='ddcctl -d 1 -i 15'
-Xalias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+Xzinit for \
+X    atload"zicompinit; zicdreplay" \
+X    blockf \
+X    lucid \
+X    wait \
+X    zsh-users/zsh-completions
 X
-X# checksum
-Xchecksum() {
-X    [[ -a $1 ]] && openssl dgst -sha256 $1
-X}
+Xzinit load nbari/my-zsh
+Xzinit light kutsan/zsh-system-clipboard
+Xzinit light zsh-users/zsh-syntax-highlighting
 X
-X# get current active interface
-Xiface(){
-X    route get 0.0.0.0 2>/dev/null | awk '/interface: / {print $2}';
-X}
-X
-X# tmux new sessions
-Xtn() {
-X    [[ ! -z $1 ]] && tmux -2 new -s $1
-X}
-X# tmux attach
-Xta() {
-X    [[ ! -z $1 ]] && tmux attach -t $1
-X}
-X# tmux send-keys right
-Xts() {
-X    tmux send-keys -t right "$@" C-m
-X}
-X
-X
-X# get PID/PGID/PPID/SID to certain process or pid:
-Xpgid() {
-X    ps -ejf | egrep "STIME | $1" | grep -v egrep
-X}
-X
-Xget_headers_GET() {
-X    # curl -k -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
-X    curl -i -L -s -H "Accept-Encoding: gzip,deflate" -A "nbari - [$(date -u '+%FT%T')]" -D - $1 -o /dev/null
-X}
-X
-Xget_headers() {
-X    curl -I -L -H "Accept-Encoding: gzip,deflate" -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" $1
-X}
-X
-Xget_options() {
-X    curl -I -L -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: GET" -H "Access-Control-Request-Headers: X-Requested-With" $1
-X}
-X
-Xget_akamai() {
-X    curl -I -L -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id, akamai-x-request-trace, akamai-x--meta-trace, akama-xi-get-extracted-values" $1
-X}
-X
-Xchrome() {
-X    open -a "Google Chrome" "http://www.google.com/search?q=$1";
-X}
-X
-Xpman () {
-X    man -t "${1}" | open -f -a /Applications/Preview.app
-X}
-X
-Xset_env() {
-X    if [ -r $PWD/.zsh_config ]; then
-X        source $PWD/.zsh_config
-X        print -P -- %F{2}Ok%f
-X    else
-X        print -P -- %F{9}No .zsh_config found%f
-X    fi
-X}
-X
-Xenc () {
-X    [[ ! -z $1 ]] && gpg --symmetric --cipher-algo TWOFISH $1
-X}
-X
-Xmkdir_ansible_roles() {
-X    echo "ansible-galaxy init <name_of_role> --force"
-X}
-X
-Xgpg_encrypt() {
-X    echo "gpg --output file.gpg --encrypt --recipient user@email.com file.txt & gpg --output file.txt --decrypt file.gpg"
-X}
-X
-Xwttr() {
-X    curl "wttr.in/${1:-berlin}"
-X}
-X
-Xcurl_time() {
-X    curl -o /dev/null -Ls -w " \
-X        time_namelookup:  %{time_namelookup}\n \
-X        time_connect:  %{time_connect}\n \
-X        time_appconnect:  %{time_appconnect}\n \
-X        time_pretransfer:  %{time_pretransfer}\n \
-X        time_redirect:  %{time_redirect}\n \
-X        time_starttransfer:  %{time_starttransfer}\n \
-X        ----------\n \
-X        time_total:  %{time_total}\n" "$1"
-X}
-X
-X# ----------------------------------------------------------------------------
-X# Kill all process that match $1
-X# ----------------------------------------------------------------------------
-Xkill9() {
-X    for pid in `ps aux | grep -v "grep" | grep "$@" | awk '{print $2}'`; do
-X        kill -9 $pid && echo "Killed ${pid}"
-X    done
-X}
-X
-X# ----------------------------------------------------------------------------
-X# sync .dotfiles
-X# ----------------------------------------------------------------------------
-Xsync-dotfiles() {
-X[[ ! -z $1 ]] && tar chf - -C${HOME} .zsh .zshrc .vim .vimrc .tmux.conf .cshrc | pv | ssh $@ "tar mxf - -C ~/"
-X}
-X
-X# ----------------------------------------------------------------------------
-X# sync .tmux.conf
-X# ----------------------------------------------------------------------------
-Xsync-tmux() {
-X[[ ! -z $1 ]] && scp $HOME/projects/dotfiles/my-dotfiles/.tmux-remote.conf $1:~/.tmux.conf
-X}
-X
-X# ----------------------------------------------------------------------------
-X# ssh+tmux
-X# ----------------------------------------------------------------------------
-Xexport AUTOSSH_GATETIME=0
-Xexport AUTOSSH_POLL=10
-Xexport AUTOSSH_PORT=0
-Xs() {
-X    [[ ! -z $1 ]] && autossh -M 0 -t $@ tmux -2 new -ADs $USER
-X}
-Xcompdef s=ssh
-X
-Xm() {
-X    [[ ! -z $1 ]] && mosh $@ -- tmux -2 new -ADs $USER
-X}
-X
-X# multiple tmux windows
-Xms() {
-X    [[ ! -z $1 ]] && tmux new-window; while read line; do (tmux split-window -h "autossh -M0 $line $2"; tmux select-layout tiled); done< <(awk '{print $NF}' <(host $1); tmux kill-pane -t0)
-X}
-X
-X# ----------------------------------------------------------------------------
-X# set ssh-agent
-X# ----------------------------------------------------------------------------
-Xset-ssh-agent () {
-XSSH_AGENT_PID=$(ps ax | grep -c "[s]sh-agent")
-Xif [[ ! -z "${SSH_AGENT_PID// }" ]]; then
-X    for agent in /tmp/ssh-*/agent.*; do
-X        export SSH_AUTH_SOCK=$agent
-X        if ssh-add -l 2>&1 > /dev/null; then
-X            echo Found working SSH Agent:
-X            ssh-add -l
-X            return
-X        fi
-X    done
-Xfi
-Xpkill ssh-agent; eval `ssh-agent`; ssh-add
-X}
-X
-X# ----------------------------------------------------------------------------
-X# csh history
-X# ----------------------------------------------------------------------------
-Xautoload -U up-line-or-beginning-search
-Xautoload -U down-line-or-beginning-search
-Xzle -N up-line-or-beginning-search
-Xzle -N down-line-or-beginning-search
-Xbindkey "^[[A" up-line-or-beginning-search # Up
-Xbindkey "^[[B" down-line-or-beginning-search # Down
-Xbindkey -M vicmd 'k' up-line-or-beginning-search # Up
-Xbindkey -M vicmd 'j' down-line-or-beginning-search # Down
-X
-X# ----------------------------------------------------------------------------
-X# use OS time
-X# ----------------------------------------------------------------------------
-Xdisable -r time
-X
-X# ----------------------------------------------------------------------------
-X# magic-space
-X# ----------------------------------------------------------------------------
-Xbindkey " " magic-space # do history expansion on space !XX<space>
-X
-X# ----------------------------------------------------------------------------
-X# Edit command using vim - hit ESC and then v
-X# emacs mode:  Ctrl-x e -  bindkey '^Xe' edit-command-line
-X# ----------------------------------------------------------------------------
-Xexport KEYTIMEOUT=1
-Xautoload edit-command-line
-Xzle -N edit-command-line
-Xbindkey -M vicmd v edit-command-line
-X
-X# ----------------------------------------------------------------------------
-X# prompt
-X# ----------------------------------------------------------------------------
-Xexport PROMPT_EOL_MARK=''
-X
-Xzle -N zle-keymap-select
-Xzle -N zle-line-init
-Xzmodload zsh/datetime
-Xautoload -Uz add-zsh-hook
-Xadd-zsh-hook precmd slick_prompt_precmd
-Xadd-zsh-hook preexec slick_prompt_preexec
-X
-Xtypeset -g slick_prompt_data
-Xtypeset -g slick_prompt_timestamp
-X
-XSLICK_PATH=$HOME/projects/rust/slick/target/release/slick
-X
-Xfunction slick_prompt_refresh {
-X    local exit_status=$?
-X    read -r -u $1 slick_prompt_data
-X    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -r $exit_status -d ${slick_prompt_data:-""} -t ${slick_prompt_timestamp:-$EPOCHSECONDS})
-X    unset slick_prompt_timestamp
-X    zle reset-prompt
-X
-X    # Remove the handler and close the fd
-X    zle -F $1
-X    exec {1}<&-
-X}
-X
-Xfunction zle-line-init zle-keymap-select {
-X    PROMPT=$($SLICK_PATH prompt -k "$KEYMAP" -d ${slick_prompt_data:-""})
-X    zle && zle reset-prompt
-X}
-X
-Xfunction slick_prompt_precmd() {
-X    slick_prompt_data=""
-X    local fd
-X    exec {fd}< <($SLICK_PATH precmd)
-X    zle -F $fd slick_prompt_refresh
-X}
-X
-Xfunction slick_prompt_preexec() {
-X    slick_prompt_timestamp=$EPOCHSECONDS
-X}
+X(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+XZSH_HIGHLIGHT_STYLES[path]=none
+XZSH_HIGHLIGHT_STYLES[path_prefix]=none
 X
 X# ----------------------------------------------------------------------------
 X# tmux
 X# ----------------------------------------------------------------------------
-Xif hash tmux &> /dev/null; then
+Xif command -v tmux &> /dev/null; then
 X    if [ -z "$TMUX" ]; then
 X        tmux -2 new
 X    elif [[ $(who am i) =~ '\([-a-zA-Z0-9\.]+\)$' ]] || [ ! -z "$SSH_CONNECTION" ] || [ ! -z "$REMOTEHOST" ]; then
@@ -8185,40 +7812,6 @@ X        tmux set-option -g window-status-current-bg colour071 > /dev/null
 X        tmux has-session || tmux -2 new
 X    fi
 Xfi
-X
-X# delete complete for android
-X# compdef -d adb
-Xeval "$(direnv hook zsh)"
-X
-X# --files: List files that would be searched but do not search
-X# --no-ignore: Do not respect .gitignore, etc...
-X# --hidden: Search hidden files and folders
-X# --follow: Follow symlinks
-X# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-Xexport FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-Xexport FZF_TMUX=1
-X[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-X
-X# command history
-Xfh() {
-X    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-X}
-X
-X# add current time to the right
-X# RPROMPT='%F{8}%*%f'
-X# preexec () {
-X#    str='%F{8}%*%f'
-X#    pos=$(( COLUMNS - 8 ))
-X#    print -Pn "\e7\e[1A\e[${pos}G${str}\e8"
-X# }
-X
-X# pnpm
-Xexport PNPM_HOME="/Users/nbari/Library/pnpm"
-Xcase ":$PATH:" in
-X  *":$PNPM_HOME:"*) ;;
-X  *) export PATH="$PNPM_HOME:$PATH" ;;
-Xesac
-X# pnpm end
 b51a181e538374b4c5ec995c3fc267cf
 echo x - ./.zshenv
 sed 's/^X//' >./.zshenv << 'f7866ff649bfc3be0a1f466f1e1f7a8c'
