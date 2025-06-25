@@ -111,4 +111,22 @@ if [ ! -f ~/.zshrc ]; then
     zinit update
 fi
 
+if ! command -v rustc >/dev/null 2>&1; then
+    echo "[INFO] Rust is not installed. Installing..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+    echo "[INFO] Rust installed successfully."
+else
+    echo "[INFO] Rust is already installed: $(rustc --version)"
+fi
+
+# Check is slick is installed
+if ! command -v slick >/dev/null 2>&1; then
+    echo "[INFO] Slick is not installed. Installing..."
+    cargo install slick
+    echo "[INFO] Slick installed successfully."
+else
+    echo "[INFO] Slick is already installed: $(slick --version)"
+fi
+
 echo "Fin"
