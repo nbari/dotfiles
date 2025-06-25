@@ -67,15 +67,15 @@ if [ ! -d ~/.config/karabiner ]; then
     mkdir ~/.config/karabiner
 
     # Download Karabiner config
-    curl -o ~/.config/karabiner/karabiner.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/karabiner.json
+    curl -o ~/.config/karabiner/karabiner.json -fsSL https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/karabiner.json
 
     # create .config/karibiner/assets directory if it doesn't exist
     echo "making .config/karabiner/assets directory"
     mkdir -p ~/.config/karabiner/assets/complex_modifications
 
     # Download Karabiner assets
-    curl -o ~/.config/karabiner/assets/complex_modifications/ctrl-esc.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/ctrl-esc.json
-    curl -o ~/.config/karabiner/assets/complex_modifications/vim.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/vim.json
+    curl -o ~/.config/karabiner/assets/complex_modifications/ctrl-esc.json -fsSL https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/ctrl-esc.json
+    curl -o ~/.config/karabiner/assets/complex_modifications/vim.json -fsSL https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/vim.json
 fi
 
 # Create .config/alacritty directory if it doesn't exist
@@ -84,7 +84,7 @@ if [ ! -d ~/.config/alacritty ]; then
     mkdir ~/.config/alacritty
 
     # Download Alacritty config
-    curl -o ~/.config/alacritty/alacritty.toml https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/alacritty/alacritty.toml
+    curl -o ~/.config/alacritty/alacritty.toml -fsSL https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/alacritty/alacritty.toml
 fi
 
 echo "Fin"
