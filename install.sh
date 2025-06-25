@@ -44,7 +44,7 @@ brew "zinit"
 brew "wireshark"
 cask "alacritty"
 cask "clipy"
-cask "font-monoid"
+cask "font-monoid-nerd-font"
 cask "karabiner-elements"
 EOF
 
