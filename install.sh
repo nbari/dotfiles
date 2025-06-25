@@ -22,7 +22,6 @@ cd "$HOME"
 
 # create Bundle file
 cat <<EOF >"$HOME"/.Brewfile
-brew "alacritty"
 brew "clippy"
 brew "curl"
 brew "direnv"
@@ -44,6 +43,7 @@ brew "tree"
 brew "wget"
 brew "zinit"
 brew "wireshark"
+cask "alacritty"
 cask "font-monoid"
 cask "karabiner-elements"
 EOF
@@ -55,7 +55,36 @@ if [ ! -d ~/projects ]; then
     mkdir ~/projects
 fi
 
-echo ""
-echo "After loading the shell (zsh, go path, etc) do this: vim +PlugInstall +qall"
-echo ""
+# Create .config directory if it doesn't exist
+if [ ! -d ~/.config ]; then
+    echo "making .config directory"
+    mkdir ~/.config
+fi
+
+# Create .config/karibiner directory if it doesn't exist
+if [ ! -d ~/.config/karabiner ]; then
+    echo "making .config/karabiner directory"
+    mkdir ~/.config/karabiner
+
+    # Download Karabiner config
+    curl -o ~/.config/karabiner/karabiner.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/karabiner.json
+
+    # create .config/karibiner/assets directory if it doesn't exist
+    echo "making .config/karabiner/assets directory"
+    mkdir -p ~/.config/karabiner/assets/complex_modifications
+
+    # Download Karabiner assets
+    curl -o ~/.config/karabiner/assets/complex_modifications/ctrl-esc.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/ctrl-esc.json
+    curl -o ~/.config/karabiner/assets/complex_modifications/vim.json https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/karabiner/assets/complex_modifications/vim.json
+fi
+
+# Create .config/alacritty directory if it doesn't exist
+if [ ! -d ~/.config/alacritty ]; then
+    echo "making .config/alacritty directory"
+    mkdir ~/.config/alacritty
+
+    # Download Alacritty config
+    curl -o ~/.config/alacritty/alacritty.toml https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/alacritty/alacritty.toml
+fi
+
 echo "Fin"
