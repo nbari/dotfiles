@@ -22,7 +22,6 @@ cd "$HOME"
 
 # create Bundle file
 cat <<EOF >"$HOME"/.Brewfile
-brew "clippy"
 brew "curl"
 brew "direnv"
 brew "fd"
@@ -44,6 +43,7 @@ brew "wget"
 brew "zinit"
 brew "wireshark"
 cask "alacritty"
+cask "clipy"
 cask "font-monoid"
 cask "karabiner-elements"
 EOF
