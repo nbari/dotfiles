@@ -7668,7 +7668,7 @@ Xwg_is_keys_off="#[fg=#fDB813,bg=#000000]#([ $(tmux show-option -qv key-table) =
 Xwg_uptime="#[fg=colour012]#(uptime | sed -E 's/.* ([0-9]+ users?),.*: (.*)$/\\1 - \\2/')"
 Xset-option -g status-right "$wg_is_keys_off [ #H ] $wg_uptime#[fg=colour007] %H:%M:%S"
 X
-X# setw -g window-status-current-style fg='#FFFFFF'
+Xsetw -g window-status-current-style fg='#FFFFFF'
 X# setw -g window-status-style bg='#000000'
 X# setw -g window-status-style fg='#d3d3d3'
 X
@@ -7746,14 +7746,14 @@ sed 's/^X//' >./.zshrc << 'b51a181e538374b4c5ec995c3fc267cf'
 X# ----------------------------------------------------------------------------
 X# PATH
 X# ----------------------------------------------------------------------------
-Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.11/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
+Xexport PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/opt/homebrew/opt/python/libexec/bin:$HOME/Library/Python/3.13/bin:$HOME/node_modules/.bin:/usr/local/bin:/usr/local/sbin:$PATH:$HOME/projects/go/bin:$HOME/.cargo/bin:$HOME/flutter/bin:/opt/homebrew/opt/libpq/bin:$HOME/.local/bin"
 X
 X# ----------------------------------------------------------------------------
 X# PYENV - curl https://pyenv.run | bash
 X# ----------------------------------------------------------------------------
-X#export PYENV_ROOT="$HOME/.pyenv"
-X#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-X#eval "$(pyenv init -)"
+Xexport PYENV_ROOT="$HOME/.pyenv"
+Xcommand -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+Xeval "$(pyenv init -)"
 X
 X# ----------------------------------------------------------------------------
 X# direnv
@@ -7773,6 +7773,8 @@ Xcase ":$PATH:" in
 X  *":$PNPM_HOME:"*) ;;
 X  *) export PATH="$PNPM_HOME:$PATH" ;;
 Xesac
+X
+Xexport PATH="/opt/podman/bin:$PATH"
 X
 Xeval "$(fzf --zsh)"
 X
