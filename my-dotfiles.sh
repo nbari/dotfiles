@@ -7639,8 +7639,8 @@ Xlet b:current_syntax = "nginx"
 echo x - ./.tmux.conf
 sed 's/^X//' >./.tmux.conf << '25b1c1ee4ff002d0fee5a8d0e4c2dee2'
 X# zsh
-Xset-option -g default-shell /bin/zsh
-Xset-option -g default-command "reattach-to-user-namespace -l /bin/zsh"
+X#set-option -g default-shell /bin/zsh
+X#set-option -g default-command "reattach-to-user-namespace -l /bin/zsh"
 X
 X# Allows to use C-g instead C-b inside another tmux
 X#bind-key -n C-g send-prefix
