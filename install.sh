@@ -108,7 +108,7 @@ if [ ! -f ~/.zshrc ]; then
         echo "Failed to download .zshrc"
         exit 1
     }
-    zinit
+    zinit update
 fi
 
 echo "Fin"
