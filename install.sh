@@ -18,21 +18,37 @@ brew update
 
 defaults write com.apple.screencapture location ~/Screenshots
 
-brew install \
-    alacritty \
-    neovim \
-    ripgrep \
-    fd \
-    fzf \
-    tree \
-    wget \
-    curl \
-    jq \
-    tmux \
-    zhinit \
-    --cask font-monoid
-
 cd "$HOME"
+
+# create Bundle file
+cat <<EOF >"$HOME"/.Brewfile
+brew "alacritty"
+brew "clippy"
+brew "curl"
+brew "direnv"
+brew "fd"
+brew "fzf"
+brew "gh"
+brew "gnupg"
+brew "ipcalc"
+brew "jq"
+brew "lz4"
+brew "neovim"
+brew "ripgrep"
+brew "rsycn"
+brew "sipcal"
+brew "ssh-vault"
+brew "tig"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "zinit"
+brew "wireshark"
+cask "font-monoid"
+cask "karabiner-elements"
+EOF
+
+brew bundle --file="$HOME"/.Brewfile
 
 if [ ! -d ~/projects ]; then
     echo "making projects directory"
