@@ -130,4 +130,16 @@ else
     echo "[INFO] Slick already installed: $(slick --version)"
 fi
 
+# Install a default Python version with pyenv if not installed yet
+DEFAULT_PYTHON_VERSION="3.13"
+if command -v pyenv >/dev/null 2>&1; then
+    if ! pyenv versions --bare | grep -q "^${DEFAULT_PYTHON_VERSION}$"; then
+        echo "[INFO] Installing Python $DEFAULT_PYTHON_VERSION with pyenv..."
+        pyenv install "$DEFAULT_PYTHON_VERSION"
+        pyenv global "$DEFAULT_PYTHON_VERSION"
+    else
+        echo "[INFO] Python $DEFAULT_PYTHON_VERSION already installed via pyenv"
+    fi
+fi
+
 echo "[DONE] macOS setup completed successfully 🎉"
