@@ -11,13 +11,9 @@ also create an ``$HOME/.zsh`` directory, please backup if needed.
 Setup
 -----
 
-Install first `brew`:
+Run:
 
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-clone the repo and run:
-
-    brew bundle
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nbari/dotfiles/refs/heads/master/install.sh)"
 
 
 ---
