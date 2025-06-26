@@ -65,6 +65,7 @@ cask "alacritty"
 cask "clipy"
 cask "font-monoid-nerd-font"
 cask "karabiner-elements"
+cask "menumeters"
 cask "utm"
 EOF
 
