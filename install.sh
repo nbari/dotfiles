@@ -65,12 +65,12 @@ brew "wireshark"
 brew "xz"
 brew "zinit"
 brew "zlib"
+brew "stats"
 cask "1password-cli"
 cask "alacritty"
 cask "clipy"
 cask "font-monoid-nerd-font"
 cask "karabiner-elements"
-cask "menumeters"
 cask "utm"
 EOF
 
